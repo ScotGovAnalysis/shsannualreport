@@ -7,18 +7,17 @@
 
 <!-- badges: end -->
 
-The goal of shsannualreport is to …
+shsannualreport is an R package to prepare the results of the [Scottish
+Household Survey(SHS)](https://www2.gov.scot/Topics/Statistics/16002)
+for publication in the [SHS Annual
+Report](https://www2.gov.scot/Topics/Statistics/16002/PublicationAnnual).
+The first phase will focus on preparing data for publication, and the
+second on presenting the data as an R Shiny app.
 
 ## Installation
 
-You can install the released version of shsannualreport from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("shsannualreport")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of shsannualreport from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -27,33 +26,4 @@ devtools::install_github("thomascrines/shsannualreport")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-library(shsannualreport)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+TODO: Add examples as packages develops.
