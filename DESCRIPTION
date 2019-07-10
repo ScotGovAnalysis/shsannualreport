@@ -2,7 +2,7 @@ Package: shsannualreport
 Type: Package
 Title: Prepare data for publication in SHS Annual Report
 Version: 0.1.0
-Author: Authors@R: person("Thomas", "Crines", email = "Thomas.Crines@gov.scot", role = c("aut", "cre"))
+Authors@R: person("Thomas", "Crines", email = "Thomas.Crines@gov.scot", role = c("aut", "cre"))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
