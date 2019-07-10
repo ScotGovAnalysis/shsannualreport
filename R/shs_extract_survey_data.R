@@ -20,5 +20,18 @@ shs_extract_survey_data <- function() {
   #   print("Data is for more than one year")
   # }
 
+  year <- unique(years)
+
+  directory <- paste0(year, "_data_files")
+
+  # Make directory based year of data
+  # TODO: Should have check if directory exists
+  dir.create(directory)
+
+  #Get chapters and create subdirectories
+  for(source_file in source_files) {
+    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", source_file)
+    dir.create(paste0(directory, "\\", chapter))
+  }
 
 }
