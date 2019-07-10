@@ -10,6 +10,7 @@ Description: More about what it does (maybe more than one line)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Language: en-GB
