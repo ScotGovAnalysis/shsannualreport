@@ -1,4 +1,14 @@
-# To do: document
+#' Extract data from Excel workbooks
+#'
+#' \code{shs_extract_survey_data} extracts data from Excel workbooks in a specified location,
+#' and saves all sheets as RData files in a newly created location.
+#'
+#' @return \code{null}.
+#'
+#' @examples
+#' shs_extract_survey_data()
+#'
+#' @export
 
 shs_extract_survey_data <- function() {
 
