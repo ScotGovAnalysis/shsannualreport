@@ -12,11 +12,10 @@
 
 shs_extract_survey_data <- function() {
 
-  # Set source data directory
-  # TODO: make this a global variable, so can be used in other functions (poss. .REnviron)
-  source_data_directory <- "source_data"
+  # Set source data directory (use shs_set_source_data_directory to set up)
+  source_data_directory <- Sys.getenv("source_data_directory")
 
-  #List all files in source data directory
+  #List all source data files
   source_files <- list.files(source_data_directory)
 
   # Get all years named in source data file names
@@ -36,6 +35,7 @@ shs_extract_survey_data <- function() {
 
   # Make directory based year of data
   # TODO: Should have check if directory exists
+  tryCatch
   dir.create(directory)
 
   #Get chapters and create subdirectories
@@ -73,8 +73,8 @@ shs_extract_survey_data <- function() {
 
       # Read worksheet to dataframe
       df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
-      #
-      # # Save dataframe as .Rds file
+
+      # Save dataframe as .Rds file
       saveRDS(df, file = paste0(directory, "\\", chapter, "\\", dataframe_id, ".Rds"))
     }
   }
