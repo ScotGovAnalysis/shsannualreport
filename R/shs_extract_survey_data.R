@@ -12,8 +12,11 @@
 
 shs_extract_survey_data <- function() {
 
+  # TODO replace line 19 with the following:
   # Set source data directory (use shs_set_source_data_directory to set up)
-  source_data_directory <- Sys.getenv("source_data_directory")
+  # source_data_directory <- Sys.getenv("source_data_directory")
+
+  source_data_directory <- "source_data"
 
   #List all source data files
   source_files <- list.files(source_data_directory)
