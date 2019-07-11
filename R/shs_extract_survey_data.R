@@ -24,19 +24,21 @@ shs_extract_survey_data <- function() {
     years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", source_file))
   }
 
-  #TODO: Make this into actual error
-  # if (length(unique(years)) > 1) {
-  #   print("Data is for more than one year")
-  # }
-
   year <- unique(years)
+
+  if (length(year) > 1) {
+    stop("The provided source data directory contains more than one year's data.
+         Please check the data and try again.")
+  }
 
   directory <- paste0(year, "_data_files")
 
   # Make directory based year of data
-  # TODO: Should have check if directory exists
-  tryCatch
+  if (dir.exists(directory) == FALSE) {
   dir.create(directory)
+  } else {
+    stop("Data for this year has already been created. Please delete or move existing data before proceeding")
+  }
 
   #Get chapters and create subdirectories
   for(source_file in source_files) {
@@ -63,9 +65,7 @@ shs_extract_survey_data <- function() {
         dataframe_id <- paste0("Figure ", chapter_number, ".", fig_number)
       }
       else {
-        # TODO: Find out possible other labels and add, add error if unrecognised
-        chapter_number <- NULL
-        dataframe_id <- NULL
+        stop(paste0("Unknown type of data in sheet ", sheet, ". Only 'FIG' or 'TAB' sheets permitted."))
       }
 
       # Reformat chapter number to match 'Data' directory structure
