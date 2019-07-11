@@ -2,6 +2,7 @@
 #'
 #' \code{shs_extract_dataset} extracts raw survey data from Excel workbooks in a specified location,
 #' and saves all sheets as Rds files in a newly created location.
+#' Internal function for \code{shs_extract_data}.
 #'
 #' @return \code{null}.
 #'
@@ -14,8 +15,10 @@
 
 shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
+  # Get all dataset files
   files <- list.files(source_dataset_path)
 
+  # Get year of dataset
   years <- list()
 
   for (file in files) {
@@ -24,19 +27,21 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
   year <- unique(years)
 
-  # Get chapters and create subdirectories
+  # Loop through dataset files and create subdirectories in output directory
   for (file in files) {
     chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", file)
     dir.create(file.path(extracted_dataset_path, chapter))
   }
 
-  # Loop through files to list sheets and save each sheet as individual .Rda
+  # Loop through dataset files
   for (file in files) {
     workbook_path <- file.path(source_dataset_path, file)
     workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
 
+    # Loop through sheets in file
     for (sheet in sheets) {
+
       # Check whether sheet is 'TAB' or 'FIG' and label accordingly
       if (grepl("TAB", sheet)) {
         chapter_number <- sub(".*FINAL_C *(.*?) *_TAB.*", "\\1", sheet)
@@ -53,17 +58,15 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
                     Only 'FIG' or 'TAB' sheets permitted."))
       }
 
-      # Reformat chapter number to match 'Data' directory structure
+      # Reformat chapter number
       chapter <- paste("CH", chapter_number, sep = "")
 
       # Read worksheet to dataframe
       df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
 
       # Save dataframe as .Rds file
-      saveRDS(df, file = file.path(extracted_dataset_path, chapter, paste0(dataframe_id, ".Rds")))
+      saveRDS(df, file = file.path(extracted_dataset_path,
+                                   chapter, paste0(dataframe_id, ".Rds")))
     }
   }
-
-
-
 }
