@@ -1,41 +1,38 @@
-#' Extract survey data from Excel workbooks
+#' Extract an SHS dataset from Excel workbooks
 #'
-#' \code{shs_extract_survey_data} extracts raw survey data from Excel workbooks in a specified location,
+#' \code{shs_extract_dataset} extracts raw survey data from Excel workbooks in a specified location,
 #' and saves all sheets as Rds files in a newly created location.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_extract_survey_data()
+#' shs_extract_dataset()
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_extract_survey_data <- function(source_survey_data_path, extracted_survey_data_path) {
+shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
-  # Get files from input data
-
-  survey_workbooks <- list.files(source_survey_data_path)
-
-  # Get year of data
+  files <- list.files(source_dataset_path)
 
   years <- list()
-  for (survey_workbook in survey_workbooks) {
-    years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", survey_workbook))
+
+  for (file in files) {
+    years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", file))
   }
 
   year <- unique(years)
 
   # Get chapters and create subdirectories
-  for (survey_workbook in survey_workbooks) {
-    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", survey_workbook)
-    dir.create(file.path(extracted_survey_data_path, chapter))
+  for (file in files) {
+    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", file)
+    dir.create(file.path(extracted_dataset_path, chapter))
   }
 
   # Loop through files to list sheets and save each sheet as individual .Rda
-  for (survey_workbook in survey_workbooks) {
-    workbook_path <- file.path(source_survey_data_path, survey_workbook)
+  for (file in files) {
+    workbook_path <- file.path(source_dataset_path, file)
     workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
 
@@ -63,7 +60,7 @@ shs_extract_survey_data <- function(source_survey_data_path, extracted_survey_da
       df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
 
       # Save dataframe as .Rds file
-      saveRDS(df, file = file.path(extracted_survey_data_path, chapter, paste0(dataframe_id, ".Rds")))
+      saveRDS(df, file = file.path(extracted_dataset_path, chapter, paste0(dataframe_id, ".Rds")))
     }
   }
 

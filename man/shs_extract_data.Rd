@@ -10,7 +10,7 @@ shs_extract_data()
 \code{null}.
 }
 \description{
-\code{shs_extract_data} extracts raw data from Excel workbooks in a specified location,
+\code{shs_extract_data} extracts raw survey data and metadata from Excel workbooks in a specified location,
 and saves all sheets as Rds files in a newly created location.
 }
 \examples{

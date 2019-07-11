@@ -1,6 +1,6 @@
 #' Extract SHS data from Excel workbooks
 #'
-#' \code{shs_extract_data} extracts raw data from Excel workbooks in a specified location,
+#' \code{shs_extract_data} extracts raw survey data and metadata from Excel workbooks in a specified location,
 #' and saves all sheets as Rds files in a newly created location.
 #'
 #' @return \code{null}.
@@ -14,25 +14,26 @@
 # Set up input and output directories
 shs_extract_data <- function() {
 
-source_survey_data_path <- file.path("source_data", "survey_data")
+  source_dataset_path <- file.path("source", "dataset")
 
-source_titles_path <- file.path("source_data", "titles")
+  source_metadata_path <- file.path("source", "metadata")
 
-# TODO: set as datetime in saveable format
-extracted_data_path <- paste("extracted_data", Sys.Date())
+  # TODO: set as datetime in saveable format
 
-extracted_survey_data_path <- file.path(extracted_data_path, "survey_data")
+  extracted_data_path <- paste("extracted", Sys.Date())
 
-extracted_titles_data_path <- file.path(extracted_data_path, "titles")
+  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
 
-dir.create(extracted_data_path)
+  extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
-dir.create(extracted_survey_data_path)
+  dir.create(extracted_data_path)
 
-dir.create(extracted_titles_data_path)
+  dir.create(extracted_dataset_path)
 
-shs_extract_survey_data(source_survey_data_path, extracted_survey_data_path)
+  dir.create(extracted_metadata_path)
 
-shs_extract_titles(source_titles_path, extracted_titles_data_path)
+  shs_extract_dataset(source_dataset_path, extracted_dataset_path)
+
+  shs_extract_metadata(source_metadata_path, extracted_metadata_path)
 
 }
