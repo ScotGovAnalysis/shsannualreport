@@ -8,51 +8,34 @@
 #' @examples
 #' shs_extract_survey_data()
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_extract_survey_data <- function() {
+shs_extract_survey_data <- function(source_survey_data_path, extracted_survey_data_path) {
 
-  # TODO replace line 19 with the following:
-  # Set source data directory (use shs_set_source_data_directory to set up)
-  # source_data_directory <- Sys.getenv("source_data_directory")
+  # Get files from input data
 
-  source_data_directory <- "source_data"
+  survey_workbooks <- list.files(source_survey_data_path)
 
-  #List all source data files
-  source_files <- list.files(source_data_directory)
+  # Get year of data
 
-  # Get all years named in source data file names
   years <- list()
-  for (source_file in source_files) {
-    years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", source_file))
+  for (survey_workbook in survey_workbooks) {
+    years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", survey_workbook))
   }
 
   year <- unique(years)
 
-  if (length(year) > 1) {
-    stop("The provided source data directory contains more than one year's data.
-         Please check the data and try again.")
-  }
-
-  directory <- paste0(year, "_data_files")
-
-  # Make directory based year of data
-  if (dir.exists(directory) == FALSE) {
-  dir.create(directory)
-  } else {
-    stop("Data for this year has already been created.
-         Please delete or move existing data before proceeding")
-  }
-
   # Get chapters and create subdirectories
-  for (source_file in source_files) {
-    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", source_file)
-    dir.create(paste0(directory, "\\", chapter))
+  for (survey_workbook in survey_workbooks) {
+    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", survey_workbook)
+    dir.create(file.path(extracted_survey_data_path, chapter))
   }
 
   # Loop through files to list sheets and save each sheet as individual .Rda
-  for (source_file in source_files) {
-    workbook_path <- file.path(source_data_directory, source_file)
+  for (survey_workbook in survey_workbooks) {
+    workbook_path <- file.path(source_survey_data_path, survey_workbook)
     workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
 
@@ -80,9 +63,10 @@ shs_extract_survey_data <- function() {
       df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
 
       # Save dataframe as .Rds file
-      saveRDS(df, file = paste0(directory, "\\", chapter, "\\",
-                                dataframe_id, ".Rds"))
+      saveRDS(df, file = file.path(extracted_survey_data_path, chapter, paste0(dataframe_id, ".Rds")))
     }
   }
+
+
 
 }
