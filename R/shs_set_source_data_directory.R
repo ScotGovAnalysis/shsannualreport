@@ -15,5 +15,5 @@
 #' @export
 
 shs_set_source_data_directory <- function(directory_path) {
-  shs_set_renviron_key('source_data_directory', directory_path)
+  shs_set_renviron_key("source_data_directory", directory_path)
 }

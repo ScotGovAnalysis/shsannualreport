@@ -22,26 +22,26 @@
 #' @noRd
 
 shs_set_renviron_key <- function(key, value) {
-  renviron <- paste(Sys.getenv('R_USER'), "/.Renviron", sep = "")
+  renviron <- file.path(Sys.getenv("R_USER"), ".Renviron")
 
   if (file.exists(renviron) == FALSE) {
     file.create(renviron)
   }
 
-  currentLines <- readLines(renviron)
-  con <- file(renviron, open = 'r')
-  linesToKeep <- c()
+  current_lines <- readLines(renviron)
+  con <- file(renviron, open = "r")
+  lines_to_keep <- c()
 
-  if (length(currentLines) != 0) {
-    while(TRUE) {
+  if (length(current_lines) != 0) {
+    while (TRUE) {
       line <- readLines(con, n = 1)
-      if(length(line) == 0) break
-      else if(!startsWith(line, key)){
-        linesToKeep <- c(linesToKeep, line)
+      if (length(line) == 0) break
+      else if (!startsWith(line, key)){
+        lines_to_keep <- c(lines_to_keep, line)
       }
     }
   }
   writeLines(paste(key, ' = "', value, '"', sep = ""), renviron)
-  write(linesToKeep, file = renviron, append = TRUE)
+  write(lines_to_keep, file = renviron, append = TRUE)
   close.connection(con)
 }
