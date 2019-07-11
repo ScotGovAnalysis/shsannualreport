@@ -13,6 +13,7 @@
 
 # Set up input and output directories
 shs_extract_data <- function() {
+
 source_survey_data_path <- file.path("source_data", "survey_data")
 
 source_titles_path <- file.path("source_data", "titles")
@@ -30,7 +31,7 @@ dir.create(extracted_survey_data_path)
 
 dir.create(extracted_titles_data_path)
 
-shsannualreport:::shs_extract_survey_data(source_survey_data_path, extracted_survey_data_path)
+shs_extract_survey_data(source_survey_data_path, extracted_survey_data_path)
 
 shs_extract_titles(source_titles_path, extracted_titles_data_path)
 

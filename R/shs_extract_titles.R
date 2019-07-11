@@ -13,7 +13,8 @@
 #' @noRd
 
 shs_extract_titles <- function(source_titles_path, extracted_titles_data_path) {
-  workbook_path <- file.path(source_titles_path, "SHS2017_chapter_and_question_titles.xls")
+  file <- list.files(source_titles_path)
+  workbook_path <- file.path(source_titles_path, file)
   workbook <- XLConnect::loadWorkbook(workbook_path)
   sheets <- readxl::excel_sheets(workbook_path)
   for (sheet in sheets) {
