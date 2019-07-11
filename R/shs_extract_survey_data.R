@@ -34,4 +34,9 @@ shs_extract_survey_data <- function() {
     dir.create(paste0(directory, "\\", chapter))
   }
 
+  for(source_file in source_files) {
+    workbook <- XLConnect::loadWorkbook(file.path(source_data_directory, file))
+    sheets <- readxl::excel_sheets(file.path(source_data_directory, file))
+  }
+
 }
