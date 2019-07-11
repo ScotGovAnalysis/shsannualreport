@@ -44,9 +44,39 @@ shs_extract_survey_data <- function() {
     dir.create(paste0(directory, "\\", chapter))
   }
 
+  # Loop through files to list sheets and save each sheet as individual .Rda
   for(source_file in source_files) {
-    workbook <- XLConnect::loadWorkbook(file.path(source_data_directory, file))
-    sheets <- readxl::excel_sheets(file.path(source_data_directory, file))
+    workbook_path <- file.path(source_data_directory, source_file)
+    workbook <- XLConnect::loadWorkbook(workbook_path)
+    sheets <- readxl::excel_sheets(workbook_path)
+
+    for (sheet in sheets) {
+      # Check whether sheet is 'TAB' or 'FIG' and label accordingly
+      if (grepl("TAB", sheet)) {
+        chapter_number <- sub(".*FINAL_C *(.*?) *_TAB.*", "\\1", sheet)
+        tab_number <- sub(".*_TAB *(.*?)", "\\1", sheet)
+        dataframe_id <- paste0("Table ", chapter_number, ".", tab_number)
+      }
+      else if (grepl("FIG", sheet)) {
+        chapter_number <- sub(".*FINAL_C *(.*?) *_FIG.*", "\\1", sheet)
+        fig_number <- sub(".*_FIG *(.*?)", "\\1", sheet)
+        dataframe_id <- paste0("Figure ", chapter_number, ".", fig_number)
+      }
+      else {
+        # TODO: Find out possible other labels and add, add error if unrecognised
+        chapter_number <- NULL
+        dataframe_id <- NULL
+      }
+
+      # Reformat chapter number to match 'Data' directory structure
+      chapter <- paste("CH", chapter_number, sep = "")
+
+      # Read worksheet to dataframe
+      df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
+      #
+      # # Save dataframe as .Rds file
+      saveRDS(df, file = paste0(directory, "\\", chapter, "\\", dataframe_id, ".Rds"))
+    }
   }
 
 }
