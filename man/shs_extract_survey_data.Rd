@@ -2,7 +2,7 @@
 % Please edit documentation in R/shs_extract_survey_data.R
 \name{shs_extract_survey_data}
 \alias{shs_extract_survey_data}
-\title{Extract data from Excel workbooks}
+\title{Extract survey data from Excel workbooks}
 \usage{
 shs_extract_survey_data()
 }
@@ -10,8 +10,8 @@ shs_extract_survey_data()
 \code{null}.
 }
 \description{
-\code{shs_extract_survey_data} extracts data from Excel workbooks in a specified location,
-and saves all sheets as RData files in a newly created location.
+\code{shs_extract_survey_data} extracts raw survey data from Excel workbooks in a specified location,
+and saves all sheets as Rds files in a newly created location.
 }
 \examples{
 shs_extract_survey_data()

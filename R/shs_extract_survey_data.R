@@ -1,7 +1,7 @@
-#' Extract data from Excel workbooks
+#' Extract survey data from Excel workbooks
 #'
-#' \code{shs_extract_survey_data} extracts data from Excel workbooks in a specified location,
-#' and saves all sheets as RData files in a newly created location.
+#' \code{shs_extract_survey_data} extracts raw survey data from Excel workbooks in a specified location,
+#' and saves all sheets as Rds files in a newly created location.
 #'
 #' @return \code{null}.
 #'
