@@ -13,5 +13,31 @@
 # Set up input and output directories
 shs_rename_columns <- function(extracted_dataset_path, extracted_metadata_path) {
 
+  column_reference <- readRDS(paste0(extracted_metadata_path, "\\column_names.Rds"))
+  chapters <- list.files(extracted_dataset_path)
 
+  for (chapter in chapters) {
+
+    chapter_path <- paste0(extracted_dataset_path, "\\", chapter)
+
+    tables <- list.files(chapter_path)
+
+    for (table in tables){
+
+      table_path <- paste0(extracted_dataset_path, "\\", chapter, "\\", table)
+
+      df <- readRDS(table_path)
+
+      column_names <- colnames(df)
+
+      for (column_name in column_names) {
+
+        new_column_name <- column_reference[column_reference$raw_name == column_name, 2]
+
+        colnames(df)[colnames(df)==column_name] <- new_column_name
+
+        saveRDS(df, file = paste0(extracted_dataset_path, "\\", chapter, "\\", table))
+      }
+    }
+  }
 }
