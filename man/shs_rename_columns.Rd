@@ -4,7 +4,7 @@
 \alias{shs_rename_columns}
 \title{Rename column names in Rda files}
 \usage{
-shs_rename_columns()
+shs_rename_columns(extracted_dataset_path, extracted_metadata_path)
 }
 \value{
 \code{null}.
