@@ -12,6 +12,10 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 Status](https://api.travis-ci.org/thomascrines/shsannualreport.svg?branch=master)](https://travis-ci.org/thomascrines/shsannualreport)
 <!-- badges: end -->
 
+:construction: :construction: :construction: **Package under
+construction - watch this space for updates** :construction:
+:construction: :construction:
+
 shsannualreport is an R package to prepare the results of the [Scottish
 Household Survey(SHS)](https://www2.gov.scot/Topics/Statistics/16002)
 for publication in the [SHS Annual
