@@ -32,7 +32,7 @@ shs_rename_columns <- function(extracted_dataset_path, extracted_metadata_path) 
 
       for (column_name in column_names) {
 
-        new_column_name <- column_reference[column_reference$raw_name == column_name, 2]
+        new_column_name <- column_reference[column_reference$Source.Name == column_name, 2]
 
         colnames(df)[colnames(df)==column_name] <- new_column_name
 
