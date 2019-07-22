@@ -11,6 +11,7 @@
 
 
 # Set up input and output directories
-shs_rename_columns <- function() {
+shs_rename_columns <- function(extracted_dataset_path, extracted_metadata_path) {
+
 
 }
