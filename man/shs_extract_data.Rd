@@ -2,7 +2,7 @@
 % Please edit documentation in R/shs_extract_data.R
 \name{shs_extract_data}
 \alias{shs_extract_data}
-\title{Extract SHS data from Excel workbooks}
+\title{Extract SHS survey data from Excel}
 \usage{
 shs_extract_data()
 }
@@ -11,8 +11,8 @@ shs_extract_data()
 }
 \description{
 \code{shs_extract_data} extracts raw SHS survey data and metadata from Excel workbooks in a specified location,
-and saves all sheets as Rds files in a newly created location. Uses internal functions \code{shs_extract_dataset}
-(to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
+and saves all sheets as Rds files in newly created directories.
+Uses internal functions \code{shs_extract_dataset} (to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
 }
 \examples{
 shs_extract_data()

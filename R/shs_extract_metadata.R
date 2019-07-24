@@ -1,13 +1,16 @@
 #' Extract survey metadata from Excel
 #'
 #' \code{shs_extract_metadata} extracts survey metadata from Excel workbooks in a specified location,
-#' and saves all sheets as .Rds files in a newly created location.
+#' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #' Internal function for \code{shs_extract_data}.
+#'
+#' @param source_metadata_path \code{string}. The path of the directory containing survey metadata in Excel format.
+#' @param extracted_metadata_path \code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_extract_metadata()
+#' shs_extract_metadata(source_metadata_path, extracted_metadata_path)
 #'
 #' @keywords internal
 #'

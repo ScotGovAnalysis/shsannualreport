@@ -1,13 +1,16 @@
 #' Extract an SHS dataset from Excel workbooks
 #'
 #' \code{shs_extract_dataset} extracts raw survey data from Excel workbooks in a specified location,
-#' and saves all sheets as Rds files in a newly created location.
+#' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #' Internal function for \code{shs_extract_data}.
+#'
+#' @param source_dataset_path \code{string}. The path of the directory containing survey data in Excel format.
+#' @param extracted_dataset_path \code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_extract_dataset()
+#' shs_extract_dataset(source_dataset_path, extracted_dataset_path)
 #'
 #' @keywords internal
 #'

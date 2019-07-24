@@ -1,8 +1,8 @@
-#' Extract SHS data from Excel workbooks
+#' Extract SHS survey data from Excel
 #'
 #' \code{shs_extract_data} extracts raw SHS survey data and metadata from Excel workbooks in a specified location,
-#' and saves all sheets as Rds files in a newly created location. Uses internal functions \code{shs_extract_dataset}
-#' (to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
+#' and saves all sheets as Rds files in newly created directories.
+#' Uses internal functions \code{shs_extract_dataset} (to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
 #'
 #' @return \code{null}.
 #'

@@ -2,17 +2,22 @@
 % Please edit documentation in R/shs_rename_columns.R
 \name{shs_rename_columns}
 \alias{shs_rename_columns}
-\title{Rename column names in Rda files}
+\title{Rename column names in extracted datasets}
 \usage{
 shs_rename_columns(extracted_dataset_path, extracted_metadata_path)
+}
+\arguments{
+\item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}
+
+\item{extracted_metadata_path}{\code{string}. The path of the directory containing extracted metadata.}
 }
 \value{
 \code{null}.
 }
 \description{
-\code{shs_rename_columns} renames column names in Rda files in extracted datasets according to data specified in extracted metadata.
+\code{shs_rename_columns} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
 }
 \examples{
-shs_rename_columns()
+shs_rename_columns(extracted_dataset_path, extracted_metadata_path)
 
 }
