@@ -11,7 +11,8 @@ LazyData: true
 Depends:
   XLConnect,
   readxl,
-  tidyr
+  tidyr,
+  dplyr
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
