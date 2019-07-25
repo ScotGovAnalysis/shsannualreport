@@ -1,6 +1,8 @@
 #' Rename column names in extracted datasets
 #'
 #' \code{shs_process_column_names} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
+#' This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
+#' \code{shs_extract_metadata}.
 #'
 #' @param extracted_dataset_path \code{string}. The path of the directory containing extracted survey data.
 #' @param extracted_metadata_path \code{string}. The path of the directory containing extracted metadata.
@@ -10,7 +12,9 @@
 #' @examples
 #' shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
 shs_process_column_names <- function(extracted_dataset_path,
                                extracted_metadata_path) {
@@ -44,12 +48,14 @@ shs_process_column_names <- function(extracted_dataset_path,
       #Loop through column names
       for (column_name in column_names) {
 
-        # Get new column name from reference table, update old column name, and save
+        # Get new column name from reference table
         new_column_name <- column_reference[column_reference$source_name
                                             == column_name, 2]
 
+        # Update old column name
         colnames(df)[colnames(df) == column_name] <- new_column_name
 
+        # Save updated file
         saveRDS(df, file = paste0(extracted_dataset_path,
                                   "\\", chapter, "\\", table))
       }
