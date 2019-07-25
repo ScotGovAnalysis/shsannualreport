@@ -16,17 +16,13 @@
 
 shs_process_figure_6.1 <- function(extracted_dataset_path) {
 
-  chapters <- list.files(extracted_dataset_path)
+  files <- list.files(extracted_dataset_path)
 
-  for (chapter in chapters) {
-
-    files <- list.files(file.path(extracted_dataset_path, chapter))
-
-    for (file in files) {
+  for (file in files) {
 
       if (file == "Figure 6.1_LA.Rds") {
 
-        file_path <- file.path(extracted_dataset_path, chapter, file)
+        file_path <- file.path(extracted_dataset_path, file)
 
         df <- readRDS(file_path)
 

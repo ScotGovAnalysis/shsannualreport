@@ -27,22 +27,16 @@ shs_process_column_names <- function(extracted_dataset_path,
   column_reference$display_name[is.na(column_reference$display_name)] <-
     column_reference$source_name[is.na(column_reference$display_name)]
 
-  # List all chapted in data directory
-  chapters <- list.files(extracted_dataset_path)
+  # List all files in dataset directory
+  files <- list.files(extracted_dataset_path)
 
-  # Loop through chapters
-  for (chapter in chapters) {
+    #Loop through files
+    for (file in files){
 
-    # List tables in chapter
-    chapter_path <- file.path(extracted_dataset_path, chapter)
-    tables <- list.files(chapter_path)
+      file_path <- file.path(extracted_dataset_path, file)
 
-    #Loop through tables
-    for (table in tables){
-
-      # Read in table and extract column names
-      table_path <- file.path(extracted_dataset_path, chapter, table)
-      df <- readRDS(table_path)
+      # Read in file and extract column names
+      df <- readRDS(file_path)
       column_names <- colnames(df)
 
       #Loop through column names
@@ -56,9 +50,8 @@ shs_process_column_names <- function(extracted_dataset_path,
         colnames(df)[colnames(df) == column_name] <- new_column_name
 
         # Save updated file
-        saveRDS(df, file = file.path(extracted_dataset_path,
-                                  chapter, table))
+        saveRDS(df, file = file_path)
       }
     }
   }
-}
+
