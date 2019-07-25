@@ -30,12 +30,6 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
   year <- unique(years)
 
-  # Loop through dataset files and create subdirectories in output directory
-  for (file in files) {
-    chapter <- sub(paste0(".*", year, "_ *(.*?) *_.*"), "\\1", file)
-    dir.create(file.path(extracted_dataset_path, chapter))
-  }
-
   # Loop through dataset files
   for (file in files) {
     workbook_path <- file.path(source_dataset_path, file)
@@ -63,15 +57,12 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
                     Only 'FIG' or 'TAB' sheets permitted."))
       }
 
-      # Reformat chapter number
-      chapter <- paste("CH", chapter_number, sep = "")
-
       # Read worksheet to dataframe
       df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
 
       # Save dataframe as .Rds file
       saveRDS(df, file = file.path(extracted_dataset_path,
-                                   chapter, paste0(dataframe_id, ".Rds")))
+                                   paste0(dataframe_id, ".Rds")))
     }
   }
 }
