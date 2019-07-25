@@ -16,18 +16,18 @@
 shs_process_data <- function(extracted_data_path) {
 
   # Get extracted data path
-  extracted_dataset_path <- paste0(extracted_data_path, "\\dataset")
+  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
 
   # Get extracted metadata path
   extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
   # Perform 'gather' operation
-  shsannualreport:::shs_process_gather(extracted_dataset_path)
+  shsannualreport:::shs_process_figure_6.1(extracted_dataset_path)
 
   # Process column_names
   # Add other functions before this, as safer to format based on existing column names.
   # Commented out for testing purposes
-  # shsannualreport:::shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
+  shsannualreport:::shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
 
 #   data_path <- readRDS(data_path)
 #   data_path <- data_path %>% #creates the 'tidy' dataset

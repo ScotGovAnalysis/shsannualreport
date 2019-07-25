@@ -8,7 +8,7 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_fig_6.1(extracted_dataset_path)
+#' shs_process_figure_6.1(extracted_dataset_path)
 #'
 #' @keywords internal
 #'
@@ -20,7 +20,7 @@ shs_process_figure_6.1 <- function(extracted_dataset_path) {
 
   for (chapter in chapters) {
 
-    files <- list.files(paste0(extracted_dataset_path, "\\", chapter))
+    files <- list.files(file.path(extracted_dataset_path, chapter))
 
     for (file in files) {
 
@@ -28,7 +28,7 @@ shs_process_figure_6.1 <- function(extracted_dataset_path) {
 
         print(file)
 
-        file_path <- paste0(extracted_dataset_path, "\\", chapter, "\\", file)
+        file_path <- file.path(extracted_dataset_path, chapter, file)
 
         print(file_path)
 
