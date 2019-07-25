@@ -1,6 +1,6 @@
 #' Rename column names in extracted datasets
 #'
-#' \code{shs_rename_columns} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
+#' \code{shs_process_column_names} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
 #'
 #' @param extracted_dataset_path \code{string}. The path of the directory containing extracted survey data.
 #' @param extracted_metadata_path \code{string}. The path of the directory containing extracted metadata.
@@ -8,11 +8,11 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_rename_columns(extracted_dataset_path, extracted_metadata_path)
+#' shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
 #'
 #' @export
 
-shs_rename_columns <- function(extracted_dataset_path,
+shs_process_column_names <- function(extracted_dataset_path,
                                extracted_metadata_path) {
 
   # Load in column_names reference data
