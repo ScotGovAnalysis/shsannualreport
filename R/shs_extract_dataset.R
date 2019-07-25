@@ -39,6 +39,8 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
   # Loop through dataset files
   for (file in files) {
     workbook_path <- file.path(source_dataset_path, file)
+
+    #TODO: Depends on two packages, as need to extract sheet names, refactor
     workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
 

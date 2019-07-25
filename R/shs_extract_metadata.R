@@ -26,6 +26,7 @@ shs_extract_metadata <- function(source_metadata_path,
   for (file in files) {
 
     # Get sheets in file
+    #TODO: Depends on two packages, as need to extract sheet names, refactor
     workbook_path <- file.path(source_metadata_path, file)
     workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
