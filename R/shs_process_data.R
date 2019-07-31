@@ -15,17 +15,22 @@
 
 shs_process_data <- function(extracted_data_path) {
 
-  # Get extracted data path
+  # Set source directories
   extracted_dataset_path <- file.path(extracted_data_path, "dataset")
-
-  # Get extracted metadata path
   extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
-  # Perform 'gather' operation
-  shsannualreport:::shs_process_figure_6.1(extracted_dataset_path)
+  # Tasks to do:
 
   # Process column_names
-  # Add other functions before this, as safer to format based on existing column names.
-  # shsannualreport:::shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
+  shsannualreport:::shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
+
+  # Combine datasets split over multiple years into single datasets
+  shsannualreport:::shs_process_combine_multiple_years(extracted_dataset_path)
+
+  # Design factors
+
+  # Statistical significance
+
+  # Add more...
 
 }

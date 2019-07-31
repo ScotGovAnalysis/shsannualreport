@@ -22,7 +22,7 @@ shs_process_combine_multiple_years <- function(extracted_dataset_path) {
   # Set up list for files split by year
   files_with_years <- list()
 
-    #Loop through files
+    #Loop through files to get list of files containing a single year's data
     for (file in files){
 
       #Get full file path
@@ -53,21 +53,22 @@ shs_process_combine_multiple_years <- function(extracted_dataset_path) {
     dfs <- list.files(extracted_dataset_path, pattern = file)
 
     # Create empty dataframe for all years
-    dataframe_by_year <- list()
+    dataframe_by_year <- data.frame()
 
     # Loop through each year of split file
     for (df in dfs) {
-      df <- (file.path(extracted_dataset_path, df))
-      dataframe_by_year <- c(dataframe_by_year, df)
-      # lapply(dataframes_by_year, readRDS)
-
+      year <- sub(".*_ *(.*?) *.Rds", "\\1", df)
+      df_path <- file.path(extracted_dataset_path, df)
+      data <- readRDS(df_path)
+      data$Year <- year
+      dataframe_by_year <- tryCatch({rbind(dataframe_by_year, data)
+      }, error = function(e) {
+        print(paste0("error: ", e, " dataframe: ", df_path))})
+      file.remove(df_path)
     }
 
-    dataframes_by_year <- do.call(rbind, lapply(file.path(dataframe_by_year), readRDS, header=TRUE))
-    assign(file, dataframes_by_year)
+    assign(file, dataframe_by_year)
 
-    # set up first dataframe to have year as value
-    # set up later dataframes to add columns and year
   }
 }
 
