@@ -8,11 +8,11 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_combine_multiple_years(extracted_folder_path)
+#' shs_process_combine_multiple_years(extracted_dataset_path)
 #'
 #' @export
 
-#TODO: add years and figure out how to combine them using rbind (i.e. why are headers differenct and which one to choose)
+#TODO: add years and figure out how to combine them using rbind (i.e. why are headers different and which one to choose)
 
 shs_process_combine_multiple_years <- function(extracted_dataset_path) {
 

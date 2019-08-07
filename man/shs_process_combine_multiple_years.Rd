@@ -17,6 +17,6 @@ shs_process_combine_multiple_years(extracted_dataset_path)
 The new dataframe is saved to an .Rds file, and the original .Rds files are deleted.
 }
 \examples{
-shs_process_combine_multiple_years(extracted_folder_path)
+shs_process_combine_multiple_years(extracted_dataset_path)
 
 }
