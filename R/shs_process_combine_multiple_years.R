@@ -10,7 +10,10 @@
 #' @examples
 #' shs_process_combine_multiple_years(extracted_dataset_path)
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
+
 
 #TODO: add years and figure out how to combine them using rbind (i.e. why are headers different and which one to choose)
 
@@ -64,7 +67,7 @@ shs_process_combine_multiple_years <- function(extracted_dataset_path) {
       dataframe_by_year <- tryCatch({rbind(dataframe_by_year, data)
       }, error = function(e) {
         print(paste0("error: ", e, " dataframe: ", df_path))})
-      file.remove(df_path)
+      # file.remove(df_path)
     }
 
     assign(file, dataframe_by_year)

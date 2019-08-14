@@ -12,7 +12,6 @@
 #'
 #' @export
 
-
 shs_process_data <- function(extracted_data_path) {
 
   # Set source directories
@@ -27,10 +26,5 @@ shs_process_data <- function(extracted_data_path) {
   # Combine datasets split over multiple years into single datasets
   shsannualreport:::shs_process_combine_multiple_years(extracted_dataset_path)
 
-  # Design factors
-
-  # Statistical significance
-
-  # Add more...
 
 }
