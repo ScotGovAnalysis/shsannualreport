@@ -4,24 +4,22 @@
 #' data suitable for use in the SHS Annual Report.
 #'
 #' @param data_file_path \code{string}. The path to a file to be processed.
-#' @param design_factor_path \code{string}. The path to a file containing design factor values.
+#' @param design_factors_path \code{string}. The path to a file containing design factor values.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_table_type_1(data_file_path, design_factor_path)
+#' shs_process_table_type_1(data_file_path, design_factors_path)
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_process_table_type_1 <- function(data_file_path, design_factor_path) {
+shs_process_table_type_1 <- function(data_file_path, design_factors_path) {
 
 # Read in files from parameters
 df <- readRDS(data_file_path)
-design <- readRDS(design_factor_path)
-
-# Rename names in spreadsheet (capitilise)
+design <- readRDS(design_factors_path)
 
 # Create Lists of column types
 year_columns <- list()
@@ -46,6 +44,9 @@ max_year <- year_columns[which.max(year_columns)][[1]]
 table <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
   dplyr::mutate(Percent = as.numeric(Percent)) %>%
   dplyr::group_by(Council, Year) %>%
+  # colnames(table[2]) <- "temp_variable_name" %>%
+  # dplyr::mutate(n = Percent[temp_variable_name== "Base"]) %>%
+  # colnames(table[2]) <- non_year_column %>%
   dplyr::mutate(n = Percent[Ethnicity== "Base"]) %>%
   merge(design, by = "Year") %>%
   dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)),
