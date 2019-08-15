@@ -28,7 +28,7 @@ shs_process_data <- function(extracted_data_path) {
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
   data_files <- list.files(extracted_dataset_path)
   for (table in filter(question_titles, Type <= 1)$ID) {
-    data_file_path <- file.path(extracted_dataset_path, data_files[grep("Table 2.3", data_files)])
+    data_file_path <- file.path(extracted_dataset_path, data_files[grep(table, data_files)])
     design_factors_path <- file.path(extracted_metadata_path, "design_factors.Rds")
     shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path)
   }

@@ -36,18 +36,17 @@ for (name in names(df)) {
    }
 }
 
+names(df)[2] <- "temp_variable_name"
+
 # Get min and max years
 min_year <- year_columns[which.min(year_columns)][[1]]
 max_year <- year_columns[which.max(year_columns)][[1]]
 
 
-table <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
+df <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
   dplyr::mutate(Percent = as.numeric(Percent)) %>%
   dplyr::group_by(Council, Year) %>%
-  # colnames(table[2]) <- "temp_variable_name" %>%
-  # dplyr::mutate(n = Percent[temp_variable_name== "Base"]) %>%
-  # colnames(table[2]) <- non_year_column %>%
-  dplyr::mutate(n = Percent[Ethnicity== "Base"]) %>%
+  dplyr::mutate(n = Percent[temp_variable_name == "Base"]) %>%
   merge(design, by = "Year") %>%
   dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)),
                 LowerConfidenceLimit = round(Percent - (100 * sig_value), 2),
@@ -56,6 +55,7 @@ table <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
   dplyr::ungroup() %>%
   dplyr::select(-6, -7, -8)
 
-saveRDS(table, data_file_path)
+names(df)[3] <- non_year_column
+
+saveRDS(df, data_file_path)
 }
-# mutate(n = as.numeric(table[table[, 2] == "Base",]$Percent))
