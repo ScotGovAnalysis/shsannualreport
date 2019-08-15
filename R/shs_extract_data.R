@@ -32,11 +32,11 @@ shs_extract_data <- function() {
   dir.create(extracted_metadata_path)
 
   # Extract dataset to output directory
-  shsannualreport:::shs_extract_dataset(source_dataset_path,
+  shsannualreport::shs_extract_dataset(source_dataset_path,
                                        extracted_dataset_path)
 
   # Extract metadata to output directory
-  shsannualreport:::shs_extract_metadata(source_metadata_path,
+  shsannualreport::shs_extract_metadata(source_metadata_path,
                                         extracted_metadata_path)
 
 }
