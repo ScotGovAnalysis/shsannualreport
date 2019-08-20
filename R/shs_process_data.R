@@ -8,7 +8,7 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_data("extracted_data_path")
+#' shs_process_data(extracted_data_path)
 #'
 #' @export
 
