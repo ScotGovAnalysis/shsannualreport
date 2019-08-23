@@ -17,6 +17,9 @@ shs_process_data(extracted_data_path)
 It relies on a number of internal functions: \code{shs_process_column_names}, TODO: update as more functions added.
 }
 \examples{
+
+\dontrun{
 shs_process_data("extracted_data_path")
+}
 
 }
