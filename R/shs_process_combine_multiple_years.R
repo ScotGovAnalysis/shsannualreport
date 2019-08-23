@@ -15,8 +15,6 @@
 #' @noRd
 
 
-#TODO: add years and figure out how to combine them using rbind (i.e. why are headers different and which one to choose)
-
 shs_process_combine_multiple_years <- function(extracted_dataset_path) {
 
   # List all files in data directory
