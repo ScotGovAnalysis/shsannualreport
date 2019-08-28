@@ -5,17 +5,18 @@
 #'
 #' @param data_file_path \code{string}. The path to a file to be processed.
 #' @param design_factors_path \code{string}. The path to a file containing design factor values.
+#' @param save_file_path \code{string}. The full path to save to, based on question title.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_table_type_1(data_file_path, design_factors_path)
+#' shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_process_table_type_1 <- function(data_file_path, design_factors_path) {
+shs_process_table_type_1 <- function(data_file_path, design_factors_path, save_file_path) {
 
 # Read in files from parameters
 df <- readRDS(data_file_path)
@@ -57,5 +58,6 @@ df <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
 
 names(df)[3] <- non_year_column
 
-saveRDS(df, data_file_path)
+saveRDS(df, save_file_path)
+file.remove(data_file_path)
 }
