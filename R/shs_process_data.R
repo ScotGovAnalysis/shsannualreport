@@ -29,15 +29,16 @@ shs_process_data <- function(extracted_data_path) {
   design_factors_path <- file.path(extracted_metadata_path, "design_factors.Rds")
 
   # Combine datasets split over multiple years into single datasets
+  # Probably won't need this anymore
   # shsannualreport:::shs_process_combine_multiple_years(extracted_dataset_path)
 
   # Data processing for type 1 datasets
-  # for (table in dplyr::filter(question_titles, Type == 1)$ID) {
-  #   question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
-  #   save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
-  #   data_file_path <- file.path(extracted_dataset_path, data_files[grep(table, data_files)])
-  #   shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
-  # }
+  for (table in dplyr::filter(question_titles, Type == 1)$ID) {
+    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+    data_file_path <- file.path(extracted_dataset_path, data_files[grep(table, data_files)])
+    shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
+  }
 
   # Data processing for type 2 datasets
   for (table in dplyr::filter(question_titles, Type == 2)$ID) {
@@ -47,7 +48,7 @@ shs_process_data <- function(extracted_data_path) {
     final_df <- readRDS(file.path(extracted_dataset_path, files[1]))
     names(final_df)[3] <- "Percent"
     #Remove when renaming completed
-    names(df)[3] <- "temp_variable_name"
+    # names(df)[3] <- "temp_variable_name"
     final_df$"Year" <- NA
     final_df <- final_df[0,]
     for (file in files) {

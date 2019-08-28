@@ -23,7 +23,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   df$"Year" <- year
   names(df)[3] <- "Percent"
   # TODO: Remove when renaming completed - figure out how I borke it too
-  names(df)[2] <- "temp_variable_name"
+  # names(df)[2] <- "temp_variable_name"
   df <- df[,-4]
 
   ###
