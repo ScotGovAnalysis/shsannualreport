@@ -18,15 +18,26 @@
 
 shs_process_table_type_1 <- function(data_file_path, design_factors_path, save_file_path) {
 
+# TODO: Columns with multiple years (e.g. 2012/2013) are just disappearing
+  # possibly can remove the gsub part, and do it in the if grepl part
+
 # Read in files from parameters
 df <- readRDS(data_file_path)
 design <- readRDS(design_factors_path)
+
+col_names <- list()
+for (name in names(df)) {
+ col_names <- c(col_names, gsub("/", "", name))
+}
+
+names(df) <- col_names
 
 # Create Lists of column types
 year_columns <- list()
 
 # Loop through column names
 for (name in names(df)) {
+
  if (grepl("^[0-9]{1,}$", name)) {
    # Assign numeric columns to year value list
    year_columns <- c(year_columns, name)
@@ -39,12 +50,11 @@ for (name in names(df)) {
 
 names(df)[2] <- "temp_variable_name"
 
-# Get min and max years
-min_year <- year_columns[which.min(year_columns)][[1]]
-max_year <- year_columns[which.max(year_columns)][[1]]
+# Get indexes of first and last year columns
+first_year_column_index <- 3
+last_year_column_index <- 2 + length(year_columns)
 
-
-df <- tidyr::gather(df, key=Year, value=Percent, min_year:max_year) %>%
+df <- tidyr::gather(df, key=Year, value=Percent, first_year_column_index:last_year_column_index) %>%
   dplyr::mutate(Percent = as.numeric(Percent)) %>%
   dplyr::group_by(Council, Year) %>%
   dplyr::mutate(n = Percent[temp_variable_name == "Base"]) %>%

@@ -47,8 +47,6 @@ shs_process_data <- function(extracted_data_path) {
     files <- data_files[grepl(toupper(table), toupper(data_files))]
     final_df <- readRDS(file.path(extracted_dataset_path, files[1]))
     names(final_df)[3] <- "Percent"
-    #Remove when renaming completed
-    # names(df)[3] <- "temp_variable_name"
     final_df$"Year" <- NA
     final_df <- final_df[0,]
     for (file in files) {
