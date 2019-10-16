@@ -60,26 +60,50 @@ shs_process_data <- function(extracted_data_path) {
 
   # Data processing for type 3 datasets
   # E.g council	[variable]	_16to34	_35to64	_65	_All
-  for (table in dplyr::filter(question_titles, Type == 3)$ID) {
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
-    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
-    files <- data_files[grepl(toupper(table), toupper(data_files))]
-    gather_key <- dplyr::filter(question_titles, ID == table)$Key
-    column_3_name <- names(readRDS(file.path(extracted_dataset_path,files[1])))[2]
-    colnames <- c("Year", "Council", column_3_name, gather_key, "Percent", "LowerConfidenceLimit", "UpperConfidenceLimit")
-    final_df <- data.frame()
-    for (colname in colnames) {
-      final_df[[colname]]<-as.numeric()
-    }
+  # for (table in dplyr::filter(question_titles, Type == 3)$ID) {
+  #   question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+  #   save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+  #   files <- data_files[grepl(toupper(table), toupper(data_files))]
+  #   gather_key <- dplyr::filter(question_titles, ID == table)$Key
+  #   column_3_name <- names(readRDS(file.path(extracted_dataset_path,files[1])))[2]
+  #   colnames <- c("Year", "Council", column_3_name, gather_key, "Percent", "LowerConfidenceLimit", "UpperConfidenceLimit")
+  #   final_df <- data.frame()
+  #   for (colname in colnames) {
+  #     final_df[[colname]]<-as.numeric()
+  #   }
+  #
+  #   for (file in files) {
+  #     data_file_path <- file.path(extracted_dataset_path, file)
+  #     print(data_file_path)
+  #     df <- shsannualreport:::shs_process_table_type_3(data_file_path, design_factors_path, gather_key)
+  #     final_df <- rbind(final_df, df)
+  #     file.remove(data_file_path)
+  #   }
+  #   saveRDS(final_df, save_file_path)
+  # }
 
-    for (file in files) {
-      data_file_path <- file.path(extracted_dataset_path, file)
-      print(data_file_path)
-      df <- shsannualreport:::shs_process_table_type_3(data_file_path, design_factors_path, gather_key)
-      final_df <- rbind(final_df, df)
-      file.remove(data_file_path)
-    }
-    saveRDS(final_df, save_file_path)
-  }
+  # Data processing for type 4 datasets
+  # E.g ...
+  # for (table in dplyr::filter(question_titles, Type == 4)$ID) {
+  #   question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+  #   save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+  #   files <- data_files[grepl(toupper(table), toupper(data_files))]
+  #   gather_key <- dplyr::filter(question_titles, ID == table)$Key
+  #   column_3_name <- names(readRDS(file.path(extracted_dataset_path,files[1])))[2]
+  #   colnames <- c("Year", "Council", column_3_name, "Base", gather_key, "Percent", "ReplaceNaPercent", "LowerConfidenceLimit", "UpperConfidenceLimit")
+  #   final_df <- data.frame()
+  #   for (colname in colnames) {
+  #     final_df[[colname]]<-as.numeric()
+  #   }
+  #
+  #   for (file in files) {
+  #     data_file_path <- file.path(extracted_dataset_path, file)
+  #     print(data_file_path)
+  #     df <- shsannualreport:::shs_process_table_type_4(data_file_path, design_factors_path, gather_key)
+  #     final_df <- rbind(final_df, df)
+  #     file.remove(data_file_path)
+  #   }
+  #   saveRDS(final_df, save_file_path)
+  # }
 
 }

@@ -18,55 +18,87 @@
 
 shs_process_table_type_1 <- function(data_file_path, design_factors_path, save_file_path) {
 
-# TODO: Columns with multiple years (e.g. 2012/2013) are just disappearing
-  # possibly can remove the gsub part, and do it in the if grepl part
-
 # Read in files from parameters
 df <- readRDS(data_file_path)
 design <- readRDS(design_factors_path)
 
-col_names <- list()
-for (name in names(df)) {
- col_names <- c(col_names, gsub("/", "", name))
+column_2_name <- colnames(df[2])
+
+column_2_values <- unique(df[2])
+column_2_values_string <- paste0("column_2_values$", column_2_name)
+column_2_values <- eval(parse(text = column_2_values_string))
+
+df <- subset(df, select=-c(All))
+
+column_count <- length(colnames(df))
+year_columns <- colnames(df[3:column_count])
+
+main_df_string <- "df <- df %>% gather(key = 'Year', value = 'Percent', "
+
+for (year_column in year_columns) {
+  main_df_string  <- paste0(main_df_string, "`", year_column, "`, ")
 }
 
-names(df) <- col_names
+main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
+  paste0(") %>% mutate(Percent = as.numeric(Percent), ",
+                        column_2_name,
+                        " = factor(",
+                        column_2_name,
+                        ", levels = c(")
 
-# Create Lists of column types
-year_columns <- list()
-
-# Loop through column names
-for (name in names(df)) {
-
- if (grepl("^[0-9]{1,}$", name)) {
-   # Assign numeric columns to year value list
-   year_columns <- c(year_columns, name)
-   } else {
-     # Get the name of the non-year column that is not "Council" or "All"
-     if (name != "Council" & name != "All")
-     non_year_column <- name
-   }
+for (column_2_value in column_2_values) {
+  main_df_string <- paste0(main_df_string, "'", column_2_value, "', ")
 }
 
-names(df)[2] <- "temp_variable_name"
+main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
-# Get indexes of first and last year columns
-first_year_column_index <- 3
-last_year_column_index <- 2 + length(year_columns)
+  paste0("))) %>% group_by(Council, Year) %>% mutate(n = Percent[",
+                        column_2_name,
+                        " == 'Base']) %>% ",
+                        "merge(design, by = 'Year') %>% ",
+                        "dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)), ",
+                        "sig_lower = Percent - (100 * sig_value), ",
+                        "sig_lower = round(sig_lower, 1), ",
+                        "sig_upper = Percent + (100 * sig_value), ",
+                        "sig_upper = round(sig_upper, 1), ",
+                        "Percent = round(Percent, 1) ",
+                        ") %>% ungroup()")
 
-df <- tidyr::gather(df, key=Year, value=Percent, first_year_column_index:last_year_column_index) %>%
-  dplyr::mutate(Percent = as.numeric(Percent)) %>%
-  dplyr::group_by(Council, Year) %>%
-  dplyr::mutate(n = Percent[temp_variable_name == "Base"]) %>%
-  merge(design, by = "Year") %>%
-  dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)),
-                LowerConfidenceLimit = round(Percent - (100 * sig_value), 2),
-                UpperConfidenceLimit = round(Percent + (100 * sig_value), 2),
-                Percent = round(Percent, 1)) %>%
-  dplyr::ungroup() %>%
-  dplyr::select(-6, -7, -8)
+values_df_string <- paste0("values_df <- df %>% select('Council', '", column_2_name, "','Year', 'Percent') %>% tidyr::spread(key = 'Year', value = 'Percent')")
 
-names(df)[3] <- non_year_column
+sig_lower_df_string <- paste0("sig_lower_df <- df %>% select('Council', '", column_2_name, "','Year', 'sig_lower') %>%
+  tidyr::spread(key = 'Year', value = 'sig_lower') %>%
+  dplyr::rename('Council_l' = 'Council', '", column_2_name, "_l' = '", column_2_name, "',")
+
+for (year_column in year_columns) {
+  sig_lower_df_string  <- paste0(sig_lower_df_string, "`", year_column, "_l` = `", year_column, "`, ")
+}
+
+sig_lower_df_string <- (substr(sig_lower_df_string, 1, nchar(sig_lower_df_string) - 2)) %>%
+  paste0(")")
+
+sig_upper_df_string <- paste0("sig_upper_df <- df %>% select('Council', '", column_2_name, "','Year', 'sig_upper') %>%
+  tidyr::spread(key = 'Year', value = 'sig_upper') %>%
+  dplyr::rename('Council_u' = 'Council', '", column_2_name, "_u' = '", column_2_name, "',")
+
+for (year_column in year_columns) {
+  sig_upper_df_string  <- paste0(sig_upper_df_string, "`", year_column, "_u` = `", year_column, "`, ")
+}
+
+sig_upper_df_string <- (substr(sig_upper_df_string, 1, nchar(sig_upper_df_string) - 2)) %>%
+  paste0(")")
+
+final_df_string <- paste0("df <- bind_cols(c(values_df, sig_lower_df, sig_upper_df)) %>% select(-Council_l, -Council_u, -",
+                          column_2_name,
+                          "_l, -",
+                          column_2_name,
+                          "_u)")
+
+eval(parse(text = main_df_string))
+eval(parse(text = values_df_string))
+eval(parse(text = sig_lower_df_string))
+eval(parse(text = sig_upper_df_string))
+eval(parse(text = final_df_string))
 
 saveRDS(df, save_file_path)
 file.remove(data_file_path)

@@ -47,7 +47,12 @@ shs_process_column_names <- function(extracted_dataset_path,
                                             == column_name, 2]
 
         # Update old column name
-        colnames(df)[colnames(df) == column_name] <- new_column_name
+        tryCatch({
+        colnames(df)[colnames(df) == column_name] <- new_column_name},
+          error = function(e) {
+            print(paste0(file_path, column_name))
+          }
+        )
 
         # Save updated file
         saveRDS(df, file = file_path)

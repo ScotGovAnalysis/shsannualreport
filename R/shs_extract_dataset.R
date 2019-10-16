@@ -35,7 +35,7 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
     workbook_path <- file.path(source_dataset_path, file)
 
     #TODO: Depends on two packages, as need to extract sheet names, refactor
-    workbook <- XLConnect::loadWorkbook(workbook_path)
+    # workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
 
     # Loop through sheets in file
@@ -58,7 +58,7 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
       }
 
       # Read worksheet to dataframe
-      df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
+      df <- readxl::read_excel(workbook_path, sheet = sheet)
 
       # Save dataframe as .Rds file
       saveRDS(df, file = file.path(extracted_dataset_path,
