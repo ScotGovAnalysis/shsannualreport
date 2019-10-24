@@ -22,6 +22,7 @@ shs_process_data <- function(extracted_data_path) {
   extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
   # Process column_names
+  print("Processing column names")
   shsannualreport:::shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
 
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
@@ -30,11 +31,17 @@ shs_process_data <- function(extracted_data_path) {
 
   # Data processing for type 1 datasets
   # E.g. council	[variable]	_2013	_2014	_2015	_2016	_2017	_All
+  print("Processing type 1 datasets")
   for (table in dplyr::filter(question_titles, Type == 1)$ID) {
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
-    data_file_path <- file.path(extracted_dataset_path, data_files[grep(table, data_files)])
-    print(data_file_path)
+
+    if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
+    data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, "_LA.Rds"), data_files)])
+    } else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
+      data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, ".Rds"), data_files)])
+      }
+    # print(data_file_path)
     shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
   }
 
@@ -50,7 +57,7 @@ shs_process_data <- function(extracted_data_path) {
     final_df <- final_df[0,]
     for (file in files) {
       data_file_path <- file.path(extracted_dataset_path, file)
-      print(data_file_path)
+      # print(data_file_path)
       df <- shsannualreport:::shs_process_table_type_2(data_file_path, design_factors_path)
       final_df <- rbind(final_df, df)
       file.remove(data_file_path)

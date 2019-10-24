@@ -27,13 +27,19 @@ shs_extract_metadata <- function(source_metadata_path,
 
     # Get sheets in file
     #TODO: Depends on two packages, as need to extract sheet names, refactor
+    # workbook_path <- file.path(source_metadata_path, file)
+    # workbook <- XLConnect::loadWorkbook(workbook_path)
+    # sheets <- readxl::excel_sheets(workbook_path)
+    ###
     workbook_path <- file.path(source_metadata_path, file)
-    workbook <- XLConnect::loadWorkbook(workbook_path)
     sheets <- readxl::excel_sheets(workbook_path)
+    ###
+
 
     # Save sheet as .Rds file in output directory
     for (sheet in sheets) {
-      df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
+      # df <- XLConnect::readWorksheet(workbook, sheet = sheet, header = TRUE)
+      df <- readxl::read_excel(workbook_path, sheet = sheet)
       saveRDS(df, file = file.path(extracted_metadata_path,
                                    paste0(sheet, ".Rds")))
     }

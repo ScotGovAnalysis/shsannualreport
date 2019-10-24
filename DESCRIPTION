@@ -9,10 +9,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-  XLConnect,
   readxl,
   tidyr,
-  dplyr
+  dplyr,
+  magrittr
 Suggests: knitr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr

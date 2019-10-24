@@ -49,8 +49,8 @@ shs_process_column_names <- function(extracted_dataset_path,
         # Update old column name
         tryCatch({
         colnames(df)[colnames(df) == column_name] <- new_column_name},
-          error = function(e) {
-            print(paste0(file_path, column_name))
+          warnings = function(w) {
+            message(paste0("File Path:", file_path, " Column Name: ", column_name, "Warning: ", w))
           }
         )
 

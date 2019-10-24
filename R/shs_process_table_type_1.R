@@ -18,6 +18,7 @@
 
 shs_process_table_type_1 <- function(data_file_path, design_factors_path, save_file_path) {
 
+  print(data_file_path)
 # Read in files from parameters
 df <- readRDS(data_file_path)
 design <- readRDS(design_factors_path)
@@ -25,36 +26,38 @@ design <- readRDS(design_factors_path)
 column_2_name <- colnames(df[2])
 
 column_2_values <- unique(df[2])
-column_2_values_string <- paste0("column_2_values$", column_2_name)
+column_2_values_string <- paste0("column_2_values$`", column_2_name, "`")
 column_2_values <- eval(parse(text = column_2_values_string))
 
+if ("All" %in% colnames(df)){
 df <- subset(df, select=-c(All))
+}
 
 column_count <- length(colnames(df))
 year_columns <- colnames(df[3:column_count])
 
-main_df_string <- "df <- df %>% gather(key = 'Year', value = 'Percent', "
+main_df_string <- "df <- df %>% tidyr::gather(key = 'Year', value = 'Percent', "
 
 for (year_column in year_columns) {
   main_df_string  <- paste0(main_df_string, "`", year_column, "`, ")
 }
 
 main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
-  paste0(") %>% mutate(Percent = as.numeric(Percent), ",
+  paste0(") %>% dplyr::mutate(Percent = as.numeric(Percent), `",
                         column_2_name,
-                        " = factor(",
+                        "` = factor(`",
                         column_2_name,
-                        ", levels = c(")
+                        "`, levels = c(")
 
 for (column_2_value in column_2_values) {
-  main_df_string <- paste0(main_df_string, "'", column_2_value, "', ")
+  main_df_string <- paste0(main_df_string, "\"", column_2_value, "\", ")
 }
 
 main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
-  paste0("))) %>% group_by(Council, Year) %>% mutate(n = Percent[",
+  paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(n = Percent[`",
                         column_2_name,
-                        " == 'Base']) %>% ",
+                        "` == 'Base']) %>% ",
                         "merge(design, by = 'Year') %>% ",
                         "dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)), ",
                         "sig_lower = Percent - (100 * sig_value), ",
@@ -62,7 +65,7 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
                         "sig_upper = Percent + (100 * sig_value), ",
                         "sig_upper = round(sig_upper, 1), ",
                         "Percent = round(Percent, 1) ",
-                        ") %>% ungroup()")
+                        ") %>% dplyr::ungroup()")
 
 values_df_string <- paste0("values_df <- df %>% select('Council', '", column_2_name, "','Year', 'Percent') %>% tidyr::spread(key = 'Year', value = 'Percent')")
 
@@ -88,11 +91,11 @@ for (year_column in year_columns) {
 sig_upper_df_string <- (substr(sig_upper_df_string, 1, nchar(sig_upper_df_string) - 2)) %>%
   paste0(")")
 
-final_df_string <- paste0("df <- bind_cols(c(values_df, sig_lower_df, sig_upper_df)) %>% select(-Council_l, -Council_u, -",
+final_df_string <- paste0("df <- bind_cols(c(values_df, sig_lower_df, sig_upper_df)) %>% select(-Council_l, -Council_u, -`",
                           column_2_name,
-                          "_l, -",
+                          "_l`, -`",
                           column_2_name,
-                          "_u)")
+                          "_u`)")
 
 eval(parse(text = main_df_string))
 eval(parse(text = values_df_string))
