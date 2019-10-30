@@ -30,23 +30,23 @@ shs_process_data <- function(extracted_data_path) {
   design_factors_path <- file.path(extracted_metadata_path, "design_factors.Rds")
 
   # Data processing for type 1 datasets
-  # E.g. council	[variable]	_2013	_2014	_2015	_2016	_2017	_All
-  print("Processing type 1 datasets")
-  for (table in dplyr::filter(question_titles, Type == 1)$ID) {
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
-    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
-
-    if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
-    data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, "_LA.Rds"), data_files)])
-    } else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
-      data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, ".Rds"), data_files)])
-      }
-    # print(data_file_path)
-    shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
-  }
+  # E.g. [variable]	_2013	_2014	_2015	_2016	_2017
+  # print("Processing type 1 datasets")
+  # for (table in dplyr::filter(question_titles, Type == 1)$ID) {
+  #   question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+  #   save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+  #
+  #   if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
+  #   data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, "_LA.Rds"), data_files)])
+  #   } else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
+  #     data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, ".Rds"), data_files)])
+  #     }
+  #   # print(data_file_path)
+  #   shsannualreport:::shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
+  # }
 
   # Data processing for type 2 datasets
-  # E.g council	[variable]	_2013	_All (with separate file for each year's data)
+  # E.g [variable]	_2013	_All (with separate file for each year's data)
   for (table in dplyr::filter(question_titles, Type == 2)$ID) {
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
@@ -66,7 +66,7 @@ shs_process_data <- function(extracted_data_path) {
   }
 
   # Data processing for type 3 datasets
-  # E.g council	[variable]	_16to34	_35to64	_65	_All
+  # E.g [variable] All adults Adults aged 16-34
   # for (table in dplyr::filter(question_titles, Type == 3)$ID) {
   #   question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
   #   save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
