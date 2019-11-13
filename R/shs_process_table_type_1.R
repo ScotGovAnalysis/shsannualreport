@@ -10,15 +10,14 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_table_type_1(data_file_path, design_factors_path, save_file_path)
+#' shs_process_table_type_1(data_file_path, save_file_path, design_factors_path)
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_process_table_type_1 <- function(data_file_path, design_factors_path, save_file_path) {
+shs_process_table_type_1 <- function(data_file_path, save_file_path, design_factors_path) {
 
-  print(data_file_path)
 # Read in files from parameters
 df <- readRDS(data_file_path)
 design <- readRDS(design_factors_path)
@@ -29,8 +28,16 @@ column_2_values <- unique(df[2])
 column_2_values_string <- paste0("column_2_values$`", column_2_name, "`")
 column_2_values <- eval(parse(text = column_2_values_string))
 
-if ("All" %in% colnames(df)){
-df <- subset(df, select=-c(All))
+# if ("All" %in% colnames(df)){
+# df <- subset(df, select=-c(All))
+# }
+
+if ("sort" %in% colnames(df)){
+  df <- subset(df, select=-c(sort))
+}
+
+if ("_LABEL_" %in% colnames(df)){
+  df <- subset(df, select=-c(`_LABEL_`))
 }
 
 column_count <- length(colnames(df))
@@ -104,5 +111,5 @@ eval(parse(text = sig_upper_df_string))
 eval(parse(text = final_df_string))
 
 saveRDS(df, save_file_path)
-file.remove(data_file_path)
+# file.remove(data_file_path)
 }
