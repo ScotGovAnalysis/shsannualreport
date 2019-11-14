@@ -42,9 +42,9 @@ shs_get_variable_names <- function(extracted_dataset_path) {
 
   all_variable_names <- data.frame(all_variable_names)
 
-  colnames(all_variable_names)[1] <- "existing_variable_name"
+  colnames(all_variable_names)[1] <- "source_name"
 
-  all_variable_names$new_variable_name <- ""
+  all_variable_names$display_name <- ""
 
   writexl::write_xlsx(all_variable_names, path = "variable_names.xlsx")
 

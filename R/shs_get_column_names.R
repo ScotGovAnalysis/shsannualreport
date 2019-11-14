@@ -32,9 +32,9 @@ all_column_names <- unique(all_column_names)
 
 all_column_names <- data.frame(all_column_names)
 
-colnames(all_column_names)[1] <- "existing_column_name"
+colnames(all_column_names)[1] <- "source_name"
 
-all_column_names$new_column_name <- ""
+all_column_names$display_name <- ""
 
 writexl::write_xlsx(all_column_names, path = "column_names.xlsx")
 
