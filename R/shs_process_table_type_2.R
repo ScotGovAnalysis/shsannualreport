@@ -52,9 +52,9 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   df <- tidyr::gather(df, key=gather_key, value=Percent, first_gather_column_index:last_gather_column_index) %>%
     dplyr::mutate(Percent = as.numeric(Percent)) %>%
     dplyr::group_by(Council, Year, gather_key) %>%
-    dplyr::mutate(n = Percent[temp_variable_name == "Base"]) %>%
+    dplyr::mutate(Base = Percent[temp_variable_name == "Base"]) %>%
     merge(design, by = "Year") %>%
-    dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)),
+    dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / Base)),
                   LowerConfidenceLimit = round(Percent - (100 * sig_value), 2),
                   UpperConfidenceLimit = round(Percent + (100 * sig_value), 2),
                   Percent = round(Percent, 1)) %>%
@@ -67,23 +67,23 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
     select("Year", "Council", col_2_name, "gather_key", "Percent") %>%
     spread(key = "gather_key", value = "Percent" )
 
-  sig_lower_string <- paste0("sig_lower_values <- df %>% select('Year', 'Council', '",
+  sig_lower_string <- paste0("sig_lower_values <- df %>% select(`Year`, `Council`, `",
                              col_2_name,
-                             "', 'gather_key', 'LowerConfidenceLimit') %>% spread(key = 'gather_key', value = 'LowerConfidenceLimit') %>% rename('Year_l' = 'Year', 'Council_l' = 'Council', ")
+                             "`, `gather_key`, `LowerConfidenceLimit`) %>% spread(key = `gather_key`, value = `LowerConfidenceLimit`) %>% rename(`Year_l` = `Year`, `Council_l` = `Council`, ")
 
   for (column_name in rename_columns) {
-    sig_lower_string <- paste0(sig_lower_string, "'", column_name, "_l' = '", column_name, "', ")
+    sig_lower_string <- paste0(sig_lower_string, "`", column_name, "_l` = `", column_name, "`, ")
   }
 
   sig_lower_string <- (substr(sig_lower_string, 1, nchar(sig_lower_string) - 2)) %>%
     paste0(")")
 
-  sig_upper_string <- paste0("sig_upper_values <- df %>% select('Year', 'Council', '",
+  sig_upper_string <- paste0("sig_upper_values <- df %>% select(`Year`, `Council`, `",
                              col_2_name,
-                             "', 'gather_key', 'UpperConfidenceLimit') %>% spread(key = 'gather_key', value = 'UpperConfidenceLimit') %>% rename('Year_u' = 'Year', 'Council_u' = 'Council', ")
+                             "`, `gather_key`, `UpperConfidenceLimit`) %>% spread(key = `gather_key`, value = `UpperConfidenceLimit`) %>% rename(`Year_u` = `Year`, `Council_u` = `Council`, ")
 
   for (column_name in rename_columns) {
-    sig_upper_string <- paste0(sig_upper_string, "'", column_name, "_u' = '", column_name, "', ")
+    sig_upper_string <- paste0(sig_upper_string, "`", column_name, "_u` = `", column_name, "`, ")
   }
 
   sig_upper_string <- (substr(sig_upper_string, 1, nchar(sig_upper_string) - 2)) %>%

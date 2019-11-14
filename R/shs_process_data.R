@@ -31,6 +31,7 @@ shs_process_data <- function(extracted_data_path) {
   type_0_tables <- dplyr::filter(question_titles, Type == 0)$ID
   type_1_tables <- dplyr::filter(question_titles, Type == 1)$ID
   type_2_tables <- dplyr::filter(question_titles, Type == 2)$ID
+  type_3_tables <- dplyr::filter(question_titles, Type == 3)$ID
 
   missing_tables_type_1 <- c()
 
@@ -71,7 +72,20 @@ shs_process_data <- function(extracted_data_path) {
 
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+    if (grepl(" and ", table)) {
+      both_tables <- strsplit(table, split = " and ")
+      table_1 <- both_tables[[1]][1]
+      table_2 <- both_tables[[1]][2]
+      table_1_files <- data_files[grepl(toupper(table_1), toupper(data_files))]
+      table_2_files <- data_files[grepl(toupper(table_2), toupper(data_files))]
+      if (length(table_1_files > 0)) {
+        files <- table_1_files
+      } else if (length(table_2_files > 0)) {
+        files <- table_2_files
+      }
+    } else {
     files <- data_files[grepl(toupper(table), toupper(data_files))]
+    }
 
     if (length(files) == 0) {
       missing_tables_type_2 <- c(missing_tables_type_2, table)
@@ -108,6 +122,50 @@ shs_process_data <- function(extracted_data_path) {
     saveRDS(final_df, save_file_path)
   }
   print(paste0("Type 2 files not found: ", missing_tables_type_2))
+
+# Data processing for type 3 datasets
+# E.g [variable]	_2013	_All (with separate file for each year's data)
+for (table in type_3_tables) {
+
+  question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+  save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
+  files <- data_files[grepl(toupper(table), toupper(data_files))]
+
+  if (length(files) == 0) {
+    missing_tables_type_3 <- c(missing_tables_type_3, table)
+  } else {
+
+    for (file in files) {
+
+      data_file_path <- file.path(extracted_dataset_path, file)
+
+      tryCatch({
+        df <- shsannualreport:::shs_process_table_type_3(data_file_path, design_factors_path)
+      }, error = function(cond) {
+        message(paste0("Error processing type 3 table: ", table, " Error msg: ", cond))
+      })
+
+      if (match(file, files) == 1) {
+
+        final_df <- df
+
+      } else {
+
+        tryCatch({
+          final_df <- rbind(final_df, df)
+        }, error = function(cond) {
+          message(paste0("rbind for file: ", file, " threw error: ", cond))
+        })
+
+      }
+
+      # file.remove(data_file_path)
+    }
+  }
+
+  saveRDS(final_df, save_file_path)
 }
+}
+
 
 

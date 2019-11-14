@@ -43,7 +43,7 @@ if ("_LABEL_" %in% colnames(df)){
 column_count <- length(colnames(df))
 year_columns <- colnames(df[3:column_count])
 
-main_df_string <- "df <- df %>% tidyr::gather(key = 'Year', value = 'Percent', "
+main_df_string <- "df <- df %>% tidyr::gather(key = `Year`, value = `Percent`, "
 
 for (year_column in year_columns) {
   main_df_string  <- paste0(main_df_string, "`", year_column, "`, ")
@@ -64,8 +64,8 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
   paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(n = Percent[`",
                         column_2_name,
-                        "` == 'Base']) %>% ",
-                        "merge(design, by = 'Year') %>% ",
+                        "` == `Base`]) %>% ",
+                        "merge(design, by = `Year`) %>% ",
                         "dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)), ",
                         "sig_lower = Percent - (100 * sig_value), ",
                         "sig_lower = round(sig_lower, 1), ",
@@ -74,11 +74,11 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
                         "Percent = round(Percent, 1) ",
                         ") %>% dplyr::ungroup()")
 
-values_df_string <- paste0("values_df <- df %>% select('Council', '", column_2_name, "','Year', 'Percent') %>% tidyr::spread(key = 'Year', value = 'Percent')")
+values_df_string <- paste0("values_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `Percent`) %>% tidyr::spread(key = `Year`, value = `Percent`)")
 
-sig_lower_df_string <- paste0("sig_lower_df <- df %>% select('Council', '", column_2_name, "','Year', 'sig_lower') %>%
-  tidyr::spread(key = 'Year', value = 'sig_lower') %>%
-  dplyr::rename('Council_l' = 'Council', '", column_2_name, "_l' = '", column_2_name, "',")
+sig_lower_df_string <- paste0("sig_lower_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_lower`) %>%
+  tidyr::spread(key = `Year`, value = `sig_lower`) %>%
+  dplyr::rename(`Council_l` = `Council`, `", column_2_name, "_l` = `", column_2_name, "`,")
 
 for (year_column in year_columns) {
   sig_lower_df_string  <- paste0(sig_lower_df_string, "`", year_column, "_l` = `", year_column, "`, ")
@@ -87,9 +87,9 @@ for (year_column in year_columns) {
 sig_lower_df_string <- (substr(sig_lower_df_string, 1, nchar(sig_lower_df_string) - 2)) %>%
   paste0(")")
 
-sig_upper_df_string <- paste0("sig_upper_df <- df %>% select('Council', '", column_2_name, "','Year', 'sig_upper') %>%
-  tidyr::spread(key = 'Year', value = 'sig_upper') %>%
-  dplyr::rename('Council_u' = 'Council', '", column_2_name, "_u' = '", column_2_name, "',")
+sig_upper_df_string <- paste0("sig_upper_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_upper`) %>%
+  tidyr::spread(key = `Year`, value = `sig_upper`) %>%
+  dplyr::rename(`Council_u` = `Council`, `", column_2_name, "_u` = `", column_2_name, "`,")
 
 for (year_column in year_columns) {
   sig_upper_df_string  <- paste0(sig_upper_df_string, "`", year_column, "_u` = `", year_column, "`, ")
