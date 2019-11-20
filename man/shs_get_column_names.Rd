@@ -4,7 +4,7 @@
 \alias{shs_get_column_names}
 \title{Get column names from an extracted dataset}
 \usage{
-shs_get_column_names(extracted_dataset_path)
+shs_get_column_names(extracted_data_path)
 }
 \arguments{
 \item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}

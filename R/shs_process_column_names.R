@@ -12,12 +12,13 @@
 #' @examples
 #' shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
 #'
-#' @keywords internal
-#'
-#' @noRd
+#' @export
 
-shs_process_column_names <- function(extracted_dataset_path,
-                               extracted_metadata_path) {
+shs_process_column_names <- function(extracted_data_path) {
+
+  # Set source directories
+  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
+  extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
   # Load in column_names reference data
   column_reference <- readRDS(file.path(extracted_metadata_path,
@@ -53,10 +54,10 @@ shs_process_column_names <- function(extracted_dataset_path,
             message(paste0("File Path:", file_path, " Column Name: ", column_name, "Warning: ", w))
           }
         )
-
-        # Save updated file
-        saveRDS(df, file = file_path)
+        #poss put SaveRDS back to here - test and see
       }
+      # Save updated file
+      saveRDS(df, file = file_path)
     }
   }
 

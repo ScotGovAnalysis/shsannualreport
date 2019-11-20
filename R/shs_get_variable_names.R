@@ -12,7 +12,10 @@
 #'
 #' @export
 
-shs_get_variable_names <- function(extracted_dataset_path) {
+shs_get_variable_names <- function(extracted_data_path) {
+
+  # Set source directories
+  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
 
   files <- list.files(extracted_dataset_path)
 
@@ -46,6 +49,8 @@ shs_get_variable_names <- function(extracted_dataset_path) {
 
   all_variable_names$display_name <- ""
 
-  writexl::write_xlsx(all_variable_names, path = "variable_names.xlsx")
+  # TODO make folder if not exists
+
+  writexl::write_xlsx(list(variable_names = all_variable_names), path = "source\\column_and_variable_names\\variable_names.xlsx")
 
 }
