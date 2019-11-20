@@ -3,7 +3,7 @@
 # shs_extract_data()
 #
 # #TODO set this value
-# extracted_data_path <- "extracted 20-Nov-2019 15.55.01"
+# extracted_data_path <- "extracted 20-Nov-2019 17.33.55"
 #
 # extracted_dataset_path <- paste0(extracted_data_path, "\\dataset")
 # extracted_metadata_path <- paste0(extracted_data_path, "\\metadata")

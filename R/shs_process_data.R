@@ -115,12 +115,13 @@ shs_process_data <- function(extracted_data_path) {
           })
 
         }
-
+        saveRDS(final_df, save_file_path)
         # file.remove(data_file_path)
       }
+
     }
 
-    saveRDS(final_df, save_file_path)
+
   }
   print(paste0("Type 2 files not found: ", missing_tables_type_2))
 
@@ -161,12 +162,12 @@ shs_process_data <- function(extracted_data_path) {
           })
 
         }
-
+        saveRDS(final_df, save_file_path)
         # file.remove(data_file_path)
       }
     }
 
-    saveRDS(final_df, save_file_path)
+
   }
 
   print(paste0("Type 3 files not found: ", missing_tables_type_3))

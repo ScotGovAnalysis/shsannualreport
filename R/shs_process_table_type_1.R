@@ -111,5 +111,5 @@ eval(parse(text = sig_upper_df_string))
 eval(parse(text = final_df_string))
 
 saveRDS(df, save_file_path)
-# file.remove(data_file_path)
+file.remove(data_file_path)
 }

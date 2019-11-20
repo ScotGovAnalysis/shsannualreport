@@ -24,6 +24,5 @@ shs_process_table_type_4 <- function(data_file_path, save_file_path) {
   })
 
   saveRDS(df, save_file_path)
-  # file.remove(data_file_path)
-
+  file.remove(data_file_path)
 }
