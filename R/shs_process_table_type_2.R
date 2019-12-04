@@ -9,7 +9,7 @@
 #' @return \code{null}.
 #'
 #' @examples
-#' dontrun{
+#' \dontrun{
 #' shs_process_table_type_2(data_file_path, design_factors_path)
 #' }
 #'

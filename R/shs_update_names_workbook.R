@@ -8,7 +8,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_update_names_workbook(new_workbook_path, old_workbook_path)
+#' }
 #'
 #' @export
 

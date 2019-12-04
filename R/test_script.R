@@ -74,3 +74,4 @@
 #   })
 # }
 #
+# shs_shiny_variables("variables.R", extracted_data_path)

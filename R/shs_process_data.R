@@ -10,7 +10,6 @@
 #' @return \code{null}.
 #'
 #' @examples
-#'
 #' \dontrun{
 #' shs_process_data("extracted_data_path")
 #' }

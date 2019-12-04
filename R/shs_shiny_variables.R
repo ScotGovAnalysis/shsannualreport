@@ -84,6 +84,7 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
   cat(select_chapter_string, file = save_file_path, append = TRUE)
 
 
+  #TODO not working properly, chapter 9 joins chapter 10
   chapter_numbers <- gsub("CH", "", chapter_titles$code)
 
   for (chapter_number in chapter_numbers) {
