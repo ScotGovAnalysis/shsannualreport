@@ -1,6 +1,6 @@
-#' Process SHS table of type 2
+#' Process column percentage data
 #'
-#' \code{shs_process_table_type_2} cleans and formats data contained in an .Rds file in order to make the
+#' \code{shs_process_table_type_2} cleans and formats column percentage data contained in an .Rds file in order to make the
 #' data suitable for use in the SHS Annual Report.
 #'
 #' @param data_file_path \code{string}. The path to a file to be processed.
@@ -9,7 +9,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' dontrun{
 #' shs_process_table_type_2(data_file_path, design_factors_path)
+#' }
 #'
 #' @keywords internal
 #'
@@ -20,19 +22,11 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   tryCatch({
   df <- readRDS(data_file_path)
   }, error = function(cond) {
-    message(paste0("Couldn't read file: ", data_file_path))
-  })
+    message(paste0("Couldn't read file: ", data_file_path))})
 
   if ("All" %in% colnames(df)){
+
     df <- subset(df, select=-c(All))
-  }
-
-  if ("sort" %in% colnames(df)){
-    df <- subset(df, select=-c(sort))
-  }
-
-  if ("_LABEL_" %in% colnames(df)){
-    df <- subset(df, select=-c(`_LABEL_`))
   }
 
   design <- readRDS(design_factors_path)
@@ -72,6 +66,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
                              "`, `gather_key`, `LowerConfidenceLimit`) %>% spread(key = `gather_key`, value = `LowerConfidenceLimit`) %>% rename(`Year_l` = `Year`, `Council_l` = `Council`, ")
 
   for (column_name in rename_columns) {
+
     sig_lower_string <- paste0(sig_lower_string, "`", column_name, "_l` = `", column_name, "`, ")
   }
 
@@ -83,6 +78,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
                              "`, `gather_key`, `UpperConfidenceLimit`) %>% spread(key = `gather_key`, value = `UpperConfidenceLimit`) %>% rename(`Year_u` = `Year`, `Council_u` = `Council`, ")
 
   for (column_name in rename_columns) {
+
     sig_upper_string <- paste0(sig_upper_string, "`", column_name, "_u` = `", column_name, "`, ")
   }
 
@@ -95,14 +91,17 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   select_string <- "df <- dplyr::select(df, Year, Council, "
 
   for (column_name in rename_columns) {
+
     select_string <- paste0(select_string, "`", column_name, "`, ")
   }
 
   for (column_name in rename_columns[2:length(rename_columns)]) {
+
     select_string <- paste0(select_string, "`", column_name, "_l`, ")
   }
 
   for (column_name in rename_columns[2:length(rename_columns)]) {
+
     select_string <- paste0(select_string, "`", column_name, "_u`, ")
   }
 

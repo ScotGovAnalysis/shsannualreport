@@ -15,11 +15,13 @@ shs_process_variable_names(extracted_data_path)
 \code{null}.
 }
 \description{
-\code{shs_process_variable_names} renames variables in extracted datasets according to data specified \code{variable_names.Rds} in extracted metadata.
+\code{shs_process_variable_names} renames variables in extracted datasets according to data specified in \code{variable_names.Rds} in extracted metadata.
 This metadata is extracted from an Excel sheet \code{variable_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
 \code{shs_extract_metadata}.
 }
 \examples{
+\dontrun{
 shs_process_variable_names(extracted_dataset_path, extracted_metadata_path)
+}
 
 }

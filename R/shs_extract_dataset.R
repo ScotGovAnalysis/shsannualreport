@@ -10,7 +10,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_extract_dataset(source_dataset_path, extracted_dataset_path)
+#' }
 #'
 #' @keywords internal
 #'
@@ -18,10 +20,7 @@
 
 shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
-  # Get all dataset files
   files <- list.files(source_dataset_path)
-
-  # Get year of dataset
   years <- list()
 
   for (file in files) {
@@ -30,37 +29,35 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
   year <- unique(years)
 
-  # Loop through dataset files
   for (file in files) {
-    workbook_path <- file.path(source_dataset_path, file)
 
-    #TODO: Depends on two packages, as need to extract sheet names, refactor
-    # workbook <- XLConnect::loadWorkbook(workbook_path)
+    workbook_path <- file.path(source_dataset_path, file)
     sheets <- readxl::excel_sheets(workbook_path)
 
-    # Loop through sheets in file
     for (sheet in sheets) {
 
-      # Check whether sheet is 'TAB' or 'FIG' and label accordingly
       if (grepl("TAB", sheet)) {
+
         chapter_number <- sub(".*FINAL_C *(.*?) *_TAB.*", "\\1", sheet)
         tab_number <- sub(".*_TAB *(.*?)", "\\1", sheet)
         dataframe_id <- paste0("Table ", chapter_number, ".", tab_number)
-      }
+        }
+
       else if (grepl("FIG", sheet)) {
+
         chapter_number <- sub(".*FINAL_C *(.*?) *_FIG.*", "\\1", sheet)
         fig_number <- sub(".*_FIG *(.*?)", "\\1", sheet)
         dataframe_id <- paste0("Figure ", chapter_number, ".", fig_number)
       }
+
       else {
+
         stop(paste0("Unknown type of data in sheet ", sheet, ".
                     Only 'FIG' or 'TAB' sheets permitted."))
       }
 
-      # Read worksheet to dataframe
       df <- readxl::read_excel(workbook_path, sheet = sheet)
 
-      # Save dataframe as .Rds file
       saveRDS(df, file = file.path(extracted_dataset_path,
                                    paste0(dataframe_id, ".Rds")))
     }

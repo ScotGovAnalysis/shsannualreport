@@ -2,7 +2,6 @@
 #'
 #' \code{shs_extract_column_and_variable_names} extracts survey metadata from Excel workbooks in a specified location,
 #' and saves each sheet into a specified destination as an individual \code{.Rds} file.
-#' Internal function for \code{shs_extract_data}.
 #'
 #' @param source_column_and_variable_names_path \code{string}. The path of the directory containing survey column and variable_names in Excel format.
 #' @param extracted_metadata_path \code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.
@@ -10,7 +9,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_extract_column_and_variable_names(source_column_and_variable_names_path, extracted_metadata_path)
+#' }
 #'
 #' @export
 

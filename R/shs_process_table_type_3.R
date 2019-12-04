@@ -1,6 +1,6 @@
-#' Process SHS table of type 3
+#' Process row percentage data
 #'
-#' \code{shs_process_table_type_3} cleans and formats data contained in an .Rds file in order to make the
+#' \code{shs_process_table_type_3} cleans and formats row percentage data contained in an .Rds file in order to make the
 #' data suitable for use in the SHS Annual Report.
 #'
 #' @param data_file_path \code{string}. The path to a file to be processed.
@@ -9,7 +9,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_process_table_type_3(data_file_path, design_factors_path)
+#' }
 #'
 #' @keywords internal
 #'
@@ -23,8 +25,7 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
   tryCatch({
     df <- readRDS(data_file_path)
   }, error = function(cond) {
-    message(paste0("Couldn't read file: ", data_file_path))
-  })
+    message(paste0("Couldn't read file: ", data_file_path))})
 
   year <- paste0("20", sub(".*_ *(.*?) *.Rds*", "\\1", data_file_path))
   col_2_name <- names(df)[2]
@@ -63,6 +64,7 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
                              "`, `GatherKey`, `LowerConfidenceLimit`) %>% tidyr::spread(key = `GatherKey`, value = `LowerConfidenceLimit`) %>% dplyr::rename(")
 
   for (column_name in rename_columns) {
+
     sig_lower_string <- paste0(sig_lower_string, "`", column_name, "_l` = `", column_name, "`, ")
   }
 
@@ -74,6 +76,7 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
                              "`, `GatherKey`, `UpperConfidenceLimit`) %>% tidyr::spread(key = `GatherKey`, value = `UpperConfidenceLimit`) %>% dplyr::rename(")
 
   for (column_name in rename_columns) {
+
     sig_upper_string <- paste0(sig_upper_string, "`", column_name, "_u` = `", column_name, "`, ")
   }
 

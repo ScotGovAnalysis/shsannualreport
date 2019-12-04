@@ -1,6 +1,6 @@
-#' Process SHS table of type 1
+#' Process time series data
 #'
-#' \code{shs_process_table_type_1} cleans and formats data contained in an .Rds file in order to make the
+#' \code{shs_process_table_type_1} cleans and formats time series data contained in an .Rds file in order to make the
 #' data suitable for use in the SHS Annual Report.
 #'
 #' @param data_file_path \code{string}. The path to a file to be processed.
@@ -10,7 +10,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_process_table_type_1(data_file_path, save_file_path, design_factors_path)
+#' }
 #'
 #' @keywords internal
 #'
@@ -28,16 +30,8 @@ column_2_values <- unique(df[2])
 column_2_values_string <- paste0("column_2_values$`", column_2_name, "`")
 column_2_values <- eval(parse(text = column_2_values_string))
 
-# if ("All" %in% colnames(df)){
-# df <- subset(df, select=-c(All))
-# }
-
-if ("sort" %in% colnames(df)){
-  df <- subset(df, select=-c(sort))
-}
-
-if ("_LABEL_" %in% colnames(df)){
-  df <- subset(df, select=-c(`_LABEL_`))
+if ("All" %in% colnames(df)){
+df <- subset(df, select=-c(All))
 }
 
 column_count <- length(colnames(df))
@@ -64,8 +58,8 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
   paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(n = Percent[`",
                         column_2_name,
-                        "` == `Base`]) %>% ",
-                        "merge(design, by = `Year`) %>% ",
+                        "` == 'Base']) %>% ",
+                        "merge(design, by = 'Year') %>% ",
                         "dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)), ",
                         "sig_lower = Percent - (100 * sig_value), ",
                         "sig_lower = round(sig_lower, 1), ",
@@ -76,9 +70,7 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
 values_df_string <- paste0("values_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `Percent`) %>% tidyr::spread(key = `Year`, value = `Percent`)")
 
-sig_lower_df_string <- paste0("sig_lower_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_lower`) %>%
-  tidyr::spread(key = `Year`, value = `sig_lower`) %>%
-  dplyr::rename(`Council_l` = `Council`, `", column_2_name, "_l` = `", column_2_name, "`,")
+sig_lower_df_string <- paste0("sig_lower_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_lower`) %>% tidyr::spread(key = `Year`, value = `sig_lower`) %>% dplyr::rename(`Council_l` = `Council`, `", column_2_name, "_l` = `", column_2_name, "`,")
 
 for (year_column in year_columns) {
   sig_lower_df_string  <- paste0(sig_lower_df_string, "`", year_column, "_l` = `", year_column, "`, ")
@@ -87,9 +79,7 @@ for (year_column in year_columns) {
 sig_lower_df_string <- (substr(sig_lower_df_string, 1, nchar(sig_lower_df_string) - 2)) %>%
   paste0(")")
 
-sig_upper_df_string <- paste0("sig_upper_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_upper`) %>%
-  tidyr::spread(key = `Year`, value = `sig_upper`) %>%
-  dplyr::rename(`Council_u` = `Council`, `", column_2_name, "_u` = `", column_2_name, "`,")
+sig_upper_df_string <- paste0("sig_upper_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `sig_upper`) %>% tidyr::spread(key = `Year`, value = `sig_upper`) %>% dplyr::rename(`Council_u` = `Council`, `", column_2_name, "_u` = `", column_2_name, "`,")
 
 for (year_column in year_columns) {
   sig_upper_df_string  <- paste0(sig_upper_df_string, "`", year_column, "_u` = `", year_column, "`, ")
@@ -111,5 +101,5 @@ eval(parse(text = sig_upper_df_string))
 eval(parse(text = final_df_string))
 
 saveRDS(df, save_file_path)
-file.remove(data_file_path)
+# file.remove(data_file_path)
 }

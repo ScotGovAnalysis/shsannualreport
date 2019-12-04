@@ -7,19 +7,19 @@
 shs_process_column_names(extracted_data_path)
 }
 \arguments{
-\item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}
-
-\item{extracted_metadata_path}{\code{string}. The path of the directory containing extracted metadata.}
+\item{extracted_data_path}{\code{string}. The path of the directory containing the extracted survey dataset and metadata.}
 }
 \value{
 \code{null}.
 }
 \description{
-\code{shs_process_column_names} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
+\code{shs_process_column_names} renames columns in extracted datasets according to data specified in \code{column_names.Rds} in extracted metadata.
 This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
 \code{shs_extract_metadata}.
 }
 \examples{
-shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
+\dontrun{
+shs_process_column_names(extracted_data_path)
+}
 
 }
