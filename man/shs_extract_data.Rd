@@ -4,17 +4,27 @@
 \alias{shs_extract_data}
 \title{Extract SHS survey data from Excel}
 \usage{
-shs_extract_data()
+shs_extract_data(source_dataset_path, source_metadata_path,
+  extracted_data_path)
+}
+\arguments{
+\item{source_dataset_path}{\code{string}. The path of the source dataset. Should contain Excel workbooks of raw survey data.}
+
+\item{source_metadata_path}{\code{string}. The path of the source metadata. Should contain Excel workbooks of chapter and question titles, and design factors.}
+
+\item{extracted_data_path}{\code{string}. The path to extract the dataset and metadata to. Two directories will be created here; 'dataset' and 'metadata', and both will be populated with .Rds files.}
 }
 \value{
 \code{null}.
 }
 \description{
 \code{shs_extract_data} extracts raw SHS survey data and metadata from Excel workbooks in a specified location,
-and saves all sheets as Rds files in newly created directories.
+and saves all sheets as Rds files in specified directories.
 Uses internal functions \code{shs_extract_dataset} (to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
 }
 \examples{
-shs_extract_data()
+\dontrun{
+shs_extract_data(source_dataset_path, source_metadata_path, extracted_data_path)
+}
 
 }

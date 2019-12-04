@@ -7,14 +7,16 @@
 shs_process_data(extracted_data_path)
 }
 \arguments{
-\item{extracted_data_path}{\code{string}. The path of the directory data has previously been extracted to, by \code{shs_extract_data}.}
+\item{extracted_data_path}{\code{string}. The path of the directory containing the extracted survey dataset and metadata.}
 }
 \value{
 \code{null}.
 }
 \description{
 \code{shs_process_data} processes raw SHS survey data which has been extracted from Excel sheets into individual .Rds files.
-It relies on a number of internal functions: \code{shs_process_column_names}, TODO: update as more functions added.
+It relies on a number of internal functions: \code{shs_process_table_type_1} (for time series tables),
+\code{shs_process_table_type_2} (for column percentage tables), \code{shs_process_table_type_3} (for row percentage tables),
+\code{shs_process_table_type_4} (for manually added tables).
 }
 \examples{
 

@@ -1,62 +1,49 @@
 #' Rename column names in extracted datasets
 #'
-#' \code{shs_process_column_names} renames columns in extracted datasets according to data specified \code{column_names.Rds} in extracted metadata.
+#' \code{shs_process_column_names} renames columns in extracted datasets according to data specified in \code{column_names.Rds} in extracted metadata.
 #' This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
 #' \code{shs_extract_metadata}.
 #'
-#' @param extracted_dataset_path \code{string}. The path of the directory containing extracted survey data.
-#' @param extracted_metadata_path \code{string}. The path of the directory containing extracted metadata.
+#' @param extracted_data_path \code{string}. The path of the directory containing the extracted survey dataset and metadata.
 #'
 #' @return \code{null}.
 #'
 #' @examples
-#' shs_process_column_names(extracted_dataset_path, extracted_metadata_path)
+#' \dontrun{
+#' shs_process_column_names(extracted_data_path)
+#' }
 #'
-#' @keywords internal
-#'
-#' @noRd
+#' @export
 
-shs_process_column_names <- function(extracted_dataset_path,
-                               extracted_metadata_path) {
+shs_process_column_names <- function(extracted_data_path) {
 
-  # Load in column_names reference data
-  column_reference <- readRDS(file.path(extracted_metadata_path,
-                                     "column_names.Rds"))
+  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
+  extracted_metadata_path <- file.path(extracted_data_path, "metadata")
 
-  # Replace any NA values in display_name with source_name
+  column_reference <- readRDS(file.path(extracted_metadata_path, "column_names.Rds"))
+
   column_reference$display_name[is.na(column_reference$display_name)] <-
     column_reference$source_name[is.na(column_reference$display_name)]
 
-  # List all files in dataset directory
   files <- list.files(extracted_dataset_path)
 
-    #Loop through files
-    for (file in files){
+  for (file in files) {
 
-      file_path <- file.path(extracted_dataset_path, file)
+    file_path <- file.path(extracted_dataset_path, file)
+    df <- readRDS(file_path)
+    column_names <- colnames(df)
 
-      # Read in file and extract column names
-      df <- readRDS(file_path)
-      column_names <- colnames(df)
+    for (column_name in column_names) {
 
-      #Loop through column names
-      for (column_name in column_names) {
+      new_column_name <- column_reference[column_reference$source_name == column_name, 2]
 
-        # Get new column name from reference table
-        new_column_name <- column_reference[column_reference$source_name
-                                            == column_name, 2]
-
-        # Update old column name
-        tryCatch({
+      tryCatch({
         colnames(df)[colnames(df) == column_name] <- new_column_name},
-          warnings = function(w) {
-            message(paste0("File Path:", file_path, " Column Name: ", column_name, "Warning: ", w))
-          }
-        )
-
-        # Save updated file
-        saveRDS(df, file = file_path)
-      }
+        warnings = function(w) {
+          message(paste0("File Path:", file_path, " Column Name: ", column_name, "Warning: ", w))})
     }
+
+    saveRDS(df, file = file_path)
   }
+}
 
