@@ -23,11 +23,15 @@ shs_replace_na <- function(data_file_path, incomplete_years) {
 
     for (incomplete_year in incomplete_years) {
 
-      if (length(colnames(dataframe)[colnames(dataframe) == "2011"]) > 0) {
+      if (length(colnames(dataframe)[colnames(dataframe) == incomplete_year]) > 0) {
 
         replace_string <- paste0("dataframe[is.na(dataframe$`", incomplete_year, "`),]$`", incomplete_year, "` <- '*'")
 
+        tryCatch({
         eval(parse(text = replace_string))
+        }, error = function(cond) {
+          message(paste0("Error in shs_replace_na for table: ", data_file_path, " Error msg: ", cond))
+        })
       }
     }
   }

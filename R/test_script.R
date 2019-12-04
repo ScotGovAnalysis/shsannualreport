@@ -3,8 +3,8 @@
 # # Add source files to these locations
 # # source_dataset_path is where the Excel sheets of raw data should go
 # # source_metadata_path is where the chapter_titles.xlsx, design_factors.xlsx, and question_titles.xlsx should go
-# source_dataset_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source_before_corrections\\dataset"
-# source_metadata_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source_before_corrections\\metadata"
+# source_dataset_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source\\dataset"
+# source_metadata_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source\\metadata"
 #
 # # Make sure this folder does not contain folders called column_names.xlsx or variable_names.xlsx
 # # This path is where spreadsheets of column and variable names will be extracted to from the dataset
@@ -21,6 +21,7 @@
 # # This writes the data from the Excel sheets in the source_dataset_path to the extracted_data_path, as .Rds files
 # shs_extract_data(source_dataset_path, source_metadata_path, extracted_data_path)
 #
+# # shs_extract_data creates dataset and metadata directories which can be accessed as so:
 # extracted_dataset_path <- paste0(extracted_data_path, "\\dataset")
 # extracted_metadata_path <- paste0(extracted_data_path, "\\metadata")
 #
@@ -57,14 +58,21 @@
 # shs_process_data(extracted_data_path)
 #
 # # The code below updates NULL/NA values with "-" or "*"
-# files <- list.files(extracted_data_path)
+# files <- list.files(extracted_dataset_path)
 #
 # # This is a list of years with incomplete data. Any missing values for years in this list will be populated with "*"
 # incomplete_years <- c("2011")
 #
 # for (file in files) {
 #
-#   data_file_path <- file.path(test_replace_na_path, file)
+#   data_file_path <- file.path(extracted_dataset_path, file)
 #
+#   print(data_file_path)
+#
+#   tryCatch({
 #   shs_replace_na(data_file_path, incomplete_years)
+#   }, error = function(cond) {
+#     message(paste0("Error in test script replacing nulls and NAs for file: ", file, " Error msg: ", cond))
+#   })
 # }
+#

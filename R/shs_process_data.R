@@ -39,6 +39,12 @@ shs_process_data <- function(extracted_data_path) {
   for (table in type_1_tables) {
 
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+
+    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
+
+      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
+    }
+
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
 
     if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
@@ -75,6 +81,12 @@ shs_process_data <- function(extracted_data_path) {
   for (table in type_2_tables) {
 
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+
+    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
+
+      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
+    }
+
     save_file_path <- file.path(extracted_dataset_path, paste0(gsub("\\*", "", question_title), ".Rds"))
 
     if (grepl(" and ", table)) {
@@ -144,6 +156,12 @@ shs_process_data <- function(extracted_data_path) {
   for (table in type_3_tables) {
 
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+
+    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
+
+      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
+    }
+
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
@@ -190,6 +208,12 @@ shs_process_data <- function(extracted_data_path) {
   for (table in type_4_tables) {
 
     question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+
+    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
+
+      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
+    }
+
     save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
