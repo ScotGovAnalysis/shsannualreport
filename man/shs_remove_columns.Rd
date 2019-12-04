@@ -18,6 +18,8 @@ shs_remove_columns(extracted_data_path, columns_to_remove)
 \code{shs_remove_columns} removes columns from extracted datasets.
 }
 \examples{
+\dontrun{
 shs_remove_columns(extracted_dataset_path, columns_to_remove)
+}
 
 }

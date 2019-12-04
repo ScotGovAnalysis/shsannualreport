@@ -8,7 +8,9 @@
 #' @return \code{null}.
 #'
 #' @examples
+#' \dontrun{
 #' shs_remove_columns(extracted_dataset_path, columns_to_remove)
+#' }
 #'
 #' @export
 

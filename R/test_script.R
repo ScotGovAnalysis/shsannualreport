@@ -67,8 +67,6 @@
 #
 #   data_file_path <- file.path(extracted_dataset_path, file)
 #
-#   print(data_file_path)
-#
 #   tryCatch({
 #   shs_replace_na(data_file_path, incomplete_years)
 #   }, error = function(cond) {
