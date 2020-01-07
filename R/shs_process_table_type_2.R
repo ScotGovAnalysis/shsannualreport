@@ -44,7 +44,6 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   last_gather_column_index <- length(names(df))
 
   df <- tidyr::gather(df, key=gather_key, value=Percent, first_gather_column_index:last_gather_column_index) %>%
-    dplyr::mutate(Percent = as.numeric(Percent)) %>%
     dplyr::group_by(Council, Year, gather_key) %>%
     dplyr::mutate(Base = Percent[temp_variable_name == "Base"]) %>%
     merge(design, by = "Year") %>%

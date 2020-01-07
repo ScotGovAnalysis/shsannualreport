@@ -56,11 +56,11 @@ for (column_2_value in column_2_values) {
 
 main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
-  paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(n = Percent[`",
+  paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(Base = Percent[`",
                         column_2_name,
                         "` == 'Base']) %>% ",
                         "merge(design, by = 'Year') %>% ",
-                        "dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(n))), ",
+                        "dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))), ",
                         "sig_lower = as.numeric(Percent) - (100 * sig_value), ",
                         "sig_lower = round(as.numeric(sig_lower), 1), ",
                         "sig_upper = as.numeric(Percent) + (100 * sig_value), ",
