@@ -37,7 +37,7 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_1_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
 
     if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
 
@@ -49,14 +49,12 @@ shs_process_data <- function(extracted_data_path) {
     if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
 
       data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, "_LA.Rds"), data_files)])
-    }
 
-    else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
+      } else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
 
       data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, ".Rds"), data_files)])
-    }
 
-    else {
+      } else {
 
       data_file_path <- NULL
       missing_tables_type_1 <- c(missing_tables_type_1, table)
@@ -79,7 +77,7 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_2_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
 
     if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
 
@@ -154,7 +152,7 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_3_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
 
     if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
 
@@ -206,7 +204,7 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_4_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$Title)
+    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
 
     if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
 

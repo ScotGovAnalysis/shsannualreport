@@ -57,21 +57,30 @@
 # # These process the data (add statistical significance etc.)
 # shs_process_data(extracted_data_path)
 #
-# # The code below updates NULL/NA values with "-" or "*"
-# files <- list.files(extracted_dataset_path)
+# # # The code below updates NULL/NA values with "-" or "*"
+# # files <- list.files(extracted_dataset_path)
+# #
+# # # This is a list of years with incomplete data. Any missing values for years in this list will be populated with "*"
+# # incomplete_years <- c("2011")
+# #
+# # for (file in files) {
+# #
+# #   data_file_path <- file.path(extracted_dataset_path, file)
+# #
+# #   tryCatch({
+# #   shs_replace_na(data_file_path, incomplete_years)
+# #   }, error = function(cond) {
+# #     message(paste0("Error in test script replacing nulls and NAs for file: ", file, " Error msg: ", cond))
+# #   })
+# # }
+# #
+# # shs_shiny_variables("variables.R", extracted_data_path)
 #
-# # This is a list of years with incomplete data. Any missing values for years in this list will be populated with "*"
-# incomplete_years <- c("2011")
-#
-# for (file in files) {
-#
-#   data_file_path <- file.path(extracted_dataset_path, file)
-#
-#   tryCatch({
-#   shs_replace_na(data_file_path, incomplete_years)
-#   }, error = function(cond) {
-#     message(paste0("Error in test script replacing nulls and NAs for file: ", file, " Error msg: ", cond))
-#   })
-# }
-#
-# shs_shiny_variables("variables.R", extracted_data_path)
+# # # To copy raw data if needed, place in script
+# # raw_dataset_path <- paste0(extracted_data_path, "\\raw")
+# # dir.create(raw_dataset_path)
+# # raw_files <- list.files(extracted_dataset_path)
+# # for (file in raw_files) {
+# #   file_path <- paste0(extracted_dataset_path, "\\", file)
+# #   file.copy(file_path, raw_dataset_path)
+# # }

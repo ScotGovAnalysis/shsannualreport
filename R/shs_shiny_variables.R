@@ -16,10 +16,9 @@
 
 shs_shiny_variables <- function(save_file_path, extracted_data_path) {
 
-  save_file_path
-
   file.create(save_file_path)
 
+  extracted_dataset_path <- paste0(extracted_data_path, "\\dataset")
   extracted_metadata_path <- paste0(extracted_data_path, "\\metadata")
 
   chapter_titles <- readRDS(file.path(extracted_metadata_path, "chapter_titles.Rds"))
@@ -73,9 +72,11 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
 
   select_chapter_string <- "select_list_chapters <- c("
 
-  for (chapter_title in chapter_titles$title) {
+  counter = 2
+  for (chapter_title in chapter_titles[chapter_titles$has_data == 'y',]$title) {
 
-    select_chapter_string <- paste0(select_chapter_string, "'", chapter_title, "',\n")
+    select_chapter_string <- paste0(select_chapter_string, "\"Ch. ", counter, ": ", chapter_title, "\" = \"", chapter_title, "\",\n")
+    counter = counter + 1
   }
 
   select_chapter_string <- (substr(select_chapter_string, 1, nchar(select_chapter_string) - 2)) %>%
@@ -83,9 +84,8 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
 
   cat(select_chapter_string, file = save_file_path, append = TRUE)
 
-
-  #TODO not working properly, chapter 9 joins chapter 10
   chapter_numbers <- gsub("CH", "", chapter_titles$code)
+  print(chapter_numbers)
 
   for (chapter_number in chapter_numbers) {
 
@@ -107,15 +107,19 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
 
     for (question_title in valid_question_titles) {
 
-      select_question_string <- paste0(select_question_string, "\"", question_title, "\",\n")
+      question_title_without_special_character <- gsub("[[:punct:]]", "", question_title)
+
+      question_number <- question_titles[grepl(question_title_without_special_character, question_titles$TitleWithoutSpecialCharacter),]$ID
+
+      select_question_string <- paste0(select_question_string, "\"", question_number, ": ", question_title, "\"", " = ", "\"", question_title, "\",", "\n")
     }
 
     if (length(valid_question_titles) > 0) {
 
       select_question_string <- (substr(select_question_string, 1, nchar(select_question_string) - 2))
-      select_question_string <- paste0(select_question_string, ")\n\n")
     }
 
+    select_question_string <- paste0(select_question_string, ")\n\n")
 
     cat(select_question_string, file = save_file_path, append = TRUE)
   }
@@ -141,3 +145,4 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
     cat(questions_by_type_string, file = save_file_path, append = TRUE)
   }
 }
+

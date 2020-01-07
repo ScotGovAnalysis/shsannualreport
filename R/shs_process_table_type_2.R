@@ -55,11 +55,16 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
     dplyr::ungroup() %>%
     dplyr::select(-6, -7, -8)
 
-  names(df)[3] <- col_2_name
-
   percent_values <- df %>%
-    select("Year", "Council", col_2_name, "gather_key", "Percent") %>%
+    select("Year", "Council", "temp_variable_name", "gather_key", "Percent") %>%
     spread(key = "gather_key", value = "Percent" )
+
+  row_order <- unique(df$temp_variable_name)
+  percent_values$temp_variable_name <- factor(percent_values$temp_variable_name, levels = row_order)
+  percent_values <- percent_values[order(percent_values$temp_variable_name),]
+
+  colnames(df)[3] <- col_2_name
+  colnames(percent_values)[3] <- col_2_name
 
   sig_lower_string <- paste0("sig_lower_values <- df %>% select(`Year`, `Council`, `",
                              col_2_name,
