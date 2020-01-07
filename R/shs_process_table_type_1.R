@@ -44,7 +44,7 @@ for (year_column in year_columns) {
 }
 
 main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
-  paste0(") %>% dplyr::mutate(Percent = as.numeric(Percent), `",
+  paste0(") %>% dplyr::mutate(`",
                         column_2_name,
                         "` = factor(`",
                         column_2_name,
@@ -60,12 +60,12 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
                         column_2_name,
                         "` == 'Base']) %>% ",
                         "merge(design, by = 'Year') %>% ",
-                        "dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / n)), ",
-                        "sig_lower = Percent - (100 * sig_value), ",
-                        "sig_lower = round(sig_lower, 1), ",
-                        "sig_upper = Percent + (100 * sig_value), ",
-                        "sig_upper = round(sig_upper, 1), ",
-                        "Percent = round(Percent, 1) ",
+                        "sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(n))) ",
+                        "sig_lower = as.numeric(Percent) - (100 * sig_value), ",
+                        "sig_lower = round(as.numeric(sig_lower), 1), ",
+                        "sig_upper = as.numeric(Percent) + (100 * sig_value), ",
+                        "sig_upper = round(as.numeric(sig_upper), 1), ",
+                        "Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), Percent) ",
                         ") %>% dplyr::ungroup()")
 
 values_df_string <- paste0("values_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `Percent`) %>% tidyr::spread(key = `Year`, value = `Percent`)")
