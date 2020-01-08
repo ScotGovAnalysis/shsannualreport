@@ -35,6 +35,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   rename_columns <- colnames(df)[2:length(colnames(df))]
   col_2_name <- names(df)[2]
   names(df)[2] <- "temp_variable_name"
+  row_order <- unique(df$temp_variable_name)
 
   colnames <- names(df)
   df$Year = year
@@ -47,27 +48,25 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
     dplyr::group_by(Council, Year, gather_key) %>%
     dplyr::mutate(Base = Percent[temp_variable_name == "Base"]) %>%
     merge(design, by = "Year") %>%
-    dplyr::mutate(sig_value = 1.96 * Factor * (sqrt((Percent / 100) * (1 - (Percent / 100)) / Base)),
-                  LowerConfidenceLimit = round(Percent - (100 * sig_value), 2),
-                  UpperConfidenceLimit = round(Percent + (100 * sig_value), 2),
-                  Percent = round(Percent, 1)) %>%
+    dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))),
+                  sig_lower = as.numeric(Percent) - (100 * sig_value),
+                  sig_lower = round(as.numeric(sig_lower), 1),
+                  sig_upper = as.numeric(Percent) + (100 * sig_value),
+                  sig_upper = round(as.numeric(sig_upper), 1),
+                  Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), Percent) ) %>%
     dplyr::ungroup() %>%
     dplyr::select(-6, -7, -8)
 
   percent_values <- df %>%
-    select("Year", "Council", "temp_variable_name", "gather_key", "Percent") %>%
-    spread(key = "gather_key", value = "Percent" )
-
-  row_order <- unique(df$temp_variable_name)
-  percent_values$temp_variable_name <- factor(percent_values$temp_variable_name, levels = row_order)
-  percent_values <- percent_values[order(percent_values$temp_variable_name),]
+    dplyr::select("Year", "Council", "temp_variable_name", "gather_key", "Percent") %>%
+    tidyr::spread(key = "gather_key", value = "Percent" )
 
   colnames(df)[3] <- col_2_name
   colnames(percent_values)[3] <- col_2_name
 
-  sig_lower_string <- paste0("sig_lower_values <- df %>% select(`Year`, `Council`, `",
+  sig_lower_string <- paste0("sig_lower_values <- df %>% dplyr::select(`Year`, `Council`, `",
                              col_2_name,
-                             "`, `gather_key`, `LowerConfidenceLimit`) %>% spread(key = `gather_key`, value = `LowerConfidenceLimit`) %>% rename(`Year_l` = `Year`, `Council_l` = `Council`, ")
+                             "`, `gather_key`, `sig_lower`) %>% tidyr::spread(key = `gather_key`, value = `sig_lower`) %>% dplyr::rename(`Year_l` = `Year`, `Council_l` = `Council`, ")
 
   for (column_name in rename_columns) {
 
@@ -77,9 +76,9 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   sig_lower_string <- (substr(sig_lower_string, 1, nchar(sig_lower_string) - 2)) %>%
     paste0(")")
 
-  sig_upper_string <- paste0("sig_upper_values <- df %>% select(`Year`, `Council`, `",
+  sig_upper_string <- paste0("sig_upper_values <- df %>% dplyr::select(`Year`, `Council`, `",
                              col_2_name,
-                             "`, `gather_key`, `UpperConfidenceLimit`) %>% spread(key = `gather_key`, value = `UpperConfidenceLimit`) %>% rename(`Year_u` = `Year`, `Council_u` = `Council`, ")
+                             "`, `gather_key`, `sig_upper`) %>% tidyr::spread(key = `gather_key`, value = `sig_upper`) %>% dplyr::rename(`Year_u` = `Year`, `Council_u` = `Council`, ")
 
   for (column_name in rename_columns) {
 
@@ -89,8 +88,8 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   sig_upper_string <- (substr(sig_upper_string, 1, nchar(sig_upper_string) - 2)) %>%
     paste0(")")
 
-  bind_string <- paste0("df <- bind_cols(c(percent_values, sig_lower_values, sig_upper_values)) %>%",
-                        "select(-Year_l, -Year_u, -Council_l, -Council_u, -`", col_2_name, "_l`, -`", col_2_name, "_u`)")
+  bind_string <- paste0("df <- dplyr::bind_cols(c(percent_values, sig_lower_values, sig_upper_values)) %>%",
+                        "dplyr::select(-Year_l, -Year_u, -Council_l, -Council_u, -`", col_2_name, "_l`, -`", col_2_name, "_u`)")
 
   select_string <- "df <- dplyr::select(df, Year, Council, "
 
@@ -112,10 +111,17 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   select_string <- (substr(select_string, 1, nchar(select_string) - 2)) %>%
     paste0(")")
 
+  get_order_string <- paste0("df$`", col_2_name, "`  <- factor(df$`", col_2_name, "`, levels = row_order)")
+
+  reorder_string <- paste0("df <- df[order(df$`", col_2_name, "`),]")
+
+
   eval(parse(text = sig_lower_string))
   eval(parse(text = sig_upper_string))
   eval(parse(text = bind_string))
   eval(parse(text = select_string))
+  eval(parse(text = get_order_string))
+  eval(parse(text = reorder_string))
 
   df
 }
