@@ -31,7 +31,6 @@ column_2_values_string <- paste0("column_2_values$`", column_2_name, "`")
 column_2_values <- eval(parse(text = column_2_values_string))
 
 base_row_string <- paste0("df[grepl(\"base\", tolower(df$", column_2_name, ")),]$", column_2_name, "[1]")
-print(base_row_string)
 base_row <- eval(parse(text = base_row_string))
 
 if ("All" %in% colnames(df)){

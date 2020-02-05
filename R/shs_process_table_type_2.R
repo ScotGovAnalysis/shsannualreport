@@ -36,6 +36,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   col_2_name <- names(df)[2]
   names(df)[2] <- "temp_variable_name"
   row_order <- unique(df$temp_variable_name)
+  base_row <- df[grepl("base", tolower(df$temp_variable_name)),]$temp_variable_name[1]
 
   colnames <- names(df)
   df$Year = year
@@ -46,7 +47,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   df <- tidyr::gather(df, key=gather_key, value=Percent, first_gather_column_index:last_gather_column_index) %>%
     dplyr::group_by(Council, Year, gather_key) %>%
-    dplyr::mutate(Base = Percent[temp_variable_name == "Base"]) %>%
+    dplyr::mutate(Base = Percent[temp_variable_name == base_row]) %>%
     merge(design, by = "Year") %>%
     dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))),
                   sig_lower = as.numeric(Percent) - (100 * sig_value),
