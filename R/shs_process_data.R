@@ -191,7 +191,7 @@ shs_process_data <- function(extracted_data_path) {
         }
 
         saveRDS(final_df, save_file_path)
-        # file.remove(data_file_path)
+        file.remove(data_file_path)
       }
     }
   }

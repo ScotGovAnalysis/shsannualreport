@@ -65,10 +65,8 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
                         "sig_lower = round(as.numeric(sig_lower), 1), ",
                         "sig_upper = as.numeric(Percent) + (100 * sig_value), ",
                         "sig_upper = round(as.numeric(sig_upper), 1), ",
-                        "Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), Percent) ",
+                        "Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), as.character(Percent)) ",
                         ") %>% dplyr::ungroup()")
-
-print(main_df_string)
 
 values_df_string <- paste0("values_df <- df %>% select(`Council`, `", column_2_name, "`,`Year`, `Percent`) %>% tidyr::spread(key = `Year`, value = `Percent`)")
 
@@ -103,5 +101,5 @@ eval(parse(text = sig_upper_df_string))
 eval(parse(text = final_df_string))
 
 saveRDS(df, save_file_path)
-# file.remove(data_file_path)
+file.remove(data_file_path)
 }

@@ -53,7 +53,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
                   sig_lower = round(as.numeric(sig_lower), 1),
                   sig_upper = as.numeric(Percent) + (100 * sig_value),
                   sig_upper = round(as.numeric(sig_upper), 1),
-                  Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), Percent) ) %>%
+                  Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), as.character(Percent)) ) %>%
     dplyr::ungroup() %>%
     dplyr::select(-6, -7, -8)
 
