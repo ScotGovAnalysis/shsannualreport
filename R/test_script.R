@@ -4,7 +4,10 @@
 # # source_dataset_path is where the Excel sheets of raw data should go
 # # source_metadata_path is where the chapter_titles.xlsx, design_factors.xlsx, and question_titles.xlsx should go
 # source_dataset_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source\\dataset"
+#
 # source_metadata_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\source\\metadata"
+#
+# processed_data_path <- "C:\\Users\\dsap01\\Documents\\shsannualreportdata\\processed_data"
 #
 # # Make sure this folder does not contain folders called column_names.xlsx or variable_names.xlsx
 # # This path is where spreadsheets of column and variable names will be extracted to from the dataset
@@ -55,25 +58,8 @@
 # shs_process_variable_names(extracted_data_path)
 #
 # # These process the data (add statistical significance etc.)
-# shs_process_data(extracted_data_path)
+# shs_process_data(extracted_data_path, processed_data_path)
 #
-# # # The code below updates NULL/NA values with "-" or "*"
-# # files <- list.files(extracted_dataset_path)
-# #
-# # # This is a list of years with incomplete data. Any missing values for years in this list will be populated with "*"
-# # incomplete_years <- c("2011")
-# #
-# # for (file in files) {
-# #
-# #   data_file_path <- file.path(extracted_dataset_path, file)
-# #
-# #   tryCatch({
-# #   shs_replace_na(data_file_path, incomplete_years)
-# #   }, error = function(cond) {
-# #     message(paste0("Error in test script replacing nulls and NAs for file: ", file, " Error msg: ", cond))
-# #   })
-# # }
-# #
 # # shs_shiny_variables("variables.R", extracted_data_path)
 #
 # # # To copy raw data if needed, place in script

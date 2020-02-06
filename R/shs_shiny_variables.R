@@ -24,12 +24,6 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
   chapter_titles <- readRDS(file.path(extracted_metadata_path, "chapter_titles.Rds"))
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
 
-  type_0_tables <- dplyr::filter(question_titles, Type == 0)$ID
-  type_1_tables <- dplyr::filter(question_titles, Type == 1)$ID
-  type_2_tables <- dplyr::filter(question_titles, Type == 2)$ID
-  type_3_tables <- dplyr::filter(question_titles, Type == 3)$ID
-  type_4_tables <- dplyr::filter(question_titles, Type == 4)$ID
-
   files <- list.files(extracted_dataset_path)
 
   cat("question_titles <- readRDS(\"data\\\\metadata\\\\question_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
@@ -90,59 +84,33 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
   for (chapter_number in chapter_numbers) {
 
     select_question_string <- ""
-    valid_question_titles <- c()
-    question_titles_by_chapter <- question_titles[grepl(paste0(" ", chapter_number, "."), question_titles$ID),]$Title
+    valid_question_ids <- c()
+    question_ids_by_chapter <- question_titles[grepl(paste0(" ", chapter_number, "."), question_titles$ID),]$ID
 
-    if (length(question_titles_by_chapter) > 0) {
+    if (length(question_ids_by_chapter) > 0) {
 
       select_question_string <- paste0(select_question_string, "select_list_questions_chapter_", chapter_number, " <- c(")
 
-      for (question_title in question_titles_by_chapter){
+      for (question_id in question_ids_by_chapter) {
 
-        if (!is.na(pmatch(question_title, files)) || question_titles[question_titles$Title == question_title,]$ID %in% type_0_tables)
+        question_title <- question_titles[question_titles$ID == question_id,]$Title
 
-          valid_question_titles <- c(valid_question_titles, question_title)
+        select_question_string <- paste0(select_question_string, "\"", question_id, ": ", question_title, "\"", " = ", "\"", question_id, "\",", "\n")
       }
+
+      if (length(question_ids_by_chapter) > 0) {
+
+        select_question_string <- (substr(select_question_string, 1, nchar(select_question_string) - 2))
+      }
+
+      select_question_string <- paste0(select_question_string, ")\n\n")
+
+      cat(select_question_string, file = save_file_path, append = TRUE)
     }
-
-    for (question_title in valid_question_titles) {
-
-      question_title_without_special_character <- gsub("[[:punct:]]", "", question_title)
-
-      question_number <- question_titles[grepl(question_title_without_special_character, question_titles$TitleWithoutSpecialCharacter),]$ID
-
-      select_question_string <- paste0(select_question_string, "\"", question_number, ": ", question_title, "\"", " = ", "\"", question_title, "\",", "\n")
-    }
-
-    if (length(valid_question_titles) > 0) {
-
-      select_question_string <- (substr(select_question_string, 1, nchar(select_question_string) - 2))
-    }
-
-    select_question_string <- paste0(select_question_string, ")\n\n")
-
-    cat(select_question_string, file = save_file_path, append = TRUE)
   }
 
-  question_types <- sort(unique(question_titles$Type))
-
-  for (question_type in question_types){
-
-    question_titles_by_type <- question_titles[question_titles$Type == question_type,]$Title
-    questions_by_type_string <- paste0("type_", question_type, "_questions <- c(")
-
-    for (question_title in question_titles_by_type) {
-
-      questions_by_type_string <- paste0(questions_by_type_string, "\"", question_title, "\",\n")
-    }
-
-    if (length(question_titles_by_type) > 0) {
-
-      questions_by_type_string <- (substr(questions_by_type_string, 1, nchar(questions_by_type_string) - 2))
-      questions_by_type_string <- paste0(questions_by_type_string, ")\n\n")
-    }
-
-    cat(questions_by_type_string, file = save_file_path, append = TRUE)
-  }
+  cat("type_0_questions <- question_titles$ID[question_titles$Type == 0]\n\ntype_1_questions <- question_titles$ID[question_titles$Type == 1]\n\ntype_2_questions <- question_titles$ID[question_titles$Type == 2]\n\ntype_3_questions <- question_titles$ID[question_titles$Type == 3]\n\ntype_4_questions <- question_titles$ID[question_titles$Type == 4]\n\n",
+      file = save_file_path,
+      append = TRUE)
 }
 

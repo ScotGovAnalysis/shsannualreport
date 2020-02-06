@@ -16,7 +16,7 @@
 #'
 #' @export
 
-shs_process_data <- function(extracted_data_path) {
+shs_process_data <- function(extracted_data_path, processed_data_path) {
 
   extracted_dataset_path <- file.path(extracted_data_path, "dataset")
   extracted_metadata_path <- file.path(extracted_data_path, "metadata")
@@ -37,39 +37,63 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_1_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
+    save_file_path <- file.path(processed_data_path, "data", paste0(table, ".Rds"))
 
-    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
-
-      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
-    }
-
-    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
-
-    if (length(data_files[grep(paste0(table, "_LA.Rds"), data_files)]) == 1) {
-
-      data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, "_LA.Rds"), data_files)])
-
-      } else if (length(data_files[grep(paste0(table, ".Rds"), data_files)]) == 1) {
-
-      data_file_path <- file.path(extracted_dataset_path, data_files[grep(paste0(table, ".Rds"), data_files)])
-
-      } else {
+    if (grepl(", ", table)) {
 
       data_file_path <- NULL
+
+      multiple_tables <- strsplit(table, split = ", ")
+
+      for (single_table in multiple_tables[[1]]) {
+
+        if (length(data_files[grepl(paste0(toupper(single_table), ".RDS"), toupper(data_files))]) == 1) {
+
+          data_file_path <- file.path(extracted_dataset_path, data_files[grepl(paste0(toupper(single_table), ".RDS"), toupper(data_files))])
+
+        } else if (length(data_files[grepl(paste0(toupper(single_table), "_LA.RDS"), toupper(data_files))]) == 1) {
+
+          data_file_path <- file.path(extracted_dataset_path, data_files[grepl(paste0(toupper(single_table), "_LA.RDS"), toupper(data_files))])
+        }
+      }
+
+      if (is.null(data_file_path)) {
+
+        missing_tables_type_1 <- c(missing_tables_type_1, table)
+      }
+
+    } else if (length(data_files[grepl(paste0(toupper(table), "_LA.RDS"), toupper(data_files))]) == 1) {
+
+      data_file_path <- file.path(extracted_dataset_path, data_files[grepl(paste0(toupper(table), "_LA.RDS"), toupper(data_files))])
+
+    } else if (length(data_files[grepl(paste0(toupper(table), ".RDS"), toupper(data_files))]) == 1) {
+
+      data_file_path <- file.path(extracted_dataset_path, data_files[grepl(paste0(toupper(table), ".RDS"), toupper(data_files))])
+
+    } else {
+
+      data_file_path <- NULL
+
       missing_tables_type_1 <- c(missing_tables_type_1, table)
     }
 
     if (!is.null(data_file_path)) {
 
       tryCatch({
+
         shsannualreport:::shs_process_table_type_1(data_file_path, save_file_path, design_factors_path)
+
       }, error = function(cond) {
-        message(paste0("Error processing type 1 table: ", table, " Error msg: ", cond))})
+
+        message(paste0("Error processing type 1 table: ", table, " Error msg: ", cond))
+      })
     }
   }
 
-  print(paste0("Type 1 files not found: ", missing_tables_type_1))
+  if (length(missing_tables_type_1) > 0) {
+
+    print(paste0("Type 1 files not found: ", missing_tables_type_1))
+  }
 
   # Data processing for type 2 (column percentage) datasets
 
@@ -77,35 +101,23 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_2_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
+    save_file_path <- file.path(processed_data_path, "data", paste0(table, ".Rds"))
 
-    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
+    if (grepl(", ", table)) {
 
-      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
-    }
+      data_file_path <- NULL
 
-    save_file_path <- file.path(extracted_dataset_path, paste0(gsub("\\*", "", question_title), ".Rds"))
+      multiple_tables <- strsplit(table, split = ", ")
 
-    if (grepl(" and ", table)) {
+      for (single_table in multiple_tables[[1]]) {
 
-      both_tables <- strsplit(table, split = " and ")
-      table_1 <- both_tables[[1]][1]
-      table_2 <- both_tables[[1]][2]
-      table_1_files <- data_files[grepl(toupper(paste0(table_1, "_")), toupper(data_files))]
-      table_2_files <- data_files[grepl(toupper(paste0(table_2, "_")), toupper(data_files))]
+        if (length(data_files[grepl(paste0(toupper(single_table), "_"), toupper(data_files))]) == 1) {
 
-      if (length(table_1_files > 0)) {
-
-        files <- table_1_files
+          files <- data_files[grepl(paste0(toupper(single_table), "_"), toupper(data_files))]
+        }
       }
 
-      else if (length(table_2_files > 0)) {
-
-        files <- table_2_files
-      }
-    }
-
-    else {
+    } else {
 
       files <- data_files[grepl(toupper(paste0(table, "_")), toupper(data_files))]
     }
@@ -113,18 +125,21 @@ shs_process_data <- function(extracted_data_path) {
     if (length(files) == 0) {
 
       missing_tables_type_2 <- c(missing_tables_type_2, table)
-    }
 
-    else {
+    } else {
 
       for (file in files) {
 
         data_file_path <- file.path(extracted_dataset_path, file)
 
         tryCatch({
+
           df <- shsannualreport:::shs_process_table_type_2(data_file_path, design_factors_path)
+
         }, error = function(cond) {
-          message(paste0("Error processing type 2 table: ", table, " Error msg: ", cond))})
+
+          message(paste0("Error processing type 2 table: ", table, " Error msg: ", cond))
+        })
 
         if (match(file, files) == 1) {
 
@@ -133,9 +148,12 @@ shs_process_data <- function(extracted_data_path) {
         } else {
 
           tryCatch({
-            final_df <- rbind(final_df, df)
+            final_df <- plyr::rbind.fill(final_df, df)
+
           }, error = function(cond) {
-            message(paste0("rbind for file: ", file, " threw error: ", cond))})
+
+            message(paste0("rbind for file: ", file, " threw error: ", cond))
+          })
         }
 
         saveRDS(final_df, save_file_path)
@@ -144,7 +162,10 @@ shs_process_data <- function(extracted_data_path) {
     }
   }
 
-  print(paste0("Type 2 files not found: ", missing_tables_type_2))
+  if (length(missing_tables_type_2) > 0) {
+
+    print(paste0("Type 2 files not found: ", missing_tables_type_2))
+  }
 
   # Data processing for type 3 (row percentage) datasets
 
@@ -152,31 +173,28 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_3_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
+    save_file_path <- file.path(processed_data_path, "data", paste0(table, ".Rds"))
 
-    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
-
-      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
-    }
-
-    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
     if (length(files) == 0) {
 
       missing_tables_type_3 <- c(missing_tables_type_3, table)
-    }
 
-    else {
+    } else {
 
       for (file in files) {
 
         data_file_path <- file.path(extracted_dataset_path, file)
 
         tryCatch({
+
           df <- shsannualreport:::shs_process_table_type_3(data_file_path, design_factors_path)
+
         }, error = function(cond) {
-          message(paste0("Error processing type 3 table: ", table, " Error msg: ", cond))})
+
+          message(paste0("Error processing type 3 table: ", table, " Error msg: ", cond))
+        })
 
         if (match(file, files) == 1) {
 
@@ -185,9 +203,13 @@ shs_process_data <- function(extracted_data_path) {
         } else {
 
           tryCatch({
-            final_df <- rbind(final_df, df)
+
+            final_df <- plyr::rbind.fill(final_df, df)
+
           }, error = function(cond) {
-            message(paste0("rbind for file: ", file, " threw error: ", cond))})
+
+            message(paste0("rbind for file: ", file, " threw error: ", cond))
+          })
         }
 
         saveRDS(final_df, save_file_path)
@@ -196,7 +218,10 @@ shs_process_data <- function(extracted_data_path) {
     }
   }
 
-  print(paste0("Type 3 files not found: ", missing_tables_type_3))
+  if (length(missing_tables_type_3) > 0) {
+
+    print(paste0("Type 3 files not found: ", missing_tables_type_3))
+  }
 
   # Data processing for type 4 (manual input) datasets
 
@@ -204,34 +229,34 @@ shs_process_data <- function(extracted_data_path) {
 
   for (table in type_4_tables) {
 
-    question_title <- gsub("/", " ", dplyr::filter(question_titles, ID == table)$TitleWithoutSpecialCharacter)
+    save_file_path <- file.path(processed_data_path, "data", paste0(table, ".Rds"))
 
-    if (nchar(extracted_dataset_path) + nchar(question_title) > 249) {
-
-      question_title = substring(question_title, 1, 249 - nchar(extracted_dataset_path))
-    }
-
-    save_file_path <- file.path(extracted_dataset_path, paste0(question_title, ".Rds"))
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
     if (length(files) == 0) {
 
       missing_tables_type_4 <- c(missing_tables_type_4, table)
-    }
 
-    else {
+    } else {
 
       for (file in files) {
 
         data_file_path <- file.path(extracted_dataset_path, file)
 
         tryCatch({
+
           df <- shsannualreport:::shs_process_table_type_4(data_file_path, save_file_path)
+
         }, error = function(cond) {
-          message(paste0("Error processing type 4 table: ", table, " Error msg: ", cond))})
+
+          message(paste0("Error processing type 4 table: ", table, " Error msg: ", cond))
+        })
       }
     }
   }
 
-  print(paste0("Type 4 files not found: ", missing_tables_type_4))
+  if (length(missing_tables_type_4) > 0) {
+
+    print(paste0("Type 4 files not found: ", missing_tables_type_4))
+  }
 }
