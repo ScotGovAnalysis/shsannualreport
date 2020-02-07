@@ -1,0 +1,70 @@
+---
+title: "SHS Chapter Data"
+output:
+  pdf_document:
+    df_print: kable
+    latex_engine: xelatex
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+params:
+  local_authority: Scotland
+  year: 2018
+mainfont: Calibri Light
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+library(DT)
+library(shiny)
+library(knitr)
+library(kableExtra)
+local_authority <- params$local_authority
+year = params$year
+
+select_list_questions_chapter_2 <- c("Table 2.10: Age of adults by marital status" = "Age of adults by marital status",
+"Table 2.9: Current marital status of adults by age" = "Current marital status of adults by age",
+"Table 2.1: Age of all household members by year" = "Age of all household members by year",
+"Table 2.2: Gender of all household members by year" = "Gender of all household members by year",
+"Figure 2.1: Age of adults by year" = "Age of adults by year",
+"Figure 2.2: Gender of adults by year" = "Gender of adults by year",
+"Table 2.5: Ethnicity of adults by year" = "Ethnicity of adults by year",
+"Table 2.7: Sexual orientation of adults by year" = "Sexual orientation of adults by year",
+"Figure 2.5: Religious belonging of adults by year" = "Religious belonging of adults by year",
+"Table 2.8: Marital status of adults by year" = "Marital status of adults by year",
+"Table 2.11: Household type of households by year" = "Household type of households by year",
+"Table 2.12: Households with children by year" = "Households with children by year",
+"Table 2.13: Property type of households by year" = "Property type of households by year",
+"Table 2.15: Scottish Index of Multiple Deprivation of households by year" = "Scottish Index of Multiple Deprivation of households by year",
+"Table 2.16: Urban rural split of households by year" = "Urban rural split of households by year",
+"Table 2.17: Household income of households by year" = "Household income of households by year")
+```
+
+## Table 2.10: Age of adults by marital status
+
+```{r}
+Table_2.10 <- readRDS("~/shinyshsannualreport/data/dataset/Age of adults by marital status.Rds")
+  column_names <- colnames(Table_2.10)[!grepl("_l", colnames(Table_2.10)) & !grepl("_u", colnames(Table_2.10))]
+  Table_2.10 <- dplyr::select(Table_2.10, column_names)
+  Table_2.10_main <- Table_2.10[Table_2.10$Council == local_authority & Table_2.10$Year == year,]
+  Table2.10_main <- dplyr::select(Table_2.10_main, -c("Council", "Year"))
+kable(Table_2.10_main) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+## Table 2.9: Current marital status of adults by age
+
+```{r}
+Table_2.9 <- readRDS("~/shinyshsannualreport/data/dataset/Current marital status of adults by age.Rds")
+  column_names <- colnames(Table_2.9)[!grepl("_l", colnames(Table_2.9)) & !grepl("_u", colnames(Table_2.9))]
+  Table_2.9 <- dplyr::select(Table_2.9, column_names)
+  Table_2.9 <- Table_2.9[Table_2.9$Council == local_authority & Table_2.9$Year == year,]
+  Table_2.9 <- dplyr::select(Table_2.9, -c("Council", "Year"))
+kable(Table_2.9) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+
+
+
