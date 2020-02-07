@@ -4,21 +4,19 @@
 #' This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
 #' \code{shs_extract_metadata}.
 #'
-#' @param extracted_data_path \code{string}. The path of the directory containing the extracted survey dataset and metadata.
-#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_process_column_names(extracted_data_path)
+#' shs_process_column_names()
 #' }
 #'
 #' @export
 
-shs_process_column_names <- function(extracted_data_path) {
+shs_process_column_names <- function() {
 
-  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
-  extracted_metadata_path <- file.path(extracted_data_path, "metadata")
+  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_metadata_path <- "app\\data\\metadata"
 
   column_reference <- readRDS(file.path(extracted_metadata_path, "column_names.Rds"))
 

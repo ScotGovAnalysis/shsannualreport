@@ -4,12 +4,7 @@
 \alias{shs_get_variable_names}
 \title{Get variable names from an extracted dataset}
 \usage{
-shs_get_variable_names(extracted_data_path, column_and_variable_path)
-}
-\arguments{
-\item{column_and_variable_path}{\code{string}. The path to save the variable names Excel workbook to.}
-
-\item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}
+shs_get_variable_names()
 }
 \value{
 \code{null}.
@@ -20,7 +15,7 @@ and saves them to an xlsx file, which can then be updated with names to display 
 }
 \examples{
 \dontrun{
-shs_get_variable_names(extracted_dataset_path)
+shs_get_variable_names()
 }
 
 }

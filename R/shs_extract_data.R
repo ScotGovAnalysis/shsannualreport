@@ -4,23 +4,25 @@
 #' and saves all sheets as Rds files in specified directories.
 #' Uses internal functions \code{shs_extract_dataset} (to extract the source dataset) and \code{shs_extract_metadata} (to extract the source metadata).
 #'
-#' @param source_dataset_path \code{string}. The path of the source dataset. Should contain Excel workbooks of raw survey data.
-#' @param source_metadata_path \code{string}. The path of the source metadata. Should contain Excel workbooks of chapter and question titles, and design factors.
-#' @param extracted_data_path \code{string}. The path to extract the dataset and metadata to. Two directories will be created here; 'dataset' and 'metadata', and both will be populated with .Rds files.
-#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_extract_data(source_dataset_path, source_metadata_path, extracted_data_path)
+#' shs_extract_data()
 #' }
 #'
 #' @export
 
-shs_extract_data <- function(source_dataset_path, source_metadata_path, extracted_data_path) {
+shs_extract_data <- function() {
 
-  extracted_dataset_path <- file.path(extracted_data_path, "dataset")
-  extracted_metadata_path <- file.path(extracted_data_path, "metadata")
+  source_dataset_path <- "source\\dataset"
+  source_metadata_path <- "source\\metadata"
+
+  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_metadata_path <- "app\\data\\metadata"
+
+  unlink(extracted_dataset_path, recursive = TRUE)
+  unlink(extracted_metadata_path, recursive = TRUE)
 
   dir.create(extracted_dataset_path)
   dir.create(extracted_metadata_path)

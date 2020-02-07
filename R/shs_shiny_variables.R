@@ -2,24 +2,23 @@
 #'
 #' \code{shs_shiny_variables} creates a file of R variables to based on extracted data, to be used in the SHS annual report Shiny app.
 #'
-#' @param save_file_path \code{string}. The path to save the file to.
-#' @param design_factors_path \code{string}. The path of the extracted SHS data.
-#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_shiny_variables(save_file_path, extracted_data_path)
+#' shs_shiny_variables()
 #' }
 #'
 #' @export
 
-shs_shiny_variables <- function(save_file_path, extracted_data_path) {
+shs_shiny_variables <- function() {
+
+  save_file_path <- "app\\source\\variables.R"
 
   file.create(save_file_path)
 
-  extracted_dataset_path <- paste0(extracted_data_path, "\\dataset")
-  extracted_metadata_path <- paste0(extracted_data_path, "\\metadata")
+  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_metadata_path <- "app\\data\\metadata"
 
   chapter_titles <- readRDS(file.path(extracted_metadata_path, "chapter_titles.Rds"))
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
@@ -79,7 +78,6 @@ shs_shiny_variables <- function(save_file_path, extracted_data_path) {
   cat(select_chapter_string, file = save_file_path, append = TRUE)
 
   chapter_numbers <- gsub("CH", "", chapter_titles$code)
-  print(chapter_numbers)
 
   for (chapter_number in chapter_numbers) {
 

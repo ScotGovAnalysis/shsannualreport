@@ -4,10 +4,7 @@
 \alias{shs_process_column_names}
 \title{Rename column names in extracted datasets}
 \usage{
-shs_process_column_names(extracted_data_path)
-}
-\arguments{
-\item{extracted_data_path}{\code{string}. The path of the directory containing the extracted survey dataset and metadata.}
+shs_process_column_names()
 }
 \value{
 \code{null}.
@@ -19,7 +16,7 @@ This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For mor
 }
 \examples{
 \dontrun{
-shs_process_column_names(extracted_data_path)
+shs_process_column_names()
 }
 
 }

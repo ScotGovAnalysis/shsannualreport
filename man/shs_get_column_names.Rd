@@ -4,12 +4,7 @@
 \alias{shs_get_column_names}
 \title{Get column names from an extracted dataset}
 \usage{
-shs_get_column_names(extracted_data_path, column_and_variable_path)
-}
-\arguments{
-\item{extracted_data_path}{\code{string}. The path of the directory containing extracted survey data.}
-
-\item{column_and_variable_path}{\code{string}. The path to save the column names Excel workbook to.}
+shs_get_column_names()
 }
 \value{
 \code{null}.
@@ -20,7 +15,7 @@ and saves them to an xlsx file, which can then be updated with names to display 
 }
 \examples{
 \dontrun{
-shs_get_column_names(extracted_dataset_path)
+shs_get_column_names()
 }
 
 }

@@ -4,14 +4,7 @@
 \alias{shs_extract_column_and_variable_names}
 \title{Extract survey column and variable_names from Excel}
 \usage{
-
-  shs_extract_column_and_variable_names(source_column_and_variable_names_path,
-  extracted_metadata_path)
-}
-\arguments{
-\item{source_column_and_variable_names_path}{\code{string}. The path of the directory containing survey column and variable_names in Excel format.}
-
-\item{extracted_metadata_path}{\code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.}
+shs_extract_column_and_variable_names()
 }
 \value{
 \code{null}.
@@ -22,7 +15,7 @@ and saves each sheet into a specified destination as an individual \code{.Rds} f
 }
 \examples{
 \dontrun{
-shs_extract_column_and_variable_names(source_column_and_variable_names_path, extracted_metadata_path)
+shs_extract_column_and_variable_names()
 }
 
 }
