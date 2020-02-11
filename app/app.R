@@ -199,7 +199,7 @@ server <- function(input, output, session) {
     # Update select_comparison_type and hide select_year by type of selected question ####
     observe ({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority"))
 
@@ -207,7 +207,7 @@ server <- function(input, output, session) {
             shinyjs::hideElement("select_year")
             shinyjs::showElement("select_comparison_type")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority"))
 
@@ -231,7 +231,7 @@ server <- function(input, output, session) {
 
             df <- df()
 
-            if (!input$select_question %in% type_1_questions) {
+            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(unique(df$Year), decreasing = TRUE))
             }
@@ -246,7 +246,7 @@ server <- function(input, output, session) {
 
             selected_year <- input$select_year
 
-            if (!input$select_question %in% type_1_questions) {
+            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year_comparator", label = "Year",
                                   choices = sort(unique(df()$Year)[!sort(unique(df()$Year)) %in% selected_year], decreasing = TRUE))
@@ -343,11 +343,11 @@ server <- function(input, output, session) {
     # comparison_df() ####
     comparison_df <- reactive ({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             df <- df()[df()$Council == input$select_local_authority_comparator,]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             if (input$select_comparison_type == "Year") {
 
@@ -376,11 +376,11 @@ server <- function(input, output, session) {
     # base_df() ####
     base_df <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             base_df <- df()[df()$Council == input$select_local_authority,]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             base_df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority,]
 
@@ -462,7 +462,7 @@ server <- function(input, output, session) {
     # comparison_chart_df() ####
     comparison_chart_df <- reactive ({
 
-        if (input$select_comparison_type != "No comparison") {
+        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions) {
 
             if (input$select_question %in% type_1_questions) {
 
@@ -471,7 +471,8 @@ server <- function(input, output, session) {
             } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
                 comparison_chart_df <- comparison_df()[-c(1, 2)]
-            }
+
+                }
 
             column_names <- colnames(comparison_chart_df)
 
@@ -508,7 +509,7 @@ server <- function(input, output, session) {
     # statistical_significance_key ####
     output$statistical_significance_key <- renderText ({
 
-        if (input$select_comparison_type != "No comparison") {
+        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions) {
 
             if (input$select_comparison_type == "Year") {
 
@@ -605,18 +606,22 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
+            if (input$select_comparison_type != "No comparison") {
+
             paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
+
+            }
         }
     })
 
     # main_title ####
     output$main_title <- renderText({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ")")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year, ")")
 
@@ -629,7 +634,7 @@ server <- function(input, output, session) {
     # comparison_title ####
     output$comparison_title <- renderText({
 
-        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -718,7 +723,7 @@ server <- function(input, output, session) {
                                             ordering = FALSE,
                                             info = FALSE,
                                             searching = FALSE,
-                                            columnDefs = list(list(targets = c(0:2),
+                                            columnDefs = list(list(targets = c(0:1),
                                                                    visible = FALSE))))
 
         } else if (input$select_question %in% type_0_questions){
@@ -774,7 +779,7 @@ server <- function(input, output, session) {
                               ordering = FALSE,
                               info = FALSE,
                               searching = FALSE,
-                              columnDefs = list(list(targets = c(0:2),
+                              columnDefs = list(list(targets = c(0:1),
                                                      visible = FALSE))))
 
         } else {
@@ -811,7 +816,7 @@ server <- function(input, output, session) {
 
         gather_key <- colnames(df[2])
 
-        if (input$select_question %in% type_0_questions) {
+        if (input$select_question %in% c(type_0_questions, type_4_questions)) {
 
             chart <- NULL
 
@@ -824,12 +829,6 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             bar_chart_string <- paste0("ggplot(data = df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",], mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) + geom_bar(position = \"dodge\", stat = \"identity\")")
-
-            chart <- eval(parse(text = bar_chart_string))
-
-        } else if (input$select_question %in% c(type_4_questions)) {
-
-            bar_chart_string <- paste0("ggplot(data = df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",], mapping = aes(x = `", gather_key, "`, y = `", measure_column_name(), "`, fill = `Percent`)) + geom_bar(position = \"dodge\", stat = \"identity\")")
 
             chart <- eval(parse(text = bar_chart_string))
         }
@@ -858,11 +857,6 @@ server <- function(input, output, session) {
 
                 chart <- eval(parse(text = bar_chart_string))
 
-            } else if (input$select_question %in% c(type_4_questions)) {
-
-                bar_chart_string <- paste0("ggplot(data = df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",], mapping = aes(x = `", gather_key, "`, y = `", measure_column_name(), "`, fill = `Percent`)) + geom_bar(position = \"dodge\", stat = \"identity\")")
-
-                chart <- eval(parse(text = bar_chart_string))
             } else {
 
                 chart <- NULL
