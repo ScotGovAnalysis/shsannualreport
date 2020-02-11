@@ -19,11 +19,11 @@ ui <- fluidPage(
 
     navbarPage(title="SHS Annual Report",
 
-               tabPanel("Home",
-                        fluidRow(
-                            column(8, offset = 2, includeMarkdown("home.Rmd"))
-                        )
-               ),
+               # tabPanel("Home",
+               #          fluidRow(
+               #              column(8, offset = 2, includeMarkdown("home.Rmd"))
+               #          )
+               # ),
 
                tabPanel("Survey Results",
 
@@ -63,16 +63,16 @@ ui <- fluidPage(
                         fluidRow(plotly::plotlyOutput("comparison_chart"))
                ),
 
-               tabPanel("Download PDF",
-
-                        selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"),
-                        selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities),
-                        selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013")),
-                        selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%"),
-                        conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%")),
-                        conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")),
-                        downloadButton("report", "Generate report")
-                        ),
+               # tabPanel("Download PDF",
+               #
+               #          selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"),
+               #          selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities),
+               #          selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013")),
+               #          selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%"),
+               #          conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%")),
+               #          conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")),
+               #          downloadButton("report", "Generate report")
+               #          ),
 
                tabPanel("Download CSV",
 
