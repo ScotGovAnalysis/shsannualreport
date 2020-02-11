@@ -99,6 +99,8 @@ shs_process_data <- function() {
 
   for (table in type_2_tables) {
 
+    files = c()
+
     save_file_path <- file.path(extracted_dataset_path, paste0(table, ".Rds"))
 
     if (grepl(", ", table)) {
@@ -109,7 +111,7 @@ shs_process_data <- function() {
 
       for (single_table in multiple_tables[[1]]) {
 
-        if (length(data_files[grepl(paste0(toupper(single_table), "_"), toupper(data_files))]) == 1) {
+        if (length(data_files[grepl(paste0(toupper(single_table), "_"), toupper(data_files))]) > 0) {
 
           files <- data_files[grepl(paste0(toupper(single_table), "_"), toupper(data_files))]
         }
