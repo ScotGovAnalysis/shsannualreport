@@ -1,4 +1,27 @@
-question_titles <- readRDS("data\\metadata\\question_titles.Rds")
+question_titles <- readRDS("data/metadata/question_titles.Rds")
+
+time_series_colours <- brewer.pal(8, "Dark2")
+
+shs_colours <- c("#01665e", # Dark green
+      "#57a0d3", # Darkish blue
+      "#81d8d0", # Teal
+      "#7285a5", # Grey
+      "#cc79a7", # Pink
+      "#e69f00", # Yellow
+      "#542788", # Purple
+      "#66a61e", # Green
+      "#d95f02", # Burnt orange
+      "#a6761d", # Yellow-Brown
+      "#666666", # Dark grey
+      "#fb9a99", # Peach
+      "#e31a1c", # Red
+      "#fdbf6f", # Yellow
+      "#ff7f00", # Bright orange
+      "#cab2d6", # Light purple
+      "#6a3d9a", # Strong purple
+      "#ebd72a", # Bright yellow
+      "#b15928"  # Brown
+  )
 
 local_authorities <- c("Scotland",
                            "Aberdeen City",
