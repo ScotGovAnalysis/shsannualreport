@@ -24,10 +24,10 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   }, error = function(cond) {
     message(paste0("Couldn't read file: ", data_file_path))})
 
-  if ("All" %in% colnames(df)){
-
-    df <- subset(df, select=-c(All))
-  }
+  # if ("All" %in% colnames(df)){
+  #
+  #   df <- subset(df, select=-c(All))
+  # }
 
   design <- readRDS(design_factors_path)
 
