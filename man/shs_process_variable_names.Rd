@@ -4,12 +4,7 @@
 \alias{shs_process_variable_names}
 \title{Rename variable names in extracted datasets}
 \usage{
-shs_process_variable_names(extracted_data_path)
-}
-\arguments{
-\item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}
-
-\item{extracted_metadata_path}{\code{string}. The path of the directory containing extracted metadata.}
+shs_process_variable_names()
 }
 \value{
 \code{null}.
@@ -21,7 +16,7 @@ This metadata is extracted from an Excel sheet \code{variable_names.xlsx}. For m
 }
 \examples{
 \dontrun{
-shs_process_variable_names(extracted_dataset_path, extracted_metadata_path)
+shs_process_variable_names()
 }
 
 }

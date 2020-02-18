@@ -38,6 +38,5 @@ shs_extract_metadata <- function(source_metadata_path,
 
   extracted_question_titles_path <- file.path(extracted_metadata_path, "question_titles.Rds")
   question_titles <- readRDS(extracted_question_titles_path)
-  question_titles$TitleWithoutSpecialCharacter <- gsub("[[:punct:]]", "", question_titles$Title)
   saveRDS(question_titles, extracted_question_titles_path)
 }

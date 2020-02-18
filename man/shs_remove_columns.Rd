@@ -4,12 +4,10 @@
 \alias{shs_remove_columns}
 \title{Remove columns from extracted datasets}
 \usage{
-shs_remove_columns(extracted_data_path, columns_to_remove)
+shs_remove_columns(columns_to_remove)
 }
 \arguments{
 \item{columns_to_remove}{\code{character vector}. The names of all columns to remove.}
-
-\item{extracted_dataset_path}{\code{string}. The path of the directory containing extracted survey data.}
 }
 \value{
 \code{null}.
@@ -19,7 +17,7 @@ shs_remove_columns(extracted_data_path, columns_to_remove)
 }
 \examples{
 \dontrun{
-shs_remove_columns(extracted_dataset_path, columns_to_remove)
+shs_remove_columns(columns_to_remove)
 }
 
 }

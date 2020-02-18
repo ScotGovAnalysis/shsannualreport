@@ -18,6 +18,8 @@ shs_update_names_workbook(new_workbook_path, old_workbook_path)
 \code{shs_update_names_workbook} updates column or variable names in an  Excel spreadsheet with populated values from another spreadsheet.
 }
 \examples{
+\dontrun{
 shs_update_names_workbook(new_workbook_path, old_workbook_path)
+}
 
 }

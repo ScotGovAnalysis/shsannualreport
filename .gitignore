@@ -2,9 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-/extracted*/
+rsconnect/
 
-test2processingToDelete.R
-test_script.R
-test3processingToDelete.R
-variables.R

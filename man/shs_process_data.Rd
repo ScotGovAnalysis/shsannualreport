@@ -4,10 +4,7 @@
 \alias{shs_process_data}
 \title{Process SHS annual report data for publication}
 \usage{
-shs_process_data(extracted_data_path)
-}
-\arguments{
-\item{extracted_data_path}{\code{string}. The path of the directory containing the extracted survey dataset and metadata.}
+shs_process_data()
 }
 \value{
 \code{null}.
@@ -19,9 +16,8 @@ It relies on a number of internal functions: \code{shs_process_table_type_1} (fo
 \code{shs_process_table_type_4} (for manually added tables).
 }
 \examples{
-
 \dontrun{
-shs_process_data("extracted_data_path")
+shs_process_data()
 }
 
 }
