@@ -121,23 +121,23 @@ ui <- fluidPage(
                                          fluidRow(h5(htmlOutput("link"))),
                                          fluidRow(dataTableOutput("main_table")),
                                          fluidRow(htmlOutput("statistical_significance_key")),
-                                         downloadButton("download_table", "Download Table"),
+                                         conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table")),
                                          fluidRow(h3(textOutput("comparison_title"))),
                                          fluidRow(h4(textOutput("comparison_table_type_comment"))),
                                          fluidRow(dataTableOutput("comparison_table")),
                                          br(),
-                                         conditionalPanel(condition = "input.select_comparison_type != 'No comparison'", downloadButton("download_comparison_table", "Download comparison table"))
+                                         conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table"))
                                 ),
 
                                 tabPanel("Chart",
 
                                          fluidRow(
-                                             column(3, offset = 6, checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE)),
-                                             column(2, radioButtons("zoomLevel_main",
+                                             column(3, offset = 6, conditionalPanel(condition = "output.question_type != '0'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
+                                             column(2, conditionalPanel(condition = "output.question_type != '0'", radioButtons("zoomLevel_main",
                                                                     "Y-axis zoom level:",
                                                                     selected = "Zoom to data",
                                                                     choices = c("Zoom to data", "Full scale"))),
-                                             column(1, actionButton("help", icon("question")))
+                                             column(1, conditionalPanel(condition = "output.question_type != '0'", actionButton("help", icon("question")))))
                                          ),
 
                                          fluidRow(h3(textOutput("main_plot_title"))),
@@ -904,6 +904,39 @@ server <- function(input, output, session) {
 
     # TEXT ####
 
+    # output$question_type ####
+
+    output$question_type <- renderText({
+
+        if (input$select_question %in% type_0_questions) {
+
+            "0"
+
+        } else if (input$select_question %in% type_1_questions) {
+
+            "1"
+
+        } else if (input$select_question %in% type_2_questions) {
+
+            "2"
+
+        } else if (input$select_question %in% type_3_questions) {
+
+            "3"
+
+        } else if (input$select_question %in% type_4_questions) {
+
+            "4"
+
+        } else {
+
+         NULL
+        }
+
+        })
+
+    outputOptions(output, "question_type", suspendWhenHidden = FALSE)
+
     # output$statistical_significance_key ####
 
     output$statistical_significance_key <- renderText ({
@@ -968,11 +1001,11 @@ server <- function(input, output, session) {
 
             NULL
 
-        } else if (input$select_question %in% type_1_questions & !is.null(input$select_comparison_type)) {
+        } else if (input$select_question %in% type_1_questions & input$select_comparison_type != "No comparison") {
 
             paste0("Column percentages, ", coverage)
 
-        } else if (input$select_question %in% type_2_questions) {
+        } else if (input$select_question %in% type_2_questions & input$select_comparison_type != "No comparison") {
 
             if (input$select_comparison_type == "Year") {
 
@@ -1282,6 +1315,8 @@ server <- function(input, output, session) {
 
     output$main_chart <- plotly::renderPlotly({
 
+        if (!input$select_question %in% type_0_questions) {
+
         df <- main_chart_df()
 
         df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
@@ -1337,6 +1372,11 @@ server <- function(input, output, session) {
         if(input$zoomLevel_main == "Full scale") {
             chart <- chart + ylim(0,100)
         }
+
+        } else {
+
+            chart <- NULL
+            }
 
         chart
     })
