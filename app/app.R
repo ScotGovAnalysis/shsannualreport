@@ -160,7 +160,10 @@ ui <- fluidPage(
 
                tabPanel("LA Reports",
 
-                        wellPanel(h4("Below you can download PDF reports with all the SHS tables for a specific chapter, local authority and comparison.")),
+                        wellPanel(style = "background: #ffd480",
+                                  h4("This function is still under construction."),
+                                  h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
+                        ),
 
                         selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"),
                         selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities),
