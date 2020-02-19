@@ -15,6 +15,7 @@ library(shinythemes)
 
 source("source/variables.R")$values
 source("source/functions.R")$values
+source("report_data_processing/chapter_2.R")$values
 
 # ui ####
 
@@ -168,13 +169,22 @@ ui <- fluidPage(
                                   h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
                         ),
 
-                        selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"),
-                        selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities),
-                        selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013")),
-                        selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%"),
-                        conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%")),
-                        conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")),
-                        downloadButton("report", "Generate report")
+                        fluidRow(
+                            column(8, selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"))
+                        ),
+
+                        fluidRow(
+                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
+                            column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))),
+                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")),
+                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))),
+                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                        ),
+
+                        fluidRow(
+                            column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
+                            column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
+                        )
                ),
 
                # Raw Data tab ####
@@ -1536,20 +1546,55 @@ server <- function(input, output, session) {
 
     # output$report ####
 
-    output$report <- downloadHandler(
-        filename = paste0("report.pdf"),
+    report <- reactiveValues(filepath = NULL)
+
+    observeEvent(input$generate, {
+
+        tmp_file <- paste0(tempfile(), ".pdf")
+
+        progress <- shiny::Progress$new()
+
+        on.exit(progress$close())
+
+        progress$set(message = "Gathering data and building report.",
+                     detail = "This may take a while. This window will disappear
+                     when the report is ready.", value = 1)
+
+        data <- chapter_2_data(input$select_report_local_authority, input$select_report_year)
+
+        params <- list(local_authority = input$select_report_local_authority,
+                       year = input$select_report_year,
+                       chapter_data = data)
+
+        rmarkdown::render("chapter2.Rmd",
+                          output_format = "pdf_document",
+                          output_file = tmp_file,
+                          params = params,
+                          envir = new.env()
+        )
+
+        detach("package:kableExtra", unload = TRUE)
+
+        report$filepath <- tmp_file
+    })
+
+    output$reportbuilt <- reactive({
+
+        return(!is.null(report$filepath))
+    })
+
+    outputOptions(output, 'reportbuilt', suspendWhenHidden= FALSE)
+
+    output$download <- downloadHandler(
+
+        filename = function() {
+            paste0(input$select_chapter, "_", Sys.Date(), ".pdf") %>%
+                gsub(" ", "_", .)
+        },
+
         content = function(file) {
-            tempReport <- file.path(tempdir(), "report.Rmd")
-            file.copy("report.Rmd", tempReport, overwrite = TRUE)
 
-            params <- list(local_authority = input$select_report_local_authority,
-                           year = input$select_report_year)
-
-            rmarkdown::render(tempReport, output_format = "pdf_document", output_file = file,
-                              params = params,
-                              envir = new.env(parent = globalenv()))
-
-            detach("package:kableExtra", unload = TRUE)
+            file.copy(report$filepath, file)
         }
     )
 }
