@@ -116,17 +116,20 @@ ui <- fluidPage(
                             tabsetPanel(
                                 tabPanel("Table",
                                          fluidRow(h3(textOutput("main_title"))),
-                                         fluidRow(h4(textOutput("main_table_type_comment"))),
+                                         fluidRow(
+                                             column(10, h4(textOutput("main_table_type_comment"))),
+                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table")))
+                                             ),
                                          fluidRow(h5(textOutput("comment"))),
                                          fluidRow(h5(htmlOutput("link"))),
                                          fluidRow(dataTableOutput("main_table")),
                                          fluidRow(htmlOutput("statistical_significance_key")),
-                                         conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table")),
                                          fluidRow(h3(textOutput("comparison_title"))),
-                                         fluidRow(h4(textOutput("comparison_table_type_comment"))),
-                                         fluidRow(dataTableOutput("comparison_table")),
-                                         br(),
-                                         conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table"))
+                                         fluidRow(
+                                             column(10, h4(textOutput("comparison_table_type_comment"))),
+                                             column(2, conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table")))
+                                         ),
+                                         fluidRow(dataTableOutput("comparison_table"))
                                 ),
 
                                 tabPanel("Chart",
