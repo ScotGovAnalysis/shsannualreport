@@ -41,5 +41,7 @@ shs_get_variable_names <- function() {
   colnames(all_variable_names)[1] <- "source_name"
   all_variable_names$display_name <- ""
 
+  dir.create("variable_names_new")
+
   writexl::write_xlsx(list(variable_names = all_variable_names), path = "variable_names_new\\variable_names.xlsx")
 }

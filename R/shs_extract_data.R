@@ -24,6 +24,8 @@ shs_extract_data <- function() {
   unlink(extracted_dataset_path, recursive = TRUE)
   unlink(extracted_metadata_path, recursive = TRUE)
 
+  dir.create("app/data")
+
   dir.create(extracted_dataset_path)
   dir.create(extracted_metadata_path)
 
