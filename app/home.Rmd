@@ -8,34 +8,25 @@ output: html_document
 ### Using the LA Tables
 
 #### Purpose 
-The purpose of this workbook is to provide access to local authority level analysis from the SHS 2017.  The tables and charts replicate those as presented at a national level within the SHS Annual Report, though often need to be modified (e.g. combining age categories) to compensate for small sample sizes. 
+The purpose of this app is to provide access to local authority level analysis from the SHS.  The tables and charts replicate those as presented at a national level within the SHS Annual Report, though often need to be modified (e.g. combining age categories) to compensate for small sample sizes. 
 
 #### Multiple years
-The tables and figures presented in the SHS annual publications can vary from year to year.  In this publication, the numbering, formating etc from SHS 2017 have been adopted.  This does mean that not all of the tables/figures from each year will be in this publication and if you want to see data from a specific year, please refer to the LA tables for that year.  However, each table and figure contains data going back to 2013 to allow comparison between two years.
+The tables and figures presented in the SHS annual publications can vary from year to year. This does mean that not all of the tables/figures from each year will be in this app.  However, each table and figure contains data going back to 2013 to allow comparison between two years.
 
 *Note: Some figures and charts are a time series so they will not change when the year is changed through the drop down menu.*
 
 #### Selecting an LA
-You will find a number of drop-down boxes at the top of each worksheet which allow you to select both the reference period, the local authority of interest and any comparative analysis required. 
+You will find a number of drop-down boxes at the top of the 'Survey data' tab, which allow you to select both the reference period, the local authority of interest and any comparative analysis required. 
 
 #### Producing an LA comparison
-To select another local authority for comparative analysis first of all select the option for local authority from the "a. Do you want to make other comparisons?" drop-down box.
+To select another local authority for comparative analysis first of all select the option for local authority from the "Compare by" drop-down box.
 
-From there, a second drop down box labelled "b. Select local authority for comparison:" will be displayed.  Select the local authority of interest from there, and the resultant analysis will be produced in place of the default Scotland analysis in the relevant tables.
+From there, a second drop down box labelled "Comparator" will be displayed.  Select the local authority or year of interest from there, and the resultant analysis will be produced in place of the default Scotland analysis in the relevant tables.
 
-#### Printing an LA Booklet
-This workbook has been set up to be printer-friendly, A4 portrait format.  Should you wish to print all chapters for a specific LA, then either print each chapter separately or use the print entire workbook option in your printer settings.  To help with selecting one LA across all chapters, when you first open the workbook you can select the LA of interest using the drop-down box within the Contents worksheet which will then automatically update the selection across all chapters.  Should you change the LA on one chapter this won't update across all chapters.
+#### Exporting LA Data
+This app has been designed to allow the user to export as much data as possible.  Tables and charts in the 'Survey data' tab can be downloaded. Should you wish to print all chapters for a specific LA, then you can do so in the 'Download PDF' tab. Raw data for a specific question can be viewed in the 'Raw Data' tab, where the data can be filtered, copied, and downloaded to your personal device. 
 
-#### Analysis Displayed
-Within each table, you will be provided with the comparative analysis for the LA selected and for Scotland by default.  The charts will only show the analysis for the LA selected - unless no LA is selected in which case only Scotland level analysis will be shown.
-
-You may also select comparative analysis via the drop-down boxes on each worksheet.  This only covers selecting a second local authority or selecting additional years for comparison. 
-
-In some cases, not all information within each table is visible due to constraints of size.  You may copy any table or chart to a new document which will allow cell elements etc to be resized and so make more content visible (see Replicating Analysis below).
-
-#### Replicating Analysis
-The table and chart elements have been protected to hide the underlying formulae.  In copying any table or chart to a new document, only the raw data will be returned so are fully transferable.
-
+***
 
 ### Intrepreting Analysis
 
@@ -46,7 +37,7 @@ The SHS is a sample survey and therefore all figures quoted are estimates rather
 All tables have a descriptive and numerical base, showing the population or population sub-group examined in it.  While all results have been calculated using weighted data, the bases shown give the unweighted counts.
 
 #### Reporting Procedures 
-In general, percentages in tables have been rounded to the nearest whole number.  Zero values are shown as a dash (-), values greater than 0% but less than 0.5% are shown as 0%, and values of 0.5% but less than 1% are rounded up to 1%.  In line with the Code of Practice for Official Statistics base numbers have been rounded to the nearest 10.
+Percentages in tables and charts have been rounded to the nearest whole number.  Zero values are shown as a dash (-), values greater than 0% but less than 0.5% are shown as 0%, and values of 0.5% but less than 1% are rounded up to 1%.  In line with the Code of Practice for Official Statistics base numbers have been rounded to the nearest 10.
 
 #### Rounding 
 Columns or rows may not add to 100% because of rounding or where multiple responses to a question are possible.
@@ -59,26 +50,24 @@ In some tables and charts, percentages may have been removed from cells and repl
 #### Statistical Significance 
 All proportions produced in a survey have a degree of error associated with them because they are generated from a sample of the population rather than the population as a whole. Any proportion measured in the survey has an associated confidence interval (within which the 'true' proportion of the whole population is likely to lie), usually expressed as ±x%. It is possible with any survey that the sample achieved produces estimates that are outside this range. The number of times out of a 100 surveys when the result achieved would lie within the confidence interval is also quoted; conventionally the level set is 95 out of 100, or 95%. Technically, all results should be quoted in this way. However, it is less cumbersome to simply report the percentage as a single percentage, the convention adopted in this report.
 
-Where sample sizes are small or comparisons are made between sub-groups of the sample, the sampling error needs to be taken into account. There are formulae to calculate whether differences are statistically significant (i.e. they are unlikely to have occurred by chance) and the Statistical Significance worksheet provides a simple way to estimate if differences are significant.
-
 #### Statistical Significance (worked example) 
 Below is a worked example which explains how to interpret results presented in the local authority tables.
 
 The percentage of respondents who said they are satisfied with local health services,  schools and public transport (a composite measure) in 2013 in Aberdeen City was 47% and in Angus it was 58%.  At face value, these values seem to differ significantly.  However, because this figure is based upon a sample we need to calculate confidence intervals to determine where the true value of the population lies.  
 
-Using the statistical significance sheet to find the 95% confidence intervals for each value, we can see that for Aberdeen City (with a base of 310) the lower limit of the 95% confidence interval is 40.5% and the upper limit is 53.5%.  For Angus (with a base of 220) the lower limit is 51.6% and the upper limit is 64.4%. 
+In the 'Survey results' tab, the interactive charts provide the margins of error related to the 95% confidence interval. Looking at the two comparative graphs produced for this specific question, we can hover over the specific bars and see that for Aberdeen City (with a base of 310) the lower limit of the 95% confidence interval is 40.5% and the upper limit is 53.5%.  For Angus (with a base of 220) the lower limit is 51.6% and the upper limit is 64.4%. 
 
 Looking at the intervals for the two authorities together we can see that the upper limit for Aberdeen City overlaps with the lower limit for Angus.  This means that the difference observed between these two local authorities for this variable is not statistically significant.
-
 
 #### Source 
 The analysis provided may be reproduced providing the source is fully acknowledged.  Please see our Copyright Notice at: www.scotland.gov.uk/SHSData
 
+***
 
 ### Change and Version Control
 
 #### Version Control 
-Below is a summary of all the changes made to this workbook.
+Below is a summary of all the changes made to this app.
 
 30/10/2018
 

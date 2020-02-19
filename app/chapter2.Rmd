@@ -1,9 +1,9 @@
 ---
-title: "SHS Chapter Data"
 output:
   pdf_document:
     latex_engine: xelatex
     toc: yes
+mainfont: Arial
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +14,9 @@ library(kableExtra)
 
 local_authority <- params$local_authority
 year <- params$year
+
+subtitle <- paste0("The Composition and Characteristics of Households in Scotland (", local_authority, ", ", year, ")")
+
 chapter_data <- params$chapter_data
 
 Table_2.1 <- chapter_data[[1]]
@@ -38,6 +41,10 @@ Table_2.15 <- chapter_data[[19]]
 Table_2.16 <- chapter_data[[20]]
 Table_2.17 <- chapter_data[[21]]
 ```
+
+---
+title: `r subtitle`
+---
 
 ## Table 2.1: Age of all household members by year	
 ### Column percentages, Adults

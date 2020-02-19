@@ -170,14 +170,14 @@ ui <- fluidPage(
                         ),
 
                         fluidRow(
-                            column(8, selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%"))
+                            column(8, selectInput("select_chapter", label = "Chapter", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
                         ),
 
                         fluidRow(
                             column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
-                            column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))),
-                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")),
-                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))),
+                            column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))), # TODO: Update choices dynamically
+                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
                             column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
                         ),
 
@@ -1201,9 +1201,9 @@ server <- function(input, output, session) {
 
                 data_table <- DT::datatable(main_df(),
 
-                                            extensions = "Buttons",
+                                            # extensions = "Buttons",
                                             options = list(
-                                                buttons = c("copy", "csv", "excel"),
+                                                # buttons = c("copy", "csv", "excel"),
                                                 dom = "Bt",
                                                 digits = 1,
                                                 na = "-",
@@ -1219,9 +1219,9 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% type_4_questions) {
 
             data_table <- DT::datatable(main_df(),
-                                        extensions = "Buttons",
+                                        # extensions = "Buttons",
                                         options = list(
-                                            buttons = c("copy", "csv", "excel"),
+                                            # buttons = c("copy", "csv", "excel"),
                                             dom = "Bt",
                                             digits = 1,
                                             na = "-",
@@ -1278,9 +1278,9 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% type_4_questions & input$select_comparison_type != "No comparison"){
 
             DT::datatable(comparison_df(),
-                          extensions = "Buttons",
+                          # extensions = "Buttons",
                           options = list(
-                              buttons = c("copy", "csv", "excel"),
+                              # buttons = c("copy", "csv", "excel"),
                               dom = "Bt",
                               digits = 1,
                               na = "-",
