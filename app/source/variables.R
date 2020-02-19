@@ -122,7 +122,7 @@ select_list_questions_chapter_3 <- c("Figure 3.1: Tenure of households by year" 
 "Table 3.7a: Views on neighbourhood and housing aspirations, by tenure - Rating of neighbourhood as a place to live" = "Table 3.7a",
 "Table 3.7b: Views on neighbourhoods and housing aspirations, by tenure - Strength of belonging to immediate neighbourhood" = "Table 3.7b",
 "Table 3.7c: Views on neighbourhoods and housing aspirations, by tenure - Housing satisfaction" = "Table 3.7c",
-"Table 3.8: Households renting privately – information on landlord / letting agents and deposits" = "Table 3.8",
+"Table 3.8: Households renting privately ? information on landlord / letting agents and deposits" = "Table 3.8",
 "Table 3.9a: Limiting activities by tenure - Household has someone with a long-term physical/mental health condition/illness*" = "Table 3.9a",
 "Table 3.9b: Limiting activities by tenure - What about the home limits activities that can be done" = "Table 3.9b",
 "Table 3.9c: Limiting activities by tenure - Whether the home requires adaptations to  make it easier to go about daily activities" = "Table 3.9c",
@@ -171,17 +171,18 @@ select_list_questions_chapter_4 <- c("Table 4.1: Rating of neighbourhood as a pl
 "Table 4.23: Experience of neighbourhood problems by tenure of household" = "Table 4.23",
 "Table 4.24: Experience of neighbourhood problems by Urban Rural Classification" = "Table 4.24",
 "Table 4.25: Experiences of discrimination and harassment by gender, age and deprivation" = "Table 4.25",
-"Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition" = "Table 4.26",
+# "Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition" = "Table 4.26",
 "Table 4.27: Reasons for discrimination and harassment" = "Table 4.27",
-"Table 4.28: Activity undertaken to prepare for events like severe weather or flooding" = "Table 4.28",
-"Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation" = "Table 4.29")
+"Table 4.28: Activity undertaken to prepare for events like severe weather or flooding" = "Table 4.28"#,
+# "Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation" = "Table 4.29"
+)
 
 select_list_questions_chapter_5 <- c("Table 5.1, Figure 5.1: Highest level of qualifications held by adults aged 16 and over by year, 2007-2018" = "Table 5.1, Figure 5.1",
-"Table 5.2: Highest level of qualification held by gender and age of adults aged 16 and over" = "Table 5.2",
+# "Table 5.2: Highest level of qualification held by gender and age of adults aged 16 and over" = "Table 5.2",
 "Table 5.3, Figure 5.2: Highest level of qualification held by adults aged 16-64 by net annual household income" = "Table 5.3, Figure 5.2",
 "Figure 5.3: Current economic situation of adults aged 16 and over" = "Figure 5.3",
 "Figure 5.4: Adults aged 16 and over in work over time, 1999-2018" = "Figure 5.4",
-"Figure 5.5: Current economic situation of adults aged 16-64 over time, 1999-2018" = "Figure 5.5",
+# "Figure 5.5: Current economic situation of adults aged 16-64 over time, 1999-2018" = "Figure 5.5",
 "Figure 5.6: Current economic situation of adults aged 16-64 by gender" = "Figure 5.6",
 "Table 5.4: Current economic situation of adults aged 16-64 by highest level of qualification" = "Table 5.4",
 "Table 5.5: Current economic situation of adults aged 16-64 by long-standing limiting illness, health problem or disability" = "Table 5.5",
@@ -189,7 +190,7 @@ select_list_questions_chapter_5 <- c("Table 5.1, Figure 5.1: Highest level of qu
 "Figure 5.8: Current economic situation of women aged 16-64 by the presence of children in the household" = "Figure 5.8")
 
 select_list_questions_chapter_6 <- c("Figure 6.1: How households are managing financially by year" = "Figure 6.1",
-"Figure 6.2: How the household is managing financially by net annual household income" = "Figure 6.2",
+# "Figure 6.2: How the household is managing financially by net annual household income" = "Figure 6.2",
 "Figure 6.3: How the household is managing financially by household type" = "Figure 6.3",
 "Figure 6.4: How the household is managing financially by tenure of household" = "Figure 6.4",
 "Table 6.1: How the household is managing financially by income sources" = "Table 6.1",
@@ -198,11 +199,11 @@ select_list_questions_chapter_6 <- c("Figure 6.1: How households are managing fi
 "Figure 6.6: Households who manage well financially by deprivation over time" = "Figure 6.6")
 
 select_list_questions_chapter_7 <- c("Figure 7.1: Households with home internet access by year" = "Figure 7.1",
-"Figure 7.2: Households with home internet access by net annual household income" = "Figure 7.2",
+# "Figure 7.2: Households with home internet access by net annual household income" = "Figure 7.2",
 "Figure 7.3: Households with home internet access by year and net annual household income" = "Figure 7.3",
-"Figure 7.4: Households with home internet access by SIMD and year" = "Figure 7.4",
-"Figure 7.5: Households with home internet access by tenure" = "Figure 7.5",
-"Figure 7.6: Households with home internet access by Urban Rural classification" = "Figure 7.6",
+# "Figure 7.4: Households with home internet access by SIMD and year" = "Figure 7.4",
+# "Figure 7.5: Households with home internet access by tenure" = "Figure 7.5",
+# "Figure 7.6: Households with home internet access by Urban Rural classification" = "Figure 7.6",
 "Figure 7.7: Use of internet over time and by age" = "Figure 7.7",
 "Figure 7.8: Use of internet by age" = "Figure 7.8",
 "Table 7.1: Use of the internet by whether has a long-standing limiting illness, health problem or disability and age" = "Table 7.1",
@@ -223,7 +224,7 @@ select_list_questions_chapter_7 <- c("Figure 7.1: Households with home internet 
 
 select_list_questions_chapter_8 <- c("Table 8.1, Figure 8.1, Figure 8.2: Trends in participation in physical activity and sport in the last four weeks, 2007 to 2018" = "Table 8.1, Figure 8.1, Figure 8.2",
 "Figure 8.3: Trends in frequency of participation by adults who took part in physical activity and sport in the previous four weeks" = "Figure 8.3",
-"Table 8.2: Participation in physical activity and sport in the past four weeks by gender and age" = "Table 8.2",
+# "Table 8.2: Participation in physical activity and sport in the past four weeks by gender and age" = "Table 8.2",
 "Figure 8.4: Trends in participation in physical activity and sport (including walking) in the last four weeks by age" = "Figure 8.4",
 "Figure 8.5: Trends in participation in any physical activity and sport (excluding walking) in the last four weeks by age" = "Figure 8.5",
 "Figure 8.6: Trends in participation in recreational walking in the last four weeks by age" = "Figure 8.6",
@@ -250,11 +251,11 @@ select_list_questions_chapter_9 <- c("Figure 9.1, Table 9.1: Percentage of peopl
 "Figure 9.4: Percentage agreeing with various statements about local council services by Scottish Index of Multiple Deprivation (SIMD)" = "Figure 9.4")
 
 select_list_questions_chapter_10 <- c("Table 10.1: Perceptions about climate change as a problem" = "Table 10.1",
-"Figure 10.1: Perception about climate change as an 'immediate and urgent problem' by age" = "Figure 10.1",
+# "Figure 10.1: Perception about climate change as an 'immediate and urgent problem' by age" = "Figure 10.1",
 "Figure 10.2: Percentage of adults perceiving that 'Climate change is an immediate and urgent problem' by educational attainment" = "Figure 10.2",
 "Figure 10.3: Percentage of adults perceiving that 'Climate change is an immediate and urgent problem' by area deprivation" = "Figure 10.3",
-"Table 10.2: 'It’s not worth me doing things to help the environment if others don’t do the same”" = "Table 10.2",
-"Table 10.3: 'I don’t believe my behaviour and everyday lifestyle contribute to climate change'" = "Table 10.3",
+"Table 10.2: 'It?s not worth me doing things to help the environment if others don?t do the same?" = "Table 10.2",
+"Table 10.3: 'I don?t believe my behaviour and everyday lifestyle contribute to climate change'" = "Table 10.3",
 "Table 10.4: 'Climate change will only have an impact on other countries, there is no need for me to worry'" = "Table 10.4",
 "Table 10.5: 'I understand what actions people like myself should take to help tackle climate change'" = "Table 10.5",
 "Table 10.6: Frequency of visits made to the outdoors" = "Table 10.6",
@@ -267,8 +268,9 @@ select_list_questions_chapter_10 <- c("Table 10.1: Perceptions about climate cha
 "Table 10.11: Walking distance to nearest greenspace by Scottish Index of Multiple Deprivation" = "Table 10.11",
 "Figure 10.6: Percentage of adults expressing satisfaction with nearest greenspace" = "Figure 10.6",
 "Figure 10.7: Percentage of adults who have not visited nearest greenspace in previous 12 months" = "Figure 10.7",
-"Table 10.12: Percentage of people who gave their views on land use in the last 12 months" = "Table 10.12",
-"Table 10.13: Percentage of People who gave their views on land use by urban rural classification" = "Table 10.13")
+"Table 10.12: Percentage of people who gave their views on land use in the last 12 months" = "Table 10.12"#,
+# "Table 10.13: Percentage of People who gave their views on land use by urban rural classification" = "Table 10.13"
+)
 
 select_list_questions_chapter_11 <- c("Table 11.1: Whether involved in any Volunteering (Formal or Informal) in the last 12 months by gender" = "Table 11.1",
 "Table 11.2: Whether provided unpaid help to organisations or groups in the last 12 months by gender" = "Table 11.2",

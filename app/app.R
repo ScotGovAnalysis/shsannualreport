@@ -248,7 +248,7 @@ server <- function(input, output, session) {
 
     welcome_modal <- modalDialog(
 
-        p(img(src = "modal-into.png", height = "100%", width = "100%"), style = "text-align: center"),
+        p(img(src = "new_logo.png", height = "100%", width = "100%"), style = "text-align: center"),
         br(),
         tags$div(h4("This interactive app provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
                  style = "color: 0E3E5D; font-size:20px; text-align: center"),
@@ -260,25 +260,30 @@ server <- function(input, output, session) {
         easyClose = TRUE, fade = FALSE
     )
 
-    # Shows modal first time
+    #Shows modal first time
     showModal(welcome_modal)
 
-    # Links modal button to 'resources' tab
+
+    #Links modal button to 'resources' tab
     observeEvent(input$modal_to_resources, {
-        updateTabsetPanel(session, "navbar", selected = "resourcesTab")
+        updateTabsetPanel(session, "navbar",
+                          selected = "resourcesTab")
     })
 
     #Reloads modal on request from home tab
-    observeEvent(input$reload_modal, {
-        showModal(welcome_modal)
-        })
+    observeEvent(input$reload_modal,
+                 {showModal(welcome_modal)})
+
 
     #TOUR 1
-    tour_modal_1 <- modalDialog(size = "l",
+    tour_modal_1 <- modalDialog(
+        size = "l",
         fluidRow(
             br(),
             img(src = "modal-into.png", height = "50%", width = "50%"), style = "text-align: center"),
-        h4("This app allows your to look at trends and  "),
+        h4("For the past 20 years the Scottish Household Survey has collected information about Scottish households. The information is used daily by the Scottish government and local authorities to help shape policy and laws."),
+        h4("This app contains the Scottish Household Survey data open for anyone to explore. The data is broken down to local authority level, meaning you can compare different areas of Scotland with each other. You can also compare information over time and with the Scottish average. Whether you want to use the SHS data for a project, analysis or to show your friends and family, all the tables, charts and raw data are exportable through a simple click of a button!"),
+
         actionButton("next1", "Next", icon("play-circle"))
     )
 
@@ -299,6 +304,7 @@ server <- function(input, output, session) {
         br(),
         actionButton("back1", "Back", icon("chevron-circle-left")),
         actionButton("next2", "Next", icon("play-circle"))
+
     )
 
     observeEvent(input$back1, {showModal((tour_modal_1))})
