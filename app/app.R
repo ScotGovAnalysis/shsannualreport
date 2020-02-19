@@ -1545,8 +1545,6 @@ server <- function(input, output, session) {
         showModal(chartModal)
     })
 
-    # PDF reports ####
-
     # output$report ####
 
     report <- reactiveValues(filepath = NULL)
