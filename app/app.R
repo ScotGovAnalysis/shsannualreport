@@ -1133,6 +1133,8 @@ server <- function(input, output, session) {
     # comparison_plot_title ####
     output$comparison_plot_title <- renderText({
 
+        if (!input$select_question %in% type_0_questions) {
+
         if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
@@ -1147,6 +1149,7 @@ server <- function(input, output, session) {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
             }
+        }
         }
     })
 

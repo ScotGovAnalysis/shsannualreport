@@ -173,9 +173,8 @@ select_list_questions_chapter_4 <- c("Table 4.1: Rating of neighbourhood as a pl
 "Table 4.25: Experiences of discrimination and harassment by gender, age and deprivation" = "Table 4.25",
 # "Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition" = "Table 4.26",
 "Table 4.27: Reasons for discrimination and harassment" = "Table 4.27",
-"Table 4.28: Activity undertaken to prepare for events like severe weather or flooding" = "Table 4.28"#,
-# "Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation" = "Table 4.29"
-)
+"Table 4.28: Activity undertaken to prepare for events like severe weather or flooding" = "Table 4.28")#,
+# "Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation" = "Table 4.29")
 
 select_list_questions_chapter_5 <- c("Table 5.1, Figure 5.1: Highest level of qualifications held by adults aged 16 and over by year, 2007-2018" = "Table 5.1, Figure 5.1",
 # "Table 5.2: Highest level of qualification held by gender and age of adults aged 16 and over" = "Table 5.2",
@@ -199,11 +198,11 @@ select_list_questions_chapter_6 <- c("Figure 6.1: How households are managing fi
 "Figure 6.6: Households who manage well financially by deprivation over time" = "Figure 6.6")
 
 select_list_questions_chapter_7 <- c("Figure 7.1: Households with home internet access by year" = "Figure 7.1",
-# "Figure 7.2: Households with home internet access by net annual household income" = "Figure 7.2",
+"Figure 7.2: Households with home internet access by net annual household income" = "Figure 7.2",
 "Figure 7.3: Households with home internet access by year and net annual household income" = "Figure 7.3",
-# "Figure 7.4: Households with home internet access by SIMD and year" = "Figure 7.4",
-# "Figure 7.5: Households with home internet access by tenure" = "Figure 7.5",
-# "Figure 7.6: Households with home internet access by Urban Rural classification" = "Figure 7.6",
+"Figure 7.4: Households with home internet access by SIMD and year" = "Figure 7.4",
+"Figure 7.5: Households with home internet access by tenure" = "Figure 7.5",
+"Figure 7.6: Households with home internet access by Urban Rural classification" = "Figure 7.6",
 "Figure 7.7: Use of internet over time and by age" = "Figure 7.7",
 "Figure 7.8: Use of internet by age" = "Figure 7.8",
 "Table 7.1: Use of the internet by whether has a long-standing limiting illness, health problem or disability and age" = "Table 7.1",
@@ -211,11 +210,11 @@ select_list_questions_chapter_7 <- c("Figure 7.1: Households with home internet 
 "Figure 7.10: Use of the internet by year and net annual household income" = "Figure 7.10",
 "Figure 7.11: Use of the internet by area deprivation level" = "Figure 7.11",
 "Figure 7.12: Use of internet by tenure" = "Figure 7.12",
-"Table 7.2: Where adults who use the internet access it for personal use" = "Table 7.2",
+# "Table 7.2: Where adults who use the internet access it for personal use" = "Table 7.2",
 "Table 7.3: Smart appliances in the house by area deprivation" = "Table 7.3",
-"Table 7.4: Which methods are used to access the internet for personal use by age" = "Table 7.4",
-"Table 7.5: Reasons for using the internet by tenure" = "Table 7.5",
-"Table 7.6: Percentage of confident users by tenure" = "Table 7.6",
+# "Table 7.4: Which methods are used to access the internet for personal use by age" = "Table 7.4",
+# "Table 7.5: Reasons for using the internet by tenure" = "Table 7.5",
+# "Table 7.6: Percentage of confident users by tenure" = "Table 7.6",
 "Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online" = "Table 7.7",
 "Table 7.8: Use of public services on the internet in the past 12 months (internet users)" = "Table 7.8",
 "Table 7.9: Satisfaction with quality of public service websites" = "Table 7.9",
@@ -268,9 +267,8 @@ select_list_questions_chapter_10 <- c("Table 10.1: Perceptions about climate cha
 "Table 10.11: Walking distance to nearest greenspace by Scottish Index of Multiple Deprivation" = "Table 10.11",
 "Figure 10.6: Percentage of adults expressing satisfaction with nearest greenspace" = "Figure 10.6",
 "Figure 10.7: Percentage of adults who have not visited nearest greenspace in previous 12 months" = "Figure 10.7",
-"Table 10.12: Percentage of people who gave their views on land use in the last 12 months" = "Table 10.12"#,
-# "Table 10.13: Percentage of People who gave their views on land use by urban rural classification" = "Table 10.13"
-)
+"Table 10.12: Percentage of people who gave their views on land use in the last 12 months" = "Table 10.12")#,
+# "Table 10.13: Percentage of People who gave their views on land use by urban rural classification" = "Table 10.13")
 
 select_list_questions_chapter_11 <- c("Table 11.1: Whether involved in any Volunteering (Formal or Informal) in the last 12 months by gender" = "Table 11.1",
 "Table 11.2: Whether provided unpaid help to organisations or groups in the last 12 months by gender" = "Table 11.2",
