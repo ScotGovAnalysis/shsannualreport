@@ -405,7 +405,7 @@ server <- function(input, output, session) {
 
     observeEvent(input$back6, {showModal(tour_modal_6)})
 
-    #Test banner ####
+    # Test banner ####
 
     shinyjs::onclick("close_banner", shinyjs::hide(id = "welcome_banner", anim = TRUE))
 
