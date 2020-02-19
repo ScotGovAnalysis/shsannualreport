@@ -34,7 +34,7 @@ shs_shiny_variables <- function() {
     }
   }
 
-  question_titles <- question_titles[question_titles$HasDataFile == "Y",]
+  question_titles <- question_titles[question_titles$HasDataFile == "Y" | question_titles$Type == 0,]
 
   files <- list.files(extracted_dataset_path)
 
