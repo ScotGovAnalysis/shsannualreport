@@ -133,17 +133,17 @@ ui <- fluidPage(
                                 ),
 
                                 tabPanel("Chart",
-
                                          fluidRow(
-                                             column(3, offset = 6, conditionalPanel(condition = "output.question_type != '0'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
+                                             column(6, h3(textOutput("main_plot_title"))),
+                                             column(3, conditionalPanel(condition = "output.question_type != '0'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
                                              column(2, conditionalPanel(condition = "output.question_type != '0'", radioButtons("zoomLevel_main",
                                                                     "Y-axis zoom level:",
                                                                     selected = "Zoom to data",
-                                                                    choices = c("Zoom to data", "Full scale"))),
-                                             column(1, conditionalPanel(condition = "output.question_type != '0'", actionButton("help", icon("question")))))
+                                                                    choices = c("Zoom to data", "Full scale")))),
+                                             column(1, conditionalPanel(condition = "output.question_type != '0'", actionButton("help", icon("question"))))
                                          ),
 
-                                         fluidRow(h3(textOutput("main_plot_title"))),
+
                                          fluidRow(plotly::plotlyOutput("main_chart")),
                                          fluidRow(h3(textOutput("comparison_plot_title"))),
 
