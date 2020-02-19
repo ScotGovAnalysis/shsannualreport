@@ -135,12 +135,12 @@ ui <- fluidPage(
                                 tabPanel("Chart",
                                          fluidRow(
                                              column(6, h3(textOutput("main_plot_title"))),
-                                             column(3, conditionalPanel(condition = "output.question_type != '0'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
-                                             column(2, conditionalPanel(condition = "output.question_type != '0'", radioButtons("zoomLevel_main",
+                                             column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
+                                             column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
                                                                     "Y-axis zoom level:",
                                                                     selected = "Zoom to data",
                                                                     choices = c("Zoom to data", "Full scale")))),
-                                             column(1, conditionalPanel(condition = "output.question_type != '0'", actionButton("help", icon("question"))))
+                                             column(1, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", actionButton("help", icon("question"))))
                                          ),
 
 
@@ -630,7 +630,7 @@ server <- function(input, output, session) {
 
             df <- df()
 
-            if (!input$select_question %in% type_1_questions) {
+            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(unique(df$Year), decreasing = TRUE))
             }
@@ -645,7 +645,7 @@ server <- function(input, output, session) {
 
             selected_year <- input$select_year
 
-            if (!input$select_question %in% type_1_questions) {
+            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year_comparator", label = "Year",
                                   choices = sort(unique(df()$Year)[!sort(unique(df()$Year)) %in% selected_year], decreasing = TRUE))
@@ -1102,7 +1102,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -1333,7 +1333,7 @@ server <- function(input, output, session) {
 
     output$main_chart <- plotly::renderPlotly({
 
-        if (!input$select_question %in% type_0_questions) {
+        if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
 
         df <- main_chart_df()
 
@@ -1371,11 +1371,6 @@ server <- function(input, output, session) {
 
             chart <- eval(parse(text = bar_chart_string))
 
-        } else if (input$select_question %in% c(type_4_questions)) {
-
-            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `", measure_column_name(), "`, fill = `Percent`)) + geom_bar(position = \"dodge\", stat = \"identity\")")
-
-            chart <- eval(parse(text = bar_chart_string))
         }
 
         if(input$ConfidenceInterval == TRUE) {
