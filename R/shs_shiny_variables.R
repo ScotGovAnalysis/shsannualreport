@@ -23,6 +23,19 @@ shs_shiny_variables <- function() {
   chapter_titles <- readRDS(file.path(extracted_metadata_path, "chapter_titles.Rds"))
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
 
+  question_titles$HasDataFile <- "N"
+
+  for (ID in question_titles$ID) {
+
+    if (paste0(ID, ".Rds") %in% list.files("app/data/dataset")) {
+
+      question_titles[question_titles$ID == ID,]$HasDataFile <- "Y"
+
+    }
+  }
+
+  question_titles <- question_titles[question_titles$HasDataFile == "Y" | question_titles$Type == 0,]
+
   files <- list.files(extracted_dataset_path)
 
   cat("question_titles <- readRDS(\"data/metadata/question_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
