@@ -36,7 +36,14 @@ shs_process_variable_names <- function() {
 
       new_variable_name <- variable_reference[variable_reference$source_name == variable_name, 2]$display_name
 
+      tryCatch({
+
       df[df[2] == variable_name,][2] <- new_variable_name
+
+      }, error = function(cond) {
+
+        message(paste0("Error processing file: ", file, " Error msg: ", cond))
+      })
     }
     saveRDS(df, file = file_path)
   }
