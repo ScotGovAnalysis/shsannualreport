@@ -591,7 +591,7 @@ server <- function(input, output, session) {
 
     observe ({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority"))
 
@@ -601,7 +601,7 @@ server <- function(input, output, session) {
             shinyjs::showElement("select_year_comparator")
             shinyjs::showElement("select_local_authority_comparator")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority"))
 
@@ -745,11 +745,11 @@ server <- function(input, output, session) {
 
     comparison_df <- reactive ({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             df <- df()[df()$Council == input$select_local_authority_comparator,]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             if (input$select_comparison_type == "Year") {
 
@@ -779,11 +779,11 @@ server <- function(input, output, session) {
 
     base_df <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             base_df <- df()[df()$Council == input$select_local_authority,]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             base_df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority,]
 
@@ -1064,11 +1064,11 @@ server <- function(input, output, session) {
 
     output$main_title <- renderText({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ")")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year, ")")
 
@@ -1082,11 +1082,11 @@ server <- function(input, output, session) {
 
     output$main_plot_title <- renderText({
 
-        if (input$select_question %in% type_1_questions) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ")")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions, type_4_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year, ")")
 
@@ -1219,7 +1219,7 @@ server <- function(input, output, session) {
                                             ordering = FALSE,
                                             info = FALSE,
                                             searching = FALSE,
-                                            columnDefs = list(list(targets = c(0:2),
+                                            columnDefs = list(list(targets = c(0:1),
                                                                    visible = FALSE))))
 
         } else if (input$select_question %in% type_0_questions){
@@ -1278,7 +1278,7 @@ server <- function(input, output, session) {
                               ordering = FALSE,
                               info = FALSE,
                               searching = FALSE,
-                              columnDefs = list(list(targets = c(0:2),
+                              columnDefs = list(list(targets = c(0:1),
                                                      visible = FALSE))))
 
         } else {
