@@ -3,4 +3,6 @@
 .RData
 .Ruserdata
 rsconnect/
-
+app/data/
+app/source/variables.R
+variable_names_new/
