@@ -15,7 +15,7 @@
 
 shs_get_column_names <- function() {
 
-  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_dataset_path <- "app/data/dataset"
   files <- list.files(extracted_dataset_path)
   all_column_names <- c()
 
@@ -33,5 +33,5 @@ shs_get_column_names <- function() {
 
   dir.create("variable_names_new")
 
-  writexl::write_xlsx(list(column_names = all_column_names), path = "variable_names_new\\column_names.xlsx")
+  writexl::write_xlsx(list(column_names = all_column_names), path = "variable_names_new/column_names.xlsx")
 }

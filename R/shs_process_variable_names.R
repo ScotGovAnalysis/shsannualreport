@@ -15,8 +15,8 @@
 
 shs_process_variable_names <- function() {
 
-  extracted_dataset_path <- "app\\data\\dataset"
-  extracted_metadata_path <- "app\\data\\metadata"
+  extracted_dataset_path <- "app/data/dataset"
+  extracted_metadata_path <- "app/data/metadata"
 
   variable_reference <- readRDS(file.path(extracted_metadata_path, "variable_names.Rds"))
 

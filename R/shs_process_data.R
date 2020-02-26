@@ -16,8 +16,8 @@
 
 shs_process_data <- function() {
 
-  extracted_dataset_path <- "app\\data\\dataset"
-  extracted_metadata_path <- "app\\data\\metadata"
+  extracted_dataset_path <- "app/data/dataset"
+  extracted_metadata_path <- "app/data/metadata"
 
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
   data_files <- list.files(extracted_dataset_path)

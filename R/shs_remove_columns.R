@@ -15,7 +15,7 @@
 
 shs_remove_columns <- function(columns_to_remove) {
 
-  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_dataset_path <- "app/data/dataset"
 
   files <- list.files(extracted_dataset_path)
 

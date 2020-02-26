@@ -15,7 +15,7 @@
 
 shs_get_variable_names <- function() {
 
-  extracted_dataset_path <- "app\\data\\dataset"
+  extracted_dataset_path <- "app/data/dataset"
   files <- list.files(extracted_dataset_path)
   all_variable_names <- c()
 
@@ -43,5 +43,5 @@ shs_get_variable_names <- function() {
 
   dir.create("variable_names_new")
 
-  writexl::write_xlsx(list(variable_names = all_variable_names), path = "variable_names_new\\variable_names.xlsx")
+  writexl::write_xlsx(list(variable_names = all_variable_names), path = "variable_names_new/variable_names.xlsx")
 }

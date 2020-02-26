@@ -15,7 +15,7 @@
 shs_extract_column_and_variable_names <- function() {
 
   source_column_and_variable_names_path <- "variable_names_new"
-  extracted_metadata_path <- "app\\data\\metadata"
+  extracted_metadata_path <- "app/data/metadata"
 
   # Get all column and variable_names files
   files <- list.files(source_column_and_variable_names_path)
