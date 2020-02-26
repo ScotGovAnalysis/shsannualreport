@@ -15,11 +15,11 @@
 
 shs_extract_data <- function() {
 
-  source_dataset_path <- "source\\dataset"
-  source_metadata_path <- "source\\metadata"
+  source_dataset_path <- "source/dataset"
+  source_metadata_path <- "source/metadata"
 
-  extracted_dataset_path <- "app\\data\\dataset"
-  extracted_metadata_path <- "app\\data\\metadata"
+  extracted_dataset_path <- "app/data/dataset"
+  extracted_metadata_path <- "app/data/metadata"
 
   unlink(extracted_dataset_path, recursive = TRUE)
   unlink(extracted_metadata_path, recursive = TRUE)
