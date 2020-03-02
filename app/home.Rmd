@@ -5,36 +5,34 @@ output: html_document
 
 ## Guidance and Information
 
-### Using the LA Tables
+### Using the Scottish Household Survey Data Explorer
 
 #### Purpose 
-The purpose of this app is to provide access to local authority level analysis from the SHS.  The tables and charts replicate those as presented at a national level within the SHS Annual Report, though often need to be modified (e.g. combining age categories) to compensate for small sample sizes. 
+The purpose of this app is to provide access to local authority level analysis from the Scottish Household Survey.  The tables and charts replicate those as presented at a national level within the Scottish Household Survey Annual Report. Sometimes we have modified them (e.g. combining age categories) to compensate for small sample sizes. 
 
-#### Multiple years
-The tables and figures presented in the SHS annual publications can vary from year to year. This does mean that not all of the tables/figures from each year will be in this app.  However, each table and figure contains data going back to 2013 to allow comparison between two years.
+#### Exploring survey results
+We have divided the data into 11 topics. Use the drop-down boxes in the 'Survey results' tab to select a topic and question. You can also select which local authority and year you want to look at. The default setting is Scotland-wide data from the most recent year. 
+
+The tables and figures presented in the annual publications can vary from year to year. This means that not all of the tables/figures from each year will be in this app. Most tables and figures contain data going back to 2013 for comparing between two years.
 
 *Note: Some figures and charts are a time series so they will not change when the year is changed through the drop down menu.*
 
-#### Selecting an LA
-You will find a number of drop-down boxes at the top of the 'Survey data' tab, which allow you to select both the reference period, the local authority of interest and any comparative analysis required. 
+#### Producing a Comparison
+You can compare data over time, with another local authority or Scotland as a whole. Use the 'Compare by' and 'Comparator' drop-down boxes to make a comparison. You will find a second table and chart displayed at the bottom of the page.
 
-#### Producing an LA comparison
-To select another local authority for comparative analysis first of all select the option for local authority from the "Compare by" drop-down box.
 
-From there, a second drop down box labelled "Comparator" will be displayed.  Select the local authority or year of interest from there, and the resultant analysis will be produced in place of the default Scotland analysis in the relevant tables.
-
-#### Exporting LA Data
-This app has been designed to allow the user to export as much data as possible.  Tables and charts in the 'Survey data' tab can be downloaded. Should you wish to print all chapters for a specific LA, then you can do so in the 'Download PDF' tab. Raw data for a specific question can be viewed in the 'Raw Data' tab, where the data can be filtered, copied, and downloaded to your personal device. 
+#### Exporting Data
+We have designed this app to allow the user to export as much data as possible. You can download the tables and charts in the 'Survey data' tab. If you want to print all chapters for a specific topic and local authority, you can do so in the 'Create Report' tab. You can copy and export all data for a specific question in the 'Raw Data' tab.
 
 ***
 
 ### Intrepreting Analysis
 
 #### Estimates 
-The SHS is a sample survey and therefore all figures quoted are estimates rather than precise percentages. 
+The Scottish Household Survey is a sample survey. All figures are estimates rather than precise percentages. 
 
 #### Base Totals 
-All tables have a descriptive and numerical base, showing the population or population sub-group examined in it.  While all results have been calculated using weighted data, the bases shown give the unweighted counts.
+All tables have a descriptive and numerical base. These show the population or population sub-group examined in it. We have calculated all results While all using weighted data, but the bases shown give the unweighted counts.
 
 #### Reporting Procedures 
 Percentages in tables and charts have been rounded to the nearest whole number.  Zero values are shown as a dash (-), values greater than 0% but less than 0.5% are shown as 0%, and values of 0.5% but less than 1% are rounded up to 1%.  In line with the Code of Practice for Official Statistics base numbers have been rounded to the nearest 10.
@@ -43,12 +41,12 @@ Percentages in tables and charts have been rounded to the nearest whole number. 
 Columns or rows may not add to 100% because of rounding or where multiple responses to a question are possible.
 
 #### Reliability 
-In some tables and charts, percentages may have been removed from cells and replaced with '\*' (within the charts the '\*' may be hard to see and may look like '·').  This is where the base on which percentages are calculated is less than 50 and such data are judged to be insufficiently reliable for publication.  Estimates with base numbers close to 50 should also be treated with caution, as even though these estimates have been published, they are subject to high levels of volatility and have a high degree of uncertainty around them.  See the statistical significance section below.
+In some tables and charts, percentages may have been removed from cells and replaced with '\*' (within the charts the '\*' may be hard to see and may look like '·').  This is where the base on which percentages are calculated is less than 50. Such data are judged to be insufficiently reliable for publication.  Estimates with base numbers close to 50 should also be treated with caution. Even though these estimates have been published, they are subject to high levels of volatility and have a high degree of uncertainty around them.  See the statistical significance section below.
 
 *Note: Prior to 2012, these tables were produced on a two year cycle due to low base numbers at local authority level. In 2012 there was a change in the SHS sampling methodology which increased data robustness and allowed local authority breakdowns to be produced annually. Due to this, the last year on the biennial cycle, 2011, did not have high enough base numbers for robust analysis, therefore all local authority data has been suppressed for 2011.*
 
 #### Statistical Significance 
-All proportions produced in a survey have a degree of error associated with them because they are generated from a sample of the population rather than the population as a whole. Any proportion measured in the survey has an associated confidence interval (within which the 'true' proportion of the whole population is likely to lie), usually expressed as ±x%. It is possible with any survey that the sample achieved produces estimates that are outside this range. The number of times out of a 100 surveys when the result achieved would lie within the confidence interval is also quoted; conventionally the level set is 95 out of 100, or 95%. Technically, all results should be quoted in this way. However, it is less cumbersome to simply report the percentage as a single percentage, the convention adopted in this report.
+All proportions produced in a survey have a degree of error associated with them. This is because they are generated from a sample of the population rather than the population as a whole. Any proportion measured in the survey has an associated confidence interval (within which the 'true' proportion of the whole population is likely to lie), usually expressed as ±x%. It is possible with any survey that the sample achieved produces estimates that are outside this range. The number of times out of a 100 surveys when the result achieved would lie within the confidence interval is also quoted; conventionally the level set is 95 out of 100, or 95%. Technically, all results should be quoted in this way. However, it is less cumbersome to simply report the percentage as a single percentage, the convention adopted in this report.
 
 #### Statistical Significance (worked example) 
 Below is a worked example which explains how to interpret results presented in the local authority tables.
@@ -69,10 +67,10 @@ The analysis provided may be reproduced providing the source is fully acknowledg
 #### Version Control 
 Below is a summary of all the changes made to this app.
 
-30/10/2018
+24/02/2020
 
 First release
 
-07/12/2018
+24/03/12/2020
 
-Second release: Changes made to 2015/2016 data after LA error discovered
+Second release: Changes made to layout and certain tables after discovering data processing errors. 
