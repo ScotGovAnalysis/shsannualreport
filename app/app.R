@@ -38,9 +38,9 @@ ui <- fluidPage(
 
     # Navbar page ####
 
-    navbarPage(title="SHS Annual Report",
+    navbarPage(title="SHS Data Explorer",
                id = "navbar",
-               windowTitle = "SHS Annual Report",
+               windowTitle = "SHS Data Explorer",
                theme = shinythemes::shinytheme("flatly"),
                collapsible = TRUE,
 
@@ -50,11 +50,11 @@ ui <- fluidPage(
                         fluidRow(
                             HTML('<center><img src = "home_logo.png"></center>'),
                             column(8, offset = 2, wellPanel(
-                                tags$h1("The Local Authority Tables", style = "text-align: center"),
+                                tags$h1("Scottish Household Survey Data Explorer", style = "text-align: center"),
                                 h4("A National Statistics publication for Scotland", style = "text-align: center"),
                                 br(),
-                                tags$h4("Since 1999, the Scottish Household Survey collects and provides information on the composition, behaviour and attitudes of Scottish households.", style = "text-align: center"),
-                                tags$h4("This interactive app provides up-to-date, comparable information on Scottish households at local authority level. The different topics covered are divided into 11 chapters. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
+                                tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The different topics covered are divided into 11 chapters. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
                                 br()
                             )
                             )
@@ -100,16 +100,16 @@ ui <- fluidPage(
                         style = "margin-left: 4%; margin-right: 4%",
                         wellPanel(
                             fluidRow(
-                                column(5, selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%")),
+                                column(5, selectInput("select_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
                                 column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%"))
                             ),
 
                             fluidRow(
                                 column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
                                 column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
-                                column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")),
+                                column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
                                 column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
-                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
+                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority/Scotland'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
                             )
                         ),
 
@@ -162,7 +162,7 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel("LA Reports",
+               tabPanel("Create Report",
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
@@ -603,7 +603,7 @@ server <- function(input, output, session) {
 
         if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority"))
+            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
             shinyjs::showElement("select_comparison_type")
@@ -613,7 +613,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority"))
+            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
             shinyjs::showElement("select_year")
@@ -669,7 +669,7 @@ server <- function(input, output, session) {
 
         selected_local_authority <- input$select_local_authority
 
-        updateSelectInput(session, inputId = "select_local_authority_comparator", label = "Local Authority", choices = local_authorities[!local_authorities %in% selected_local_authority])
+        updateSelectInput(session, inputId = "select_local_authority_comparator", label = "Local Authority/Scotland", choices = local_authorities[!local_authorities %in% selected_local_authority])
     })
 
     # IMPORT DATA ####
@@ -765,7 +765,7 @@ server <- function(input, output, session) {
 
                 df <- df()[df()$Year == input$select_year_comparator & df()$Council == input$select_local_authority,]
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority_comparator,]
             }
@@ -968,9 +968,9 @@ server <- function(input, output, session) {
 
                 statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year_comparator, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
-                if (input$select_comparison_type == "Local Authority") {
+                if (input$select_comparison_type == "Local Authority/Scotland") {
 
                     if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
 
@@ -1032,7 +1032,7 @@ server <- function(input, output, session) {
 
                 paste0("Column percentages, ", input$select_year_comparator, " data, ", coverage)
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0("Column percentages, ", input$select_year, " data, ", coverage)
 
@@ -1048,7 +1048,7 @@ server <- function(input, output, session) {
 
                 paste0("Row percentages, ", input$select_year_comparator, " data, ", coverage)
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0("Row percentages, ", input$select_year, " data, ", coverage)
 
@@ -1059,7 +1059,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
-            if (input$select_comparison_type == "Local Authority") {
+            if (input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
 
@@ -1112,7 +1112,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -1122,7 +1122,7 @@ server <- function(input, output, session) {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
             }
@@ -1135,7 +1135,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -1145,7 +1145,7 @@ server <- function(input, output, session) {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
             }
