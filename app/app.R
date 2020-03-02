@@ -50,7 +50,9 @@ ui <- fluidPage(
                         fluidRow(
                             HTML('<center><img src = "home_logo.png"></center>'),
                             column(8, offset = 2, wellPanel(
-                                tags$h1("Scottish Household Survey Data Explorer", style = "text-align: center"),
+                                tags$h1("Scottish Household Survey", style = "text-align: center"),
+                                tags$h1("Data Explorer", style = "text-align: center"),
+                                br(),
                                 h4("A National Statistics publication for Scotland", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
@@ -1391,8 +1393,7 @@ server <- function(input, output, session) {
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
             ),
-            width = 0.4,
-            position = position_dodge(width = 0.9))
+            width = 0.3)
         }
 
         if(input$zoomLevel_main == "Full scale") {
@@ -1472,8 +1473,7 @@ server <- function(input, output, session) {
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
             ),
-            width = 0.4,
-            position = position_dodge(width = 0.9))
+            width = 0.3)
         }
 
         if(input$zoomLevel_comparator == "Full scale") {
