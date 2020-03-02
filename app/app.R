@@ -53,8 +53,6 @@ ui <- fluidPage(
                                 tags$h1("Scottish Household Survey", style = "text-align: center"),
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
-                                h4("A National Statistics publication for Scotland", style = "text-align: center"),
-                                br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
                                 tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The different topics covered are divided into 11 chapters. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
                                 br()
@@ -138,6 +136,7 @@ ui <- fluidPage(
                                 tabPanel("Chart",
                                          fluidRow(
                                              column(6, h3(textOutput("main_plot_title"))),
+
                                              column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
                                              column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
                                                                     "Y-axis zoom level:",
@@ -145,6 +144,7 @@ ui <- fluidPage(
                                                                     choices = c("Zoom to data", "Full scale")))),
                                              column(1, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", actionButton("help", icon("question"))))
                                          ),
+                                         fluidRow(h4(textOutput("main_chart_type_comment"))),
 
 
                                          fluidRow(plotly::plotlyOutput("main_chart")),
@@ -191,10 +191,15 @@ ui <- fluidPage(
 
                # Raw Data tab ####
 
-               tabPanel("Raw Data", value = "csv",
+               tabPanel("Data", value = "csv",
+
+                        wellPanel(
+                          h4("Below you will find all the data for each table and chart found in our survey results."),
+                          h4("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
+                        )),
 
                         fluidRow(
-                            column(5, selectInput("select_excel_chapter", label = "Chapter", choices = select_list_chapters, width = "100%")),
+                            column(5, selectInput("select_excel_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
                             column(7, selectInput("select_excel_question", label = "Question", choices = c(), width = "100%"))
                         ),
 
@@ -1072,6 +1077,16 @@ server <- function(input, output, session) {
         }
     })
 
+    # main_chart_type_c
+    output$main_chart_type_comment <- renderText({
+
+        coverage <- question_titles[question_titles$ID == input$select_question,]$Coverage
+
+        if (input$select_question %in% type_0_questions) {
+
+            paste0("Base numbers at local authority level are too small to produce robust analysis.")}
+    })
+
     # main_title ####
 
     output$main_title <- renderText({
@@ -1209,7 +1224,7 @@ server <- function(input, output, session) {
                                             # extensions = "Buttons",
                                             options = list(
                                                 # buttons = c("copy", "csv", "excel"),
-                                                dom = "Bt",
+                                                dom = "t",
                                                 digits = 1,
                                                 na = "-",
                                                 paging = FALSE,
@@ -1227,7 +1242,7 @@ server <- function(input, output, session) {
                                         # extensions = "Buttons",
                                         options = list(
                                             # buttons = c("copy", "csv", "excel"),
-                                            dom = "Bt",
+                                            dom = "t",
                                             digits = 1,
                                             na = "-",
                                             paging = FALSE,
@@ -1286,7 +1301,7 @@ server <- function(input, output, session) {
                           # extensions = "Buttons",
                           options = list(
                               # buttons = c("copy", "csv", "excel"),
-                              dom = "Bt",
+                              dom = "t",
                               digits = 1,
                               na = "-",
                               paging = FALSE,
@@ -1468,12 +1483,21 @@ server <- function(input, output, session) {
             chart <- NULL
         }
 
-        if(input$compareConfidenceInterval == TRUE) {
+        if(input$compareConfidenceInterval == TRUE | input$select_question %in% type_1_questions) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
             ),
             width = 0.3)
+        }
+
+        if(input$compareConfidenceInterval == TRUE | input$select_question %in% c(type_2_questions, type_3_questions)) {
+
+            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit
+            ),
+            width = 0.3,
+            position = position_dodge(width = 0.9))
         }
 
         if(input$zoomLevel_comparator == "Full scale") {
