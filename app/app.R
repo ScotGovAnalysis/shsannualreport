@@ -283,7 +283,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-    updateSelectizeInput(session, 'foo', choices = NULL, server = TRUE)
+
 
     # Welcome Modal ####
 
