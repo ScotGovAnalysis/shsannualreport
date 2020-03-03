@@ -30,9 +30,13 @@ ui <- fluidPage(
         tags$div(id="welcome_banner",
                  "Welcome to the new Scottish Household Survey LA Tables App.",
                  br(),
-                 "We are still working on the site and welcome any comments and suggestions to ",
-                 tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot"),
-                 actionButton("close_banner", "" , icon=icon("times")),
+                 fluidRow(
+                     column(11,
+                            "We are still working on the site and welcome any comments and suggestions to ",
+                            tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
+                     column(1,
+                            actionButton("close_banner", "" , icon=icon("times")))
+                         ),
                  style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
     ),
 
@@ -63,7 +67,7 @@ ui <- fluidPage(
                         fluidRow(column(8, offset = 2, actionButton("topic", "Topics", width = "100%", style = "color: #fff; background-color: #2C3E50; font-size: 200%"))),
 
                         fluidRow(
-                            column(4, offset = 2, actionButton("home_to_composition", "Composition", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_composition", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_housing", "Housing", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
@@ -80,7 +84,7 @@ ui <- fluidPage(
                         ),
 
                         br(), br(),
-                        column(7, p(img(src = "saltire.png", width = 400, height = 100))),
+                        column(7, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
                         column(2, offset = 3, p(img(src = "nat_stat.png", width = 130, height = 130))),
                         br(), br(), br(), br(), br(),
                         actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right"),
@@ -164,7 +168,7 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel("Create Report",
+               tabPanel("Create Report", style = "margin-left: 4%; margin-right: 4%",
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
@@ -191,7 +195,7 @@ ui <- fluidPage(
 
                # Raw Data tab ####
 
-               tabPanel("Data", value = "csv",
+               tabPanel("Data", value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
 
                         wellPanel(
                           h4("Below you will find all the data for each table and chart found in our survey results."),
@@ -208,7 +212,7 @@ ui <- fluidPage(
 
                # Resources tab ####
 
-               tabPanel("Resources", value = "resourcesTab",
+               tabPanel("Resources", value = "resourcesTab", style = "margin-left: 4%; margin-right: 4%",
 
                         fluidRow(
                             column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
@@ -1077,7 +1081,7 @@ server <- function(input, output, session) {
         }
     })
 
-    # main_chart_type_c
+    # main_chart_type_comment
     output$main_chart_type_comment <- renderText({
 
         coverage <- question_titles[question_titles$ID == input$select_question,]$Coverage
@@ -1341,15 +1345,17 @@ server <- function(input, output, session) {
 
         excel_datatable <- DT::datatable(excel_df(),
 
-                                         extensions = "Buttons",
-
+                                         extensions = c("Buttons", "FixedHeader"),
                                          options = list(
-                                             paging = FALSE,
-                                             buttons = c("copy", "csv", "excel"),
-                                             dom = "Bft",
-                                             columnDefs = list(list(targets = c(0), visible = FALSE))
-                                         ),
 
+                                             buttons = c("copy", "csv", "excel", "PDF"),
+                                             dom = "Bftpl",
+                                             columnDefs = list(list(targets = c(0), visible = FALSE)),
+                                             pageLength = 25,
+                                             lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
+                                             paging = TRUE,
+                                             fixedHeader = TRUE
+                                         ),
                                          class = "display",
                                          filter = 'top',
         )
@@ -1406,7 +1412,11 @@ server <- function(input, output, session) {
         if(input$ConfidenceInterval == TRUE) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste("Value: ", Percent, "%", "\n",
+                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
+                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
+                                                            )
             ),
             width = 0.3)
         }
@@ -1420,7 +1430,7 @@ server <- function(input, output, session) {
             chart <- NULL
             }
 
-        chart
+        chart <- ggplotly(tooltip = "text")
     })
 
     # output$comparison_chart ####
@@ -1486,15 +1496,23 @@ server <- function(input, output, session) {
         if(input$compareConfidenceInterval == TRUE | input$select_question %in% type_1_questions) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste("Value: ", Percent, "%", "\n",
+                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
+                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
+                                               )
             ),
             width = 0.3)
         }
 
-        if(input$compareConfidenceInterval == TRUE | input$select_question %in% c(type_2_questions, type_3_questions)) {
+        else if(input$compareConfidenceInterval == TRUE | input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste("Value: ", Percent, "%", "\n",
+                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
+                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
+                                               )
             ),
             width = 0.3,
             position = position_dodge(width = 0.9))
@@ -1504,7 +1522,7 @@ server <- function(input, output, session) {
             chart <- chart + ylim(0,100)
         }
 
-        chart
+        chart <- ggplotly(tooltip = "text")
 
     })
 
