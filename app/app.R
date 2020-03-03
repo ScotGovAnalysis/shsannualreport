@@ -10,6 +10,7 @@ library(plotly)
 library(RColorBrewer)
 library(ggthemes)
 library(shinythemes)
+library(shinydashboard)
 
 # sources ####
 
@@ -102,6 +103,17 @@ ui <- fluidPage(
 
                tabPanel("Survey Results", value = "surveyTab",
                         style = "margin-left: 4%; margin-right: 4%",
+                        fluidRow(
+                            selectizeInput('searchbar', 'Search',
+                                           choices = question_titles$Title,
+                                           selected="Search",
+                                           width = "150%",
+                                           options = list(
+                                                        placeholder = "Type here to find what question you are looking for",
+                                                        onInitialize = I('function() { this.setValue(""); }')
+                                                        )
+                                            )
+                                ),
                         wellPanel(
                             fluidRow(
                                 column(5, selectInput("select_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
@@ -270,6 +282,8 @@ ui <- fluidPage(
 # server ####
 
 server <- function(input, output, session) {
+
+    updateSelectizeInput(session, 'foo', choices = NULL, server = TRUE)
 
     # Welcome Modal ####
 
@@ -1430,7 +1444,9 @@ server <- function(input, output, session) {
             chart <- NULL
             }
 
-        chart <- ggplotly(tooltip = "text")
+        chart <- ggplotly(tooltip = "text") %>%
+            config(displaylogo = FALSE,
+                   displayModeBar = TRUE)
     })
 
     # output$comparison_chart ####
@@ -1522,7 +1538,10 @@ server <- function(input, output, session) {
             chart <- chart + ylim(0,100)
         }
 
-        chart <- ggplotly(tooltip = "text")
+        chart <- ggplotly(tooltip = "text") %>%
+            config(displaylogo = FALSE,
+                   displayModeBar = TRUE,
+                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
     })
 
