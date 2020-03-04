@@ -74,14 +74,14 @@ ui <- fluidPage(
                             column(4, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_finance", "Finance", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_internet", "Internet", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(4, offset = 2, actionButton("home_to_sport", "Physical Activity and Sport", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_sport", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
 
                         fluidRow(br(),
-                                 h5("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
+                                 h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
                         ),
 
                         br(), br(),
@@ -282,7 +282,6 @@ ui <- fluidPage(
 # server ####
 
 server <- function(input, output, session) {
-
 
 
     # Welcome Modal ####
@@ -1362,7 +1361,7 @@ server <- function(input, output, session) {
                                          extensions = c("Buttons", "FixedHeader"),
                                          options = list(
 
-                                             buttons = c("copy", "csv", "excel", "PDF"),
+                                             buttons = c("copy", "csv", "excel"),
                                              dom = "Bftpl",
                                              columnDefs = list(list(targets = c(0), visible = FALSE)),
                                              pageLength = 25,
@@ -1371,7 +1370,7 @@ server <- function(input, output, session) {
                                              fixedHeader = TRUE
                                          ),
                                          class = "display",
-                                         filter = 'top',
+                                         filter = 'top'
         )
 
         return(excel_datatable)
@@ -1397,6 +1396,7 @@ server <- function(input, output, session) {
 
             line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
                                         geom_line(size = 1) +
+                                        geom_point() +
                                         theme(panel.grid.minor = element_blank(),
                                         panel.background = element_rect(\"transparent\"),
                                         panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
@@ -1423,6 +1423,11 @@ server <- function(input, output, session) {
 
         }
 
+        else {
+
+            chart <- NULL
+        }
+
         if(input$ConfidenceInterval == TRUE) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
@@ -1439,14 +1444,11 @@ server <- function(input, output, session) {
             chart <- chart + ylim(0,100)
         }
 
-        } else {
-
-            chart <- NULL
-            }
 
         chart <- ggplotly(tooltip = "text") %>%
             config(displaylogo = FALSE,
-                   displayModeBar = TRUE)
+                displayModeBar = TRUE)
+        }
     })
 
     # output$comparison_chart ####
@@ -1498,18 +1500,14 @@ server <- function(input, output, session) {
 
             }
 
-
-            else {
-
-                chart <- NULL
-            }
-
         } else {
 
             chart <- NULL
         }
 
-        if(input$compareConfidenceInterval == TRUE | input$select_question %in% type_1_questions) {
+        if(input$compareConfidenceInterval == TRUE) {
+
+            if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
@@ -1519,20 +1517,21 @@ server <- function(input, output, session) {
                                                )
             ),
             width = 0.3)
+            } else {
+
+                chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                                   ymax = df$UpperConfidenceLimit,
+                                                   text = paste("Value: ", Percent, "%", "\n",
+                                                                "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
+                                                                "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
+                                                   )
+                ),
+                width = 0.3)
+
+            }
         }
 
-        else if(input$compareConfidenceInterval == TRUE | input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit,
-                                               text = paste("Value: ", Percent, "%", "\n",
-                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
-                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
-                                               )
-            ),
-            width = 0.3,
-            position = position_dodge(width = 0.9))
-        }
 
         if(input$zoomLevel_comparator == "Full scale") {
             chart <- chart + ylim(0,100)
