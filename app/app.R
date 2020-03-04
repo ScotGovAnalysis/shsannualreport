@@ -1396,7 +1396,6 @@ server <- function(input, output, session) {
 
             line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
                                         geom_line(size = 1) +
-                                        geom_point() +
                                         theme(panel.grid.minor = element_blank(),
                                         panel.background = element_rect(\"transparent\"),
                                         panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
@@ -1428,16 +1427,28 @@ server <- function(input, output, session) {
             chart <- NULL
         }
 
-        if(input$ConfidenceInterval == TRUE) {
+        if(input$ConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit,
-                                               text = paste("Value: ", Percent, "%", "\n",
-                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
-                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
-                                                            )
+                                               ymax = df$UpperConfidenceLimit
+
+                                               ),
+            width = 0.4,
+            position = position_dodge(width = 0.9))
+        }
+
+        else if (input$ConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
+
+            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit
+
             ),
             width = 0.3)
+        }
+
+        else {
+
+            chart
         }
 
         if(input$zoomLevel_main == "Full scale") {
@@ -1445,9 +1456,10 @@ server <- function(input, output, session) {
         }
 
 
-        chart <- ggplotly(tooltip = "text") %>%
+        chart <- ggplotly() %>%
             config(displaylogo = FALSE,
-                displayModeBar = TRUE)
+                   displayModeBar = TRUE,
+                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
         }
     })
 
@@ -1510,21 +1522,15 @@ server <- function(input, output, session) {
             if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit,
-                                               text = paste("Value: ", Percent, "%", "\n",
-                                                            "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
-                                                            "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
-                                               )
+                                               ymax = df$UpperConfidenceLimit
             ),
-            width = 0.3)
+            width = 0.3,
+            position = position_dodge(width = 0.9))
+
             } else {
 
                 chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                                   ymax = df$UpperConfidenceLimit,
-                                                   text = paste("Value: ", Percent, "%", "\n",
-                                                                "Lower Confidence Limit: ", df$LowerConfidenceLimit, "%", "\n",
-                                                                "Upper Confidence Limit: ", df$UpperConfidenceLimit, "%", "\n"
-                                                   )
+                                                   ymax = df$UpperConfidenceLimit
                 ),
                 width = 0.3)
 
@@ -1537,7 +1543,7 @@ server <- function(input, output, session) {
             chart <- chart + ylim(0,100)
         }
 
-        chart <- ggplotly(tooltip = "text") %>%
+        chart <- ggplotly() %>%
             config(displaylogo = FALSE,
                    displayModeBar = TRUE,
                    modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
