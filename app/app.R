@@ -101,7 +101,9 @@ ui <- fluidPage(
 
                # Survey Results tab ####
 
-               tabPanel("Survey Results", value = "surveyTab",
+               tabPanel(
+                   div(icon("fas fa-chart-line"),
+                       "Survey Results"), value = "surveyTab",
                         style = "margin-left: 4%; margin-right: 4%",
                         fluidRow(
                             selectizeInput('searchbar', 'Search',
@@ -180,7 +182,9 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel("Create Report", style = "margin-left: 4%; margin-right: 4%",
+               tabPanel(
+                   div(icon("fal fa-clipboard-list"),
+                   "Create Report"), style = "margin-left: 4%; margin-right: 4%",
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
@@ -207,7 +211,8 @@ ui <- fluidPage(
 
                # Raw Data tab ####
 
-               tabPanel("Data", value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
+               tabPanel(
+                   div(icon("far fa-folder-open"), "Data"), value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
 
                         wellPanel(
                           h4("Below you will find all the data for each table and chart found in our survey results."),
@@ -512,6 +517,7 @@ server <- function(input, output, session) {
                           selected = "surveyTab")
         updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[11])
     })
+
 
     # Update Input$select_question by input$select_chapter ####
 
