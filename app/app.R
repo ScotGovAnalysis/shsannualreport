@@ -1364,7 +1364,7 @@ server <- function(input, output, session) {
 
         excel_datatable <- DT::datatable(excel_df(),
 
-                                         extensions = c("Buttons", "FixedHeader"),
+                                         extensions = "Buttons",
                                          options = list(
 
                                              buttons = c("copy", "csv", "excel"),
@@ -1372,8 +1372,7 @@ server <- function(input, output, session) {
                                              columnDefs = list(list(targets = c(0), visible = FALSE)),
                                              pageLength = 25,
                                              lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
-                                             paging = TRUE,
-                                             fixedHeader = TRUE
+                                             paging = TRUE
                                          ),
                                          class = "display",
                                          filter = 'top'
