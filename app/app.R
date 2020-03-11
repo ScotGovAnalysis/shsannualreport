@@ -59,7 +59,7 @@ ui <- fluidPage(
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The different topics covered are divided into 11 chapters. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
                                 br()
                             )
                             )
@@ -142,7 +142,7 @@ ui <- fluidPage(
                                          fluidRow(h5(textOutput("comment"))),
                                          fluidRow(h5(htmlOutput("link"))),
                                          fluidRow(dataTableOutput("main_table")),
-                                         fluidRow(htmlOutput("statistical_significance_key")),
+                                         fluidRow(h4(htmlOutput("statistical_significance_key"))),
                                          fluidRow(h3(textOutput("comparison_title"))),
                                          fluidRow(
                                              column(10, h4(textOutput("comparison_table_type_comment"))),
@@ -260,7 +260,7 @@ ui <- fluidPage(
                         ),
 
                         fluidRow(
-                            column(7, #Learn more about SHS box
+                            column(7,
                                    wellPanel(
                                        tags$h3("Learn more about SHS"),
                                        tags$h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
@@ -1399,8 +1399,17 @@ server <- function(input, output, session) {
 
         if (input$select_question %in% type_1_questions) {
 
-            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`,
+                                                                         y = Percent,
+                                                                         group = `", measure_column_name(), "`,
+                                                                         colour = `", measure_column_name(), "`,
+                                                                         text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                                                         measure_column_name(), \": \",", measure_column_name(), ",\"\n\",
+                                                                         gather_key, \": \",", gather_key,"))) +
                                         geom_line(size = 1) +
+                                        geom_point() +
                                         theme(panel.grid.minor = element_blank(),
                                         panel.background = element_rect(\"transparent\"),
                                         panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
@@ -1408,11 +1417,17 @@ server <- function(input, output, session) {
                                         scale_colour_manual(values = shs_colours) +
                                         labs(title = input$question, x = \"Year\")")
 
+            saveRDS(df, "test.Rds")
+            print(line_chart_string)
             chart <- eval(parse(text = line_chart_string))
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +
+            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+
+                                                                        \"Group: \",", gather_key,"))) +
                                        geom_bar(position = \"dodge\", stat = \"identity\") +
                                        theme(panel.grid.minor = element_blank(),
                                        panel.grid.major.x = element_blank(),
@@ -1437,7 +1452,7 @@ server <- function(input, output, session) {
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
 
-                                               ),
+            ),
             width = 0.4,
             position = position_dodge(width = 0.9))
         }
@@ -1451,6 +1466,7 @@ server <- function(input, output, session) {
             width = 0.3)
         }
 
+
         else {
 
             chart
@@ -1460,11 +1476,11 @@ server <- function(input, output, session) {
             chart <- chart + ylim(0,100)
         }
 
-
-        chart <- ggplotly() %>%
+        chart <- ggplotly(tooltip = "text") %>%
             config(displaylogo = FALSE,
                    displayModeBar = TRUE,
                    modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
+
         }
     })
 
@@ -1484,8 +1500,15 @@ server <- function(input, output, session) {
 
             if (input$select_question %in% type_1_questions) {
 
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`,
+                                                                         text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                                                         measure_column_name(), \": \",", measure_column_name(), "\n\",
+                                                                         gather_key, \": \",", gather_key,"
+))) +
                                             geom_line(size = 1) +
+                                            geom_point() +
                                             theme(panel.grid.minor = element_blank(),
                                             panel.background = element_rect(\"transparent\"),
                                             panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
@@ -1497,7 +1520,12 @@ server <- function(input, output, session) {
 
             } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +
+                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, , text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+
+                                                                        \"Group: \",", gather_key,"
+))) +
                                            geom_bar(position = \"dodge\", stat = \"identity\") +
                                            theme(panel.grid.minor = element_blank(),
                                            panel.grid.major.x = element_blank(),
@@ -1534,69 +1562,24 @@ server <- function(input, output, session) {
 
             } else {
 
-                chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                chart <- geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                    ymax = df$UpperConfidenceLimit
                 ),
-                width = 0.3)
+                width = 0.3) +
+                    chart
 
             }
         }
-
-
 
         if(input$zoomLevel_comparator == "Full scale") {
             chart <- chart + ylim(0,100)
         }
 
-        chart <- ggplotly() %>%
+        #Removes tooltip duplicates and plotly modebar options
+        ggplotly(tooltip = "text") %>%
             config(displaylogo = FALSE,
                    displayModeBar = TRUE,
                    modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
-
-    })
-
-    # output$small_multiples_plot ####
-
-    output$small_multiples_plot <- renderPlotly({
-
-        if (input$select_comparison_type != "No comparison") {
-
-            df <- rbind(main_chart_df(), comparison_chart_df())
-
-            df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
-
-            df <- eval(parse(text = df_string))
-
-            gather_key <- colnames(df[2])
-
-            if (input$select_question %in% type_1_questions) {
-
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", "Council", "`)) +
-                                        geom_line(size = 1, fill = \"#2C3E50\") +
-                                        facet_wrap(~`", measure_column_name(),"`, scales = \"free_x\") +
-                                        theme(panel.grid.minor = element_blank(),
-                                        panel.background = element_rect(\"transparent\"),
-                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                        text = element_text(family = \"Arial\"),
-                                        panel.spacing.y = unit(1, \"lines\"),
-                                        strip.background = element_rect(fill = \"#99CCCC\")) +
-                                        scale_colour_manual(values = time_series_colours) +
-                                        labs(title = input$question, x = \"Year\")")
-
-                chart <- eval(parse(text = line_chart_string))
-
-            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +  geom_bar(position = \"dodge\", stat = \"identity\", fill = \"#2C3E50\") + facet_wrap(~`Marital status`, scales = \"free_x\") + theme(panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(), panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3), panel.background = element_rect(\"transparent\"), legend.position = \"bottom\", panel.spacing.y = unit(1, \"lines\"), strip.background = element_rect(fill = \"#99CCCC\"))+ scale_fill_manual(values = time_series_colours) + labs(title = input$question, x = \"Age\")")
-
-                chart <- eval(parse(text = bar_chart_string))
-
-            }} else {
-
-                chart <- NULL
-            }
-
-        chart
 
     })
 
