@@ -1412,8 +1412,6 @@ server <- function(input, output, session) {
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
 
-            saveRDS(df, "test.Rds")
-            print(line_chart_string)
             chart <- eval(parse(text = line_chart_string))
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
