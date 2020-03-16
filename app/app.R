@@ -66,13 +66,13 @@ ui <- fluidPage(
                         fluidRow(column(8, offset = 2, actionButton("topic", "Topics", width = "100%", style = "color: #fff; background-color: #2C3E50; font-size: 200%"))),
 
                         fluidRow(
-                            column(4, offset = 2, actionButton("home_to_composition", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_demographics", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_housing", "Housing", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_finance", "Finance", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_internet", "Internet", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(4, offset = 2, actionButton("home_to_sport", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_physical_activity", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
@@ -116,7 +116,7 @@ ui <- fluidPage(
                                 ),
                         wellPanel(
                             fluidRow(
-                                column(5, selectInput("select_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
+                                column(5, selectInput("select_topic", label = "Topic", choices = select_list_topics, width = "100%")),
                                 column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%"))
                             ),
 
@@ -187,11 +187,11 @@ ui <- fluidPage(
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
-                                  h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
+                                  h5("Below you can download an example topic for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
                         ),
 
                         fluidRow(
-                            column(8, selectInput("select_chapter", label = "Chapter", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
+                            column(8, selectInput("select_topic", label = "Topic", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
                         ),
 
                         fluidRow(
@@ -219,7 +219,7 @@ ui <- fluidPage(
                         )),
 
                         fluidRow(
-                            column(5, selectInput("select_excel_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
+                            column(5, selectInput("select_excel_topic", label = "Topic", choices = select_list_topics, width = "100%")),
                             column(7, selectInput("select_excel_question", label = "Question", choices = c(), width = "100%"))
                         ),
 
@@ -449,179 +449,179 @@ server <- function(input, output, session) {
 
     # Topic tab buttons ####
 
-    observeEvent(input$home_to_composition, {
+    observeEvent(input$home_to_demographics, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[1])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[1])
     })
 
     observeEvent(input$home_to_housing, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[2])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[2])
     })
 
     observeEvent(input$home_to_neighbourhoods, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[3])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[3])
     })
 
     observeEvent(input$home_to_economic_activity, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[4])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[4])
     })
 
     observeEvent(input$home_to_finance, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[5])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[5])
     })
 
     observeEvent(input$home_to_internet, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[6])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[6])
     })
 
 
-    observeEvent(input$home_to_sport, {
+    observeEvent(input$home_to_physical_activity, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[7])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[7])
     })
 
     observeEvent(input$home_to_local_services, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[8])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[8])
     })
 
     observeEvent(input$home_to_environment, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[9])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[9])
     })
 
     observeEvent(input$home_to_volunteering, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[10])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[10])
     })
 
     observeEvent(input$home_to_culture, {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
-        updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[11])
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[11])
     })
 
 
-    # Update Input$select_question by input$select_chapter ####
+    # Update Input$select_question by input$select_topic ####
 
     observe({
 
-        if (grepl("The Composition and Characteristics of Households in Scotland", input$select_chapter, fixed = TRUE)) {
+        if (grepl("The Composition and Characteristics of Households in Scotland", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_2, selected = select_list_questions_chapter_2[1])
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
 
-        } else if (grepl("Housing", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Housing", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_3)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_3)
 
-        } else if (grepl("Neighbourhoods and Communities", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Neighbourhoods and Communities", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_4)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_4)
 
-        } else if (grepl("Economic Activity", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Economic Activity", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_5)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_5)
 
-        } else if (grepl("Finance", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Finance", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_6)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_6)
 
-        } else if (grepl("Internet", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Internet", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_7)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_7)
 
-        } else if (grepl("Physical Activity and Sport", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Physical Activity and Sport", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_8)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_8)
 
-        } else if (grepl("Local Services", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Local Services", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_9)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_9)
 
-        } else if (grepl("Environment", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Environment", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_10)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_10)
 
-        } else if (grepl("Volunteering", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Volunteering", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_11)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_11)
 
-        } else if (grepl("Culture and Heritage", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Culture and Heritage", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_12)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_12)
 
-        } else if (grepl("Childcare", input$select_chapter, fixed = TRUE)) {
+        } else if (grepl("Childcare", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_chapter_13)
+            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
         }
     })
 
-    # Update input$select_excel_question by inpur$select_excel_chapter ####
+    # Update input$select_excel_question by inpur$select_excel_topic ####
 
     observe({
 
-        if (grepl("The Composition and Characteristics of Households in Scotland", input$select_excel_chapter, fixed = TRUE)) {
+        if (grepl("The Composition and Characteristics of Households in Scotland", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_2, selected = select_list_questions_chapter_2[1])
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
 
-        } else if (grepl("Housing", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Housing", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_3)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_3)
 
-        } else if (grepl("Neighbourhoods and Communities", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Neighbourhoods and Communities", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_4)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_4)
 
-        } else if (grepl("Economic Activity", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Economic Activity", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_5)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_5)
 
-        } else if (grepl("Finance", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Finance", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_6)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_6)
 
-        } else if (grepl("Internet", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Internet", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_7)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_7)
 
-        } else if (grepl("Physical Activity and Sport", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Physical Activity and Sport", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_8)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_8)
 
-        } else if (grepl("Local Services", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Local Services", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_9)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_9)
 
-        } else if (grepl("Environment", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Environment", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_10)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_10)
 
-        } else if (grepl("Volunteering", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Volunteering", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_11)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_11)
 
-        } else if (grepl("Culture and Heritage", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Culture and Heritage", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_12)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_12)
 
-        } else if (grepl("Childcare", input$select_excel_chapter, fixed = TRUE)) {
+        } else if (grepl("Childcare", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_chapter_13)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_13)
         }
     })
 
@@ -1633,13 +1633,13 @@ server <- function(input, output, session) {
                      detail = "This may take a while. This window will disappear
                      when the report is ready.", value = 1)
 
-        data <- chapter_2_data(input$select_report_local_authority, input$select_report_year)
+        data <- topic_2_data(input$select_report_local_authority, input$select_report_year)
 
         params <- list(local_authority = input$select_report_local_authority,
                        year = input$select_report_year,
-                       chapter_data = data)
+                       topic_data = data)
 
-        rmarkdown::render("chapter2.Rmd",
+        rmarkdown::render("topic2.Rmd",
                           output_format = "pdf_document",
                           output_file = tmp_file,
                           params = params,
@@ -1661,7 +1661,7 @@ server <- function(input, output, session) {
     output$download <- downloadHandler(
 
         filename = function() {
-            paste0(input$select_chapter, "_", Sys.Date(), ".pdf") %>%
+            paste0(input$select_topic, "_", Sys.Date(), ".pdf") %>%
                 gsub(" ", "_", .)
         },
 

@@ -20,7 +20,7 @@ shs_shiny_variables <- function() {
   extracted_dataset_path <- "app/data/dataset"
   extracted_metadata_path <- "app/data/metadata"
 
-  chapter_titles <- readRDS(file.path(extracted_metadata_path, "chapter_titles.Rds"))
+  topic_titles <- readRDS(file.path(extracted_metadata_path, "topic_titles.Rds"))
   question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
 
   question_titles$HasDataFile <- "N"
@@ -99,40 +99,40 @@ shs_shiny_variables <- function() {
       file = save_file_path,
       append = TRUE)
 
-  select_chapter_string <- "select_list_chapters <- c("
+  select_topic_string <- "select_list_topics <- c("
 
   counter = 2
-  for (chapter_title in chapter_titles[chapter_titles$has_data == 'y',]$title) {
+  for (topic_title in topic_titles[topic_titles$has_data == 'y',]$title) {
 
-    select_chapter_string <- paste0(select_chapter_string, "\"Ch. ", counter, ": ", chapter_title, "\" = \"", chapter_title, "\",\n")
+    select_topic_string <- paste0(select_topic_string, "\"Topic ", counter, ": ", topic_title, "\" = \"", topic_title, "\",\n")
     counter = counter + 1
   }
 
-  select_chapter_string <- (substr(select_chapter_string, 1, nchar(select_chapter_string) - 2)) %>%
+  select_topic_string <- (substr(select_topic_string, 1, nchar(select_topic_string) - 2)) %>%
     paste0(")\n\n")
 
-  cat(select_chapter_string, file = save_file_path, append = TRUE)
+  cat(select_topic_string, file = save_file_path, append = TRUE)
 
-  chapter_numbers <- gsub("CH", "", chapter_titles$code)
+  topic_numbers <- gsub("Top", "", topic_titles$code)
 
-  for (chapter_number in chapter_numbers) {
+  for (topic_number in topic_numbers) {
 
     select_question_string <- ""
     valid_question_ids <- c()
-    question_ids_by_chapter <- question_titles[grepl(paste0(" ", chapter_number, "."), question_titles$ID),]$ID
+    question_ids_by_topic <- question_titles[grepl(paste0(" ", topic_number, "."), question_titles$ID),]$ID
 
-    if (length(question_ids_by_chapter) > 0) {
+    if (length(question_ids_by_topic) > 0) {
 
-      select_question_string <- paste0(select_question_string, "select_list_questions_chapter_", chapter_number, " <- c(")
+      select_question_string <- paste0(select_question_string, "select_list_questions_topic_", topic_number, " <- c(")
 
-      for (question_id in question_ids_by_chapter) {
+      for (question_id in question_ids_by_topic) {
 
         question_title <- question_titles[question_titles$ID == question_id,]$Title
 
         select_question_string <- paste0(select_question_string, "\"", question_id, ": ", question_title, "\"", " = ", "\"", question_id, "\",", "\n")
       }
 
-      if (length(question_ids_by_chapter) > 0) {
+      if (length(question_ids_by_topic) > 0) {
 
         select_question_string <- (substr(select_question_string, 1, nchar(select_question_string) - 2))
       }
