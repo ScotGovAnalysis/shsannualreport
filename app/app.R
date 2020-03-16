@@ -10,7 +10,6 @@ library(plotly)
 library(RColorBrewer)
 library(ggthemes)
 library(shinythemes)
-library(shinydashboard)
 
 # sources ####
 

@@ -12,7 +12,7 @@ The Scottish Household Survey is:
 * A face-to-face survey of a sample of people in private residences in Scotland.
 * Interviewer-administrated in people's homes
 * Voluntary
-* Scotland´-wide; it covers all 32 local authorities.
+* Scotland-wide; it covers all 32 local authorities.
 * Three surveys in one: Transport and Travel in Scotland Survey, the Scottish House Condition Survey as well as the Scottish Household Survey.
 * Long-running since 1999.
 * A provider of robust evidence on the composition, characteristics, attitudes and behaviour of private households and individuals. 
