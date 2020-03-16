@@ -29,7 +29,7 @@ ui <- fluidPage(
         useShinyjs(),
 
         tags$div(id="welcome_banner",
-                 "Welcome to the new Scottish Household Survey LA Tables App.",
+                 "Welcome to the new Scottish Household Survey Data Explorer.",
                  br(),
                  fluidRow(
                      column(11,
@@ -136,8 +136,9 @@ ui <- fluidPage(
                                 tabPanel("Table",
                                          fluidRow(h3(textOutput("main_title"))),
                                          fluidRow(
-                                             column(10, h4(textOutput("main_table_type_comment"))),
-                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table")))
+                                             column(8, h4(textOutput("main_table_type_comment"))),
+                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table"))),
+                                             column(1, offset = 1, actionButton("helpTable", icon("question")))
                                              ),
                                          fluidRow(h5(textOutput("comment"))),
                                          fluidRow(h5(htmlOutput("link"))),
@@ -160,7 +161,7 @@ ui <- fluidPage(
                                                                     "Y-axis zoom level:",
                                                                     selected = "Full scale",
                                                                     choices = c("Zoom to data", "Full scale")))),
-                                             column(1, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", actionButton("help", icon("question"))))
+                                             column(1, actionButton("help", icon("question")))
                                          ),
                                          fluidRow(h4(textOutput("main_chart_type_comment"))),
 
@@ -295,10 +296,10 @@ server <- function(input, output, session) {
 
         p(img(src = "new_logo.png", height = "100%", width = "100%"), style = "text-align: center"),
         br(),
-        tags$div(h4("This interactive app provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
+        tags$div(h4("This interactive tool provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
                  style = "color: 0E3E5D; font-size:20px; text-align: center"),
         br(),
-        h4("If this is your first time using the app, take a tour to learn more about how to get the most out of it."),
+        h4("If this is your first time using the tool, take a tour to learn more about how to get the most out of it."),
         actionButton("tour", "Take a tour", icon("play-circle")),
         actionButton("modal_to_resources", "Resources", icon("wrench")),
 
@@ -326,8 +327,7 @@ server <- function(input, output, session) {
         fluidRow(
             br(),
             img(src = "modal-into.png", height = "50%", width = "50%"), style = "text-align: center"),
-        h4("For the past 20 years the Scottish Household Survey has collected information about Scottish households. The information is used daily by the Scottish government and local authorities to help shape policy and laws."),
-        h4("This app contains the Scottish Household Survey data open for anyone to explore. The data is broken down to local authority level, meaning you can compare different areas of Scotland with each other. You can also compare information over time and with the Scottish average. Whether you want to use the SHS data for a project, analysis or to show your friends and family, all the tables, charts and raw data are exportable through a simple click of a button!"),
+        h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's take a tour!"),
 
         actionButton("next1", "Next", icon("play-circle"))
     )
@@ -395,9 +395,9 @@ server <- function(input, output, session) {
         fluidRow(
             p(tags$div("Statistical significance", style = "color: 0E3E5D; font-size: 30px; width = 90%; text-align: left")),
             br(),
-            h5("The SHS data is able to make generalisations about the Scottish population as a whole by only interviewing a random sample of all the Scottish households. However, this means that figures are estimates rather than precise percentages, and come with a degree of error. In fact, the 'true' value might be higher or lower than the estimate. This range is called the 'confidence interval'"),
+            h5("The Scottish Household Survet can make generalisations about the Scottish population as a whole by only interviewing a random sample of all the Scottish households. This means that figures are estimates rather than precise percentages, and come with a degree of error. In fact, the 'true' value might be higher or lower than the estimate. This range is called the 'confidence interval'"),
             h5("For time or local authority comparisons, the tables and charts indicate whether any difference is statistically significant or not."),
-            tags$li("Tables: Dark green colour indicates a value significantly greater. Light purple colour indicates a value significantly lower. Cells with no colour indicate no statistical difference."),
+            tags$li("Tables: Dark green colour indicates a value statistically significantly greater than the comparison. Light purple colour indicates a value stastically significantly lower than the comparison. Cells with no colour indicate no statistical difference."),
             tags$li("Charts: Hovering over the error bars will display the exact range of the confidence interval.")),
         fluidRow(
             column(6,
@@ -418,7 +418,7 @@ server <- function(input, output, session) {
             column(12,
                    p(tags$div("Downloading Data", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br(),
-                   h4("You can modify and download the data you need. In the 'Raw Data' tab you can view the raw data used to produce the tables and charts. Either copy or download all the data for a specific question or you use the filter function to retrieve the raw data for a specific criteria."),
+                   h4("You can modify and download the data you need. In the 'Download Data' tab you can view all the data used to produce the tables and charts. Either copy or download all the data for a specific question or you use the filter function to retrieve the data for a specific criteria."),
                    br())),
         fluidRow(
             img(src = "modal_download.png", height = "100%", width = "100%")
@@ -1399,23 +1399,18 @@ server <- function(input, output, session) {
 
         if (input$select_question %in% type_1_questions) {
 
-            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`,
-                                                                         y = Percent,
-                                                                         group = `", measure_column_name(), "`,
-                                                                         colour = `", measure_column_name(), "`,
-                                                                         text = paste(\"Value: \", Percent, \"%\", \"\n\",
+            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
                                                                          measure_column_name(), \": \",", measure_column_name(), ",\"\n\",
                                                                          gather_key, \": \",", gather_key,"))) +
-                                        geom_line(size = 1) +
-                                        geom_point() +
                                         theme(panel.grid.minor = element_blank(),
-                                        panel.background = element_rect(\"transparent\"),
-                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                        text = element_text(family = \"Arial\")) +
-                                        scale_colour_manual(values = shs_colours) +
-                                        labs(title = input$question, x = \"Year\")")
+                                              panel.background = element_rect(\"transparent\"),
+                                              panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              text = element_text(family = \"Arial\")) +
+                                              scale_colour_manual(values = shs_colours) +
+                                              labs(title = input$question, x = \"Year\")")
 
             saveRDS(df, "test.Rds")
             print(line_chart_string)
@@ -1424,10 +1419,10 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Group: \",", gather_key,"))) +
 
-                                                                        \"Group: \",", gather_key,"))) +
                                        geom_bar(position = \"dodge\", stat = \"identity\") +
                                        theme(panel.grid.minor = element_blank(),
                                        panel.grid.major.x = element_blank(),
@@ -1459,11 +1454,16 @@ server <- function(input, output, session) {
 
         else if (input$ConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
 
-            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Group: \",", gather_key,")),
+            width = 0.3)")
 
-            ),
-            width = 0.3)
+
+            chart <- eval(parse(text=confidence_intervals_string))
         }
 
 
@@ -1500,21 +1500,18 @@ server <- function(input, output, session) {
 
             if (input$select_question %in% type_1_questions) {
 
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`,
-                                                                         text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                                                         measure_column_name(), \": \",", measure_column_name(), "\n\",
-                                                                         gather_key, \": \",", gather_key,"
-))) +
-                                            geom_line(size = 1) +
-                                            geom_point() +
-                                            theme(panel.grid.minor = element_blank(),
-                                            panel.background = element_rect(\"transparent\"),
-                                            panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                            text = element_text(family = \"Arial\")) +
-                                            scale_colour_manual(values = shs_colours) +
-                                            labs(title = input$question, x = \"Year\")")
+                                                                         measure_column_name(), \": \",", measure_column_name(), ",\"\n\",
+                                                                         gather_key, \": \",", gather_key,"))) +
+                                        theme(panel.grid.minor = element_blank(),
+                                              panel.background = element_rect(\"transparent\"),
+                                              panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              text = element_text(family = \"Arial\")) +
+                                              scale_colour_manual(values = shs_colours) +
+                                              labs(title = input$question, x = \"Year\")")
 
                 chart <- eval(parse(text = line_chart_string))
 
@@ -1550,25 +1547,34 @@ server <- function(input, output, session) {
             chart <- NULL
         }
 
-        if(input$compareConfidenceInterval == TRUE) {
-
-            if (input$select_question %in% c(type_2_questions, type_3_questions)) {
+        if(input$compareConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
+
             ),
-            width = 0.3,
+            width = 0.4,
             position = position_dodge(width = 0.9))
+        }
 
-            } else {
+        else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
 
-                chart <- geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                                   ymax = df$UpperConfidenceLimit
-                ),
-                width = 0.3) +
-                    chart
+            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Group: \",", gather_key,")),
+            width = 0.3)")
 
-            }
+
+            chart <- eval(parse(text=confidence_intervals_string))
+        }
+
+
+        else {
+
+            chart
         }
 
         if(input$zoomLevel_comparator == "Full scale") {
@@ -1597,6 +1603,22 @@ server <- function(input, output, session) {
 
     observeEvent(input$help, {
         showModal(chartModal)
+    })
+
+    # Table help modal ####
+
+    tableModal <- modalDialog(
+        size = "l",
+        br(),
+        p(tags$h4("How go use the SHS tables", style = "text-align: center"),
+          tags$br(),
+          p(img(src = "modal_table2.png", height = "100%", width = "100%"), style = "text-align: center"),
+          p(img(src = "sign_table.png", height = "100%", width = "100%"), style = "text-align: center"),
+          tags$b("Statistical significance is indicated through different coloured cells. Dark green cells indicate a statistically significantly different value to the corresponding comparator table, where light purple cells indicate that the value is statistically significantly lower."),
+          easyClose = TRUE, fade = FALSE, footer = NULL))
+
+    observeEvent(input$helpTable, {
+        showModal(tableModal)
     })
 
     # output$report ####
