@@ -8,14 +8,13 @@ library(magrittr)
 library(ggplot2)
 library(plotly)
 library(RColorBrewer)
-library(ggthemes)
-library(shinythemes)
+# library(ggthemes)
+# library(shinythemes)
 
 # sources ####
 
 source("source/variables.R")$values
 source("source/functions.R")$values
-source("report_data_processing/chapter_2.R")$values
 
 # ui ####
 
