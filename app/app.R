@@ -10,6 +10,7 @@ library(plotly)
 library(RColorBrewer)
 library(ggthemes)
 library(shinythemes)
+library(shinydashboard)
 
 # sources ####
 
@@ -28,19 +29,23 @@ ui <- fluidPage(
         useShinyjs(),
 
         tags$div(id="welcome_banner",
-                 "Welcome to the new Scottish Household Survey LA Tables App.",
+                 "Welcome to the new Scottish Household Survey Data Explorer.",
                  br(),
-                 "We are still working on the site and welcome any comments and suggestions to ",
-                 tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot"),
-                 actionButton("close_banner", "" , icon=icon("times")),
+                 fluidRow(
+                     column(11,
+                            "We are still working on the site and welcome any comments and suggestions to ",
+                            tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
+                     column(1,
+                            actionButton("close_banner", "" , icon=icon("times")))
+                         ),
                  style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
     ),
 
     # Navbar page ####
 
-    navbarPage(title="SHS Annual Report",
+    navbarPage(title="SHS Data Explorer",
                id = "navbar",
-               windowTitle = "SHS Annual Report",
+               windowTitle = "SHS Data Explorer",
                theme = shinythemes::shinytheme("flatly"),
                collapsible = TRUE,
 
@@ -50,11 +55,11 @@ ui <- fluidPage(
                         fluidRow(
                             HTML('<center><img src = "home_logo.png"></center>'),
                             column(8, offset = 2, wellPanel(
-                                tags$h1("The Local Authority Tables", style = "text-align: center"),
-                                h4("A National Statistics publication for Scotland", style = "text-align: center"),
+                                tags$h1("Scottish Household Survey", style = "text-align: center"),
+                                tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
-                                tags$h4("Since 1999, the Scottish Household Survey collects and provides information on the composition, behaviour and attitudes of Scottish households.", style = "text-align: center"),
-                                tags$h4("This interactive app provides up-to-date, comparable information on Scottish households at local authority level. The different topics covered are divided into 11 chapters. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
+                                tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
                                 br()
                             )
                             )
@@ -63,24 +68,24 @@ ui <- fluidPage(
                         fluidRow(column(8, offset = 2, actionButton("topic", "Topics", width = "100%", style = "color: #fff; background-color: #2C3E50; font-size: 200%"))),
 
                         fluidRow(
-                            column(4, offset = 2, actionButton("home_to_composition", "Composition", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_composition", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_housing", "Housing", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_finance", "Finance", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_internet", "Internet", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(4, offset = 2, actionButton("home_to_sport", "Physical Activity and Sport", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_sport", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
 
                         fluidRow(br(),
-                                 h5("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
+                                 h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
                         ),
 
                         br(), br(),
-                        column(7, p(img(src = "saltire.png", width = 400, height = 100))),
+                        column(7, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
                         column(2, offset = 3, p(img(src = "nat_stat.png", width = 130, height = 130))),
                         br(), br(), br(), br(), br(),
                         actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right"),
@@ -96,20 +101,33 @@ ui <- fluidPage(
 
                # Survey Results tab ####
 
-               tabPanel("Survey Results", value = "surveyTab",
+               tabPanel(
+                   div(icon("fas fa-chart-line"),
+                       "Survey Results"), value = "surveyTab",
                         style = "margin-left: 4%; margin-right: 4%",
+                        fluidRow(
+                            selectizeInput('searchbar', 'Search',
+                                           choices = question_titles$Title,
+                                           selected="Search",
+                                           width = "150%",
+                                           options = list(
+                                                        placeholder = "Type here to find what question you are looking for",
+                                                        onInitialize = I('function() { this.setValue(""); }')
+                                                        )
+                                            )
+                                ),
                         wellPanel(
                             fluidRow(
-                                column(5, selectInput("select_chapter", label = "Chapter", choices = select_list_chapters, width = "100%")),
+                                column(5, selectInput("select_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
                                 column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%"))
                             ),
 
                             fluidRow(
                                 column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
                                 column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
-                                column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")),
+                                column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
                                 column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
-                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
+                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority/Scotland'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
                             )
                         ),
 
@@ -118,13 +136,14 @@ ui <- fluidPage(
                                 tabPanel("Table",
                                          fluidRow(h3(textOutput("main_title"))),
                                          fluidRow(
-                                             column(10, h4(textOutput("main_table_type_comment"))),
-                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table")))
+                                             column(8, h4(textOutput("main_table_type_comment"))),
+                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table"))),
+                                             column(1, offset = 1, actionButton("helpTable", icon("question")))
                                              ),
                                          fluidRow(h5(textOutput("comment"))),
                                          fluidRow(h5(htmlOutput("link"))),
                                          fluidRow(dataTableOutput("main_table")),
-                                         fluidRow(htmlOutput("statistical_significance_key")),
+                                         fluidRow(h4(htmlOutput("statistical_significance_key"))),
                                          fluidRow(h3(textOutput("comparison_title"))),
                                          fluidRow(
                                              column(10, h4(textOutput("comparison_table_type_comment"))),
@@ -136,13 +155,15 @@ ui <- fluidPage(
                                 tabPanel("Chart",
                                          fluidRow(
                                              column(6, h3(textOutput("main_plot_title"))),
+
                                              column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
                                              column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
                                                                     "Y-axis zoom level:",
-                                                                    selected = "Zoom to data",
+                                                                    selected = "Full scale",
                                                                     choices = c("Zoom to data", "Full scale")))),
-                                             column(1, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", actionButton("help", icon("question"))))
+                                             column(1, actionButton("help", icon("question")))
                                          ),
+                                         fluidRow(h4(textOutput("main_chart_type_comment"))),
 
 
                                          fluidRow(plotly::plotlyOutput("main_chart")),
@@ -152,7 +173,7 @@ ui <- fluidPage(
                                                           fluidRow(plotly::plotlyOutput("comparison_chart")),
                                                           fluidRow(
                                                               column(3, offset = 6, checkboxInput("compareConfidenceInterval", "Display Confidence Intervals", value = TRUE)),
-                                                              column(3, radioButtons("zoomLevel_comparator", "Y-axis zoom level:", selected = "Zoom to data", choices = c("Zoom to data", "Full scale")))
+                                                              column(3, radioButtons("zoomLevel_comparator", "Y-axis zoom level:", selected = "Full scale", choices = c("Zoom to data", "Full scale")))
                                                           )
                                          )
                                 )
@@ -162,7 +183,9 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel("LA Reports",
+               tabPanel(
+                   div(icon("fal fa-clipboard-list"),
+                   "Create Report"), style = "margin-left: 4%; margin-right: 4%",
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
@@ -189,10 +212,16 @@ ui <- fluidPage(
 
                # Raw Data tab ####
 
-               tabPanel("Raw Data", value = "csv",
+               tabPanel(
+                   div(icon("far fa-folder-open"), "Data"), value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
+
+                        wellPanel(
+                          h4("Below you will find all the data for each table and chart found in our survey results."),
+                          h4("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
+                        )),
 
                         fluidRow(
-                            column(5, selectInput("select_excel_chapter", label = "Chapter", choices = select_list_chapters, width = "100%")),
+                            column(5, selectInput("select_excel_chapter", label = "Topic", choices = select_list_chapters, width = "100%")),
                             column(7, selectInput("select_excel_question", label = "Question", choices = c(), width = "100%"))
                         ),
 
@@ -201,7 +230,7 @@ ui <- fluidPage(
 
                # Resources tab ####
 
-               tabPanel("Resources", value = "resourcesTab",
+               tabPanel("Resources", value = "resourcesTab", style = "margin-left: 4%; margin-right: 4%",
 
                         fluidRow(
                             column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
@@ -232,7 +261,7 @@ ui <- fluidPage(
                         ),
 
                         fluidRow(
-                            column(7, #Learn more about SHS box
+                            column(7,
                                    wellPanel(
                                        tags$h3("Learn more about SHS"),
                                        tags$h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
@@ -260,16 +289,17 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
+
     # Welcome Modal ####
 
     welcome_modal <- modalDialog(
 
         p(img(src = "new_logo.png", height = "100%", width = "100%"), style = "text-align: center"),
         br(),
-        tags$div(h4("This interactive app provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
+        tags$div(h4("This interactive tool provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
                  style = "color: 0E3E5D; font-size:20px; text-align: center"),
         br(),
-        h4("If this is your first time using the app, take a tour to learn more about how to get the most out of it."),
+        h4("If this is your first time using the tool, take a tour to learn more about how to get the most out of it."),
         actionButton("tour", "Take a tour", icon("play-circle")),
         actionButton("modal_to_resources", "Resources", icon("wrench")),
 
@@ -297,8 +327,7 @@ server <- function(input, output, session) {
         fluidRow(
             br(),
             img(src = "modal-into.png", height = "50%", width = "50%"), style = "text-align: center"),
-        h4("For the past 20 years the Scottish Household Survey has collected information about Scottish households. The information is used daily by the Scottish government and local authorities to help shape policy and laws."),
-        h4("This app contains the Scottish Household Survey data open for anyone to explore. The data is broken down to local authority level, meaning you can compare different areas of Scotland with each other. You can also compare information over time and with the Scottish average. Whether you want to use the SHS data for a project, analysis or to show your friends and family, all the tables, charts and raw data are exportable through a simple click of a button!"),
+        h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's take a tour!"),
 
         actionButton("next1", "Next", icon("play-circle"))
     )
@@ -366,9 +395,9 @@ server <- function(input, output, session) {
         fluidRow(
             p(tags$div("Statistical significance", style = "color: 0E3E5D; font-size: 30px; width = 90%; text-align: left")),
             br(),
-            h5("The SHS data is able to make generalisations about the Scottish population as a whole by only interviewing a random sample of all the Scottish households. However, this means that figures are estimates rather than precise percentages, and come with a degree of error. In fact, the 'true' value might be higher or lower than the estimate. This range is called the 'confidence interval'"),
+            h5("The Scottish Household Survet can make generalisations about the Scottish population as a whole by only interviewing a random sample of all the Scottish households. This means that figures are estimates rather than precise percentages, and come with a degree of error. In fact, the 'true' value might be higher or lower than the estimate. This range is called the 'confidence interval'"),
             h5("For time or local authority comparisons, the tables and charts indicate whether any difference is statistically significant or not."),
-            tags$li("Tables: Dark green colour indicates a value significantly greater. Light purple colour indicates a value significantly lower. Cells with no colour indicate no statistical difference."),
+            tags$li("Tables: Dark green colour indicates a value statistically significantly greater than the comparison. Light purple colour indicates a value stastically significantly lower than the comparison. Cells with no colour indicate no statistical difference."),
             tags$li("Charts: Hovering over the error bars will display the exact range of the confidence interval.")),
         fluidRow(
             column(6,
@@ -389,7 +418,7 @@ server <- function(input, output, session) {
             column(12,
                    p(tags$div("Downloading Data", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br(),
-                   h4("You can modify and download the data you need. In the 'Raw Data' tab you can view the raw data used to produce the tables and charts. Either copy or download all the data for a specific question or you use the filter function to retrieve the raw data for a specific criteria."),
+                   h4("You can modify and download the data you need. In the 'Download Data' tab you can view all the data used to produce the tables and charts. Either copy or download all the data for a specific question or you use the filter function to retrieve the data for a specific criteria."),
                    br())),
         fluidRow(
             img(src = "modal_download.png", height = "100%", width = "100%")
@@ -488,6 +517,7 @@ server <- function(input, output, session) {
                           selected = "surveyTab")
         updateSelectInput(session, inputId = "select_chapter", label = "Chapter", choices = select_list_chapters, selected = select_list_chapters[11])
     })
+
 
     # Update Input$select_question by input$select_chapter ####
 
@@ -603,7 +633,7 @@ server <- function(input, output, session) {
 
         if (input$select_question %in% c(type_1_questions, type_4_questions)) {
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority"))
+            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
             shinyjs::showElement("select_comparison_type")
@@ -613,7 +643,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority"))
+            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
             shinyjs::showElement("select_year")
@@ -669,7 +699,7 @@ server <- function(input, output, session) {
 
         selected_local_authority <- input$select_local_authority
 
-        updateSelectInput(session, inputId = "select_local_authority_comparator", label = "Local Authority", choices = local_authorities[!local_authorities %in% selected_local_authority])
+        updateSelectInput(session, inputId = "select_local_authority_comparator", label = "Local Authority/Scotland", choices = local_authorities[!local_authorities %in% selected_local_authority])
     })
 
     # IMPORT DATA ####
@@ -765,7 +795,7 @@ server <- function(input, output, session) {
 
                 df <- df()[df()$Year == input$select_year_comparator & df()$Council == input$select_local_authority,]
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority_comparator,]
             }
@@ -968,9 +998,9 @@ server <- function(input, output, session) {
 
                 statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year_comparator, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
-                if (input$select_comparison_type == "Local Authority") {
+                if (input$select_comparison_type == "Local Authority/Scotland") {
 
                     if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
 
@@ -1032,7 +1062,7 @@ server <- function(input, output, session) {
 
                 paste0("Column percentages, ", input$select_year_comparator, " data, ", coverage)
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0("Column percentages, ", input$select_year, " data, ", coverage)
 
@@ -1048,7 +1078,7 @@ server <- function(input, output, session) {
 
                 paste0("Row percentages, ", input$select_year_comparator, " data, ", coverage)
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0("Row percentages, ", input$select_year, " data, ", coverage)
 
@@ -1059,7 +1089,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
-            if (input$select_comparison_type == "Local Authority") {
+            if (input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
 
@@ -1068,6 +1098,16 @@ server <- function(input, output, session) {
                 NULL
             }
         }
+    })
+
+    # main_chart_type_comment
+    output$main_chart_type_comment <- renderText({
+
+        coverage <- question_titles[question_titles$ID == input$select_question,]$Coverage
+
+        if (input$select_question %in% type_0_questions) {
+
+            paste0("Base numbers at local authority level are too small to produce robust analysis.")}
     })
 
     # main_title ####
@@ -1112,7 +1152,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -1122,7 +1162,7 @@ server <- function(input, output, session) {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
             }
@@ -1135,7 +1175,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority") {
+        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
 
             paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
@@ -1145,7 +1185,7 @@ server <- function(input, output, session) {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority") {
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
                 paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
             }
@@ -1207,7 +1247,7 @@ server <- function(input, output, session) {
                                             # extensions = "Buttons",
                                             options = list(
                                                 # buttons = c("copy", "csv", "excel"),
-                                                dom = "Bt",
+                                                dom = "t",
                                                 digits = 1,
                                                 na = "-",
                                                 paging = FALSE,
@@ -1225,7 +1265,7 @@ server <- function(input, output, session) {
                                         # extensions = "Buttons",
                                         options = list(
                                             # buttons = c("copy", "csv", "excel"),
-                                            dom = "Bt",
+                                            dom = "t",
                                             digits = 1,
                                             na = "-",
                                             paging = FALSE,
@@ -1284,7 +1324,7 @@ server <- function(input, output, session) {
                           # extensions = "Buttons",
                           options = list(
                               # buttons = c("copy", "csv", "excel"),
-                              dom = "Bt",
+                              dom = "t",
                               digits = 1,
                               na = "-",
                               paging = FALSE,
@@ -1325,16 +1365,17 @@ server <- function(input, output, session) {
         excel_datatable <- DT::datatable(excel_df(),
 
                                          extensions = "Buttons",
-
                                          options = list(
-                                             paging = FALSE,
-                                             buttons = c("copy", "csv", "excel"),
-                                             dom = "Bft",
-                                             columnDefs = list(list(targets = c(0), visible = FALSE))
-                                         ),
 
+                                             buttons = c("copy", "csv", "excel"),
+                                             dom = "Bftpl",
+                                             columnDefs = list(list(targets = c(0), visible = FALSE)),
+                                             pageLength = 25,
+                                             lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
+                                             paging = TRUE
+                                         ),
                                          class = "display",
-                                         filter = 'top',
+                                         filter = 'top'
         )
 
         return(excel_datatable)
@@ -1358,20 +1399,30 @@ server <- function(input, output, session) {
 
         if (input$select_question %in% type_1_questions) {
 
-            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
-                                        geom_line(size = 1) +
+            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
+                                                                         gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
-                                        panel.background = element_rect(\"transparent\"),
-                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                        text = element_text(family = \"Arial\")) +
-                                        scale_colour_manual(values = shs_colours) +
-                                        labs(title = input$question, x = \"Year\")")
+                                              panel.background = element_rect(\"transparent\"),
+                                              panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              text = element_text(family = \"Arial\")) +
+                                              scale_colour_manual(values = shs_colours) +
+                                              labs(title = input$question, x = \"Year\")")
 
+            saveRDS(df, "test.Rds")
+            print(line_chart_string)
             chart <- eval(parse(text = line_chart_string))
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +
+            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Group: \",", gather_key,"))) +
+
                                        geom_bar(position = \"dodge\", stat = \"identity\") +
                                        theme(panel.grid.minor = element_blank(),
                                        panel.grid.major.x = element_blank(),
@@ -1386,25 +1437,51 @@ server <- function(input, output, session) {
 
         }
 
-        if(input$ConfidenceInterval == TRUE) {
+        else {
+
+            chart <- NULL
+        }
+
+        if(input$ConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
+
             ),
             width = 0.4,
             position = position_dodge(width = 0.9))
+        }
+
+        else if (input$ConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
+
+            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Group: \",", gather_key,")),
+            width = 0.3)")
+
+
+            chart <- eval(parse(text=confidence_intervals_string))
+        }
+
+
+        else {
+
+            chart
         }
 
         if(input$zoomLevel_main == "Full scale") {
             chart <- chart + ylim(0,100)
         }
 
-        } else {
+        chart <- ggplotly(tooltip = "text") %>%
+            config(displaylogo = FALSE,
+                   displayModeBar = TRUE,
+                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
-            chart <- NULL
-            }
-
-        chart
+        }
     })
 
     # output$comparison_chart ####
@@ -1423,20 +1500,29 @@ server <- function(input, output, session) {
 
             if (input$select_question %in% type_1_questions) {
 
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
-                                            geom_line(size = 1) +
-                                            theme(panel.grid.minor = element_blank(),
-                                            panel.background = element_rect(\"transparent\"),
-                                            panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                            text = element_text(family = \"Arial\")) +
-                                            scale_colour_manual(values = shs_colours) +
-                                            labs(title = input$question, x = \"Year\")")
+                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
+                                                                         gather_key, \": \",", gather_key,"))) +
+                                        theme(panel.grid.minor = element_blank(),
+                                              panel.background = element_rect(\"transparent\"),
+                                              panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              text = element_text(family = \"Arial\")) +
+                                              scale_colour_manual(values = shs_colours) +
+                                              labs(title = input$question, x = \"Year\")")
 
                 chart <- eval(parse(text = line_chart_string))
 
             } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +
+                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, , text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+
+                                                                        \"Group: \",", gather_key,"
+))) +
                                            geom_bar(position = \"dodge\", stat = \"identity\") +
                                            theme(panel.grid.minor = element_blank(),
                                            panel.grid.major.x = element_blank(),
@@ -1456,76 +1542,50 @@ server <- function(input, output, session) {
 
             }
 
-
-            else {
-
-                chart <- NULL
-            }
-
         } else {
 
             chart <- NULL
         }
 
-        if(input$compareConfidenceInterval == TRUE) {
+        if(input$compareConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
             chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit
+
             ),
             width = 0.4,
             position = position_dodge(width = 0.9))
+        }
+
+        else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
+
+            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                               ymax = df$UpperConfidenceLimit,
+                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                        \"Year: \",", gather_key,")),
+            width = 0.3)")
+
+
+            chart <- eval(parse(text=confidence_intervals_string))
+        }
+
+
+        else {
+
+            chart
         }
 
         if(input$zoomLevel_comparator == "Full scale") {
             chart <- chart + ylim(0,100)
         }
 
-        chart
-
-    })
-
-    # output$small_multiples_plot ####
-
-    output$small_multiples_plot <- renderPlotly({
-
-        if (input$select_comparison_type != "No comparison") {
-
-            df <- rbind(main_chart_df(), comparison_chart_df())
-
-            df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
-
-            df <- eval(parse(text = df_string))
-
-            gather_key <- colnames(df[2])
-
-            if (input$select_question %in% type_1_questions) {
-
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = Percent, group = `", "Council", "`)) +
-                                        geom_line(size = 1, fill = \"#2C3E50\") +
-                                        facet_wrap(~`", measure_column_name(),"`, scales = \"free_x\") +
-                                        theme(panel.grid.minor = element_blank(),
-                                        panel.background = element_rect(\"transparent\"),
-                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
-                                        text = element_text(family = \"Arial\"),
-                                        panel.spacing.y = unit(1, \"lines\"),
-                                        strip.background = element_rect(fill = \"#99CCCC\")) +
-                                        scale_colour_manual(values = time_series_colours) +
-                                        labs(title = input$question, x = \"Year\")")
-
-                chart <- eval(parse(text = line_chart_string))
-
-            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`)) +  geom_bar(position = \"dodge\", stat = \"identity\", fill = \"#2C3E50\") + facet_wrap(~`Marital status`, scales = \"free_x\") + theme(panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(), panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3), panel.background = element_rect(\"transparent\"), legend.position = \"bottom\", panel.spacing.y = unit(1, \"lines\"), strip.background = element_rect(fill = \"#99CCCC\"))+ scale_fill_manual(values = time_series_colours) + labs(title = input$question, x = \"Age\")")
-
-                chart <- eval(parse(text = bar_chart_string))
-
-            }} else {
-
-                chart <- NULL
-            }
-
-        chart
+        #Removes tooltip duplicates and plotly modebar options
+        ggplotly(tooltip = "text") %>%
+            config(displaylogo = FALSE,
+                   displayModeBar = TRUE,
+                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
     })
 
@@ -1543,6 +1603,22 @@ server <- function(input, output, session) {
 
     observeEvent(input$help, {
         showModal(chartModal)
+    })
+
+    # Table help modal ####
+
+    tableModal <- modalDialog(
+        size = "l",
+        br(),
+        p(tags$h4("How go use the SHS tables", style = "text-align: center"),
+          tags$br(),
+          p(img(src = "modal_table2.png", height = "100%", width = "100%"), style = "text-align: center"),
+          p(img(src = "sign_table.png", height = "100%", width = "100%"), style = "text-align: center"),
+          tags$b("Statistical significance is indicated through different coloured cells. Dark green cells indicate a statistically significantly different value to the corresponding comparator table, where light purple cells indicate that the value is statistically significantly lower."),
+          easyClose = TRUE, fade = FALSE, footer = NULL))
+
+    observeEvent(input$helpTable, {
+        showModal(tableModal)
     })
 
     # output$report ####
