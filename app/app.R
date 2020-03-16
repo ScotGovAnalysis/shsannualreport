@@ -1403,7 +1403,7 @@ server <- function(input, output, session) {
                                         geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                                                         measure_column_name(), \": \",", measure_column_name(), ",\"\n\",
+                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
@@ -1504,7 +1504,7 @@ server <- function(input, output, session) {
                                         geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                                                         measure_column_name(), \": \",", measure_column_name(), ",\"\n\",
+                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
@@ -1564,7 +1564,7 @@ server <- function(input, output, session) {
                                                text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                        \"Group: \",", gather_key,")),
+                                        \"Year: \",", gather_key,")),
             width = 0.3)")
 
 
