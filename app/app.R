@@ -30,12 +30,10 @@ ui <- fluidPage(
                  "Welcome to the new Scottish Household Survey Data Explorer.",
                  br(),
                  fluidRow(
-                     column(11,
-                            "We are still working on the site and welcome any comments and suggestions to ",
+                     column(11, "We are still working on the site and welcome any comments and suggestions to ",
                             tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
-                     column(1,
-                            actionButton("close_banner", "" , icon=icon("times")))
-                         ),
+                     column(1, actionButton("close_banner", "" , icon=icon("times")))
+                 ),
                  style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
     ),
 
@@ -102,114 +100,128 @@ ui <- fluidPage(
                tabPanel(
                    div(icon("fas fa-chart-line"),
                        "Survey Results"), value = "surveyTab",
-                        style = "margin-left: 4%; margin-right: 4%",
+                   style = "margin-left: 4%; margin-right: 4%",
 
+                   wellPanel(
 
-                       wellPanel(
-                           fluidRow(
-                       column(5, radioButtons("navigation_mode", "Select question", c("Browse by topic and question", "Search questions"), inline = TRUE))
+                       fluidRow(
+                           column(5, radioButtons("navigation_mode", "Select question", c("Browse by topic and question", "Search questions"), inline = TRUE))
                        ),
-                        fluidRow(
-                            conditionalPanel(condition = "input.navigation_mode == 'Search questions'", column(12, selectizeInput('searchbar', 'Search',
-                                           choices = question_titles$Title,
-                                           selected="Search",
-                                           options = list(
-                                                        placeholder = "Type here to find what question you are looking for",
-                                                        onInitialize = I('function() { this.setValue(""); }')
-                                                        )
-                                            )
-                                )),
-                            conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'", column(5, selectInput("select_topic", label = "Topic", choices = select_list_topics, width = "100%"))),
-                            conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'", column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%")))
-                            )
-                       ),
-                        wellPanel(
-                            fluidRow(
-                                column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
-                                column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
-                                column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
-                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
-                                column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority/Scotland'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
-                            )
-                        ),
 
-                        fluidRow(
-                            tabsetPanel(
-                                tabPanel("Table",
-                                         fluidRow(h3(textOutput("main_title"))),
-                                         fluidRow(
-                                             column(8, h4(textOutput("main_table_type_comment"))),
-                                             column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table"))),
-                                             column(1, offset = 1, actionButton("helpTable", icon("question")))
-                                             ),
-                                         fluidRow(h5(textOutput("comment"))),
-                                         fluidRow(h5(htmlOutput("link"))),
-                                         fluidRow(dataTableOutput("main_table")),
-                                         fluidRow(h4(htmlOutput("statistical_significance_key"))),
-                                         fluidRow(h3(textOutput("comparison_title"))),
-                                         fluidRow(
-                                             column(10, h4(textOutput("comparison_table_type_comment"))),
-                                             column(2, conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table")))
-                                         ),
-                                         fluidRow(dataTableOutput("comparison_table"))
-                                ),
+                       fluidRow(
+                           conditionalPanel(condition = "input.navigation_mode == 'Search questions'",
+                                            column(12, selectizeInput('searchbar', 'Search',
+                                                                      choices = c(select_list_questions_topic_2,
+                                                                                  select_list_questions_topic_3,
+                                                                                  select_list_questions_topic_4,
+                                                                                  select_list_questions_topic_5,
+                                                                                  select_list_questions_topic_6,
+                                                                                  select_list_questions_topic_7,
+                                                                                  select_list_questions_topic_8,
+                                                                                  select_list_questions_topic_9,
+                                                                                  select_list_questions_topic_10,
+                                                                                  select_list_questions_topic_11,
+                                                                                  select_list_questions_topic_12),
+                                                                      selected="Search",
+                                                                      options = list(
+                                                                          placeholder = "Type here to find what question you are looking for",
+                                                                          onInitialize = I('function() { this.setValue(""); }')
+                                                                      )
+                                            ))
+                           ),
+                           conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'",
+                                            column(5, selectInput("select_topic", label = "Topic", choices = select_list_topics, width = "100%"))),
+                           conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'",
+                                            column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%")))
+                       )
+                   ),
+                   wellPanel(
+                       fluidRow(
+                           column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
+                           column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
+                           column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
+                           column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
+                           column(3, conditionalPanel(condition = "input.select_comparison_type == 'Local Authority/Scotland'",selectInput("select_local_authority_comparator", label = "Comparator", choices = c(), width = "100%")))
+                       )
+                   ),
 
-                                tabPanel("Chart",
-                                         fluidRow(
-                                             column(6, h3(textOutput("main_plot_title"))),
+                   fluidRow(
+                       tabsetPanel(
+                           tabPanel("Table",
+                                    fluidRow(h3(textOutput("main_title"))),
+                                    fluidRow(
+                                        column(8, h4(textOutput("main_table_type_comment"))),
+                                        column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table"))),
+                                        column(1, offset = 1, actionButton("helpTable", icon("question")))
+                                    ),
+                                    fluidRow(h5(textOutput("comment"))),
+                                    fluidRow(h5(htmlOutput("link"))),
+                                    fluidRow(dataTableOutput("main_table")),
+                                    fluidRow(h4(htmlOutput("statistical_significance_key"))),
+                                    fluidRow(h3(textOutput("comparison_title"))),
+                                    fluidRow(
+                                        column(10, h4(textOutput("comparison_table_type_comment"))),
+                                        column(2, conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table")))
+                                    ),
+                                    fluidRow(dataTableOutput("comparison_table"))
+                           ),
 
-                                             column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
-                                             column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
-                                                                    "Y-axis zoom level:",
-                                                                    selected = "Full scale",
-                                                                    choices = c("Zoom to data", "Full scale")))),
-                                             column(1, actionButton("help", icon("question")))
-                                         ),
-                                         fluidRow(h4(textOutput("main_chart_type_comment"))),
+                           tabPanel("Chart",
+                                    fluidRow(
+                                        column(6, h3(textOutput("main_plot_title"))),
+
+                                        column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
+                                        column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
+                                                                                                                                                          "Y-axis zoom level:",
+                                                                                                                                                          selected = "Full scale",
+                                                                                                                                                          choices = c("Zoom to data", "Full scale")))),
+                                        column(1, actionButton("help", icon("question")))
+                                    ),
+                                    fluidRow(h4(textOutput("main_chart_type_comment"))),
 
 
-                                         fluidRow(plotly::plotlyOutput("main_chart")),
-                                         fluidRow(h3(textOutput("comparison_plot_title"))),
+                                    fluidRow(plotly::plotlyOutput("main_chart")),
+                                    fluidRow(h3(textOutput("comparison_plot_title"))),
 
-                                         conditionalPanel(condition = "input.select_comparison_type != 'No comparison'",
-                                                          fluidRow(plotly::plotlyOutput("comparison_chart")),
-                                                          fluidRow(
-                                                              column(3, offset = 6, checkboxInput("compareConfidenceInterval", "Display Confidence Intervals", value = TRUE)),
-                                                              column(3, radioButtons("zoomLevel_comparator", "Y-axis zoom level:", selected = "Full scale", choices = c("Zoom to data", "Full scale")))
-                                                          )
-                                         )
-                                )
-                            )
-                        )
+                                    conditionalPanel(condition = "input.select_comparison_type != 'No comparison'",
+                                                     fluidRow(plotly::plotlyOutput("comparison_chart")),
+                                                     fluidRow(
+                                                         column(3, offset = 6, checkboxInput("compareConfidenceInterval", "Display Confidence Intervals", value = TRUE)),
+                                                         column(3, radioButtons("zoomLevel_comparator", "Y-axis zoom level:", selected = "Full scale", choices = c("Zoom to data", "Full scale")))
+                                                     )
+                                    )
+                           )
+                       )
+                   )
                ),
 
                # LA Reports tab ####
 
                tabPanel(
                    div(icon("fal fa-clipboard-list"),
-                   "Create Report"), style = "margin-left: 4%; margin-right: 4%",
+                       "Create Report"), style = "margin-left: 4%; margin-right: 4%",
 
-                        wellPanel(style = "background: #ffd480",
-                                  h4("This function is still under construction."),
-                                  h5("Below you can download an example topic for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
-                        ),
+                   wellPanel(style = "background: #ffd480",
+                             h4("This function is still under construction."),
+                             h5("Below you can download an example topic for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
+                   ),
 
-                        fluidRow(
-                            column(8, selectInput("select_topic", label = "Topic", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
-                        ),
+                   fluidRow(
+                       column(8, selectInput("select_topic", label = "Topic", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
+                   ),
 
-                        fluidRow(
-                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
-                            column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))), # TODO: Update choices dynamically
-                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison"), selected = "No comparison", width = "100%")), # TODO: Update choices
-                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
-                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
-                        ),
+                   fluidRow(
+                       column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
+                       column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))), # TODO: Update choices dynamically
+                       column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                       column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
+                       column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                   ),
 
-                        fluidRow(
-                            column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
-                            column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
-                        )
+                   fluidRow(
+                       column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
+                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
+                   )
                ),
 
                # Raw Data tab ####
@@ -217,17 +229,17 @@ ui <- fluidPage(
                tabPanel(
                    div(icon("far fa-folder-open"), "Data"), value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
 
-                        wellPanel(
-                          h4("Below you will find all the data for each table and chart found in our survey results."),
-                          h4("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
-                        )),
+                   wellPanel(
+                       h4("Below you will find all the data for each table and chart found in our survey results."),
+                       h4("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
+                       )),
 
-                        fluidRow(
-                            column(5, selectInput("select_excel_topic", label = "Topic", choices = select_list_topics, width = "100%")),
-                            column(7, selectInput("select_excel_question", label = "Question", choices = c(), width = "100%"))
-                        ),
+                   fluidRow(
+                       column(5, selectInput("select_excel_topic", label = "Topic", choices = select_list_topics, width = "100%")),
+                       column(7, selectInput("select_excel_question", label = "Question", choices = c(), width = "100%"))
+                   ),
 
-                        fluidRow(dataTableOutput("excel_table"))
+                   fluidRow(dataTableOutput("excel_table"))
                ),
 
                # Resources tab ####
@@ -523,65 +535,73 @@ server <- function(input, output, session) {
 
     # Update input$select_question by input$select_topic ####
 
-    user_search <- reactiveValues()
-
-    reactive({
-        user_search$question <- input$searchbar
-        print(user_search$question)
-        })
-
     observe({
 
-        if (nchar(input$searchbar) == 0) {
+        if (input$navigation_mode == "Browse by topic and question") {
 
-        if (grepl("The Composition and Characteristics of Households in Scotland", input$select_topic, fixed = TRUE)) {
+            if (grepl("The Composition and Characteristics of Households in Scotland", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
 
-        } else if (grepl("Housing", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Housing", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_3)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_3)
 
-        } else if (grepl("Neighbourhoods and Communities", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Neighbourhoods and Communities", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_4)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_4)
 
-        } else if (grepl("Economic Activity", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Economic Activity", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_5)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_5)
 
-        } else if (grepl("Finance", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Finance", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_6)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_6)
 
-        } else if (grepl("Internet", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Internet", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_7)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_7)
 
-        } else if (grepl("Physical Activity and Sport", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Physical Activity and Sport", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_8)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_8)
 
-        } else if (grepl("Local Services", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Local Services", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_9)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_9)
 
-        } else if (grepl("Environment", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Environment", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_10)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_10)
 
-        } else if (grepl("Volunteering", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Volunteering", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_11)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_11)
 
-        } else if (grepl("Culture and Heritage", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Culture and Heritage", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_12)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_12)
 
-        } else if (grepl("Childcare", input$select_topic, fixed = TRUE)) {
+            } else if (grepl("Childcare", input$select_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
-        }
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
+            }
+
+            #TODO: fix this so search bar doesn't show wrong value switching from browse select
+            # updateSelectizeInput(session, 'searchbar', 'Search',
+            #                      choices = c(select_list_questions_topic_2,
+            #                                  select_list_questions_topic_3,
+            #                                  select_list_questions_topic_4,
+            #                                  select_list_questions_topic_5,
+            #                                  select_list_questions_topic_6,
+            #                                  select_list_questions_topic_7,
+            #                                  select_list_questions_topic_8,
+            #                                  select_list_questions_topic_9,
+            #                                  select_list_questions_topic_10,
+            #                                  select_list_questions_topic_11,
+            #                                  select_list_questions_topic_12),
+            #                      selected=input$select_question)
         }
     })
 
@@ -590,11 +610,11 @@ server <- function(input, output, session) {
 
     observeEvent(input$searchbar, {
 
-        if (nchar(input$searchbar) > 0) {
+        if (input$navigation_mode == "Search questions") {
 
             current_topic <- input$select_topic
 
-            topic_number <- question_titles[question_titles$Title == input$searchbar,]$Topic
+            topic_number <- question_titles[question_titles$ID == input$searchbar,]$Topic
 
             topic <- topic_titles[topic_titles$code == paste0("Top", topic_number),]$title
 
@@ -606,15 +626,15 @@ server <- function(input, output, session) {
 
             }
 
-                topic_number <- question_titles[question_titles$Title == input$searchbar,]$Topic
+            topic_number <- question_titles[question_titles$ID == input$searchbar,]$Topic
 
-                question <- question_titles[question_titles$Title == input$searchbar,]$ID
+            question <- question_titles[question_titles$ID == input$searchbar,]$ID
 
-                question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
+            question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
-                print(question_update_string)
+            print(question_update_string)
 
-                eval(parse(text = question_update_string))
+            eval(parse(text = question_update_string))
         }
     })
 
@@ -936,18 +956,18 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        main_chart_df <- base_df()
+            main_chart_df <- base_df()
 
-        main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
+            main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
 
-        variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
+            variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
 
-        main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "main_chart_df"))))
+            main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "main_chart_df"))))
 
         } else {
 
             main_chart_df <- NULL
-            }
+        }
         return(main_chart_df)
     })
 
@@ -1026,10 +1046,10 @@ server <- function(input, output, session) {
 
         } else {
 
-         NULL
+            NULL
         }
 
-        })
+    })
 
     outputOptions(output, "question_type", suspendWhenHidden = FALSE)
 
@@ -1136,7 +1156,7 @@ server <- function(input, output, session) {
 
             if (input$select_comparison_type == "Local Authority/Scotland") {
 
-            paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
+                paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
 
             } else {
 
@@ -1197,21 +1217,21 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority/Scotland") {
+            if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority/Scotland") {
 
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
+                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
-        } else {
+            } else {
 
-            if (input$select_comparison_type == "Year") {
+                if (input$select_comparison_type == "Year") {
 
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
+                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority/Scotland") {
+                } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
+                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
+                }
             }
-        }
         }
     })
 
@@ -1220,21 +1240,21 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-        if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
+            if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
 
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
+                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
 
-        } else {
+            } else {
 
-            if (input$select_comparison_type == "Year") {
+                if (input$select_comparison_type == "Year") {
 
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
+                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
 
-            } else if (input$select_comparison_type == "Local Authority/Scotland") {
+                } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
+                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
+                }
             }
-        }
         }
     })
 
@@ -1434,17 +1454,17 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
 
-        df <- main_chart_df()
+            df <- main_chart_df()
 
-        df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
+            df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
 
-        df <- eval(parse(text = df_string))
+            df <- eval(parse(text = df_string))
 
-        gather_key <- colnames(df[2])
+            gather_key <- colnames(df[2])
 
-        if (input$select_question %in% type_1_questions) {
+            if (input$select_question %in% type_1_questions) {
 
-            line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
                                         geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
@@ -1457,11 +1477,11 @@ server <- function(input, output, session) {
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
 
-            chart <- eval(parse(text = line_chart_string))
+                chart <- eval(parse(text = line_chart_string))
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
+            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
                                         \"Group: \",", gather_key,"))) +
@@ -1476,28 +1496,28 @@ server <- function(input, output, session) {
                                      scale_fill_manual(values = shs_colours) +
                                        labs(title = input$question, x = NULL)")
 
-            chart <- eval(parse(text = bar_chart_string))
+                chart <- eval(parse(text = bar_chart_string))
 
-        }
+            }
 
-        else {
+            else {
 
-            chart <- NULL
-        }
+                chart <- NULL
+            }
 
-        if(input$ConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
+            if(input$ConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+                chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                                   ymax = df$UpperConfidenceLimit
 
-            ),
-            width = 0.4,
-            position = position_dodge(width = 0.9))
-        }
+                ),
+                width = 0.4,
+                position = position_dodge(width = 0.9))
+            }
 
-        else if (input$ConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
+            else if (input$ConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
 
-            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
                                                text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
@@ -1506,23 +1526,23 @@ server <- function(input, output, session) {
             width = 0.3)")
 
 
-            chart <- eval(parse(text=confidence_intervals_string))
-        }
+                chart <- eval(parse(text=confidence_intervals_string))
+            }
 
 
-        else {
+            else {
 
-            chart
-        }
+                chart
+            }
 
-        if(input$zoomLevel_main == "Full scale") {
-            chart <- chart + ylim(0,100)
-        }
+            if(input$zoomLevel_main == "Full scale") {
+                chart <- chart + ylim(0,100)
+            }
 
-        chart <- ggplotly(tooltip = "text") %>%
-            config(displaylogo = FALSE,
-                   displayModeBar = TRUE,
-                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
+            chart <- ggplotly(tooltip = "text") %>%
+                config(displaylogo = FALSE,
+                       displayModeBar = TRUE,
+                       modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
         }
     })
