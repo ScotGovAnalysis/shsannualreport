@@ -103,23 +103,27 @@ ui <- fluidPage(
                    div(icon("fas fa-chart-line"),
                        "Survey Results"), value = "surveyTab",
                         style = "margin-left: 4%; margin-right: 4%",
+
+
+                       wellPanel(
+                           fluidRow(
+                       column(5, radioButtons("navigation_mode", "Select question", c("Browse by topic and question", "Search questions"), inline = TRUE))
+                       ),
                         fluidRow(
-                            selectizeInput('searchbar', 'Search',
+                            conditionalPanel(condition = "input.navigation_mode == 'Search questions'", column(12, selectizeInput('searchbar', 'Search',
                                            choices = question_titles$Title,
                                            selected="Search",
-                                           width = "150%",
                                            options = list(
                                                         placeholder = "Type here to find what question you are looking for",
                                                         onInitialize = I('function() { this.setValue(""); }')
                                                         )
                                             )
-                                ),
+                                )),
+                            conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'", column(5, selectInput("select_topic", label = "Topic", choices = select_list_topics, width = "100%"))),
+                            conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'", column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%")))
+                            )
+                       ),
                         wellPanel(
-                            fluidRow(
-                                column(5, selectInput("select_topic", label = "Topic", choices = select_list_topics, width = "100%")),
-                                column(7, selectInput("select_question", label = "Question", choices = c(), width = "100%"))
-                            ),
-
                             fluidRow(
                                 column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
                                 column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
@@ -612,19 +616,6 @@ server <- function(input, output, session) {
 
                 eval(parse(text = question_update_string))
         }
-    })
-
-    observeEvent(input$select_topic, {
-
-
-                        updateSelectizeInput(session, inputId = 'searchbar', label = 'Search',
-                                                            choices = question_titles$Title,
-                                                            selected="Search",
-                                                            options = list(
-                                                                placeholder = "Type here to find what question you are looking for",
-                                                                onInitialize = I('function() { this.setValue(""); }')
-                                            )
-        )
     })
 
     # Update input$select_excel_question by inpur$select_excel_topic ####
