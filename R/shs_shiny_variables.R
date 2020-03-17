@@ -40,6 +40,8 @@ shs_shiny_variables <- function() {
 
   cat("question_titles <- readRDS(\"data/metadata/question_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
 
+  cat("topic_titles <- readRDS(\"data/metadata/topic_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
+
   cat("time_series_colours <- brewer.pal(8, \"Dark2\")\n\n", file = save_file_path, append = TRUE)
 
   cat("shs_colours <- c(\"#01665e\", # Dark green

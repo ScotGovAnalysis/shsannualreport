@@ -517,9 +517,18 @@ server <- function(input, output, session) {
     })
 
 
-    # Update Input$select_question by input$select_topic ####
+    # Update input$select_question by input$select_topic ####
+
+    user_search <- reactiveValues()
+
+    reactive({
+        user_search$question <- input$searchbar
+        print(user_search$question)
+        })
 
     observe({
+
+        if (nchar(input$searchbar) == 0) {
 
         if (grepl("The Composition and Characteristics of Households in Scotland", input$select_topic, fixed = TRUE)) {
 
@@ -569,6 +578,53 @@ server <- function(input, output, session) {
 
             updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
         }
+        }
+    })
+
+
+    # Update input$select_topic by input$searchbar ####
+
+    observeEvent(input$searchbar, {
+
+        if (nchar(input$searchbar) > 0) {
+
+            current_topic <- input$select_topic
+
+            topic_number <- question_titles[question_titles$Title == input$searchbar,]$Topic
+
+            topic <- topic_titles[topic_titles$code == paste0("Top", topic_number),]$title
+
+            if (topic != current_topic) {
+
+                topic_update_string <- paste0("updateSelectInput(session, inputId = \"select_topic\", label = \"Topic\", choices = select_list_topics, selected = \"", topic,"\")")
+
+                eval(parse(text = topic_update_string))
+
+            }
+
+                topic_number <- question_titles[question_titles$Title == input$searchbar,]$Topic
+
+                question <- question_titles[question_titles$Title == input$searchbar,]$ID
+
+                question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
+
+                print(question_update_string)
+
+                eval(parse(text = question_update_string))
+        }
+    })
+
+    observeEvent(input$select_topic, {
+
+
+                        updateSelectizeInput(session, inputId = 'searchbar', label = 'Search',
+                                                            choices = question_titles$Title,
+                                                            selected="Search",
+                                                            options = list(
+                                                                placeholder = "Type here to find what question you are looking for",
+                                                                onInitialize = I('function() { this.setValue(""); }')
+                                            )
+        )
     })
 
     # Update input$select_excel_question by inpur$select_excel_topic ####
