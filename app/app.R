@@ -588,20 +588,24 @@ server <- function(input, output, session) {
                 updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
             }
 
-            #TODO: fix this so search bar doesn't show wrong value switching from browse select
-            # updateSelectizeInput(session, 'searchbar', 'Search',
-            #                      choices = c(select_list_questions_topic_2,
-            #                                  select_list_questions_topic_3,
-            #                                  select_list_questions_topic_4,
-            #                                  select_list_questions_topic_5,
-            #                                  select_list_questions_topic_6,
-            #                                  select_list_questions_topic_7,
-            #                                  select_list_questions_topic_8,
-            #                                  select_list_questions_topic_9,
-            #                                  select_list_questions_topic_10,
-            #                                  select_list_questions_topic_11,
-            #                                  select_list_questions_topic_12),
-            #                      selected=input$select_question)
+            updateSelectizeInput(session, 'searchbar', 'Search',
+                                 choices = c(select_list_questions_topic_2,
+                                             select_list_questions_topic_3,
+                                             select_list_questions_topic_4,
+                                             select_list_questions_topic_5,
+                                             select_list_questions_topic_6,
+                                             select_list_questions_topic_7,
+                                             select_list_questions_topic_8,
+                                             select_list_questions_topic_9,
+                                             select_list_questions_topic_10,
+                                             select_list_questions_topic_11,
+                                             select_list_questions_topic_12),
+                                 selected="Search",
+                                 options = list(
+                                     placeholder = "Type here to find what question you are looking for",
+                                     onInitialize = I('function() { this.setValue(""); }')
+                                 )
+            )
         }
     })
 
@@ -610,7 +614,7 @@ server <- function(input, output, session) {
 
     observeEvent(input$searchbar, {
 
-        if (input$navigation_mode == "Search questions") {
+         if (input$navigation_mode == "Search questions") {
 
             current_topic <- input$select_topic
 
