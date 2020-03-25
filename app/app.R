@@ -636,8 +636,6 @@ server <- function(input, output, session) {
 
             question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
-            print(question_update_string)
-
             eval(parse(text = question_update_string))
         }
     })
