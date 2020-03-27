@@ -710,6 +710,18 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
+            if (length(unique(df()$Year)) <= 1) {
+
+                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
+
+                shinyjs::showElement("select_local_authority")
+                shinyjs::showElement("select_comparison_type")
+                shinyjs::hideElement("select_year")
+                shinyjs::showElement("select_year_comparator")
+                shinyjs::showElement("select_local_authority_comparator")
+
+                } else {
+
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
@@ -717,6 +729,8 @@ server <- function(input, output, session) {
             shinyjs::showElement("select_comparison_type")
             shinyjs::showElement("select_year_comparator")
             shinyjs::showElement("select_local_authority_comparator")
+
+                }
 
         } else if (input$select_question %in% type_0_questions) {
 

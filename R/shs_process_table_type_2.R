@@ -38,6 +38,15 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   col_2_name <- names(df)[2]
   names(df)[2] <- "temp_variable_name"
   row_order <- unique(df$temp_variable_name)
+
+  if (length(row_order[row_order == "All"]) == 1) {
+    row_order <- c(row_order[row_order != "All"], "All")
+  }
+
+  if (length(row_order[row_order == "Base"]) == 1) {
+    row_order <- c(row_order[row_order != "Base"], "Base")
+  }
+
   base_row <- df[grepl("base", tolower(df$temp_variable_name)),]$temp_variable_name[1]
 
   colnames <- names(df)
@@ -117,7 +126,6 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   get_order_string <- paste0("df$`", col_2_name, "`  <- factor(df$`", col_2_name, "`, levels = row_order)")
 
   reorder_string <- paste0("df <- df[order(df$`", col_2_name, "`),]")
-
 
   eval(parse(text = sig_lower_string))
   eval(parse(text = sig_upper_string))
