@@ -37,7 +37,6 @@ output:
     toc: yes
     latex_engine: xelatex
     fig_caption: false
-mainfont: Calibri
 classoption: landscape
 fontsize: 10pt
 papersize: a4
