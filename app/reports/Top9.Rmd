@@ -69,7 +69,7 @@ and relentless efforts during the fieldwork.
 
 ## Figure 9.1, Table 9.1: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
 ### Column percentages, Adults
-### * Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
+### Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
@@ -180,7 +180,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 ```
 ## Table 9.3: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by Urban Rural Classification
 ### Column percentages, Adults
-### * Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
+### Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
 
 ### `r main_table_title`
 

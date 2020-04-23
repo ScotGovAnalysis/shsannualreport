@@ -351,7 +351,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ```
 ## Table 7.5: Reasons for using the internet by tenure
 ### Column percentages, Adults
-### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple reponses were allowed. * This option was only included from 2018
+### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple reponses were allowed. This option was only included from 2018
 
 ### `r main_table_title`
 
