@@ -51,6 +51,7 @@ library(knitr)
 library(dplyr)
 library(kableExtra)
 library(png)
+library(tidyselect)
 
 local_authority <- params$local_authority
 year <- params$year
@@ -201,7 +202,7 @@ kable(\"latex\")
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 significance_column_names <- colnames(", question_id_underscore, ")[grepl(\"_sig\", colnames(", question_id_underscore, "))]
 
-", question_id_underscore, " %>% select(all_of(main_column_names)) %>%
+", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(")
 
         for (significance_column_name in significance_column_names) {
@@ -217,7 +218,7 @@ mutate(")
         string <- paste0((substr(string, 1, nchar(string ) - 2)),
                          "\n", "
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable(\"latex\", escape = FALSE)
 ```
 
@@ -229,7 +230,7 @@ asis_output(paste0(\"### \", comparison_table_title))
 comparison_column_names <- colnames(", question_id_underscore, ")[grepl(\"_2\", colnames(", question_id_underscore, "))]
 comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
-", question_id_underscore, " %>% select(all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
+", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate("
         )
@@ -244,7 +245,7 @@ mutate("
 
         string <- paste0(substr(string, 1, nchar(string ) - 2),
                          ") %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable(\"latex\", escape = FALSE)
 ```\n")
       }

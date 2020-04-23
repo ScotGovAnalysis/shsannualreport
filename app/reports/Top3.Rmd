@@ -19,6 +19,7 @@ library(knitr)
 library(dplyr)
 library(kableExtra)
 library(png)
+library(tidyselect)
 
 local_authority <- params$local_authority
 year <- params$year
@@ -120,7 +121,7 @@ kable("latex")
 main_column_names <- colnames(Figure_3.1)[!grepl("_2", colnames(Figure_3.1))]
 significance_column_names <- colnames(Figure_3.1)[grepl("_sig", colnames(Figure_3.1))]
 
-Figure_3.1 %>% select(all_of(main_column_names)) %>%
+Figure_3.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#00A3A3", `1999_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#00A3A3", `2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001` = cell_spec(`2001`, "latex", background = case_when(`2001_sig` == "HIGHER" ~ "#00A3A3", `2001_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -143,7 +144,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -155,7 +156,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_3.1)[grepl("_2", colnames(Figure_3.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_3.1 %>% select(all_of(colnames(Figure_3.1)[!colnames(Figure_3.1) %in% comparison_rename_column_names])) %>%
+Figure_3.1 %>% select(tidyselect::all_of(colnames(Figure_3.1)[!colnames(Figure_3.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#C3C3FF", `1999_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#C3C3FF", `2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -177,7 +178,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.1: Tenure of household by year
@@ -194,7 +195,7 @@ kable("latex")
 main_column_names <- colnames(Table_3.1)[!grepl("_2", colnames(Table_3.1))]
 significance_column_names <- colnames(Table_3.1)[grepl("_sig", colnames(Table_3.1))]
 
-Table_3.1 %>% select(all_of(main_column_names)) %>%
+Table_3.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#00A3A3", `1999_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#00A3A3", `2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001` = cell_spec(`2001`, "latex", background = case_when(`2001_sig` == "HIGHER" ~ "#00A3A3", `2001_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -217,7 +218,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -229,7 +230,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.1)[grepl("_2", colnames(Table_3.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.1 %>% select(all_of(colnames(Table_3.1)[!colnames(Table_3.1) %in% comparison_rename_column_names])) %>%
+Table_3.1 %>% select(tidyselect::all_of(colnames(Table_3.1)[!colnames(Table_3.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#C3C3FF", `1999_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#C3C3FF", `2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -251,7 +252,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.1b: Households by tenure and year
@@ -276,7 +277,7 @@ kable("latex")
 main_column_names <- colnames(Figure_3.2)[!grepl("_2", colnames(Figure_3.2))]
 significance_column_names <- colnames(Figure_3.2)[grepl("_sig", colnames(Figure_3.2))]
 
-Figure_3.2 %>% select(all_of(main_column_names)) %>%
+Figure_3.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#00A3A3", `1999_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#00A3A3", `2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001` = cell_spec(`2001`, "latex", background = case_when(`2001_sig` == "HIGHER" ~ "#00A3A3", `2001_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -299,7 +300,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -311,7 +312,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_3.2)[grepl("_2", colnames(Figure_3.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_3.2 %>% select(all_of(colnames(Figure_3.2)[!colnames(Figure_3.2) %in% comparison_rename_column_names])) %>%
+Figure_3.2 %>% select(tidyselect::all_of(colnames(Figure_3.2)[!colnames(Figure_3.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#C3C3FF", `1999_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#C3C3FF", `2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -333,7 +334,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 3.3: Tenure of households by year (HIH aged 16 to 34)
@@ -352,7 +353,7 @@ kable("latex")
 main_column_names <- colnames(Figure_3.4)[!grepl("_2", colnames(Figure_3.4))]
 significance_column_names <- colnames(Figure_3.4)[grepl("_sig", colnames(Figure_3.4))]
 
-Figure_3.4 %>% select(all_of(main_column_names)) %>%
+Figure_3.4 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#00A3A3", `1999_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#00A3A3", `2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001` = cell_spec(`2001`, "latex", background = case_when(`2001_sig` == "HIGHER" ~ "#00A3A3", `2001_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -375,7 +376,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -387,7 +388,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_3.4)[grepl("_2", colnames(Figure_3.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_3.4 %>% select(all_of(colnames(Figure_3.4)[!colnames(Figure_3.4) %in% comparison_rename_column_names])) %>%
+Figure_3.4 %>% select(tidyselect::all_of(colnames(Figure_3.4)[!colnames(Figure_3.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#C3C3FF", `1999_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#C3C3FF", `2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -409,7 +410,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 3.5: Tenure of households by year (HIH aged 60 plus)
@@ -426,7 +427,7 @@ kable("latex")
 main_column_names <- colnames(Figure_3.5)[!grepl("_2", colnames(Figure_3.5))]
 significance_column_names <- colnames(Figure_3.5)[grepl("_sig", colnames(Figure_3.5))]
 
-Figure_3.5 %>% select(all_of(main_column_names)) %>%
+Figure_3.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#00A3A3", `1999_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#00A3A3", `2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001` = cell_spec(`2001`, "latex", background = case_when(`2001_sig` == "HIGHER" ~ "#00A3A3", `2001_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -449,7 +450,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -461,7 +462,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_3.5)[grepl("_2", colnames(Figure_3.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_3.5 %>% select(all_of(colnames(Figure_3.5)[!colnames(Figure_3.5) %in% comparison_rename_column_names])) %>%
+Figure_3.5 %>% select(tidyselect::all_of(colnames(Figure_3.5)[!colnames(Figure_3.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == "HIGHER" ~ "#C3C3FF", `1999_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2000` = cell_spec(`2000`, "latex", background = case_when(`2000_sig` == "HIGHER" ~ "#C3C3FF", `2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -483,7 +484,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.2a: Housing characteristics by tenure - Dwelling type
@@ -500,14 +501,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.2a)[!grepl("_2", colnames(Table_3.2a))]
 significance_column_names <- colnames(Table_3.2a)[grepl("_sig", colnames(Table_3.2a))]
 
-Table_3.2a %>% select(all_of(main_column_names)) %>%
+Table_3.2a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -519,13 +520,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.2a)[grepl("_2", colnames(Table_3.2a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.2a %>% select(all_of(colnames(Table_3.2a)[!colnames(Table_3.2a) %in% comparison_rename_column_names])) %>%
+Table_3.2a %>% select(tidyselect::all_of(colnames(Table_3.2a)[!colnames(Table_3.2a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.2b: Housing characteristics by tenure - SIMD
@@ -542,14 +543,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.2b)[!grepl("_2", colnames(Table_3.2b))]
 significance_column_names <- colnames(Table_3.2b)[grepl("_sig", colnames(Table_3.2b))]
 
-Table_3.2b %>% select(all_of(main_column_names)) %>%
+Table_3.2b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -561,13 +562,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.2b)[grepl("_2", colnames(Table_3.2b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.2b %>% select(all_of(colnames(Table_3.2b)[!colnames(Table_3.2b) %in% comparison_rename_column_names])) %>%
+Table_3.2b %>% select(tidyselect::all_of(colnames(Table_3.2b)[!colnames(Table_3.2b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.2c: Housing characteristics by tenure - Urban / Rural Classification
@@ -584,14 +585,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.2c)[!grepl("_2", colnames(Table_3.2c))]
 significance_column_names <- colnames(Table_3.2c)[grepl("_sig", colnames(Table_3.2c))]
 
-Table_3.2c %>% select(all_of(main_column_names)) %>%
+Table_3.2c %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -603,13 +604,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.2c)[grepl("_2", colnames(Table_3.2c))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.2c %>% select(all_of(colnames(Table_3.2c)[!colnames(Table_3.2c) %in% comparison_rename_column_names])) %>%
+Table_3.2c %>% select(tidyselect::all_of(colnames(Table_3.2c)[!colnames(Table_3.2c) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.2d: Housing characteristics by tenure - Number of bedrooms
@@ -626,14 +627,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.2d)[!grepl("_2", colnames(Table_3.2d))]
 significance_column_names <- colnames(Table_3.2d)[grepl("_sig", colnames(Table_3.2d))]
 
-Table_3.2d %>% select(all_of(main_column_names)) %>%
+Table_3.2d %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -645,13 +646,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.2d)[grepl("_2", colnames(Table_3.2d))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.2d %>% select(all_of(colnames(Table_3.2d)[!colnames(Table_3.2d) %in% comparison_rename_column_names])) %>%
+Table_3.2d %>% select(tidyselect::all_of(colnames(Table_3.2d)[!colnames(Table_3.2d) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3a: Household characteristics by tenure - Number of people in household
@@ -669,14 +670,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3a)[!grepl("_2", colnames(Table_3.3a))]
 significance_column_names <- colnames(Table_3.3a)[grepl("_sig", colnames(Table_3.3a))]
 
-Table_3.3a %>% select(all_of(main_column_names)) %>%
+Table_3.3a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -688,13 +689,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3a)[grepl("_2", colnames(Table_3.3a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3a %>% select(all_of(colnames(Table_3.3a)[!colnames(Table_3.3a) %in% comparison_rename_column_names])) %>%
+Table_3.3a %>% select(tidyselect::all_of(colnames(Table_3.3a)[!colnames(Table_3.3a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3b: Household characteristics by tenure - Household composition
@@ -712,14 +713,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3b)[!grepl("_2", colnames(Table_3.3b))]
 significance_column_names <- colnames(Table_3.3b)[grepl("_sig", colnames(Table_3.3b))]
 
-Table_3.3b %>% select(all_of(main_column_names)) %>%
+Table_3.3b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -731,13 +732,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3b)[grepl("_2", colnames(Table_3.3b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3b %>% select(all_of(colnames(Table_3.3b)[!colnames(Table_3.3b) %in% comparison_rename_column_names])) %>%
+Table_3.3b %>% select(tidyselect::all_of(colnames(Table_3.3b)[!colnames(Table_3.3b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3c: Household characteristics by tenure - Age
@@ -754,14 +755,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3c)[!grepl("_2", colnames(Table_3.3c))]
 significance_column_names <- colnames(Table_3.3c)[grepl("_sig", colnames(Table_3.3c))]
 
-Table_3.3c %>% select(all_of(main_column_names)) %>%
+Table_3.3c %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -773,13 +774,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3c)[grepl("_2", colnames(Table_3.3c))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3c %>% select(all_of(colnames(Table_3.3c)[!colnames(Table_3.3c) %in% comparison_rename_column_names])) %>%
+Table_3.3c %>% select(tidyselect::all_of(colnames(Table_3.3c)[!colnames(Table_3.3c) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3d: Household characteristics by tenure - Number of cars
@@ -797,14 +798,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3d)[!grepl("_2", colnames(Table_3.3d))]
 significance_column_names <- colnames(Table_3.3d)[grepl("_sig", colnames(Table_3.3d))]
 
-Table_3.3d %>% select(all_of(main_column_names)) %>%
+Table_3.3d %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -816,13 +817,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3d)[grepl("_2", colnames(Table_3.3d))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3d %>% select(all_of(colnames(Table_3.3d)[!colnames(Table_3.3d) %in% comparison_rename_column_names])) %>%
+Table_3.3d %>% select(tidyselect::all_of(colnames(Table_3.3d)[!colnames(Table_3.3d) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3e: Household characteristics by tenure - Net household income
@@ -839,14 +840,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3e)[!grepl("_2", colnames(Table_3.3e))]
 significance_column_names <- colnames(Table_3.3e)[grepl("_sig", colnames(Table_3.3e))]
 
-Table_3.3e %>% select(all_of(main_column_names)) %>%
+Table_3.3e %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -858,13 +859,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3e)[grepl("_2", colnames(Table_3.3e))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3e %>% select(all_of(colnames(Table_3.3e)[!colnames(Table_3.3e) %in% comparison_rename_column_names])) %>%
+Table_3.3e %>% select(tidyselect::all_of(colnames(Table_3.3e)[!colnames(Table_3.3e) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.3f: How well household is managing financially
@@ -882,14 +883,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.3f)[!grepl("_2", colnames(Table_3.3f))]
 significance_column_names <- colnames(Table_3.3f)[grepl("_sig", colnames(Table_3.3f))]
 
-Table_3.3f %>% select(all_of(main_column_names)) %>%
+Table_3.3f %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -901,13 +902,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.3f)[grepl("_2", colnames(Table_3.3f))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.3f %>% select(all_of(colnames(Table_3.3f)[!colnames(Table_3.3f) %in% comparison_rename_column_names])) %>%
+Table_3.3f %>% select(tidyselect::all_of(colnames(Table_3.3f)[!colnames(Table_3.3f) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.4a: Adult characteristics by tenure - Ethnicity
@@ -924,14 +925,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.4a)[!grepl("_2", colnames(Table_3.4a))]
 significance_column_names <- colnames(Table_3.4a)[grepl("_sig", colnames(Table_3.4a))]
 
-Table_3.4a %>% select(all_of(main_column_names)) %>%
+Table_3.4a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -943,13 +944,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.4a)[grepl("_2", colnames(Table_3.4a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.4a %>% select(all_of(colnames(Table_3.4a)[!colnames(Table_3.4a) %in% comparison_rename_column_names])) %>%
+Table_3.4a %>% select(tidyselect::all_of(colnames(Table_3.4a)[!colnames(Table_3.4a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.4b: Adult characteristics by tenure - Economic situation
@@ -966,14 +967,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.4b)[!grepl("_2", colnames(Table_3.4b))]
 significance_column_names <- colnames(Table_3.4b)[grepl("_sig", colnames(Table_3.4b))]
 
-Table_3.4b %>% select(all_of(main_column_names)) %>%
+Table_3.4b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -985,13 +986,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.4b)[grepl("_2", colnames(Table_3.4b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.4b %>% select(all_of(colnames(Table_3.4b)[!colnames(Table_3.4b) %in% comparison_rename_column_names])) %>%
+Table_3.4b %>% select(tidyselect::all_of(colnames(Table_3.4b)[!colnames(Table_3.4b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.4c: Adult characteristics by tenure - Length of time at current address
@@ -1008,14 +1009,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.4c)[!grepl("_2", colnames(Table_3.4c))]
 significance_column_names <- colnames(Table_3.4c)[grepl("_sig", colnames(Table_3.4c))]
 
-Table_3.4c %>% select(all_of(main_column_names)) %>%
+Table_3.4c %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1027,13 +1028,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.4c)[grepl("_2", colnames(Table_3.4c))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.4c %>% select(all_of(colnames(Table_3.4c)[!colnames(Table_3.4c) %in% comparison_rename_column_names])) %>%
+Table_3.4c %>% select(tidyselect::all_of(colnames(Table_3.4c)[!colnames(Table_3.4c) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.4d: Adult characteristics by tenure - Tenure of previous address
@@ -1057,14 +1058,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.5a)[!grepl("_2", colnames(Table_3.5a))]
 significance_column_names <- colnames(Table_3.5a)[grepl("_sig", colnames(Table_3.5a))]
 
-Table_3.5a %>% select(all_of(main_column_names)) %>%
+Table_3.5a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1076,13 +1077,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.5a)[grepl("_2", colnames(Table_3.5a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.5a %>% select(all_of(colnames(Table_3.5a)[!colnames(Table_3.5a) %in% comparison_rename_column_names])) %>%
+Table_3.5a %>% select(tidyselect::all_of(colnames(Table_3.5a)[!colnames(Table_3.5a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.5b: Views on housing aspirations, by tenure - When the household expects to move
@@ -1100,14 +1101,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.5b)[!grepl("_2", colnames(Table_3.5b))]
 significance_column_names <- colnames(Table_3.5b)[grepl("_sig", colnames(Table_3.5b))]
 
-Table_3.5b %>% select(all_of(main_column_names)) %>%
+Table_3.5b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1119,13 +1120,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.5b)[grepl("_2", colnames(Table_3.5b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.5b %>% select(all_of(colnames(Table_3.5b)[!colnames(Table_3.5b) %in% comparison_rename_column_names])) %>%
+Table_3.5b %>% select(tidyselect::all_of(colnames(Table_3.5b)[!colnames(Table_3.5b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.6a: Views on housing aspirations, by tenure - Accommodation householder would like to live in
@@ -1143,14 +1144,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.6a)[!grepl("_2", colnames(Table_3.6a))]
 significance_column_names <- colnames(Table_3.6a)[grepl("_sig", colnames(Table_3.6a))]
 
-Table_3.6a %>% select(all_of(main_column_names)) %>%
+Table_3.6a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1162,13 +1163,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.6a)[grepl("_2", colnames(Table_3.6a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.6a %>% select(all_of(colnames(Table_3.6a)[!colnames(Table_3.6a) %in% comparison_rename_column_names])) %>%
+Table_3.6a %>% select(tidyselect::all_of(colnames(Table_3.6a)[!colnames(Table_3.6a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.6b: Compared to current accommodation, the size of property householder would most like to live in
@@ -1186,14 +1187,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.6b)[!grepl("_2", colnames(Table_3.6b))]
 significance_column_names <- colnames(Table_3.6b)[grepl("_sig", colnames(Table_3.6b))]
 
-Table_3.6b %>% select(all_of(main_column_names)) %>%
+Table_3.6b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1205,13 +1206,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.6b)[grepl("_2", colnames(Table_3.6b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.6b %>% select(all_of(colnames(Table_3.6b)[!colnames(Table_3.6b) %in% comparison_rename_column_names])) %>%
+Table_3.6b %>% select(tidyselect::all_of(colnames(Table_3.6b)[!colnames(Table_3.6b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.6c: Barriers to moving to the accommodation the householder would most like to live i
@@ -1230,7 +1231,7 @@ kable("latex")
 main_column_names <- colnames(Figure_3.6)[!grepl("_2", colnames(Figure_3.6))]
 significance_column_names <- colnames(Figure_3.6)[grepl("_sig", colnames(Figure_3.6))]
 
-Figure_3.6 %>% select(all_of(main_column_names)) %>%
+Figure_3.6 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -1240,7 +1241,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1252,7 +1253,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_3.6)[grepl("_2", colnames(Figure_3.6))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_3.6 %>% select(all_of(colnames(Figure_3.6)[!colnames(Figure_3.6) %in% comparison_rename_column_names])) %>%
+Figure_3.6 %>% select(tidyselect::all_of(colnames(Figure_3.6)[!colnames(Figure_3.6) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -1261,7 +1262,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.7a: Views on neighbourhood and housing aspirations, by tenure - Rating of neighbourhood as a place to live
@@ -1278,14 +1279,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.7a)[!grepl("_2", colnames(Table_3.7a))]
 significance_column_names <- colnames(Table_3.7a)[grepl("_sig", colnames(Table_3.7a))]
 
-Table_3.7a %>% select(all_of(main_column_names)) %>%
+Table_3.7a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1297,13 +1298,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.7a)[grepl("_2", colnames(Table_3.7a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.7a %>% select(all_of(colnames(Table_3.7a)[!colnames(Table_3.7a) %in% comparison_rename_column_names])) %>%
+Table_3.7a %>% select(tidyselect::all_of(colnames(Table_3.7a)[!colnames(Table_3.7a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.7b: Views on neighbourhoods and housing aspirations, by tenure - Strength of belonging to immediate neighbourhood
@@ -1320,14 +1321,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.7b)[!grepl("_2", colnames(Table_3.7b))]
 significance_column_names <- colnames(Table_3.7b)[grepl("_sig", colnames(Table_3.7b))]
 
-Table_3.7b %>% select(all_of(main_column_names)) %>%
+Table_3.7b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1339,13 +1340,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.7b)[grepl("_2", colnames(Table_3.7b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.7b %>% select(all_of(colnames(Table_3.7b)[!colnames(Table_3.7b) %in% comparison_rename_column_names])) %>%
+Table_3.7b %>% select(tidyselect::all_of(colnames(Table_3.7b)[!colnames(Table_3.7b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.7c: Views on neighbourhoods and housing aspirations, by tenure - Housing satisfaction
@@ -1362,14 +1363,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.7c)[!grepl("_2", colnames(Table_3.7c))]
 significance_column_names <- colnames(Table_3.7c)[grepl("_sig", colnames(Table_3.7c))]
 
-Table_3.7c %>% select(all_of(main_column_names)) %>%
+Table_3.7c %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1381,13 +1382,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.7c)[grepl("_2", colnames(Table_3.7c))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.7c %>% select(all_of(colnames(Table_3.7c)[!colnames(Table_3.7c) %in% comparison_rename_column_names])) %>%
+Table_3.7c %>% select(tidyselect::all_of(colnames(Table_3.7c)[!colnames(Table_3.7c) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.8: Households renting privately - information on landlord / letting agents and deposits
@@ -1407,14 +1408,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.9a)[!grepl("_2", colnames(Table_3.9a))]
 significance_column_names <- colnames(Table_3.9a)[grepl("_sig", colnames(Table_3.9a))]
 
-Table_3.9a %>% select(all_of(main_column_names)) %>%
+Table_3.9a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1426,13 +1427,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.9a)[grepl("_2", colnames(Table_3.9a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.9a %>% select(all_of(colnames(Table_3.9a)[!colnames(Table_3.9a) %in% comparison_rename_column_names])) %>%
+Table_3.9a %>% select(tidyselect::all_of(colnames(Table_3.9a)[!colnames(Table_3.9a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.9b: Limiting activities by tenure - What about the home limits activities that can be done
@@ -1456,14 +1457,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.10a)[!grepl("_2", colnames(Table_3.10a))]
 significance_column_names <- colnames(Table_3.10a)[grepl("_sig", colnames(Table_3.10a))]
 
-Table_3.10a %>% select(all_of(main_column_names)) %>%
+Table_3.10a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1475,13 +1476,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.10a)[grepl("_2", colnames(Table_3.10a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.10a %>% select(all_of(colnames(Table_3.10a)[!colnames(Table_3.10a) %in% comparison_rename_column_names])) %>%
+Table_3.10a %>% select(tidyselect::all_of(colnames(Table_3.10a)[!colnames(Table_3.10a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.10b: Housing adaptations and support - Services that household members currently receive
@@ -1498,14 +1499,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.10b)[!grepl("_2", colnames(Table_3.10b))]
 significance_column_names <- colnames(Table_3.10b)[grepl("_sig", colnames(Table_3.10b))]
 
-Table_3.10b %>% select(all_of(main_column_names)) %>%
+Table_3.10b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1517,13 +1518,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.10b)[grepl("_2", colnames(Table_3.10b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.10b %>% select(all_of(colnames(Table_3.10b)[!colnames(Table_3.10b) %in% comparison_rename_column_names])) %>%
+Table_3.10b %>% select(tidyselect::all_of(colnames(Table_3.10b)[!colnames(Table_3.10b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.11a: Households on a housing list by tenure - Whether household is on a housing list
@@ -1541,14 +1542,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.11a)[!grepl("_2", colnames(Table_3.11a))]
 significance_column_names <- colnames(Table_3.11a)[grepl("_sig", colnames(Table_3.11a))]
 
-Table_3.11a %>% select(all_of(main_column_names)) %>%
+Table_3.11a %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1560,13 +1561,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.11a)[grepl("_2", colnames(Table_3.11a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.11a %>% select(all_of(colnames(Table_3.11a)[!colnames(Table_3.11a) %in% comparison_rename_column_names])) %>%
+Table_3.11a %>% select(tidyselect::all_of(colnames(Table_3.11a)[!colnames(Table_3.11a) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.11b: Households on a housing list by tenure - If not on a housing list, whether household has applied for social housing under a choice-based letting scheme, or similar, in the last year
@@ -1584,14 +1585,14 @@ kable("latex")
 main_column_names <- colnames(Table_3.11b)[!grepl("_2", colnames(Table_3.11b))]
 significance_column_names <- colnames(Table_3.11b)[grepl("_sig", colnames(Table_3.11b))]
 
-Table_3.11b %>% select(all_of(main_column_names)) %>%
+Table_3.11b %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#00A3A3", `Owner occupier_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#00A3A3", `Social sector_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#00A3A3", `Private rent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1603,13 +1604,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.11b)[grepl("_2", colnames(Table_3.11b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.11b %>% select(all_of(colnames(Table_3.11b)[!colnames(Table_3.11b) %in% comparison_rename_column_names])) %>%
+Table_3.11b %>% select(tidyselect::all_of(colnames(Table_3.11b)[!colnames(Table_3.11b) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case_when(`Owner occupier_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupier_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Social sector` = cell_spec(`Social sector`, "latex", background = case_when(`Social sector_sig` == "HIGHER" ~ "#C3C3FF", `Social sector_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Private rent` = cell_spec(`Private rent`, "latex", background = case_when(`Private rent_sig` == "HIGHER" ~ "#C3C3FF", `Private rent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.11c: Households on a housing list by tenure - The number of housing lists that households are on (households on a list)
@@ -1632,7 +1633,7 @@ kable("latex")
 main_column_names <- colnames(Table_3.12)[!grepl("_2", colnames(Table_3.12))]
 significance_column_names <- colnames(Table_3.12)[grepl("_sig", colnames(Table_3.12))]
 
-Table_3.12 %>% select(all_of(main_column_names)) %>%
+Table_3.12 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -1642,7 +1643,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1654,7 +1655,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.12)[grepl("_2", colnames(Table_3.12))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.12 %>% select(all_of(colnames(Table_3.12)[!colnames(Table_3.12) %in% comparison_rename_column_names])) %>%
+Table_3.12 %>% select(tidyselect::all_of(colnames(Table_3.12)[!colnames(Table_3.12) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -1663,7 +1664,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.13: Households on housing lists
@@ -1680,7 +1681,7 @@ kable("latex")
 main_column_names <- colnames(Table_3.13)[!grepl("_2", colnames(Table_3.13))]
 significance_column_names <- colnames(Table_3.13)[grepl("_sig", colnames(Table_3.13))]
 
-Table_3.13 %>% select(all_of(main_column_names)) %>%
+Table_3.13 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -1689,7 +1690,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -1701,7 +1702,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_3.13)[grepl("_2", colnames(Table_3.13))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_3.13 %>% select(all_of(colnames(Table_3.13)[!colnames(Table_3.13) %in% comparison_rename_column_names])) %>%
+Table_3.13 %>% select(tidyselect::all_of(colnames(Table_3.13)[!colnames(Table_3.13) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -1709,7 +1710,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 3.14: Urban Rural Location of Private Rented Households, by year

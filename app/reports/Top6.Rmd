@@ -19,6 +19,7 @@ library(knitr)
 library(dplyr)
 library(kableExtra)
 library(png)
+library(tidyselect)
 
 local_authority <- params$local_authority
 year <- params$year
@@ -79,7 +80,7 @@ kable("latex")
 main_column_names <- colnames(Figure_6.1)[!grepl("_2", colnames(Figure_6.1))]
 significance_column_names <- colnames(Figure_6.1)[grepl("_sig", colnames(Figure_6.1))]
 
-Figure_6.1 %>% select(all_of(main_column_names)) %>%
+Figure_6.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -96,7 +97,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -108,7 +109,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_6.1)[grepl("_2", colnames(Figure_6.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_6.1 %>% select(all_of(colnames(Figure_6.1)[!colnames(Figure_6.1) %in% comparison_rename_column_names])) %>%
+Figure_6.1 %>% select(tidyselect::all_of(colnames(Figure_6.1)[!colnames(Figure_6.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -124,7 +125,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 6.2: How the household is managing financially by net annual household income
@@ -142,13 +143,13 @@ kable("latex")
 main_column_names <- colnames(Figure_6.2)[!grepl("_2", colnames(Figure_6.2))]
 significance_column_names <- colnames(Figure_6.2)[grepl("_sig", colnames(Figure_6.2))]
 
-Figure_6.2 %>% select(all_of(main_column_names)) %>%
+Figure_6.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Up to GBP15,000` = cell_spec(`Up to GBP15,000`, "latex", background = case_when(`Up to GBP15,000_sig` == "HIGHER" ~ "#00A3A3", `Up to GBP15,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `GBP15,001 to GBP30,000` = cell_spec(`GBP15,001 to GBP30,000`, "latex", background = case_when(`GBP15,001 to GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `GBP15,001 to GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `Over GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -160,12 +161,12 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_6.2)[grepl("_2", colnames(Figure_6.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_6.2 %>% select(all_of(colnames(Figure_6.2)[!colnames(Figure_6.2) %in% comparison_rename_column_names])) %>%
+Figure_6.2 %>% select(tidyselect::all_of(colnames(Figure_6.2)[!colnames(Figure_6.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Up to GBP15,000` = cell_spec(`Up to GBP15,000`, "latex", background = case_when(`Up to GBP15,000_sig` == "HIGHER" ~ "#C3C3FF", `Up to GBP15,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `GBP15,001 to GBP30,000` = cell_spec(`GBP15,001 to GBP30,000`, "latex", background = case_when(`GBP15,001 to GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP15,001 to GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 6.3: How the household is managing financially by household type
@@ -183,13 +184,13 @@ kable("latex")
 main_column_names <- colnames(Figure_6.3)[!grepl("_2", colnames(Figure_6.3))]
 significance_column_names <- colnames(Figure_6.3)[grepl("_sig", colnames(Figure_6.3))]
 
-Figure_6.3 %>% select(all_of(main_column_names)) %>%
+Figure_6.3 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adult / small adult small / Large adult`, "latex", background = case_when(`Single adult / small adult small / Large adult_sig` == "HIGHER" ~ "#00A3A3", `Single adult / small adult small / Large adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Single parent / small family / large family` = cell_spec(`Single parent / small family / large family`, "latex", background = case_when(`Single parent / small family / large family_sig` == "HIGHER" ~ "#00A3A3", `Single parent / small family / large family_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Older smaller / Single older` = cell_spec(`Older smaller / Single older`, "latex", background = case_when(`Older smaller / Single older_sig` == "HIGHER" ~ "#00A3A3", `Older smaller / Single older_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -201,12 +202,12 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_6.3)[grepl("_2", colnames(Figure_6.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_6.3 %>% select(all_of(colnames(Figure_6.3)[!colnames(Figure_6.3) %in% comparison_rename_column_names])) %>%
+Figure_6.3 %>% select(tidyselect::all_of(colnames(Figure_6.3)[!colnames(Figure_6.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adult / small adult small / Large adult`, "latex", background = case_when(`Single adult / small adult small / Large adult_sig` == "HIGHER" ~ "#C3C3FF", `Single adult / small adult small / Large adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Single parent / small family / large family` = cell_spec(`Single parent / small family / large family`, "latex", background = case_when(`Single parent / small family / large family_sig` == "HIGHER" ~ "#C3C3FF", `Single parent / small family / large family_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Older smaller / Single older` = cell_spec(`Older smaller / Single older`, "latex", background = case_when(`Older smaller / Single older_sig` == "HIGHER" ~ "#C3C3FF", `Older smaller / Single older_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 6.4: How the household is managing financially by tenure of household
@@ -224,13 +225,13 @@ kable("latex")
 main_column_names <- colnames(Figure_6.4)[!grepl("_2", colnames(Figure_6.4))]
 significance_column_names <- colnames(Figure_6.4)[grepl("_sig", colnames(Figure_6.4))]
 
-Figure_6.4 %>% select(all_of(main_column_names)) %>%
+Figure_6.4 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Does not manage well` = cell_spec(`Does not manage well`, "latex", background = case_when(`Does not manage well_sig` == "HIGHER" ~ "#00A3A3", `Does not manage well_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Gets by` = cell_spec(`Gets by`, "latex", background = case_when(`Gets by_sig` == "HIGHER" ~ "#00A3A3", `Gets by_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Manages well` = cell_spec(`Manages well`, "latex", background = case_when(`Manages well_sig` == "HIGHER" ~ "#00A3A3", `Manages well_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -242,12 +243,12 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_6.4)[grepl("_2", colnames(Figure_6.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_6.4 %>% select(all_of(colnames(Figure_6.4)[!colnames(Figure_6.4) %in% comparison_rename_column_names])) %>%
+Figure_6.4 %>% select(tidyselect::all_of(colnames(Figure_6.4)[!colnames(Figure_6.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Does not manage well` = cell_spec(`Does not manage well`, "latex", background = case_when(`Does not manage well_sig` == "HIGHER" ~ "#C3C3FF", `Does not manage well_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Gets by` = cell_spec(`Gets by`, "latex", background = case_when(`Gets by_sig` == "HIGHER" ~ "#C3C3FF", `Gets by_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Manages well` = cell_spec(`Manages well`, "latex", background = case_when(`Manages well_sig` == "HIGHER" ~ "#C3C3FF", `Manages well_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 6.1: How the household is managing financially by income sources
@@ -265,14 +266,14 @@ kable("latex")
 main_column_names <- colnames(Table_6.1)[!grepl("_2", colnames(Table_6.1))]
 significance_column_names <- colnames(Table_6.1)[grepl("_sig", colnames(Table_6.1))]
 
-Table_6.1 %>% select(all_of(main_column_names)) %>%
+Table_6.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Main income from earnings` = cell_spec(`Main income from earnings`, "latex", background = case_when(`Main income from earnings_sig` == "HIGHER" ~ "#00A3A3", `Main income from earnings_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Main income from benefits` = cell_spec(`Main income from benefits`, "latex", background = case_when(`Main income from benefits_sig` == "HIGHER" ~ "#00A3A3", `Main income from benefits_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Main income from other sources` = cell_spec(`Main income from other sources`, "latex", background = case_when(`Main income from other sources_sig` == "HIGHER" ~ "#00A3A3", `Main income from other sources_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `An equal mix of income sources` = cell_spec(`An equal mix of income sources`, "latex", background = case_when(`An equal mix of income sources_sig` == "HIGHER" ~ "#00A3A3", `An equal mix of income sources_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -284,13 +285,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_6.1)[grepl("_2", colnames(Table_6.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_6.1 %>% select(all_of(colnames(Table_6.1)[!colnames(Table_6.1) %in% comparison_rename_column_names])) %>%
+Table_6.1 %>% select(tidyselect::all_of(colnames(Table_6.1)[!colnames(Table_6.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Main income from earnings` = cell_spec(`Main income from earnings`, "latex", background = case_when(`Main income from earnings_sig` == "HIGHER" ~ "#C3C3FF", `Main income from earnings_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Main income from benefits` = cell_spec(`Main income from benefits`, "latex", background = case_when(`Main income from benefits_sig` == "HIGHER" ~ "#C3C3FF", `Main income from benefits_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Main income from other sources` = cell_spec(`Main income from other sources`, "latex", background = case_when(`Main income from other sources_sig` == "HIGHER" ~ "#C3C3FF", `Main income from other sources_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `An equal mix of income sources` = cell_spec(`An equal mix of income sources`, "latex", background = case_when(`An equal mix of income sources_sig` == "HIGHER" ~ "#C3C3FF", `An equal mix of income sources_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 6.2: How the household is managing financially this year by gender and age of highest income householder
@@ -308,7 +309,7 @@ kable("latex")
 main_column_names <- colnames(Table_6.2)[!grepl("_2", colnames(Table_6.2))]
 significance_column_names <- colnames(Table_6.2)[grepl("_sig", colnames(Table_6.2))]
 
-Table_6.2 %>% select(all_of(main_column_names)) %>%
+Table_6.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -320,7 +321,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 `All (Age)` = cell_spec(`All (Age)`, "latex", background = case_when(`All (Age)_sig` == "HIGHER" ~ "#00A3A3", `All (Age)_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -332,7 +333,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_6.2)[grepl("_2", colnames(Table_6.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_6.2 %>% select(all_of(colnames(Table_6.2)[!colnames(Table_6.2) %in% comparison_rename_column_names])) %>%
+Table_6.2 %>% select(tidyselect::all_of(colnames(Table_6.2)[!colnames(Table_6.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -343,7 +344,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `All (Age)` = cell_spec(`All (Age)`, "latex", background = case_when(`All (Age)_sig` == "HIGHER" ~ "#C3C3FF", `All (Age)_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 6.5: How households were managing financially by the Scottish Index of Multiple Deprivation
@@ -361,7 +362,7 @@ kable("latex")
 main_column_names <- colnames(Figure_6.5)[!grepl("_2", colnames(Figure_6.5))]
 significance_column_names <- colnames(Figure_6.5)[grepl("_sig", colnames(Figure_6.5))]
 
-Figure_6.5 %>% select(all_of(main_column_names)) %>%
+Figure_6.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -369,7 +370,7 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 `5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -381,14 +382,14 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_6.5)[grepl("_2", colnames(Figure_6.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_6.5 %>% select(all_of(colnames(Figure_6.5)[!colnames(Figure_6.5) %in% comparison_rename_column_names])) %>%
+Figure_6.5 %>% select(tidyselect::all_of(colnames(Figure_6.5)[!colnames(Figure_6.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 6.6: Households who manage well financially by deprivation over time

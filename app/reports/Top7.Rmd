@@ -19,6 +19,7 @@ library(knitr)
 library(dplyr)
 library(kableExtra)
 library(png)
+library(tidyselect)
 
 local_authority <- params$local_authority
 year <- params$year
@@ -94,7 +95,7 @@ kable("latex")
 main_column_names <- colnames(Figure_7.1)[!grepl("_2", colnames(Figure_7.1))]
 significance_column_names <- colnames(Figure_7.1)[grepl("_sig", colnames(Figure_7.1))]
 
-Figure_7.1 %>% select(all_of(main_column_names)) %>%
+Figure_7.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -109,7 +110,7 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -121,7 +122,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_7.1)[grepl("_2", colnames(Figure_7.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_7.1 %>% select(all_of(colnames(Figure_7.1)[!colnames(Figure_7.1) %in% comparison_rename_column_names])) %>%
+Figure_7.1 %>% select(tidyselect::all_of(colnames(Figure_7.1)[!colnames(Figure_7.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -135,7 +136,7 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 7.2: Households with home internet access by net annual household income
@@ -168,7 +169,7 @@ kable("latex")
 main_column_names <- colnames(Figure_7.7)[!grepl("_2", colnames(Figure_7.7))]
 significance_column_names <- colnames(Figure_7.7)[grepl("_sig", colnames(Figure_7.7))]
 
-Figure_7.7 %>% select(all_of(main_column_names)) %>%
+Figure_7.7 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -177,7 +178,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -189,7 +190,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Figure_7.7)[grepl("_2", colnames(Figure_7.7))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Figure_7.7 %>% select(all_of(colnames(Figure_7.7)[!colnames(Figure_7.7) %in% comparison_rename_column_names])) %>%
+Figure_7.7 %>% select(tidyselect::all_of(colnames(Figure_7.7)[!colnames(Figure_7.7) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -197,7 +198,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Figure 7.8: Use of internet by age
@@ -233,7 +234,7 @@ kable("latex")
 main_column_names <- colnames(Table_7.2)[!grepl("_2", colnames(Table_7.2))]
 significance_column_names <- colnames(Table_7.2)[grepl("_sig", colnames(Table_7.2))]
 
-Table_7.2 %>% select(all_of(main_column_names)) %>%
+Table_7.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -242,7 +243,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -254,7 +255,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_7.2)[grepl("_2", colnames(Table_7.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_7.2 %>% select(all_of(colnames(Table_7.2)[!colnames(Table_7.2) %in% comparison_rename_column_names])) %>%
+Table_7.2 %>% select(tidyselect::all_of(colnames(Table_7.2)[!colnames(Table_7.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -262,7 +263,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 7.3: Smart appliances in the house by area deprivation
@@ -280,11 +281,11 @@ kable("latex")
 main_column_names <- colnames(Table_7.3)[!grepl("_2", colnames(Table_7.3))]
 significance_column_names <- colnames(Table_7.3)[grepl("_sig", colnames(Table_7.3))]
 
-Table_7.3 %>% select(all_of(main_column_names)) %>%
+Table_7.3 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -296,10 +297,10 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_7.3)[grepl("_2", colnames(Table_7.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_7.3 %>% select(all_of(colnames(Table_7.3)[!colnames(Table_7.3) %in% comparison_rename_column_names])) %>%
+Table_7.3 %>% select(tidyselect::all_of(colnames(Table_7.3)[!colnames(Table_7.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 7.4: Which methods are used to access the internet for personal use by age
@@ -317,7 +318,7 @@ kable("latex")
 main_column_names <- colnames(Table_7.4)[!grepl("_2", colnames(Table_7.4))]
 significance_column_names <- colnames(Table_7.4)[grepl("_sig", colnames(Table_7.4))]
 
-Table_7.4 %>% select(all_of(main_column_names)) %>%
+Table_7.4 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
@@ -326,7 +327,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -338,7 +339,7 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_7.4)[grepl("_2", colnames(Table_7.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_7.4 %>% select(all_of(colnames(Table_7.4)[!colnames(Table_7.4) %in% comparison_rename_column_names])) %>%
+Table_7.4 %>% select(tidyselect::all_of(colnames(Table_7.4)[!colnames(Table_7.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
@@ -346,7 +347,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 7.5: Reasons for using the internet by tenure
@@ -364,14 +365,14 @@ kable("latex")
 main_column_names <- colnames(Table_7.5)[!grepl("_2", colnames(Table_7.5))]
 significance_column_names <- colnames(Table_7.5)[grepl("_sig", colnames(Table_7.5))]
 
-Table_7.5 %>% select(all_of(main_column_names)) %>%
+Table_7.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -383,13 +384,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_7.5)[grepl("_2", colnames(Table_7.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_7.5 %>% select(all_of(colnames(Table_7.5)[!colnames(Table_7.5) %in% comparison_rename_column_names])) %>%
+Table_7.5 %>% select(tidyselect::all_of(colnames(Table_7.5)[!colnames(Table_7.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 7.6: Percentage of confident users by tenure
@@ -407,14 +408,14 @@ kable("latex")
 main_column_names <- colnames(Table_7.6)[!grepl("_2", colnames(Table_7.6))]
 significance_column_names <- colnames(Table_7.6)[grepl("_sig", colnames(Table_7.6))]
 
-Table_7.6 %>% select(all_of(main_column_names)) %>%
+Table_7.6 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
-select(!all_of(significance_column_names)) %>%
+select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE)
 ```
 
@@ -426,13 +427,13 @@ asis_output(paste0("### ", comparison_table_title))
 comparison_column_names <- colnames(Table_7.6)[grepl("_2", colnames(Table_7.6))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
-Table_7.6 %>% select(all_of(colnames(Table_7.6)[!colnames(Table_7.6) %in% comparison_rename_column_names])) %>%
+Table_7.6 %>% select(tidyselect::all_of(colnames(Table_7.6)[!colnames(Table_7.6) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
-        select(!all_of(significance_column_names)) %>%
+        select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
 ## Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online
