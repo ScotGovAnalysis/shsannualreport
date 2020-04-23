@@ -15,6 +15,8 @@ library(RColorBrewer)
 
 source("source/variables.R")$values
 source("source/functions.R")$values
+source("source/report_data_processing.R")$values
+source("source/report_functions.R")$values
 
 # ui ####
 
@@ -197,31 +199,29 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel(
-                   div(icon("fal fa-clipboard-list"),
-                       "Create Report"), style = "margin-left: 4%; margin-right: 4%",
+               tabPanel("LA Reports",
 
-                   wellPanel(style = "background: #ffd480",
-                             h4("This function is still under construction."),
-                             h5("Below you can download an example topic for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
-                   ),
+                        wellPanel(style = "background: #ffd480",
+                                  h4("This function is still under construction."),
+                                  h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
+                        ),
 
-                   fluidRow(
-                       column(8, selectInput("select_topic", label = "Topic", choices = c("Ch. 2: The Composition and Characteristics of Households in Scotland" = "The Composition and Characteristics of Households in Scotland"), width = "100%")) # TODO: Update choices
-                   ),
+                        fluidRow(
+                            column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
+                        ),
 
-                   fluidRow(
-                       column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
-                       column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))), # TODO: Update choices dynamically
-                       column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison"), selected = "No comparison", width = "100%")), # TODO: Update choices
-                       column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
-                       column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
-                   ),
+                        fluidRow(
+                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
+                            column(3, selectInput("select_report_year", "Select Year", choices = c("2018", "2017", "2016", "2015", "2014", "2013"))), # TODO: Update choices dynamically
+                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
+                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                        ),
 
-                   fluidRow(
-                       column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
-                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
-                   )
+                        fluidRow(
+                            column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
+                            column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
+                        )
                ),
 
                # Raw Data tab ####
@@ -614,7 +614,7 @@ server <- function(input, output, session) {
 
     observeEvent(input$searchbar, {
 
-         if (input$navigation_mode == "Search questions") {
+        if (input$navigation_mode == "Search questions") {
 
             current_topic <- input$select_topic
 
@@ -635,6 +635,8 @@ server <- function(input, output, session) {
             question <- question_titles[question_titles$ID == input$searchbar,]$ID
 
             question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
+
+            print(question_update_string)
 
             eval(parse(text = question_update_string))
         }
@@ -710,18 +712,6 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-            if (length(unique(df()$Year)) <= 1) {
-
-                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
-
-                shinyjs::showElement("select_local_authority")
-                shinyjs::showElement("select_comparison_type")
-                shinyjs::hideElement("select_year")
-                shinyjs::showElement("select_year_comparator")
-                shinyjs::showElement("select_local_authority_comparator")
-
-                } else {
-
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
 
             shinyjs::showElement("select_local_authority")
@@ -729,8 +719,6 @@ server <- function(input, output, session) {
             shinyjs::showElement("select_comparison_type")
             shinyjs::showElement("select_year_comparator")
             shinyjs::showElement("select_local_authority_comparator")
-
-                }
 
         } else if (input$select_question %in% type_0_questions) {
 
@@ -1706,7 +1694,15 @@ server <- function(input, output, session) {
 
     observeEvent(input$generate, {
 
-        tmp_file <- paste0(tempfile(), ".pdf")
+        id <- topic_titles[topic_titles$title == input$select_report_topic,]$code
+
+        tmp_dir <- tempdir()
+
+        tmp_report <- paste0(tmp_dir, "/", id, ".pdf")
+
+        # print(tmp_report)
+
+        # file.copy(c("reports/topic_2.Rmd", "www/SG_master_logo_RGB.jpg"), tmp_dir, overwrite = TRUE)
 
         progress <- shiny::Progress$new()
 
@@ -1716,22 +1712,46 @@ server <- function(input, output, session) {
                      detail = "This may take a while. This window will disappear
                      when the report is ready.", value = 1)
 
-        data <- topic_2_data(input$select_report_local_authority, input$select_report_year)
+        if (input$select_report_comparison_type == "Local Authority") {
+
+            comparator <- input$select_report_local_authority_comparator
+
+        } else if (input$select_report_comparison_type == "Year") {
+
+            comparator <- input$select_report_year_comparator
+
+        } else {
+
+            comparator <- NULL
+        }
+
+        topic <-  topic_titles[topic_titles$title == input$select_report_topic, ]$code
+        topic <- gsub("Top", "", topic)
+
+        print(input$select_report_topic)
+
+        data <- report_data_processing(topic = topic,
+                                       local_authority =  input$select_report_local_authority,
+                                       year =  input$select_report_year,
+                                       comparison_type = input$select_report_comparison_type,
+                                       comparator = comparator)
 
         params <- list(local_authority = input$select_report_local_authority,
                        year = input$select_report_year,
-                       topic_data = data)
+                       topic_data = data,
+                       comparison_type = input$select_report_comparison_type,
+                       comparator = comparator)
 
-        rmarkdown::render("topic2.Rmd",
+        rmarkdown::render(paste0("reports/", id, ".Rmd"),
                           output_format = "pdf_document",
-                          output_file = tmp_file,
+                          output_file = tmp_report,
                           params = params,
                           envir = new.env()
         )
 
         detach("package:kableExtra", unload = TRUE)
 
-        report$filepath <- tmp_file
+        report$filepath <- tmp_report
     })
 
     output$reportbuilt <- reactive({
