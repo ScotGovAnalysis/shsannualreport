@@ -133,7 +133,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.2: Gender of all household members by year
 ### Column percentages, Adults
@@ -143,7 +146,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.2 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -161,7 +167,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -182,7 +191,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.3: All household members with a long-term physical or mental health condition by year
 ### Column percentages, Adults
@@ -193,7 +205,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.3 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -209,7 +224,10 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -228,7 +246,10 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Figure 2.1: Age of adults by year
 ### Column percentages, Adults
@@ -237,7 +258,10 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.1 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -262,7 +286,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -290,7 +317,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Figure 2.2: Gender of adults by year
 ### Column percentages, Adults
@@ -299,7 +329,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.2 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -324,7 +357,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -352,7 +388,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.4, Figure 2.3: Adults with a long-term physical or mental health condition by year
 ### Column percentages, Adults
@@ -363,7 +402,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.4_Figure_2.3 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -381,7 +423,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -402,7 +447,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.5: Ethnicity of adults by year
 ### Column percentages, Adults
@@ -412,7 +460,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.5 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -429,7 +480,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -449,7 +503,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.6: Economic status of all adults aged 16-64
 ### Column percentages, Adults
@@ -459,7 +516,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.6 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -472,7 +532,10 @@ mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`A
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -488,7 +551,10 @@ rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`All adults_sig` == "HIGHER" ~ "#C3C3FF", `All adults_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `Adults aged 16 to 64` = cell_spec(`Adults aged 16 to 64`, "latex", background = case_when(`Adults aged 16 to 64_sig` == "HIGHER" ~ "#C3C3FF", `Adults aged 16 to 64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Figure 2.4: Economic status of adults by year - selected groups
 ### Column percentages, Adults
@@ -497,7 +563,10 @@ mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`A
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.4 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -522,7 +591,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -550,7 +622,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.7: Sexual orientation of adults by year
 ### Column percentages, Adults
@@ -560,7 +635,10 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.7 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -579,7 +657,10 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -601,7 +682,10 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Figure 2.5: Religious belonging of adults by year
 ### Column percentages, Adults
@@ -611,7 +695,10 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.5 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -631,7 +718,10 @@ mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -654,7 +744,10 @@ mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.8: Marital status of adults by year
 ### Column percentages, Adults
@@ -664,7 +757,10 @@ mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`200
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.8 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -681,7 +777,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -701,7 +800,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.9: Current marital status of adults by age
 ### Column percentages, Adults
@@ -710,7 +812,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.9 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -727,7 +832,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -747,7 +855,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 `60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.10: Age of adults by marital status
 ### Row percentages, Adults
@@ -756,7 +867,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.10 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -773,7 +887,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison}
@@ -793,7 +910,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 `60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.11: Household type of households by year
 ### Column percentages, Households
@@ -803,7 +923,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.11 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -821,7 +944,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -842,7 +968,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.12: Households with children by year
 ### Column percentages, Households
@@ -851,7 +980,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.12 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -869,7 +1001,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -890,7 +1025,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.13: Property type of households by year
 ### Column percentages, Households
@@ -899,7 +1037,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.13 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -917,7 +1058,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -938,7 +1082,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.14: Tenure of households by year
 ### Column percentages, Households
@@ -948,7 +1095,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.14 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -966,7 +1116,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -987,7 +1140,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.15: Scottish Index of Multiple Deprivation of households by year
 ### Column percentages, Households
@@ -996,7 +1152,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.15 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1014,7 +1173,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1035,7 +1197,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.16: Urban rural split of households by year
 ### Column percentages, Households
@@ -1045,7 +1210,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.16 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1063,7 +1231,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1084,7 +1255,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 ## Table 2.17: Household income of households by year
 ### Column percentages, Households
@@ -1093,7 +1267,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.17 %>%
-kable("latex")
+kable("latex", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1111,7 +1288,10 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE)
+kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1132,5 +1312,8 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE)
+        kable("latex", escape = FALSE, booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width=F,
+                position="left")
 ```
