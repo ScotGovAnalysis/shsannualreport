@@ -1390,11 +1390,11 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
-## Table 3.8: Households renting privately – information on landlord / letting agents and deposits
+## Table 3.8: Households renting privately ? information on landlord / letting agents and deposits
 ### Base numbers at local authority level are too small to produce robust analysis.
-## Table 3.9a: Limiting activities by tenure - Household has someone with a long-term physical/mental health condition/illness*
+## Table 3.9a: Limiting activities by tenure - Household has someone with a long-term physical/mental health condition/illness
 ### Column percentages, Adults
-### * A long-term condition is defined as lasting or expecting to last for 12 months or more
+### A long-term condition is defined as lasting or expecting to last for 12 months or more
 
 ### `r main_table_title`
 

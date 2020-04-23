@@ -6,9 +6,15 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
   for (question in question_list) {
 
-    table <- readRDS(paste0("data/dataset/", question, ".Rds"))
+    print(question)
 
     question_type <- question_titles[question_titles$ID == question,]$Type
+
+    if (question_type != "0") {
+
+      table <- readRDS(paste0("data/dataset/", question, ".Rds"))
+
+    }
 
     if (question_type %in% c("1", "4")) {
 
@@ -45,6 +51,8 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
       eval(parse(text = comparison_table_string(comparison_type = comparison_type, question_type = question_type, column_variables = column_variables)))
 
       eval(parse(text = merge_string(question_type = question_type, merge_by = merge_by, row_variable = row_variable, column_variables = column_variables)))
+
+      print(paste0(row_variable, ": ", remove_significance_string(row_variable = row_variable)))
 
       eval(parse(text = remove_significance_string(row_variable = row_variable)))
     }
