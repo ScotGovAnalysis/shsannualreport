@@ -6,8 +6,6 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
   for (question in question_list) {
 
-    print(question)
-
     question_type <- question_titles[question_titles$ID == question,]$Type
 
     if (question_type != "0") {
