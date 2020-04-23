@@ -1,0 +1,1628 @@
+---
+title: "Scotland's People Local Authority Tables"
+output:
+  pdf_document:
+    toc: yes
+    latex_engine: xelatex
+    fig_caption: false
+mainfont: Calibri
+classoption: landscape
+fontsize: 10pt
+papersize: a4
+geometry: margin=1.5cm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+options(tinytex.verbose = TRUE)
+
+library(knitr)
+library(dplyr)
+library(kableExtra)
+library(png)
+
+local_authority <- params$local_authority
+year <- params$year
+topic_data <- params$topic_data
+comparison_type <- params$comparison_type
+comparator <- params$comparator
+
+Table_4.1 <- topic_data[[1]]
+Table_4.2 <- topic_data[[2]]
+Figure_4.1 <- topic_data[[3]]
+Figure_4.2a <- topic_data[[4]]
+Figure_4.2b <- topic_data[[5]]
+Table_4.3 <- topic_data[[6]]
+Table_4.4 <- topic_data[[7]]
+Table_4.5 <- topic_data[[8]]
+Table_4.6 <- topic_data[[9]]
+Table_4.7 <- topic_data[[10]]
+Table_4.8a <- topic_data[[11]]
+Table_4.8b <- topic_data[[12]]
+Table_4.9 <- topic_data[[13]]
+Table_4.10 <- topic_data[[14]]
+Table_4.11 <- topic_data[[15]]
+Table_4.12 <- topic_data[[16]]
+Table_4.13 <- topic_data[[17]]
+Table_4.14 <- topic_data[[18]]
+Table_4.15 <- topic_data[[19]]
+Table_4.16 <- topic_data[[20]]
+Table_4.17 <- topic_data[[21]]
+Table_4.18 <- topic_data[[22]]
+Table_4.19 <- topic_data[[23]]
+Table_4.20 <- topic_data[[24]]
+Table_4.21 <- topic_data[[25]]
+Figure_4.3 <- topic_data[[26]]
+Table_4.22 <- topic_data[[27]]
+Table_4.23 <- topic_data[[28]]
+Table_4.24 <- topic_data[[29]]
+Table_4.25 <- topic_data[[30]]
+Table_4.26 <- topic_data[[31]]
+Table_4.27 <- topic_data[[32]]
+Table_4.28 <- topic_data[[33]]
+Table_4.29 <- topic_data[[34]]
+
+main_table_title <- paste0(local_authority, ", ", year)
+
+eval_comparison <- ifelse(comparison_type == "No comparison", FALSE, TRUE)
+
+eval_comparison_time_series <- ifelse(comparison_type == "Year" | comparison_type == "No comparison", FALSE, TRUE)
+
+comparison_table_title <- if (comparison_type == "Local Authority") {
+  paste0(comparator, ", ", year)
+} else if (comparison_type == "Year") {
+  paste0(local_authority, ", ", comparator)
+} else {
+  NULL
+  }
+
+```
+```{r, out.height = "130pt", fig.show='hold', fig.align='center'}
+knitr::include_graphics(c("../www/shs-logo.png", "../www/home_logo.png"))
+```
+
+## Acknowledgements
+The Scottish Government acknowledges and thanks the 10,530
+people across Scotland who gave their time to take part in the
+Scottish Household Survey 2018.
+This report was produced by the Scottish Household Survey Project Team
+at the Scottish Government.
+We would also like to thank all the Scottish Government lead analysts who
+contributed to the project.
+Finally, special thanks to Ipsos MORI and their interviewers for continuous
+and relentless efforts during the fieldwork.
+
+## Table 4.1: Rating of neighbourhood as a place to live by year
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_4.1 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_4.1)[!grepl("_2", colnames(Table_4.1))]
+significance_column_names <- colnames(Table_4.1)[grepl("_sig", colnames(Table_4.1))]
+
+Table_4.1 %>% select(all_of(main_column_names)) %>%
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_4.1)[grepl("_2", colnames(Table_4.1))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.1 %>% select(all_of(colnames(Table_4.1)[!colnames(Table_4.1) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.2: Rating of neighbourhood as a place to live by Urban Rural Classification
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.2 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.2)[!grepl("_2", colnames(Table_4.2))]
+significance_column_names <- colnames(Table_4.2)[grepl("_sig", colnames(Table_4.2))]
+
+Table_4.2 %>% select(all_of(main_column_names)) %>%
+mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#00A3A3", `Urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#00A3A3", `Rural areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.2)[grepl("_2", colnames(Table_4.2))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.2 %>% select(all_of(colnames(Table_4.2)[!colnames(Table_4.2) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#C3C3FF", `Rural areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 4.1: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Figure_4.1 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Figure_4.1)[!grepl("_2", colnames(Figure_4.1))]
+significance_column_names <- colnames(Figure_4.1)[grepl("_sig", colnames(Figure_4.1))]
+
+Figure_4.1 %>% select(all_of(main_column_names)) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Figure_4.1)[grepl("_2", colnames(Figure_4.1))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_4.1 %>% select(all_of(colnames(Figure_4.1)[!colnames(Figure_4.1) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 4.2a: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% most deprived areas
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Figure_4.2a %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Figure_4.2a)[!grepl("_2", colnames(Figure_4.2a))]
+significance_column_names <- colnames(Figure_4.2a)[grepl("_sig", colnames(Figure_4.2a))]
+
+Figure_4.2a %>% select(all_of(main_column_names)) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Figure_4.2a)[grepl("_2", colnames(Figure_4.2a))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_4.2a %>% select(all_of(colnames(Figure_4.2a)[!colnames(Figure_4.2a) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 4.2b: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% least deprived areas
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Figure_4.2b %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Figure_4.2b)[!grepl("_2", colnames(Figure_4.2b))]
+significance_column_names <- colnames(Figure_4.2b)[grepl("_sig", colnames(Figure_4.2b))]
+
+Figure_4.2b %>% select(all_of(main_column_names)) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Figure_4.2b)[grepl("_2", colnames(Figure_4.2b))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_4.2b %>% select(all_of(colnames(Figure_4.2b)[!colnames(Figure_4.2b) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.3: Percentage of people agreeing with statements about their neighbourhood strengths
+### Row percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.3 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.3)[!grepl("_2", colnames(Table_4.3))]
+significance_column_names <- colnames(Table_4.3)[grepl("_sig", colnames(Table_4.3))]
+
+Table_4.3 %>% select(all_of(main_column_names)) %>%
+mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Neither agree nor disagree` = cell_spec(`Neither agree nor disagree`, "latex", background = case_when(`Neither agree nor disagree_sig` == "HIGHER" ~ "#00A3A3", `Neither agree nor disagree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Strongly agree` = cell_spec(`Strongly agree`, "latex", background = case_when(`Strongly agree_sig` == "HIGHER" ~ "#00A3A3", `Strongly agree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Strongly disagree` = cell_spec(`Strongly disagree`, "latex", background = case_when(`Strongly disagree_sig` == "HIGHER" ~ "#00A3A3", `Strongly disagree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Tend to agree` = cell_spec(`Tend to agree`, "latex", background = case_when(`Tend to agree_sig` == "HIGHER" ~ "#00A3A3", `Tend to agree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Tend to disagree` = cell_spec(`Tend to disagree`, "latex", background = case_when(`Tend to disagree_sig` == "HIGHER" ~ "#00A3A3", `Tend to disagree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.3)[grepl("_2", colnames(Table_4.3))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.3 %>% select(all_of(colnames(Table_4.3)[!colnames(Table_4.3) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Neither agree nor disagree` = cell_spec(`Neither agree nor disagree`, "latex", background = case_when(`Neither agree nor disagree_sig` == "HIGHER" ~ "#C3C3FF", `Neither agree nor disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Strongly agree` = cell_spec(`Strongly agree`, "latex", background = case_when(`Strongly agree_sig` == "HIGHER" ~ "#C3C3FF", `Strongly agree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Strongly disagree` = cell_spec(`Strongly disagree`, "latex", background = case_when(`Strongly disagree_sig` == "HIGHER" ~ "#C3C3FF", `Strongly disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Tend to agree` = cell_spec(`Tend to agree`, "latex", background = case_when(`Tend to agree_sig` == "HIGHER" ~ "#C3C3FF", `Tend to agree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Tend to disagree` = cell_spec(`Tend to disagree`, "latex", background = case_when(`Tend to disagree_sig` == "HIGHER" ~ "#C3C3FF", `Tend to disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.4: Percentage of people agreeing with statements about their neighbourhood strengths by age
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.4 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.4)[!grepl("_2", colnames(Table_4.4))]
+significance_column_names <- colnames(Table_4.4)[grepl("_sig", colnames(Table_4.4))]
+
+Table_4.4 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.4)[grepl("_2", colnames(Table_4.4))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.4 %>% select(all_of(colnames(Table_4.4)[!colnames(Table_4.4) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.5: Percentage of people agreeing with statements about their neighbourhood strengths by Urban Rural Classification
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.5 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.5)[!grepl("_2", colnames(Table_4.5))]
+significance_column_names <- colnames(Table_4.5)[grepl("_sig", colnames(Table_4.5))]
+
+Table_4.5 %>% select(all_of(main_column_names)) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#00A3A3", `Other urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#00A3A3", `Accessible small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.5)[grepl("_2", colnames(Table_4.5))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.5 %>% select(all_of(colnames(Table_4.5)[!colnames(Table_4.5) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Large urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Other urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#C3C3FF", `Accessible small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.6: Percentage of people agreeing with statements about their neighbourhood strengths by tenure
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.6 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.6)[!grepl("_2", colnames(Table_4.6))]
+significance_column_names <- colnames(Table_4.6)[grepl("_sig", colnames(Table_4.6))]
+
+Table_4.6 %>% select(all_of(main_column_names)) %>%
+mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case_when(`Owner occupied_sig` == "HIGHER" ~ "#00A3A3", `Owner occupied_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.6)[grepl("_2", colnames(Table_4.6))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.6 %>% select(all_of(colnames(Table_4.6)[!colnames(Table_4.6) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case_when(`Owner occupied_sig` == "HIGHER" ~ "#C3C3FF", `Owner occupied_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.7: Strength of feeling of belonging to community by gender, age, ethnicity and Scottish Index of Multiple Deprivation
+### Row percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.7 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.7)[!grepl("_2", colnames(Table_4.7))]
+significance_column_names <- colnames(Table_4.7)[grepl("_sig", colnames(Table_4.7))]
+
+Table_4.7 %>% select(all_of(main_column_names)) %>%
+mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Fairly strongly` = cell_spec(`Fairly strongly`, "latex", background = case_when(`Fairly strongly_sig` == "HIGHER" ~ "#00A3A3", `Fairly strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Not at all strongly` = cell_spec(`Not at all strongly`, "latex", background = case_when(`Not at all strongly_sig` == "HIGHER" ~ "#00A3A3", `Not at all strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Not very strongly` = cell_spec(`Not very strongly`, "latex", background = case_when(`Not very strongly_sig` == "HIGHER" ~ "#00A3A3", `Not very strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Very strongly` = cell_spec(`Very strongly`, "latex", background = case_when(`Very strongly_sig` == "HIGHER" ~ "#00A3A3", `Very strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.7)[grepl("_2", colnames(Table_4.7))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.7 %>% select(all_of(colnames(Table_4.7)[!colnames(Table_4.7) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Fairly strongly` = cell_spec(`Fairly strongly`, "latex", background = case_when(`Fairly strongly_sig` == "HIGHER" ~ "#C3C3FF", `Fairly strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Not at all strongly` = cell_spec(`Not at all strongly`, "latex", background = case_when(`Not at all strongly_sig` == "HIGHER" ~ "#C3C3FF", `Not at all strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Not very strongly` = cell_spec(`Not very strongly`, "latex", background = case_when(`Not very strongly_sig` == "HIGHER" ~ "#C3C3FF", `Not very strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Very strongly` = cell_spec(`Very strongly`, "latex", background = case_when(`Very strongly_sig` == "HIGHER" ~ "#C3C3FF", `Very strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.8a: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.8a %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.8a)[!grepl("_2", colnames(Table_4.8a))]
+significance_column_names <- colnames(Table_4.8a)[grepl("_sig", colnames(Table_4.8a))]
+
+Table_4.8a %>% select(all_of(main_column_names)) %>%
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#00A3A3", `16-24_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#00A3A3", `25-34_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#00A3A3", `35 - 44_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#00A3A3", `45-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#00A3A3", `60-74_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#00A3A3", `75+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Another way` = cell_spec(`Another way`, "latex", background = case_when(`Another way_sig` == "HIGHER" ~ "#00A3A3", `Another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.8a)[grepl("_2", colnames(Table_4.8a))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.8a %>% select(all_of(colnames(Table_4.8a)[!colnames(Table_4.8a) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#C3C3FF", `16-24_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#C3C3FF", `25-34_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#C3C3FF", `35 - 44_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#C3C3FF", `45-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Another way` = cell_spec(`Another way`, "latex", background = case_when(`Another way_sig` == "HIGHER" ~ "#C3C3FF", `Another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.8b: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.8b %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.8b)[!grepl("_2", colnames(Table_4.8b))]
+significance_column_names <- colnames(Table_4.8b)[grepl("_sig", colnames(Table_4.8b))]
+
+Table_4.8b %>% select(all_of(main_column_names)) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#00A3A3", `Other urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#00A3A3", `Accessible small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.8b)[grepl("_2", colnames(Table_4.8b))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.8b %>% select(all_of(colnames(Table_4.8b)[!colnames(Table_4.8b) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Large urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Other urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#C3C3FF", `Accessible small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.9: How often people meet socially with friends, relatives, neighbours or work colleagues by age and gender
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.9 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.9)[!grepl("_2", colnames(Table_4.9))]
+significance_column_names <- colnames(Table_4.9)[grepl("_sig", colnames(Table_4.9))]
+
+Table_4.9 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Another way` = cell_spec(`Another way`, "latex", background = case_when(`Another way_sig` == "HIGHER" ~ "#00A3A3", `Another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.9)[grepl("_2", colnames(Table_4.9))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.9 %>% select(all_of(colnames(Table_4.9)[!colnames(Table_4.9) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Another way` = cell_spec(`Another way`, "latex", background = case_when(`Another way_sig` == "HIGHER" ~ "#C3C3FF", `Another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.10: How often people meet socially with friends, relatives, neighbours or work colleagues by Urban-Rural Classification and SIMD
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.10 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.10)[!grepl("_2", colnames(Table_4.10))]
+significance_column_names <- colnames(Table_4.10)[grepl("_sig", colnames(Table_4.10))]
+
+Table_4.10 %>% select(all_of(main_column_names)) %>%
+mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#00A3A3", `Urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#00A3A3", `Rural areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.10)[grepl("_2", colnames(Table_4.10))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.10 %>% select(all_of(colnames(Table_4.10)[!colnames(Table_4.10) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#C3C3FF", `Rural areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.11: How often people meet socially with friends, relatives, neighbours or work colleagues by long-term physical or mental health condition
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.11 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.11)[!grepl("_2", colnames(Table_4.11))]
+significance_column_names <- colnames(Table_4.11)[grepl("_sig", colnames(Table_4.11))]
+
+Table_4.11 %>% select(all_of(main_column_names)) %>%
+mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#00A3A3", `Yes_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#00A3A3", `No_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#00A3A3", `Refusal_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.11)[grepl("_2", colnames(Table_4.11))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.11 %>% select(all_of(colnames(Table_4.11)[!colnames(Table_4.11) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#C3C3FF", `Yes_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#C3C3FF", `No_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.12: How often people have felt lonely within the last week by age
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.12 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.12)[!grepl("_2", colnames(Table_4.12))]
+significance_column_names <- colnames(Table_4.12)[grepl("_sig", colnames(Table_4.12))]
+
+Table_4.12 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.12)[grepl("_2", colnames(Table_4.12))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.12 %>% select(all_of(colnames(Table_4.12)[!colnames(Table_4.12) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.13: How often people have felt lonely within the last week by SIMD
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.13 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.13)[!grepl("_2", colnames(Table_4.13))]
+significance_column_names <- colnames(Table_4.13)[grepl("_sig", colnames(Table_4.13))]
+
+Table_4.13 %>% select(all_of(main_column_names)) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.13)[grepl("_2", colnames(Table_4.13))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.13 %>% select(all_of(colnames(Table_4.13)[!colnames(Table_4.13) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.14: How often people have felt lonely within the last week by Urban-Rural Classification
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.14 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.14)[!grepl("_2", colnames(Table_4.14))]
+significance_column_names <- colnames(Table_4.14)[grepl("_sig", colnames(Table_4.14))]
+
+Table_4.14 %>% select(all_of(main_column_names)) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#00A3A3", `Other urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#00A3A3", `Accessible small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.14)[grepl("_2", colnames(Table_4.14))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.14 %>% select(all_of(colnames(Table_4.14)[!colnames(Table_4.14) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Large urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Other urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#C3C3FF", `Accessible small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.15: How often people have felt lonely within the last week by long-term physical or mental health condition
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.15 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.15)[!grepl("_2", colnames(Table_4.15))]
+significance_column_names <- colnames(Table_4.15)[grepl("_sig", colnames(Table_4.15))]
+
+Table_4.15 %>% select(all_of(main_column_names)) %>%
+mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#00A3A3", `Yes_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#00A3A3", `No_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#00A3A3", `Refusal_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.15)[grepl("_2", colnames(Table_4.15))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.15 %>% select(all_of(colnames(Table_4.15)[!colnames(Table_4.15) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#C3C3FF", `Yes_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#C3C3FF", `No_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.16: How often people have felt lonely within the last week by household type
+### Column percentages, Adults
+### This question was first asked in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.16 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.16)[!grepl("_2", colnames(Table_4.16))]
+significance_column_names <- colnames(Table_4.16)[grepl("_sig", colnames(Table_4.16))]
+
+Table_4.16 %>% select(all_of(main_column_names)) %>%
+mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_when(`Single adult_sig` == "HIGHER" ~ "#00A3A3", `Single adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Small adult` = cell_spec(`Small adult`, "latex", background = case_when(`Small adult_sig` == "HIGHER" ~ "#00A3A3", `Small adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Single parent` = cell_spec(`Single parent`, "latex", background = case_when(`Single parent_sig` == "HIGHER" ~ "#00A3A3", `Single parent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Small family` = cell_spec(`Small family`, "latex", background = case_when(`Small family_sig` == "HIGHER" ~ "#00A3A3", `Small family_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Large family` = cell_spec(`Large family`, "latex", background = case_when(`Large family_sig` == "HIGHER" ~ "#00A3A3", `Large family_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Large adult` = cell_spec(`Large adult`, "latex", background = case_when(`Large adult_sig` == "HIGHER" ~ "#00A3A3", `Large adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Older smaller` = cell_spec(`Older smaller`, "latex", background = case_when(`Older smaller_sig` == "HIGHER" ~ "#00A3A3", `Older smaller_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Single pensioner` = cell_spec(`Single pensioner`, "latex", background = case_when(`Single pensioner_sig` == "HIGHER" ~ "#00A3A3", `Single pensioner_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.16)[grepl("_2", colnames(Table_4.16))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.16 %>% select(all_of(colnames(Table_4.16)[!colnames(Table_4.16) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_when(`Single adult_sig` == "HIGHER" ~ "#C3C3FF", `Single adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Small adult` = cell_spec(`Small adult`, "latex", background = case_when(`Small adult_sig` == "HIGHER" ~ "#C3C3FF", `Small adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Single parent` = cell_spec(`Single parent`, "latex", background = case_when(`Single parent_sig` == "HIGHER" ~ "#C3C3FF", `Single parent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Small family` = cell_spec(`Small family`, "latex", background = case_when(`Small family_sig` == "HIGHER" ~ "#C3C3FF", `Small family_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Large family` = cell_spec(`Large family`, "latex", background = case_when(`Large family_sig` == "HIGHER" ~ "#C3C3FF", `Large family_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Large adult` = cell_spec(`Large adult`, "latex", background = case_when(`Large adult_sig` == "HIGHER" ~ "#C3C3FF", `Large adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Older smaller` = cell_spec(`Older smaller`, "latex", background = case_when(`Older smaller_sig` == "HIGHER" ~ "#C3C3FF", `Older smaller_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Single pensioner` = cell_spec(`Single pensioner`, "latex", background = case_when(`Single pensioner_sig` == "HIGHER" ~ "#C3C3FF", `Single pensioner_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.17: Percentage of people saying a problem is very/fairly common in their neighbourhood
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_4.17 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_4.17)[!grepl("_2", colnames(Table_4.17))]
+significance_column_names <- colnames(Table_4.17)[grepl("_sig", colnames(Table_4.17))]
+
+Table_4.17 %>% select(all_of(main_column_names)) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_4.17)[grepl("_2", colnames(Table_4.17))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.17 %>% select(all_of(colnames(Table_4.17)[!colnames(Table_4.17) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.18: Percentage of people saying a problem is very/fairly common in their neighbourhood by Scottish Index of Multiple Deprivation
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.18 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.18)[!grepl("_2", colnames(Table_4.18))]
+significance_column_names <- colnames(Table_4.18)[grepl("_sig", colnames(Table_4.18))]
+
+Table_4.18 %>% select(all_of(main_column_names)) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.18)[grepl("_2", colnames(Table_4.18))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.18 %>% select(all_of(colnames(Table_4.18)[!colnames(Table_4.18) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`20% most deprived` = cell_spec(`20% most deprived`, "latex", background = case_when(`20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`20% least deprived` = cell_spec(`20% least deprived`, "latex", background = case_when(`20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.19: Percentage of people saying a problem is very/fairly common in their neighbourhood by tenure of household
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.19 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.19)[!grepl("_2", colnames(Table_4.19))]
+significance_column_names <- colnames(Table_4.19)[grepl("_sig", colnames(Table_4.19))]
+
+Table_4.19 %>% select(all_of(main_column_names)) %>%
+mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#00A3A3", `Owned_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.19)[grepl("_2", colnames(Table_4.19))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.19 %>% select(all_of(colnames(Table_4.19)[!colnames(Table_4.19) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#C3C3FF", `Owned_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.20: Percentage of people saying a problem is very/fairly common in their neighbourhood by age of respondent
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.20 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.20)[!grepl("_2", colnames(Table_4.20))]
+significance_column_names <- colnames(Table_4.20)[grepl("_sig", colnames(Table_4.20))]
+
+Table_4.20 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.20)[grepl("_2", colnames(Table_4.20))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.20 %>% select(all_of(colnames(Table_4.20)[!colnames(Table_4.20) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.21: Percentage of people saying a problem is very/fairly common in their neighbourhood by Urban Rural classification
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.21 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.21)[!grepl("_2", colnames(Table_4.21))]
+significance_column_names <- colnames(Table_4.21)[grepl("_sig", colnames(Table_4.21))]
+
+Table_4.21 %>% select(all_of(main_column_names)) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#00A3A3", `Other urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#00A3A3", `Accessible small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.21)[grepl("_2", colnames(Table_4.21))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.21 %>% select(all_of(colnames(Table_4.21)[!colnames(Table_4.21) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Large urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Other urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#C3C3FF", `Accessible small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 4.3: Perceptions and experience of neighbourhood problems
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Figure_4.3 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Figure_4.3)[!grepl("_2", colnames(Figure_4.3))]
+significance_column_names <- colnames(Figure_4.3)[grepl("_sig", colnames(Figure_4.3))]
+
+Figure_4.3 %>% select(all_of(main_column_names)) %>%
+mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#00A3A3", `description_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Perceive as very or fairly common` = cell_spec(`Perceive as very or fairly common`, "latex", background = case_when(`Perceive as very or fairly common_sig` == "HIGHER" ~ "#00A3A3", `Perceive as very or fairly common_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`With experience of problem` = cell_spec(`With experience of problem`, "latex", background = case_when(`With experience of problem_sig` == "HIGHER" ~ "#00A3A3", `With experience of problem_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Figure_4.3)[grepl("_2", colnames(Figure_4.3))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_4.3 %>% select(all_of(colnames(Figure_4.3)[!colnames(Figure_4.3) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#C3C3FF", `description_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Perceive as very or fairly common` = cell_spec(`Perceive as very or fairly common`, "latex", background = case_when(`Perceive as very or fairly common_sig` == "HIGHER" ~ "#C3C3FF", `Perceive as very or fairly common_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`With experience of problem` = cell_spec(`With experience of problem`, "latex", background = case_when(`With experience of problem_sig` == "HIGHER" ~ "#C3C3FF", `With experience of problem_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.22: Experience of neighbourhood problems by Scottish Index of Multiple Deprivation
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.22 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.22)[!grepl("_2", colnames(Table_4.22))]
+significance_column_names <- colnames(Table_4.22)[grepl("_sig", colnames(Table_4.22))]
+
+Table_4.22 %>% select(all_of(main_column_names)) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.22)[grepl("_2", colnames(Table_4.22))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.22 %>% select(all_of(colnames(Table_4.22)[!colnames(Table_4.22) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.23: Experience of neighbourhood problems by tenure of household
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.23 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.23)[!grepl("_2", colnames(Table_4.23))]
+significance_column_names <- colnames(Table_4.23)[grepl("_sig", colnames(Table_4.23))]
+
+Table_4.23 %>% select(all_of(main_column_names)) %>%
+mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#00A3A3", `Owned_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.23)[grepl("_2", colnames(Table_4.23))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.23 %>% select(all_of(colnames(Table_4.23)[!colnames(Table_4.23) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#C3C3FF", `Owned_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.24: Experience of neighbourhood problems by Urban Rural Classification
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.24 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.24)[!grepl("_2", colnames(Table_4.24))]
+significance_column_names <- colnames(Table_4.24)[grepl("_sig", colnames(Table_4.24))]
+
+Table_4.24 %>% select(all_of(main_column_names)) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#00A3A3", `Other urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#00A3A3", `Accessible small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.24)[grepl("_2", colnames(Table_4.24))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.24 %>% select(all_of(colnames(Table_4.24)[!colnames(Table_4.24) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Large urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other urban areas` = cell_spec(`Other urban areas`, "latex", background = case_when(`Other urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Other urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible small towns` = cell_spec(`Accessible small towns`, "latex", background = case_when(`Accessible small towns_sig` == "HIGHER" ~ "#C3C3FF", `Accessible small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.25: Experiences of discrimination and harassment by gender, age and deprivation
+### Row percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.25 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.25)[!grepl("_2", colnames(Table_4.25))]
+significance_column_names <- colnames(Table_4.25)[grepl("_sig", colnames(Table_4.25))]
+
+Table_4.25 %>% select(all_of(main_column_names)) %>%
+mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background = case_when(`No Discrimination_sig` == "HIGHER" ~ "#00A3A3", `No Discrimination_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No Harassment` = cell_spec(`No Harassment`, "latex", background = case_when(`No Harassment_sig` == "HIGHER" ~ "#00A3A3", `No Harassment_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes Discrimination` = cell_spec(`Yes Discrimination`, "latex", background = case_when(`Yes Discrimination_sig` == "HIGHER" ~ "#00A3A3", `Yes Discrimination_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#00A3A3", `Yes Harassment_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.25)[grepl("_2", colnames(Table_4.25))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.25 %>% select(all_of(colnames(Table_4.25)[!colnames(Table_4.25) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background = case_when(`No Discrimination_sig` == "HIGHER" ~ "#C3C3FF", `No Discrimination_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No Harassment` = cell_spec(`No Harassment`, "latex", background = case_when(`No Harassment_sig` == "HIGHER" ~ "#C3C3FF", `No Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes Discrimination` = cell_spec(`Yes Discrimination`, "latex", background = case_when(`Yes Discrimination_sig` == "HIGHER" ~ "#C3C3FF", `Yes Discrimination_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#C3C3FF", `Yes Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition
+### Row percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.26 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.26)[!grepl("_2", colnames(Table_4.26))]
+significance_column_names <- colnames(Table_4.26)[grepl("_sig", colnames(Table_4.26))]
+
+Table_4.26 %>% select(all_of(main_column_names)) %>%
+mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background = case_when(`No Discrimination_sig` == "HIGHER" ~ "#00A3A3", `No Discrimination_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No Harassment` = cell_spec(`No Harassment`, "latex", background = case_when(`No Harassment_sig` == "HIGHER" ~ "#00A3A3", `No Harassment_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes Discrimination` = cell_spec(`Yes Discrimination`, "latex", background = case_when(`Yes Discrimination_sig` == "HIGHER" ~ "#00A3A3", `Yes Discrimination_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#00A3A3", `Yes Harassment_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.26)[grepl("_2", colnames(Table_4.26))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.26 %>% select(all_of(colnames(Table_4.26)[!colnames(Table_4.26) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background = case_when(`No Discrimination_sig` == "HIGHER" ~ "#C3C3FF", `No Discrimination_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No Harassment` = cell_spec(`No Harassment`, "latex", background = case_when(`No Harassment_sig` == "HIGHER" ~ "#C3C3FF", `No Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes Discrimination` = cell_spec(`Yes Discrimination`, "latex", background = case_when(`Yes Discrimination_sig` == "HIGHER" ~ "#C3C3FF", `Yes Discrimination_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#C3C3FF", `Yes Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.27: Reasons for discrimination and harassment
+### Base numbers at local authority level are too small to produce robust analysis.
+## Table 4.28: Activity undertaken to prepare for events like severe weather or flooding
+### Column percentages, Adults
+### This question was first asked in 2017
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.28 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.28)[!grepl("_2", colnames(Table_4.28))]
+significance_column_names <- colnames(Table_4.28)[grepl("_sig", colnames(Table_4.28))]
+
+Table_4.28 %>% select(all_of(main_column_names)) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.28)[grepl("_2", colnames(Table_4.28))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.28 %>% select(all_of(colnames(Table_4.28)[!colnames(Table_4.28) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation
+### Column percentages, Adults
+### This question was first asked in 2017
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_4.29 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_4.29)[!grepl("_2", colnames(Table_4.29))]
+significance_column_names <- colnames(Table_4.29)[grepl("_sig", colnames(Table_4.29))]
+
+Table_4.29 %>% select(all_of(main_column_names)) %>%
+mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#00A3A3", `Owned_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_4.29)[grepl("_2", colnames(Table_4.29))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_4.29 %>% select(all_of(colnames(Table_4.29)[!colnames(Table_4.29) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#C3C3FF", `Owned_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```

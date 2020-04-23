@@ -1,0 +1,1029 @@
+---
+title: "Scotland's People Local Authority Tables"
+output:
+  pdf_document:
+    toc: yes
+    latex_engine: xelatex
+    fig_caption: false
+mainfont: Calibri
+classoption: landscape
+fontsize: 10pt
+papersize: a4
+geometry: margin=1.5cm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+options(tinytex.verbose = TRUE)
+
+library(knitr)
+library(dplyr)
+library(kableExtra)
+library(png)
+
+local_authority <- params$local_authority
+year <- params$year
+topic_data <- params$topic_data
+comparison_type <- params$comparison_type
+comparator <- params$comparator
+
+Figure_12.1 <- topic_data[[1]]
+Table_12.1 <- topic_data[[2]]
+Figure_12.2 <- topic_data[[3]]
+Table_12.2 <- topic_data[[4]]
+Table_12.3 <- topic_data[[5]]
+Table_12.4_Figure_12.3 <- topic_data[[6]]
+Table_12.5_Figure_12.4 <- topic_data[[7]]
+Table_12.6_Figure_12.5 <- topic_data[[8]]
+Table_12.7_Figure_12.6 <- topic_data[[9]]
+Table_12.8 <- topic_data[[10]]
+Table_12.9 <- topic_data[[11]]
+Figure_12.7 <- topic_data[[12]]
+Table_12.10 <- topic_data[[13]]
+Table_12.11 <- topic_data[[14]]
+Table_12.12_Figure_12.8 <- topic_data[[15]]
+Table_12.13_Figure_12.9 <- topic_data[[16]]
+Table_12.14_Figure_12.10 <- topic_data[[17]]
+Table_12.15_Figure_12.11 <- topic_data[[18]]
+Table_12.16 <- topic_data[[19]]
+Table_12.17 <- topic_data[[20]]
+Table_12.18 <- topic_data[[21]]
+
+main_table_title <- paste0(local_authority, ", ", year)
+
+eval_comparison <- ifelse(comparison_type == "No comparison", FALSE, TRUE)
+
+eval_comparison_time_series <- ifelse(comparison_type == "Year" | comparison_type == "No comparison", FALSE, TRUE)
+
+comparison_table_title <- if (comparison_type == "Local Authority") {
+  paste0(comparator, ", ", year)
+} else if (comparison_type == "Year") {
+  paste0(local_authority, ", ", comparator)
+} else {
+  NULL
+  }
+
+```
+```{r, out.height = "130pt", fig.show='hold', fig.align='center'}
+knitr::include_graphics(c("../www/shs-logo.png", "../www/home_logo.png"))
+```
+
+## Acknowledgements
+The Scottish Government acknowledges and thanks the 10,530
+people across Scotland who gave their time to take part in the
+Scottish Household Survey 2018.
+This report was produced by the Scottish Household Survey Project Team
+at the Scottish Government.
+We would also like to thank all the Scottish Government lead analysts who
+contributed to the project.
+Finally, special thanks to Ipsos MORI and their interviewers for continuous
+and relentless efforts during the fieldwork.
+
+## Figure 12.1: Cultural engagement by adults in the last 12 months by year
+### Column percentages, Adults
+### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2018
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Figure_12.1 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Figure_12.1)[!grepl("_2", colnames(Figure_12.1))]
+significance_column_names <- colnames(Figure_12.1)[grepl("_sig", colnames(Figure_12.1))]
+
+Figure_12.1 %>% select(all_of(main_column_names)) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Figure_12.1)[grepl("_2", colnames(Figure_12.1))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_12.1 %>% select(all_of(colnames(Figure_12.1)[!colnames(Figure_12.1) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.1: Attendance at any cultural event and visiting place of culture in the last 12 months by year
+### Column percentages, Adults
+### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_12.1 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_12.1)[!grepl("_2", colnames(Table_12.1))]
+significance_column_names <- colnames(Table_12.1)[grepl("_sig", colnames(Table_12.1))]
+
+Table_12.1 %>% select(all_of(main_column_names)) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_12.1)[grepl("_2", colnames(Table_12.1))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.1 %>% select(all_of(colnames(Table_12.1)[!colnames(Table_12.1) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 12.2: Attendance at cultural events and visiting places of culture in the last 12 months in 2018
+### Column percentages, Adults
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Figure_12.2 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Figure_12.2)[!grepl("_2", colnames(Figure_12.2))]
+significance_column_names <- colnames(Figure_12.2)[grepl("_sig", colnames(Figure_12.2))]
+
+Figure_12.2 %>% select(all_of(main_column_names)) %>%
+mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Figure_12.2)[grepl("_2", colnames(Figure_12.2))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_12.2 %>% select(all_of(colnames(Figure_12.2)[!colnames(Figure_12.2) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.2: Attendance at cultural events and visiting places of culture in the last 12 months by gender
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.2 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.2)[!grepl("_2", colnames(Table_12.2))]
+significance_column_names <- colnames(Table_12.2)[grepl("_sig", colnames(Table_12.2))]
+
+Table_12.2 %>% select(all_of(main_column_names)) %>%
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.2)[grepl("_2", colnames(Table_12.2))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.2 %>% select(all_of(colnames(Table_12.2)[!colnames(Table_12.2) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.3: Attendance at cultural events and visiting places of culture in the last 12 months by age
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.3 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.3)[!grepl("_2", colnames(Table_12.3))]
+significance_column_names <- colnames(Table_12.3)[grepl("_sig", colnames(Table_12.3))]
+
+Table_12.3 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.3)[grepl("_2", colnames(Table_12.3))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.3 %>% select(all_of(colnames(Table_12.3)[!colnames(Table_12.3) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.4, Figure 12.3: Attendance at cultural events and visiting places of culture in the last 12 months by highest qualification level
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.4_Figure_12.3 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.4_Figure_12.3)[!grepl("_2", colnames(Table_12.4_Figure_12.3))]
+significance_column_names <- colnames(Table_12.4_Figure_12.3)[grepl("_sig", colnames(Table_12.4_Figure_12.3))]
+
+Table_12.4_Figure_12.3 %>% select(all_of(main_column_names)) %>%
+mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#00A3A3", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#00A3A3", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#00A3A3", `Other qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#00A3A3", `No qualifications_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Qualifications not known` = cell_spec(`Qualifications not known`, "latex", background = case_when(`Qualifications not known_sig` == "HIGHER" ~ "#00A3A3", `Qualifications not known_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.4_Figure_12.3)[grepl("_2", colnames(Table_12.4_Figure_12.3))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.4_Figure_12.3 %>% select(all_of(colnames(Table_12.4_Figure_12.3)[!colnames(Table_12.4_Figure_12.3) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#C3C3FF", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#C3C3FF", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#C3C3FF", `Other qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#C3C3FF", `No qualifications_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Qualifications not known` = cell_spec(`Qualifications not known`, "latex", background = case_when(`Qualifications not known_sig` == "HIGHER" ~ "#C3C3FF", `Qualifications not known_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.5, Figure 12.4: Attendance at cultural events and visiting places of culture in the last 12 months by area deprivation
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.5_Figure_12.4 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.5_Figure_12.4)[!grepl("_2", colnames(Table_12.5_Figure_12.4))]
+significance_column_names <- colnames(Table_12.5_Figure_12.4)[grepl("_sig", colnames(Table_12.5_Figure_12.4))]
+
+Table_12.5_Figure_12.4 %>% select(all_of(main_column_names)) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.5_Figure_12.4)[grepl("_2", colnames(Table_12.5_Figure_12.4))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.5_Figure_12.4 %>% select(all_of(colnames(Table_12.5_Figure_12.4)[!colnames(Table_12.5_Figure_12.4) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.6, Figure 12.5: Attendance at cultural events and visiting places of culture in the last 12 months by net annual household income
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.6_Figure_12.5 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.6_Figure_12.5)[!grepl("_2", colnames(Table_12.6_Figure_12.5))]
+significance_column_names <- colnames(Table_12.6_Figure_12.5)[grepl("_sig", colnames(Table_12.6_Figure_12.5))]
+
+Table_12.6_Figure_12.5 %>% select(all_of(main_column_names)) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#00A3A3", `£0 - £10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#00A3A3", `£10,001 to £20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#00A3A3", `£20,001 to £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#00A3A3", `Over £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.6_Figure_12.5)[grepl("_2", colnames(Table_12.6_Figure_12.5))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.6_Figure_12.5 %>% select(all_of(colnames(Table_12.6_Figure_12.5)[!colnames(Table_12.6_Figure_12.5) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#C3C3FF", `£0 - £10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#C3C3FF", `£10,001 to £20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#C3C3FF", `£20,001 to £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.7, Figure 12.6: Attendance at cultural events and visiting places of culture in the last 12 months by long-term physical/mental health condition
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.7_Figure_12.6 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.7_Figure_12.6)[!grepl("_2", colnames(Table_12.7_Figure_12.6))]
+significance_column_names <- colnames(Table_12.7_Figure_12.6)[grepl("_sig", colnames(Table_12.7_Figure_12.6))]
+
+Table_12.7_Figure_12.6 %>% select(all_of(main_column_names)) %>%
+mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term major reduced daily capacity`, "latex", background = case_when(`Yes, long term major reduced daily capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes, long term major reduced daily capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes, long term minor reduced daily capacity` = cell_spec(`Yes, long term minor reduced daily capacity`, "latex", background = case_when(`Yes, long term minor reduced daily capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes, long term minor reduced daily capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes but no reduced capacity` = cell_spec(`Yes but no reduced capacity`, "latex", background = case_when(`Yes but no reduced capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes but no reduced capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`None` = cell_spec(`None`, "latex", background = case_when(`None_sig` == "HIGHER" ~ "#00A3A3", `None_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.7_Figure_12.6)[grepl("_2", colnames(Table_12.7_Figure_12.6))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.7_Figure_12.6 %>% select(all_of(colnames(Table_12.7_Figure_12.6)[!colnames(Table_12.7_Figure_12.6) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term major reduced daily capacity`, "latex", background = case_when(`Yes, long term major reduced daily capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes, long term major reduced daily capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes, long term minor reduced daily capacity` = cell_spec(`Yes, long term minor reduced daily capacity`, "latex", background = case_when(`Yes, long term minor reduced daily capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes, long term minor reduced daily capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes but no reduced capacity` = cell_spec(`Yes but no reduced capacity`, "latex", background = case_when(`Yes but no reduced capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes but no reduced capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`None` = cell_spec(`None`, "latex", background = case_when(`None_sig` == "HIGHER" ~ "#C3C3FF", `None_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.8: Frequency of attending cultural events and visiting places of culture in the last 12 months
+### Row percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.8 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.8)[!grepl("_2", colnames(Table_12.8))]
+significance_column_names <- colnames(Table_12.8)[grepl("_sig", colnames(Table_12.8))]
+
+Table_12.8 %>% select(all_of(main_column_names)) %>%
+mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#00A3A3", `At least once a week_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#00A3A3", `Once a month and within year_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#00A3A3", `Once a week but at least once a month_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.8)[grepl("_2", colnames(Table_12.8))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.8 %>% select(all_of(colnames(Table_12.8)[!colnames(Table_12.8) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#C3C3FF", `At least once a week_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#C3C3FF", `Once a month and within year_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#C3C3FF", `Once a week but at least once a month_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.9: Participation in any cultural activity in the last 12 months by year
+### Column percentages, Adults
+### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_12.9 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_12.9)[!grepl("_2", colnames(Table_12.9))]
+significance_column_names <- colnames(Table_12.9)[grepl("_sig", colnames(Table_12.9))]
+
+Table_12.9 %>% select(all_of(main_column_names)) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_12.9)[grepl("_2", colnames(Table_12.9))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.9 %>% select(all_of(colnames(Table_12.9)[!colnames(Table_12.9) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Figure 12.7: Participation in cultural activities in the last 12 months in 2018
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Figure_12.7 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Figure_12.7)[!grepl("_2", colnames(Figure_12.7))]
+significance_column_names <- colnames(Figure_12.7)[grepl("_sig", colnames(Figure_12.7))]
+
+Figure_12.7 %>% select(all_of(main_column_names)) %>%
+mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Figure_12.7)[grepl("_2", colnames(Figure_12.7))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Figure_12.7 %>% select(all_of(colnames(Figure_12.7)[!colnames(Figure_12.7) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.10: Participation in cultural activities in the last 12 months by gender
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.10 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.10)[!grepl("_2", colnames(Table_12.10))]
+significance_column_names <- colnames(Table_12.10)[grepl("_sig", colnames(Table_12.10))]
+
+Table_12.10 %>% select(all_of(main_column_names)) %>%
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.10)[grepl("_2", colnames(Table_12.10))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.10 %>% select(all_of(colnames(Table_12.10)[!colnames(Table_12.10) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.11: Participation in cultural activities in the last 12 months by age
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.11 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.11)[!grepl("_2", colnames(Table_12.11))]
+significance_column_names <- colnames(Table_12.11)[grepl("_sig", colnames(Table_12.11))]
+
+Table_12.11 %>% select(all_of(main_column_names)) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.11)[grepl("_2", colnames(Table_12.11))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.11 %>% select(all_of(colnames(Table_12.11)[!colnames(Table_12.11) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.12, Figure 12.8: Participation in cultural activities in the last 12 months by highest level of qualification
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.12_Figure_12.8 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.12_Figure_12.8)[!grepl("_2", colnames(Table_12.12_Figure_12.8))]
+significance_column_names <- colnames(Table_12.12_Figure_12.8)[grepl("_sig", colnames(Table_12.12_Figure_12.8))]
+
+Table_12.12_Figure_12.8 %>% select(all_of(main_column_names)) %>%
+mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#00A3A3", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#00A3A3", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#00A3A3", `Other qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#00A3A3", `No qualifications_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Qualifications not known` = cell_spec(`Qualifications not known`, "latex", background = case_when(`Qualifications not known_sig` == "HIGHER" ~ "#00A3A3", `Qualifications not known_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.12_Figure_12.8)[grepl("_2", colnames(Table_12.12_Figure_12.8))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.12_Figure_12.8 %>% select(all_of(colnames(Table_12.12_Figure_12.8)[!colnames(Table_12.12_Figure_12.8) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#C3C3FF", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#C3C3FF", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#C3C3FF", `Other qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#C3C3FF", `No qualifications_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Qualifications not known` = cell_spec(`Qualifications not known`, "latex", background = case_when(`Qualifications not known_sig` == "HIGHER" ~ "#C3C3FF", `Qualifications not known_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.13, Figure 12.9: Participation in cultural events and visiting places of culture in the last 12 months by Scottish Index of Multiple Deprivation
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.13_Figure_12.9 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.13_Figure_12.9)[!grepl("_2", colnames(Table_12.13_Figure_12.9))]
+significance_column_names <- colnames(Table_12.13_Figure_12.9)[grepl("_sig", colnames(Table_12.13_Figure_12.9))]
+
+Table_12.13_Figure_12.9 %>% select(all_of(main_column_names)) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.13_Figure_12.9)[grepl("_2", colnames(Table_12.13_Figure_12.9))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.13_Figure_12.9 %>% select(all_of(colnames(Table_12.13_Figure_12.9)[!colnames(Table_12.13_Figure_12.9) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`1 - 20% most deprived` = cell_spec(`1 - 20% most deprived`, "latex", background = case_when(`1 - 20% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`5 - 20% least deprived` = cell_spec(`5 - 20% least deprived`, "latex", background = case_when(`5 - 20% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.14, Figure 12.10: Participation in cultural events and visiting places of culture in the last 12 months by net annual household income
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.14_Figure_12.10 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.14_Figure_12.10)[!grepl("_2", colnames(Table_12.14_Figure_12.10))]
+significance_column_names <- colnames(Table_12.14_Figure_12.10)[grepl("_sig", colnames(Table_12.14_Figure_12.10))]
+
+Table_12.14_Figure_12.10 %>% select(all_of(main_column_names)) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#00A3A3", `£0 - £10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#00A3A3", `£10,001 to £20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#00A3A3", `£20,001 to £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#00A3A3", `Over £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.14_Figure_12.10)[grepl("_2", colnames(Table_12.14_Figure_12.10))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.14_Figure_12.10 %>% select(all_of(colnames(Table_12.14_Figure_12.10)[!colnames(Table_12.14_Figure_12.10) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#C3C3FF", `£0 - £10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#C3C3FF", `£10,001 to £20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#C3C3FF", `£20,001 to £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.15, Figure 12.11: Participation in cultural activities in the last 12 months by long-term physical/mental health condition physical/mental health condition
+### Column percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.15_Figure_12.11 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.15_Figure_12.11)[!grepl("_2", colnames(Table_12.15_Figure_12.11))]
+significance_column_names <- colnames(Table_12.15_Figure_12.11)[grepl("_sig", colnames(Table_12.15_Figure_12.11))]
+
+Table_12.15_Figure_12.11 %>% select(all_of(main_column_names)) %>%
+mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term major reduced daily capacity`, "latex", background = case_when(`Yes, long term major reduced daily capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes, long term major reduced daily capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes, long term minor reduced daily capacity` = cell_spec(`Yes, long term minor reduced daily capacity`, "latex", background = case_when(`Yes, long term minor reduced daily capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes, long term minor reduced daily capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Yes but no reduced capacity` = cell_spec(`Yes but no reduced capacity`, "latex", background = case_when(`Yes but no reduced capacity_sig` == "HIGHER" ~ "#00A3A3", `Yes but no reduced capacity_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`None` = cell_spec(`None`, "latex", background = case_when(`None_sig` == "HIGHER" ~ "#00A3A3", `None_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.15_Figure_12.11)[grepl("_2", colnames(Table_12.15_Figure_12.11))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.15_Figure_12.11 %>% select(all_of(colnames(Table_12.15_Figure_12.11)[!colnames(Table_12.15_Figure_12.11) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term major reduced daily capacity`, "latex", background = case_when(`Yes, long term major reduced daily capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes, long term major reduced daily capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes, long term minor reduced daily capacity` = cell_spec(`Yes, long term minor reduced daily capacity`, "latex", background = case_when(`Yes, long term minor reduced daily capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes, long term minor reduced daily capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Yes but no reduced capacity` = cell_spec(`Yes but no reduced capacity`, "latex", background = case_when(`Yes but no reduced capacity_sig` == "HIGHER" ~ "#C3C3FF", `Yes but no reduced capacity_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`None` = cell_spec(`None`, "latex", background = case_when(`None_sig` == "HIGHER" ~ "#C3C3FF", `None_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.16: Frequency of participating in cultural activities in the last 12 months
+### Row percentages, Adults
+### Columns may not add up to 100 per cent as multiple responses were allowed
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison == FALSE)}
+Table_12.16 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison}
+main_column_names <- colnames(Table_12.16)[!grepl("_2", colnames(Table_12.16))]
+significance_column_names <- colnames(Table_12.16)[grepl("_sig", colnames(Table_12.16))]
+
+Table_12.16 %>% select(all_of(main_column_names)) %>%
+mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#00A3A3", `At least once a week_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#00A3A3", `Once a month and within year_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#00A3A3", `Once a week but at least once a month_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`var` = cell_spec(`var`, "latex", background = case_when(`var_sig` == "HIGHER" ~ "#00A3A3", `var_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison}
+comparison_column_names <- colnames(Table_12.16)[grepl("_2", colnames(Table_12.16))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.16 %>% select(all_of(colnames(Table_12.16)[!colnames(Table_12.16) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#C3C3FF", `At least once a week_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#C3C3FF", `Once a month and within year_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#C3C3FF", `Once a week but at least once a month_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`var` = cell_spec(`var`, "latex", background = case_when(`var_sig` == "HIGHER" ~ "#C3C3FF", `var_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.17: Satisfaction with local authority culture facilities.
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_12.17 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_12.17)[!grepl("_2", colnames(Table_12.17))]
+significance_column_names <- colnames(Table_12.17)[grepl("_sig", colnames(Table_12.17))]
+
+Table_12.17 %>% select(all_of(main_column_names)) %>%
+mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_12.17)[grepl("_2", colnames(Table_12.17))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.17 %>% select(all_of(colnames(Table_12.17)[!colnames(Table_12.17) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
+## Table 12.18: Satisfaction with local authority culture facilities; service users in the past year only
+### Column percentages, Adults
+
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+Table_12.18 %>%
+kable("latex")
+```
+
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(Table_12.18)[!grepl("_2", colnames(Table_12.18))]
+significance_column_names <- colnames(Table_12.18)[grepl("_sig", colnames(Table_12.18))]
+
+Table_12.18 %>% select(all_of(main_column_names)) %>%
+mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+
+) %>%
+select(!all_of(significance_column_names)) %>%
+kable("latex", escape = FALSE)
+```
+
+```{r eval=eval_comparison_time_series}
+asis_output(paste0("### ", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(Table_12.18)[grepl("_2", colnames(Table_12.18))]
+comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
+
+Table_12.18 %>% select(all_of(colnames(Table_12.18)[!colnames(Table_12.18) %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+        select(!all_of(significance_column_names)) %>%
+        kable("latex", escape = FALSE)
+```
