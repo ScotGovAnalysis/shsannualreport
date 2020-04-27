@@ -90,7 +90,7 @@ merge_string <- function(question_type, merge_by, row_variable, column_variables
 
   } else if (question_type == "4") {
 
-    merge_string <- paste0("table <- merge(table_main, table_comparison, by = c(\"", row_variable, "\"))")
+    merge_string <- paste0("table <- plyr::join(table_main, table_comparison, by = ", merge_by, ")")
   }
 
   merge_string

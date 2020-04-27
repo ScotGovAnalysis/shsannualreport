@@ -192,13 +192,6 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
         string <- paste0(string, "### [", link_comment, "]", "(", url, ")\n")
       }
 
-      if (type == 4) {
-        string <- paste0(string, "\n",
-                         "```{r}\n",
-                         "kable(", question_id_underscore, ")\n",
-                         "```\n")
-      }
-
       if (type %in% c(1, 2, 3)) {
         string <- paste0(string, "
 ### `r main_table_title`
@@ -260,10 +253,37 @@ mutate("
 ```\n")
       }
 
+      if (type == 4) {
+        string <- paste0(string, "
+### `r main_table_title`
+
+```{r eval=(eval_comparison_time_series == FALSE)}
+", question_id_underscore, " %>%
+kable(\"latex\", escape = FALSE, booktabs = T)
+```
+```{r eval=eval_comparison_time_series}
+main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
+
+", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
+kable(\"latex\", escape = FALSE, booktabs = T)
+```
+```{r eval=eval_comparison_time_series}
+asis_output(paste0(\"### \", comparison_table_title))
+```
+
+```{r eval=eval_comparison_time_series}
+comparison_column_names <- colnames(", question_id_underscore, ")[grepl(\"_2\", colnames(", question_id_underscore, "))]
+comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
+
+", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
+rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
+kable(\"latex\", escape = FALSE, booktabs = T)
+```\n")
+      }
+
       cat(string, file = report_file_path, append = TRUE)
 
       counter_2 <- counter_2 + 1
-
     }
   }
 

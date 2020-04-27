@@ -50,8 +50,6 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
       eval(parse(text = merge_string(question_type = question_type, merge_by = merge_by, row_variable = row_variable, column_variables = column_variables)))
 
-      print(paste0(row_variable, ": ", remove_significance_string(row_variable = row_variable)))
-
       eval(parse(text = remove_significance_string(row_variable = row_variable)))
     }
 

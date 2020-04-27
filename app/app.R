@@ -2,6 +2,7 @@
 
 library(shiny)
 library(shinyjs)
+library(plyr)
 library(dplyr)
 library(DT)
 library(magrittr)
