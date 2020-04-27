@@ -18,7 +18,7 @@
 # shs_extract_data()
 #
 # # Remove specified columns from dataset (add any other unwanted columns to "columns_to_remove")
-# columns_to_remove <- c("sort", "_LABEL_")
+# columns_to_remove <- c("sort", "_LABEL_", "var")
 # shs_remove_columns(columns_to_remove)
 #
 # # Write all column and variable names from data in "app\data\dataset" to Excel sheets in "variable_names_new"

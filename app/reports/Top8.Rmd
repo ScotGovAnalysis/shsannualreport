@@ -548,7 +548,8 @@ significance_column_names <- colnames(Figure_8.13)[grepl("_sig", colnames(Figure
 
 Figure_8.13 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Any sport` = cell_spec(`Any sport`, "latex", background = case_when(`Any sport_sig` == "HIGHER" ~ "#00A3A3", `Any sport_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`Any sport excluding walking` = cell_spec(`Any sport excluding walking`, "latex", background = case_when(`Any sport excluding walking_sig` == "HIGHER" ~ "#00A3A3", `Any sport excluding walking_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+`Any sport excluding walking` = cell_spec(`Any sport excluding walking`, "latex", background = case_when(`Any sport excluding walking_sig` == "HIGHER" ~ "#00A3A3", `Any sport excluding walking_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
+`Walking` = cell_spec(`Walking`, "latex", background = case_when(`Walking_sig` == "HIGHER" ~ "#00A3A3", `Walking_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -566,7 +567,8 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 Figure_8.13 %>% select(tidyselect::all_of(colnames(Figure_8.13)[!colnames(Figure_8.13) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Any sport` = cell_spec(`Any sport`, "latex", background = case_when(`Any sport_sig` == "HIGHER" ~ "#C3C3FF", `Any sport_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`Any sport excluding walking` = cell_spec(`Any sport excluding walking`, "latex", background = case_when(`Any sport excluding walking_sig` == "HIGHER" ~ "#C3C3FF", `Any sport excluding walking_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+`Any sport excluding walking` = cell_spec(`Any sport excluding walking`, "latex", background = case_when(`Any sport excluding walking_sig` == "HIGHER" ~ "#C3C3FF", `Any sport excluding walking_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
+`Walking` = cell_spec(`Walking`, "latex", background = case_when(`Walking_sig` == "HIGHER" ~ "#C3C3FF", `Walking_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE)
 ```
