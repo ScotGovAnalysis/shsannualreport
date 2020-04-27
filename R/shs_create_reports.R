@@ -41,6 +41,7 @@ classoption: landscape
 fontsize: 10pt
 papersize: a4
 geometry: margin=1.5cm
+mainfont: Arial
 ---
 
 ```{r setup, include=FALSE}
@@ -130,8 +131,6 @@ and relentless efforts during the fieldwork.
 
         data_file_path <- paste0("app/data/dataset/", question_id, ".Rds")
 
-        print(data_file_path)
-
         column_names <- colnames(readRDS(data_file_path))
         significance_column_names <- gsub("_l", "", column_names[grep("_l", column_names)])
         significance_column_names <- significance_column_names[!significance_column_names %in% c("All", "Base")]
@@ -195,7 +194,7 @@ and relentless efforts during the fieldwork.
 
 ```{r eval=(", markdown_comparator, " == FALSE)}\n",
                          question_id_underscore, " %>%
-kable(\"latex\")
+kable(\"latex\", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=", markdown_comparator, "}
@@ -209,7 +208,7 @@ mutate(")
 
           append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name,
                                   "`, \"latex\", background = case_when(`", significance_column_name,
-                                  "_sig` == \"HIGHER\" ~ \"#00A3A3\", `", significance_column_name, "_sig` == \"LOWER\" ~ \"#C3C3FF\", TRUE ~ \"white\")),\n")
+                                  "_sig` == \"HIGHER\" ~ \"#00A3A3\", `", significance_column_name, "_sig` == \"LOWER\" ~ \"#C3C3FF\", TRUE ~ \"#FFFFFF\")),\n")
 
           string <- paste0(string, append_string)
 
@@ -219,7 +218,7 @@ mutate(")
                          "\n", "
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable(\"latex\", escape = FALSE)
+kable(\"latex\", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=", markdown_comparator, "}
@@ -237,7 +236,7 @@ mutate("
 
         for (significance_column_name in significance_column_names) {
 
-          append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name, "`, \"latex\", background = case_when(`", significance_column_name, "_sig` == \"HIGHER\" ~ \"#C3C3FF\", `", significance_column_name, "_sig` == \"LOWER\" ~ \"#00A3A3\", TRUE ~ \"white\")),\n")
+          append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name, "`, \"latex\", background = case_when(`", significance_column_name, "_sig` == \"HIGHER\" ~ \"#C3C3FF\", `", significance_column_name, "_sig` == \"LOWER\" ~ \"#00A3A3\", TRUE ~ \"#FFFFFF\")),\n")
 
           string <- paste0(string, append_string)
 
@@ -246,7 +245,7 @@ mutate("
         string <- paste0(substr(string, 1, nchar(string ) - 2),
                          ") %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable(\"latex\", escape = FALSE)
+        kable(\"latex\", escape = FALSE, booktabs = T)
 ```\n")
       }
 

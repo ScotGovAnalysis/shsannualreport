@@ -9,7 +9,6 @@ classoption: landscape
 fontsize: 10pt
 papersize: a4
 geometry: margin=1.5cm
-urlcolor: blue
 mainfont: Arial
 ---
 
@@ -83,41 +82,31 @@ and relentless efforts during the fieldwork.
 
 ## Table 2.1: Age of all household members by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.1 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
 main_column_names <- colnames(Table_2.1)[!grepl("_2", colnames(Table_2.1))]
 significance_column_names <- colnames(Table_2.1)[grepl("_sig", colnames(Table_2.1))]
-sig_key <- paste0("Significantly greater than ", comparator, "| Significantly lower than ", comparator)
 
 Table_2.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left") %>%
-  footnote(general = sig_key)
-
-
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -130,31 +119,25 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.1 %>% select(tidyselect::all_of(colnames(Table_2.1)[!colnames(Table_2.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.2: Gender of all household members by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.2 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -162,20 +145,17 @@ main_column_names <- colnames(Table_2.2)[!grepl("_2", colnames(Table_2.2))]
 significance_column_names <- colnames(Table_2.2)[grepl("_sig", colnames(Table_2.2))]
 
 Table_2.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -188,32 +168,26 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.2 %>% select(tidyselect::all_of(colnames(Table_2.2)[!colnames(Table_2.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.3: All household members with a long-term physical or mental health condition by year
 ### Column percentages, Adults
 ### This question was changed in 2014, so this data is no longer comparable with previous years. Therefore, 2013 data is not presented here.
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.3 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -221,18 +195,15 @@ main_column_names <- colnames(Table_2.3)[!grepl("_2", colnames(Table_2.3))]
 significance_column_names <- colnames(Table_2.3)[grepl("_sig", colnames(Table_2.3))]
 
 Table_2.3 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -245,16 +216,13 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.3 %>% select(tidyselect::all_of(colnames(Table_2.3)[!colnames(Table_2.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Figure 2.1: Age of adults by year
 ### Column percentages, Adults
@@ -263,10 +231,7 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.1 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -274,27 +239,24 @@ main_column_names <- colnames(Figure_2.1)[!grepl("_2", colnames(Figure_2.1))]
 significance_column_names <- colnames(Figure_2.1)[grepl("_sig", colnames(Figure_2.1))]
 
 Figure_2.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -307,25 +269,22 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_2.1 %>% select(tidyselect::all_of(colnames(Figure_2.1)[!colnames(Figure_2.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Figure 2.2: Gender of adults by year
 ### Column percentages, Adults
@@ -334,10 +293,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.2 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -345,27 +301,24 @@ main_column_names <- colnames(Figure_2.2)[!grepl("_2", colnames(Figure_2.2))]
 significance_column_names <- colnames(Figure_2.2)[grepl("_sig", colnames(Figure_2.2))]
 
 Figure_2.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -378,39 +331,33 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_2.2 %>% select(tidyselect::all_of(colnames(Figure_2.2)[!colnames(Figure_2.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.4, Figure 2.3: Adults with a long-term physical or mental health condition by year
 ### Column percentages, Adults
 ### The question asked in its current form was introduced in 2012 and so not directly comparable with the previous years
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.4_Figure_2.3 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -418,20 +365,17 @@ main_column_names <- colnames(Table_2.4_Figure_2.3)[!grepl("_2", colnames(Table_
 significance_column_names <- colnames(Table_2.4_Figure_2.3)[grepl("_sig", colnames(Table_2.4_Figure_2.3))]
 
 Table_2.4_Figure_2.3 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -444,31 +388,25 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.4_Figure_2.3 %>% select(tidyselect::all_of(colnames(Table_2.4_Figure_2.3)[!colnames(Table_2.4_Figure_2.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.5: Ethnicity of adults by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.5 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -476,19 +414,16 @@ main_column_names <- colnames(Table_2.5)[!grepl("_2", colnames(Table_2.5))]
 significance_column_names <- colnames(Table_2.5)[grepl("_sig", colnames(Table_2.5))]
 
 Table_2.5 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -501,30 +436,24 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.5 %>% select(tidyselect::all_of(colnames(Table_2.5)[!colnames(Table_2.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.6: Economic status of all adults aged 16-64
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.6 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -532,15 +461,12 @@ main_column_names <- colnames(Table_2.6)[!grepl("_2", colnames(Table_2.6))]
 significance_column_names <- colnames(Table_2.6)[grepl("_sig", colnames(Table_2.6))]
 
 Table_2.6 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`All adults_sig` == "HIGHER" ~ "#00A3A3", `All adults_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`Adults aged 16 to 64` = cell_spec(`Adults aged 16 to 64`, "latex", background = case_when(`Adults aged 16 to 64_sig` == "HIGHER" ~ "#00A3A3", `Adults aged 16 to 64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`All adults_sig` == "HIGHER" ~ "#00A3A3", `All adults_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Adults aged 16 to 64` = cell_spec(`Adults aged 16 to 64`, "latex", background = case_when(`Adults aged 16 to 64_sig` == "HIGHER" ~ "#00A3A3", `Adults aged 16 to 64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -553,13 +479,10 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.6 %>% select(tidyselect::all_of(colnames(Table_2.6)[!colnames(Table_2.6) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`All adults_sig` == "HIGHER" ~ "#C3C3FF", `All adults_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`Adults aged 16 to 64` = cell_spec(`Adults aged 16 to 64`, "latex", background = case_when(`Adults aged 16 to 64_sig` == "HIGHER" ~ "#C3C3FF", `Adults aged 16 to 64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`All adults_sig` == "HIGHER" ~ "#C3C3FF", `All adults_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Adults aged 16 to 64` = cell_spec(`Adults aged 16 to 64`, "latex", background = case_when(`Adults aged 16 to 64_sig` == "HIGHER" ~ "#C3C3FF", `Adults aged 16 to 64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Figure 2.4: Economic status of adults by year - selected groups
 ### Column percentages, Adults
@@ -568,10 +491,7 @@ mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`A
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.4 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "scale_down"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -579,27 +499,24 @@ main_column_names <- colnames(Figure_2.4)[!grepl("_2", colnames(Figure_2.4))]
 significance_column_names <- colnames(Figure_2.4)[grepl("_sig", colnames(Figure_2.4))]
 
 Figure_2.4 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#00A3A3", `1999/2000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#00A3A3", `2001/2002_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#00A3A3", `2003/2004_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#00A3A3", `2005/2006_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "scale_down"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -612,38 +529,32 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_2.4 %>% select(tidyselect::all_of(colnames(Figure_2.4)[!colnames(Figure_2.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`1999/2000_sig` == "HIGHER" ~ "#C3C3FF", `1999/2000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2001/2002` = cell_spec(`2001/2002`, "latex", background = case_when(`2001/2002_sig` == "HIGHER" ~ "#C3C3FF", `2001/2002_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`2003/2004_sig` == "HIGHER" ~ "#C3C3FF", `2003/2004_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`2005/2006_sig` == "HIGHER" ~ "#C3C3FF", `2005/2006_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#C3C3FF", `2007/2008_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "scale_down"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.7: Sexual orientation of adults by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.7 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -651,21 +562,18 @@ main_column_names <- colnames(Table_2.7)[!grepl("_2", colnames(Table_2.7))]
 significance_column_names <- colnames(Table_2.7)[grepl("_sig", colnames(Table_2.7))]
 
 Table_2.7 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -678,32 +586,26 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.7 %>% select(tidyselect::all_of(colnames(Table_2.7)[!colnames(Table_2.7) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Figure 2.5: Religious belonging of adults by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_2.5 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -711,22 +613,19 @@ main_column_names <- colnames(Figure_2.5)[!grepl("_2", colnames(Figure_2.5))]
 significance_column_names <- colnames(Figure_2.5)[grepl("_sig", colnames(Figure_2.5))]
 
 Figure_2.5 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#00A3A3", `2009/2010_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -739,33 +638,27 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_2.5 %>% select(tidyselect::all_of(colnames(Figure_2.5)[!colnames(Figure_2.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`2009/2010_sig` == "HIGHER" ~ "#C3C3FF", `2009/2010_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.8: Marital status of adults by year
 ### Column percentages, Adults
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.8 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -773,19 +666,16 @@ main_column_names <- colnames(Table_2.8)[!grepl("_2", colnames(Table_2.8))]
 significance_column_names <- colnames(Table_2.8)[grepl("_sig", colnames(Table_2.8))]
 
 Table_2.8 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -798,17 +688,14 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.8 %>% select(tidyselect::all_of(colnames(Table_2.8)[!colnames(Table_2.8) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.9: Current marital status of adults by age
 ### Column percentages, Adults
@@ -817,10 +704,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.9 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -828,19 +712,16 @@ main_column_names <- colnames(Table_2.9)[!grepl("_2", colnames(Table_2.9))]
 significance_column_names <- colnames(Table_2.9)[grepl("_sig", colnames(Table_2.9))]
 
 Table_2.9 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#00A3A3", `16-24_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#00A3A3", `25-34_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#00A3A3", `35 - 44_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#00A3A3", `45-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#00A3A3", `60-74_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#00A3A3", `75+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#00A3A3", `16-24_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#00A3A3", `25-34_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#00A3A3", `35 - 44_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#00A3A3", `45-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#00A3A3", `60-74_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#00A3A3", `75+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -853,17 +734,14 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.9 %>% select(tidyselect::all_of(colnames(Table_2.9)[!colnames(Table_2.9) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#C3C3FF", `16-24_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#C3C3FF", `25-34_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#C3C3FF", `35 - 44_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#C3C3FF", `45-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#C3C3FF", `16-24_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#C3C3FF", `25-34_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#C3C3FF", `35 - 44_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#C3C3FF", `45-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.10: Age of adults by marital status
 ### Row percentages, Adults
@@ -872,10 +750,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_2.10 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -883,19 +758,16 @@ main_column_names <- colnames(Table_2.10)[!grepl("_2", colnames(Table_2.10))]
 significance_column_names <- colnames(Table_2.10)[grepl("_sig", colnames(Table_2.10))]
 
 Table_2.10 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#00A3A3", `16-24_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#00A3A3", `25-34_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#00A3A3", `35 - 44_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#00A3A3", `45-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#00A3A3", `60-74_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#00A3A3", `75+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#00A3A3", `16-24_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#00A3A3", `25-34_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#00A3A3", `35 - 44_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#00A3A3", `45-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#00A3A3", `60-74_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#00A3A3", `75+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
@@ -908,30 +780,24 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.10 %>% select(tidyselect::all_of(colnames(Table_2.10)[!colnames(Table_2.10) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#C3C3FF", `16-24_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#C3C3FF", `25-34_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#C3C3FF", `35 - 44_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#C3C3FF", `45-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` == "HIGHER" ~ "#C3C3FF", `16-24_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`25-34` = cell_spec(`25-34`, "latex", background = case_when(`25-34_sig` == "HIGHER" ~ "#C3C3FF", `25-34_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`35 - 44` = cell_spec(`35 - 44`, "latex", background = case_when(`35 - 44_sig` == "HIGHER" ~ "#C3C3FF", `35 - 44_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`45-59` = cell_spec(`45-59`, "latex", background = case_when(`45-59_sig` == "HIGHER" ~ "#C3C3FF", `45-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`60-74` = cell_spec(`60-74`, "latex", background = case_when(`60-74_sig` == "HIGHER" ~ "#C3C3FF", `60-74_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`75+` = cell_spec(`75+`, "latex", background = case_when(`75+_sig` == "HIGHER" ~ "#C3C3FF", `75+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.11: Household type of households by year
 ### Column percentages, Households
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.11 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -939,20 +805,17 @@ main_column_names <- colnames(Table_2.11)[!grepl("_2", colnames(Table_2.11))]
 significance_column_names <- colnames(Table_2.11)[grepl("_sig", colnames(Table_2.11))]
 
 Table_2.11 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -965,18 +828,15 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.11 %>% select(tidyselect::all_of(colnames(Table_2.11)[!colnames(Table_2.11) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.12: Households with children by year
 ### Column percentages, Households
@@ -985,10 +845,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.12 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -996,20 +853,17 @@ main_column_names <- colnames(Table_2.12)[!grepl("_2", colnames(Table_2.12))]
 significance_column_names <- colnames(Table_2.12)[grepl("_sig", colnames(Table_2.12))]
 
 Table_2.12 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1022,18 +876,15 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.12 %>% select(tidyselect::all_of(colnames(Table_2.12)[!colnames(Table_2.12) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.13: Property type of households by year
 ### Column percentages, Households
@@ -1042,10 +893,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.13 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1053,20 +901,17 @@ main_column_names <- colnames(Table_2.13)[!grepl("_2", colnames(Table_2.13))]
 significance_column_names <- colnames(Table_2.13)[grepl("_sig", colnames(Table_2.13))]
 
 Table_2.13 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1079,31 +924,25 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.13 %>% select(tidyselect::all_of(colnames(Table_2.13)[!colnames(Table_2.13) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.14: Tenure of households by year
 ### Column percentages, Households
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.14 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1111,20 +950,17 @@ main_column_names <- colnames(Table_2.14)[!grepl("_2", colnames(Table_2.14))]
 significance_column_names <- colnames(Table_2.14)[grepl("_sig", colnames(Table_2.14))]
 
 Table_2.14 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1137,30 +973,25 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.14 %>% select(tidyselect::all_of(colnames(Table_2.14)[!colnames(Table_2.14) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.15: Scottish Index of Multiple Deprivation of households by year
 ### Column percentages, Households
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.15 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1168,20 +999,17 @@ main_column_names <- colnames(Table_2.15)[!grepl("_2", colnames(Table_2.15))]
 significance_column_names <- colnames(Table_2.15)[grepl("_sig", colnames(Table_2.15))]
 
 Table_2.15 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1194,31 +1022,25 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.15 %>% select(tidyselect::all_of(colnames(Table_2.15)[!colnames(Table_2.15) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.16: Urban rural split of households by year
 ### Column percentages, Households
-### Another breakdown of this table can be found at the [Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
+### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.16 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1226,20 +1048,17 @@ main_column_names <- colnames(Table_2.16)[!grepl("_2", colnames(Table_2.16))]
 significance_column_names <- colnames(Table_2.16)[grepl("_sig", colnames(Table_2.16))]
 
 Table_2.16 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1252,18 +1071,15 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.16 %>% select(tidyselect::all_of(colnames(Table_2.16)[!colnames(Table_2.16) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
 ## Table 2.17: Household income of households by year
 ### Column percentages, Households
@@ -1272,10 +1088,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_2.17 %>%
-kable("latex", booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1283,20 +1096,17 @@ main_column_names <- colnames(Table_2.17)[!grepl("_2", colnames(Table_2.17))]
 significance_column_names <- colnames(Table_2.17)[grepl("_sig", colnames(Table_2.17))]
 
 Table_2.17 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "white"))
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#00A3A3", `2016_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#00A3A3", `2017_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#00A3A3", `2018_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+kable("latex", escape = FALSE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1309,16 +1119,13 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_2.17 %>% select(tidyselect::all_of(colnames(Table_2.17)[!colnames(Table_2.17) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white")),
-`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "white"))) %>%
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2016` = cell_spec(`2016`, "latex", background = case_when(`2016_sig` == "HIGHER" ~ "#C3C3FF", `2016_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>%
-  kable_styling(latex_options = c("striped", "hold_position"),
-                full_width=F,
-                position="left")
+        kable("latex", escape = FALSE, booktabs = T)
 ```
