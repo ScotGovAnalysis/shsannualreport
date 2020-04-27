@@ -32,14 +32,16 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
   names(df)[2] <- "temp_variable_name"
   row_order <- unique(df$temp_variable_name)
 
-  rename_columns <- colnames(df)[5:length(colnames(df)) - 2]
+  end_of_sequence <- length(colnames(df)) - length(colnames(df)[colnames(df) == "Base"]) - length(colnames(df)[colnames(df) == "All"])
+
+  rename_columns <- colnames(df)[3:end_of_sequence]
   colnames <- names(df)
 
   df$Year = year
   df <- df[, c("Year", colnames)]
 
   first_gather_column_index <- 4
-  last_gather_column_index <- length(names(df)) - 2
+  last_gather_column_index <- length(names(df)) - length(colnames(df)[colnames(df) == "Base"]) - length(colnames(df)[colnames(df) == "All"])
 
   df <- df %>%
     tidyr::gather(key = gather_key,
