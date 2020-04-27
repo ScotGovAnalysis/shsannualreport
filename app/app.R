@@ -1728,8 +1728,6 @@ server <- function(input, output, session) {
         topic <-  topic_titles[topic_titles$title == input$select_report_topic, ]$code
         topic <- gsub("Top", "", topic)
 
-        print(input$select_report_topic)
-
         data <- report_data_processing(topic = topic,
                                        local_authority =  input$select_report_local_authority,
                                        year =  input$select_report_year,

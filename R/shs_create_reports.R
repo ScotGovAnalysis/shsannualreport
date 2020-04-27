@@ -37,6 +37,12 @@ output:
     toc: yes
     latex_engine: xelatex
     fig_caption: false
+header-includes:
+    - \\hypersetup{colorlinks=true, linkcolor = black, urlcolor = [RGB]{0, 163, 163}}
+    - \\usepackage{titling}
+    - \\pretitle{\\begin{center}
+      \\includegraphics[width=2in,height=2in]{../www/shs-logo.png}\\LARGE\\\\}
+    - \\posttitle{\\end{center}}
 classoption: landscape
 fontsize: 10pt
 papersize: a4
@@ -112,6 +118,11 @@ contributed to the project.
 Finally, special thanks to Ipsos MORI and their interviewers for continuous
 and relentless efforts during the fieldwork.
 
+## Key
+
+```{=latex}
+$ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower
+```
 ", file = report_file_path, append = TRUE)
 
     counter_2 <- 1
