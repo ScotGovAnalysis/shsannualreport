@@ -200,7 +200,10 @@ ui <- fluidPage(
 
                # LA Reports tab ####
 
-               tabPanel("LA Reports",
+               tabPanel(
+                   div(icon("fal fa-clipboard-list"),
+                       "Create Report"),
+                   style = "margin-left: 4%; margin-right: 4%",
 
                         wellPanel(style = "background: #ffd480",
                                   h4("This function is still under construction."),
