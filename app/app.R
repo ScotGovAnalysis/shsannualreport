@@ -1694,6 +1694,24 @@ server <- function(input, output, session) {
 
     # output$report ####
 
+
+    observe ({
+
+        selected_report_year <- input$select_report_year
+
+        updateSelectInput(session, inputId = "select_report_year_comparator", label = "Year",
+                          choices = years[!years %in% selected_report_year])
+    })
+
+    #update input$select_report_local_authority_comparator by input$select_report_local_authority. Ensures that user cannot choose same LA for comparison in report.
+    observe ({
+
+        selected_report_local_authority <- input$select_report_local_authority
+
+        updateSelectInput(session, inputId = "select_report_local_authority_comparator", label = "Local Authority",
+                          choices = local_authorities[!local_authorities %in% selected_report_local_authority])
+    })
+
     report <- reactiveValues(filepath = NULL)
 
     observeEvent(input$generate, {
