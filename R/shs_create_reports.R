@@ -31,11 +31,17 @@ shs_create_reports <- function() {
 
     cat(
       "---
-title: \"Scotland's People Local Authority Tables\"
+params:
+  report_title: \"\"
+  local_authority: \"\"
+  year: \"\"
+  topic_data: \"\"
+  comparison_type: \"\"
+  comparator: \"\"
+title: \"`r params$report_title`\"
 output:
   pdf_document:
     toc: yes
-    latex_engine: xelatex
     fig_caption: false
 header-includes:
     - \\hypersetup{colorlinks=true, linkcolor = black, urlcolor = [RGB]{0, 163, 163}}
@@ -47,7 +53,6 @@ classoption: landscape
 fontsize: 10pt
 papersize: a4
 geometry: margin=1.5cm
-mainfont: Arial
 ---
 
 ```{r setup, include=FALSE}

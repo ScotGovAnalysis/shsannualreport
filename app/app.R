@@ -1735,7 +1735,23 @@ server <- function(input, output, session) {
                                        comparison_type = input$select_report_comparison_type,
                                        comparator = comparator)
 
-        params <- list(local_authority = input$select_report_local_authority,
+        report_title_value <- paste0("Scotland's People Local Authority Tables | ",
+                                     topic_titles[topic_titles$title == input$select_report_topic, ]$title, " | ",
+                                     input$select_report_local_authority, " (",
+                                     input$select_report_year, ")")
+
+        if (input$select_report_comparison_type == "Local Authority") {
+
+            report_title_value <- paste0(report_title_value, " compared to ", comparator, " (", input$select_report_year, ")")
+
+            } else if (input$select_report_comparison_type == "Year") {
+
+                report_title_value <- paste0(report_title_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
+
+            }
+
+        params <- list(report_title = report_title_value,
+                       local_authority = input$select_report_local_authority,
                        year = input$select_report_year,
                        topic_data = data,
                        comparison_type = input$select_report_comparison_type,
