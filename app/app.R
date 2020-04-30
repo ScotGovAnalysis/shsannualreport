@@ -1696,7 +1696,7 @@ server <- function(input, output, session) {
 
 
     observe ({
-
+        #update input$select_report_year_comparator by input$select_report_year. Ensures that user cannot choose same year for comparison in report.
         selected_report_year <- input$select_report_year
 
         updateSelectInput(session, inputId = "select_report_year_comparator", label = "Year",
