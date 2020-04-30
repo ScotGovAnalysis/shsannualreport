@@ -15,7 +15,7 @@ header-includes:
     - \hypersetup{colorlinks=true, linkcolor = black, urlcolor = [RGB]{0, 163, 163}}
     - \usepackage{titling}
     - \pretitle{\begin{center}
-      \includegraphics[width=2in,height=2in]{../www/shs-logo.png}\LARGE\\}
+      \includegraphics[width=2in,height=2in]{../www/new_logo.png}\LARGE\\}
     - \posttitle{\end{center}}
 classoption: landscape
 fontsize: 10pt
@@ -77,7 +77,7 @@ comparison_table_title <- if (comparison_type == "Local Authority") {
 
 ```
 ```{r, out.height = "130pt", fig.show='hold', fig.align='center'}
-knitr::include_graphics(c("../www/shs-logo.png", "../www/home_logo.png"))
+knitr::include_graphics("../www/home_logo.png")
 ```
 
 ## Acknowledgements
