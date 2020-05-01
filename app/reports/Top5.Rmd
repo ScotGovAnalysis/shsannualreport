@@ -450,7 +450,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_5.4 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -466,7 +466,7 @@ mutate(`Degree / professional qualification` = cell_spec(`Degree / professional 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -485,7 +485,7 @@ mutate(`Degree / professional qualification` = cell_spec(`Degree / professional 
 `No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#C3C3FF", `No qualifications_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Qualifications not known` = cell_spec(`Qualifications not known`, "latex", background = case_when(`Qualifications not known_sig` == "HIGHER" ~ "#C3C3FF", `Qualifications not known_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 ## Table 5.5: Current economic situation of adults aged 16-64 by long-standing limiting illness, health problem or disability
 ### Column percentages, Adults
@@ -494,7 +494,7 @@ mutate(`Degree / professional qualification` = cell_spec(`Degree / professional 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_5.5 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -510,7 +510,7 @@ mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex",
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -529,7 +529,7 @@ mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex",
 `No ('excluding permanently sick or disabled')` = cell_spec(`No ('excluding permanently sick or disabled')`, "latex", background = case_when(`No ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `No ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `All ('excluding permanently sick or disabled')` = cell_spec(`All ('excluding permanently sick or disabled')`, "latex", background = case_when(`All ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `All ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 ## Figure 5.7: Number of adults aged 16 or over in paid employment by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults

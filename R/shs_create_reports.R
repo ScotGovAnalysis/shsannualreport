@@ -146,6 +146,7 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
         data_file_path <- paste0("app/data/dataset/", question_id, ".Rds")
 
         column_names <- colnames(readRDS(data_file_path))
+        main_column_names <- column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]
 
         significance_column_names <- gsub("_l", "", column_names[grep("_l", column_names)])
         significance_column_names <- significance_column_names[!significance_column_names %in% c("All", "Base")]
@@ -204,7 +205,7 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
                          question_id_underscore, " %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
           }
@@ -234,7 +235,7 @@ mutate(")
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
@@ -267,7 +268,7 @@ mutate("
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
       }
@@ -283,7 +284,7 @@ mutate("
 ", question_id_underscore, " %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
@@ -296,7 +297,7 @@ main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colna
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
@@ -315,7 +316,7 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (length(column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]) > 12) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
