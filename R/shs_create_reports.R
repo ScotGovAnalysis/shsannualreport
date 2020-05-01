@@ -49,6 +49,7 @@ header-includes:
     - \\pretitle{\\begin{center}
       \\includegraphics[width=2in,height=2in]{../www/shs-logo.png}\\LARGE\\\\}
     - \\posttitle{\\end{center}}
+    - \\renewcommand{\\familydefault}{\\sfdefault}
 classoption: landscape
 fontsize: 10pt
 papersize: a4
@@ -147,7 +148,18 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
 
         data_file_path <- paste0("app/data/dataset/", question_id, ".Rds")
 
-        column_names <- colnames(readRDS(data_file_path))
+        df <- readRDS(data_file_path)
+
+        column_names <- colnames(df)
+        row_lengths <- c()
+
+        for (row in 1:nrow(df)) {
+
+          row_lengths <- c(row_lengths, Reduce("+", nchar(as.character(df[row,]))))
+        }
+
+        max_row_length <- max(row_lengths)
+
         significance_column_names <- gsub("_l", "", column_names[grep("_l", column_names)])
         significance_column_names <- significance_column_names[!significance_column_names %in% c("All", "Base")]
 
@@ -203,8 +215,14 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
 
 ```{r eval=(", markdown_comparator, " == FALSE)}\n",
                          question_id_underscore, " %>%
-kable(\"latex\", escape = FALSE, booktabs = T)
-```
+kable(\"latex\", escape = FALSE, booktabs = T)")
+
+        if (length(column_names) > 10) {
+
+          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+          }
+
+        string <- paste0(string, "\n```
 
 ```{r eval=", markdown_comparator, "}
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
@@ -227,8 +245,14 @@ mutate(")
                          "\n", "
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable(\"latex\", escape = FALSE, booktabs = T)
-```
+kable(\"latex\", escape = FALSE, booktabs = T)")
+
+        if (length(column_names) > 10) {
+
+          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+        }
+
+        string <- paste0(string, "\n```
 
 ```{r eval=", markdown_comparator, "}
 asis_output(paste0(\"### \", comparison_table_title))
@@ -282,8 +306,14 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-kable(\"latex\", escape = FALSE, booktabs = T)
-```\n")
+kable(\"latex\", escape = FALSE, booktabs = T)")
+
+        if (length(column_names) > 10) {
+
+          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+        }
+
+        string <- paste0(string, "\n```\n")
       }
 
       cat(string, file = report_file_path, append = TRUE)

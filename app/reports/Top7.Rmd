@@ -17,6 +17,7 @@ header-includes:
     - \pretitle{\begin{center}
       \includegraphics[width=2in,height=2in]{../www/shs-logo.png}\LARGE\\}
     - \posttitle{\end{center}}
+    - \renewcommand{\familydefault}{\sfdefault}
 classoption: landscape
 fontsize: 10pt
 papersize: a4
@@ -105,7 +106,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_7.1 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -128,7 +129,7 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -179,7 +180,7 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_7.7 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -196,7 +197,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -244,7 +245,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_7.2 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -261,7 +262,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -328,7 +329,7 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_7.4 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -345,7 +346,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -375,7 +376,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_7.5 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -390,7 +391,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -418,7 +419,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_7.6 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -433,7 +434,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}

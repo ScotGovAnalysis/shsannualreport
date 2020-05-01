@@ -17,6 +17,7 @@ header-includes:
     - \pretitle{\begin{center}
       \includegraphics[width=2in,height=2in]{../www/shs-logo.png}\LARGE\\}
     - \posttitle{\end{center}}
+    - \renewcommand{\familydefault}{\sfdefault}
 classoption: landscape
 fontsize: 10pt
 papersize: a4
@@ -116,7 +117,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_4.1 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -141,7 +142,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -178,7 +179,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.2 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -191,7 +192,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -216,7 +217,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 
 ```{r eval=(eval_comparison == FALSE)}
 Figure_4.1 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -232,7 +233,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -260,7 +261,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_4.2a %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -282,7 +283,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -316,7 +317,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Figure_4.2b %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -338,7 +339,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -373,7 +374,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.3 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -390,7 +391,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -420,7 +421,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.4 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -434,7 +435,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -461,7 +462,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.5 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -478,7 +479,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -508,7 +509,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.6 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -523,7 +524,7 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -550,7 +551,7 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.7 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -566,7 +567,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -594,7 +595,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.8a %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -615,7 +616,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -648,7 +649,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.8b %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -670,7 +671,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -705,7 +706,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.9 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -723,7 +724,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -754,7 +755,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.10 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -772,7 +773,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -803,7 +804,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.11 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -818,7 +819,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -846,7 +847,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.12 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -860,7 +861,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -887,7 +888,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.13 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -903,7 +904,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -932,7 +933,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.14 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -949,7 +950,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -979,7 +980,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.15 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -994,7 +995,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1022,7 +1023,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.16 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1041,7 +1042,7 @@ mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_whe
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1072,7 +1073,7 @@ mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_whe
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 Table_4.17 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1094,7 +1095,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1128,7 +1129,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.18 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1144,7 +1145,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1172,7 +1173,7 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.19 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1187,7 +1188,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1214,7 +1215,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.20 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1228,7 +1229,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1254,7 +1255,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.21 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1271,7 +1272,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1300,7 +1301,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Figure_4.3 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1314,7 +1315,7 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1340,7 +1341,7 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.22 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1356,7 +1357,7 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1384,7 +1385,7 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.23 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1399,7 +1400,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1426,7 +1427,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.24 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1443,7 +1444,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1472,7 +1473,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.25 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1487,7 +1488,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1514,7 +1515,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.26 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1529,7 +1530,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1559,7 +1560,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.28 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1575,7 +1576,7 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1604,7 +1605,7 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 
 ```{r eval=(eval_comparison == FALSE)}
 Table_4.29 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
@@ -1621,7 +1622,7 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 ```
 
 ```{r eval=eval_comparison}
