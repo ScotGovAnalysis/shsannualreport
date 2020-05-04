@@ -151,6 +151,18 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
         significance_column_names <- gsub("_l", "", column_names[grep("_l", column_names)])
         significance_column_names <- significance_column_names[!significance_column_names %in% c("All", "Base")]
 
+        max_variable_length <- 0
+
+        if (type %in% c("1", "4")) {
+
+          max_variable_length <- max(nchar(as.character(readRDS(data_file_path)[[2]])))
+
+          } else if (type %in% c("2", "3")) {
+
+          max_variable_length <- max(nchar(as.character(readRDS(data_file_path)[[3]])))
+
+          }
+
         if (type == 1) {
 
           markdown_comparator <- "eval_comparison_time_series"
@@ -211,6 +223,11 @@ kable(\"latex\", escape = TRUE, booktabs = T)")
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
 
+        if (max_variable_length > 50) {
+
+         string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
+
         string <- paste0(string, "\n } else {
         asis_output(\"### There is no data to show for this table within the specified parameters\")
       }
@@ -244,6 +261,11 @@ mutate(")
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
+
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
@@ -253,6 +275,11 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
 } else {
 ", question_id_underscore, " %>%
 kable(\"latex\", escape = TRUE, booktabs = T)")
+
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
 
 if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
@@ -296,6 +323,11 @@ mutate("
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable(\"latex\", escape = FALSE, booktabs = T)")
 
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
+
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
@@ -315,6 +347,11 @@ asis_output(\"### There is no data to show for this table within the specified p
 ", question_id_underscore, " %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
+
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
@@ -327,6 +364,11 @@ main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colna
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
+
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
 
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
@@ -346,6 +388,11 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 ", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
+
+        if (max_variable_length > 50) {
+
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+        }
 
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 

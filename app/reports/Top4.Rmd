@@ -457,7 +457,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.3)) {
 Table_4.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -480,10 +480,10 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 Table_4.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -507,7 +507,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 `Tend to agree` = cell_spec(`Tend to agree`, "latex", background = case_when(`Tend to agree_sig` == "HIGHER" ~ "#C3C3FF", `Tend to agree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Tend to disagree` = cell_spec(`Tend to disagree`, "latex", background = case_when(`Tend to disagree_sig` == "HIGHER" ~ "#C3C3FF", `Tend to disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -521,7 +521,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.4)) {
 Table_4.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -541,10 +541,10 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 Table_4.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -565,7 +565,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -579,7 +579,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.5)) {
 Table_4.5 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -602,10 +602,10 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 Table_4.5 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -629,7 +629,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -643,7 +643,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.6)) {
 Table_4.6 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -664,10 +664,10 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 Table_4.6 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -689,7 +689,7 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 `Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -763,7 +763,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.8a)) {
 Table_4.8a %>%
-kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down") %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -790,10 +790,10 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
 Table_4.8a %>%
-kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -821,7 +821,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 `Another way` = cell_spec(`Another way`, "latex", background = case_when(`Another way_sig` == "HIGHER" ~ "#C3C3FF", `Another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -834,7 +834,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_4.8b)) {
 Table_4.8b %>%
-kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down") %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -862,10 +862,10 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
 Table_4.8b %>%
-kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -894,7 +894,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
@@ -1725,7 +1725,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Figure_4.3)) {
 Figure_4.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -1745,10 +1745,10 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 Figure_4.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters")
@@ -1769,7 +1769,7 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 `Perceive as very or fairly common` = cell_spec(`Perceive as very or fairly common`, "latex", background = case_when(`Perceive as very or fairly common_sig` == "HIGHER" ~ "#C3C3FF", `Perceive as very or fairly common_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `With experience of problem` = cell_spec(`With experience of problem`, "latex", background = case_when(`With experience of problem_sig` == "HIGHER" ~ "#C3C3FF", `With experience of problem_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters")
 }
