@@ -217,6 +217,7 @@ kable(\"latex\", escape = TRUE, booktabs = T)")
 ```
 
 ```{r eval=", markdown_comparator, "}
+if (!is.null(", question_id_underscore, ")) {
 if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 colnames(", question_id_underscore, ") <- gsub(\"%\", \"\\\\\\\\%\", colnames(", question_id_underscore, "))
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
@@ -257,13 +258,18 @@ if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 
 
   string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
 }
-        string <- paste0(string, "\n}\n```
+        string <- paste0(string, "
+}
+} else {
+  asis_output(\"### There is no data to show for this table within the specified parameters\")
+}
+```
 ```{r eval=", markdown_comparator, "}
 asis_output(paste0(\"### \", comparison_table_title))
 ```
 
 ```{r eval=", markdown_comparator, "}
-if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
+if (!is.null(", question_id_underscore, ") && length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 comparison_column_names <- colnames(", question_id_underscore, ")[grepl(\"_2\", colnames(", question_id_underscore, "))]
 comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 

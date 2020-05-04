@@ -65,7 +65,7 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
       table <- table_main
 
-    } else if ((question_type %in% c("2", "3") & comparison_type != "No comparison" & comparison_year_present == TRUE) | (question_type %in% c("1", "4") & !comparison_type %in% c("Year", "No comparison"))) {
+    } else if ((question_type %in% c("2", "3") & comparison_type != "No comparison" & year_present == TRUE & comparison_year_present == TRUE) | (question_type %in% c("1", "4") & !comparison_type %in% c("Year", "No comparison"))) {
 
       eval(parse(text = comparison_table_string(comparison_type = comparison_type, question_type = question_type, column_variables = column_variables)))
 

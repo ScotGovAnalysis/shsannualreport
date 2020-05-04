@@ -110,6 +110,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(Figure_12.1)) {
 if (length(grep("_2", colnames(Figure_12.1))) > 0) {
 colnames(Figure_12.1) <- gsub("%", "\\\\%", colnames(Figure_12.1))
 main_column_names <- colnames(Figure_12.1)[!grepl("_2", colnames(Figure_12.1))]
@@ -131,13 +132,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Figure_12.1 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
-if (length(grep("_2", colnames(Figure_12.1))) > 0) {
+if (!is.null(Figure_12.1) && length(grep("_2", colnames(Figure_12.1))) > 0) {
 comparison_column_names <- colnames(Figure_12.1)[grepl("_2", colnames(Figure_12.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -172,6 +176,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(Table_12.1)) {
 if (length(grep("_2", colnames(Table_12.1))) > 0) {
 colnames(Table_12.1) <- gsub("%", "\\\\%", colnames(Table_12.1))
 main_column_names <- colnames(Table_12.1)[!grepl("_2", colnames(Table_12.1))]
@@ -193,13 +198,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.1 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
-if (length(grep("_2", colnames(Table_12.1))) > 0) {
+if (!is.null(Table_12.1) && length(grep("_2", colnames(Table_12.1))) > 0) {
 comparison_column_names <- colnames(Table_12.1)[grepl("_2", colnames(Table_12.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -234,6 +242,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Figure_12.2)) {
 if (length(grep("_2", colnames(Figure_12.2))) > 0) {
 colnames(Figure_12.2) <- gsub("%", "\\\\%", colnames(Figure_12.2))
 main_column_names <- colnames(Figure_12.2)[!grepl("_2", colnames(Figure_12.2))]
@@ -249,13 +258,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Figure_12.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Figure_12.2))) > 0) {
+if (!is.null(Figure_12.2) && length(grep("_2", colnames(Figure_12.2))) > 0) {
 comparison_column_names <- colnames(Figure_12.2)[grepl("_2", colnames(Figure_12.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -285,6 +297,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.2)) {
 if (length(grep("_2", colnames(Table_12.2))) > 0) {
 colnames(Table_12.2) <- gsub("%", "\\\\%", colnames(Table_12.2))
 main_column_names <- colnames(Table_12.2)[!grepl("_2", colnames(Table_12.2))]
@@ -303,13 +316,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.2))) > 0) {
+if (!is.null(Table_12.2) && length(grep("_2", colnames(Table_12.2))) > 0) {
 comparison_column_names <- colnames(Table_12.2)[grepl("_2", colnames(Table_12.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -342,6 +358,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.3)) {
 if (length(grep("_2", colnames(Table_12.3))) > 0) {
 colnames(Table_12.3) <- gsub("%", "\\\\%", colnames(Table_12.3))
 main_column_names <- colnames(Table_12.3)[!grepl("_2", colnames(Table_12.3))]
@@ -359,13 +376,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.3 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.3))) > 0) {
+if (!is.null(Table_12.3) && length(grep("_2", colnames(Table_12.3))) > 0) {
 comparison_column_names <- colnames(Table_12.3)[grepl("_2", colnames(Table_12.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -397,6 +417,7 @@ kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "s
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.4_Figure_12.3)) {
 if (length(grep("_2", colnames(Table_12.4_Figure_12.3))) > 0) {
 colnames(Table_12.4_Figure_12.3) <- gsub("%", "\\\\%", colnames(Table_12.4_Figure_12.3))
 main_column_names <- colnames(Table_12.4_Figure_12.3)[!grepl("_2", colnames(Table_12.4_Figure_12.3))]
@@ -416,13 +437,16 @@ kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "
 Table_12.4_Figure_12.3 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.4_Figure_12.3))) > 0) {
+if (!is.null(Table_12.4_Figure_12.3) && length(grep("_2", colnames(Table_12.4_Figure_12.3))) > 0) {
 comparison_column_names <- colnames(Table_12.4_Figure_12.3)[grepl("_2", colnames(Table_12.4_Figure_12.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -456,6 +480,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.5_Figure_12.4)) {
 if (length(grep("_2", colnames(Table_12.5_Figure_12.4))) > 0) {
 colnames(Table_12.5_Figure_12.4) <- gsub("%", "\\\\%", colnames(Table_12.5_Figure_12.4))
 main_column_names <- colnames(Table_12.5_Figure_12.4)[!grepl("_2", colnames(Table_12.5_Figure_12.4))]
@@ -475,13 +500,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.5_Figure_12.4 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.5_Figure_12.4))) > 0) {
+if (!is.null(Table_12.5_Figure_12.4) && length(grep("_2", colnames(Table_12.5_Figure_12.4))) > 0) {
 comparison_column_names <- colnames(Table_12.5_Figure_12.4)[grepl("_2", colnames(Table_12.5_Figure_12.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -515,6 +543,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.6_Figure_12.5)) {
 if (length(grep("_2", colnames(Table_12.6_Figure_12.5))) > 0) {
 colnames(Table_12.6_Figure_12.5) <- gsub("%", "\\\\%", colnames(Table_12.6_Figure_12.5))
 main_column_names <- colnames(Table_12.6_Figure_12.5)[!grepl("_2", colnames(Table_12.6_Figure_12.5))]
@@ -533,13 +562,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.6_Figure_12.5 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.6_Figure_12.5))) > 0) {
+if (!is.null(Table_12.6_Figure_12.5) && length(grep("_2", colnames(Table_12.6_Figure_12.5))) > 0) {
 comparison_column_names <- colnames(Table_12.6_Figure_12.5)[grepl("_2", colnames(Table_12.6_Figure_12.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -572,6 +604,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.7_Figure_12.6)) {
 if (length(grep("_2", colnames(Table_12.7_Figure_12.6))) > 0) {
 colnames(Table_12.7_Figure_12.6) <- gsub("%", "\\\\%", colnames(Table_12.7_Figure_12.6))
 main_column_names <- colnames(Table_12.7_Figure_12.6)[!grepl("_2", colnames(Table_12.7_Figure_12.6))]
@@ -590,13 +623,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.7_Figure_12.6 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.7_Figure_12.6))) > 0) {
+if (!is.null(Table_12.7_Figure_12.6) && length(grep("_2", colnames(Table_12.7_Figure_12.6))) > 0) {
 comparison_column_names <- colnames(Table_12.7_Figure_12.6)[grepl("_2", colnames(Table_12.7_Figure_12.6))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -629,6 +665,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.8)) {
 if (length(grep("_2", colnames(Table_12.8))) > 0) {
 colnames(Table_12.8) <- gsub("%", "\\\\%", colnames(Table_12.8))
 main_column_names <- colnames(Table_12.8)[!grepl("_2", colnames(Table_12.8))]
@@ -647,13 +684,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.8 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.8))) > 0) {
+if (!is.null(Table_12.8) && length(grep("_2", colnames(Table_12.8))) > 0) {
 comparison_column_names <- colnames(Table_12.8)[grepl("_2", colnames(Table_12.8))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -685,6 +725,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(Table_12.9)) {
 if (length(grep("_2", colnames(Table_12.9))) > 0) {
 colnames(Table_12.9) <- gsub("%", "\\\\%", colnames(Table_12.9))
 main_column_names <- colnames(Table_12.9)[!grepl("_2", colnames(Table_12.9))]
@@ -706,13 +747,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.9 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
-if (length(grep("_2", colnames(Table_12.9))) > 0) {
+if (!is.null(Table_12.9) && length(grep("_2", colnames(Table_12.9))) > 0) {
 comparison_column_names <- colnames(Table_12.9)[grepl("_2", colnames(Table_12.9))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -748,6 +792,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Figure_12.7)) {
 if (length(grep("_2", colnames(Figure_12.7))) > 0) {
 colnames(Figure_12.7) <- gsub("%", "\\\\%", colnames(Figure_12.7))
 main_column_names <- colnames(Figure_12.7)[!grepl("_2", colnames(Figure_12.7))]
@@ -763,13 +808,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Figure_12.7 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Figure_12.7))) > 0) {
+if (!is.null(Figure_12.7) && length(grep("_2", colnames(Figure_12.7))) > 0) {
 comparison_column_names <- colnames(Figure_12.7)[grepl("_2", colnames(Figure_12.7))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -799,6 +847,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.10)) {
 if (length(grep("_2", colnames(Table_12.10))) > 0) {
 colnames(Table_12.10) <- gsub("%", "\\\\%", colnames(Table_12.10))
 main_column_names <- colnames(Table_12.10)[!grepl("_2", colnames(Table_12.10))]
@@ -817,13 +866,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.10 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.10))) > 0) {
+if (!is.null(Table_12.10) && length(grep("_2", colnames(Table_12.10))) > 0) {
 comparison_column_names <- colnames(Table_12.10)[grepl("_2", colnames(Table_12.10))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -856,6 +908,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.11)) {
 if (length(grep("_2", colnames(Table_12.11))) > 0) {
 colnames(Table_12.11) <- gsub("%", "\\\\%", colnames(Table_12.11))
 main_column_names <- colnames(Table_12.11)[!grepl("_2", colnames(Table_12.11))]
@@ -873,13 +926,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.11 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.11))) > 0) {
+if (!is.null(Table_12.11) && length(grep("_2", colnames(Table_12.11))) > 0) {
 comparison_column_names <- colnames(Table_12.11)[grepl("_2", colnames(Table_12.11))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -911,6 +967,7 @@ kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "s
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.12_Figure_12.8)) {
 if (length(grep("_2", colnames(Table_12.12_Figure_12.8))) > 0) {
 colnames(Table_12.12_Figure_12.8) <- gsub("%", "\\\\%", colnames(Table_12.12_Figure_12.8))
 main_column_names <- colnames(Table_12.12_Figure_12.8)[!grepl("_2", colnames(Table_12.12_Figure_12.8))]
@@ -930,13 +987,16 @@ kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "
 Table_12.12_Figure_12.8 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.12_Figure_12.8))) > 0) {
+if (!is.null(Table_12.12_Figure_12.8) && length(grep("_2", colnames(Table_12.12_Figure_12.8))) > 0) {
 comparison_column_names <- colnames(Table_12.12_Figure_12.8)[grepl("_2", colnames(Table_12.12_Figure_12.8))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -970,6 +1030,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.13_Figure_12.9)) {
 if (length(grep("_2", colnames(Table_12.13_Figure_12.9))) > 0) {
 colnames(Table_12.13_Figure_12.9) <- gsub("%", "\\\\%", colnames(Table_12.13_Figure_12.9))
 main_column_names <- colnames(Table_12.13_Figure_12.9)[!grepl("_2", colnames(Table_12.13_Figure_12.9))]
@@ -989,13 +1050,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.13_Figure_12.9 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.13_Figure_12.9))) > 0) {
+if (!is.null(Table_12.13_Figure_12.9) && length(grep("_2", colnames(Table_12.13_Figure_12.9))) > 0) {
 comparison_column_names <- colnames(Table_12.13_Figure_12.9)[grepl("_2", colnames(Table_12.13_Figure_12.9))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1029,6 +1093,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.14_Figure_12.10)) {
 if (length(grep("_2", colnames(Table_12.14_Figure_12.10))) > 0) {
 colnames(Table_12.14_Figure_12.10) <- gsub("%", "\\\\%", colnames(Table_12.14_Figure_12.10))
 main_column_names <- colnames(Table_12.14_Figure_12.10)[!grepl("_2", colnames(Table_12.14_Figure_12.10))]
@@ -1047,13 +1112,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.14_Figure_12.10 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.14_Figure_12.10))) > 0) {
+if (!is.null(Table_12.14_Figure_12.10) && length(grep("_2", colnames(Table_12.14_Figure_12.10))) > 0) {
 comparison_column_names <- colnames(Table_12.14_Figure_12.10)[grepl("_2", colnames(Table_12.14_Figure_12.10))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1086,6 +1154,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.15_Figure_12.11)) {
 if (length(grep("_2", colnames(Table_12.15_Figure_12.11))) > 0) {
 colnames(Table_12.15_Figure_12.11) <- gsub("%", "\\\\%", colnames(Table_12.15_Figure_12.11))
 main_column_names <- colnames(Table_12.15_Figure_12.11)[!grepl("_2", colnames(Table_12.15_Figure_12.11))]
@@ -1104,13 +1173,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.15_Figure_12.11 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.15_Figure_12.11))) > 0) {
+if (!is.null(Table_12.15_Figure_12.11) && length(grep("_2", colnames(Table_12.15_Figure_12.11))) > 0) {
 comparison_column_names <- colnames(Table_12.15_Figure_12.11)[grepl("_2", colnames(Table_12.15_Figure_12.11))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1143,6 +1215,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison}
+if (!is.null(Table_12.16)) {
 if (length(grep("_2", colnames(Table_12.16))) > 0) {
 colnames(Table_12.16) <- gsub("%", "\\\\%", colnames(Table_12.16))
 main_column_names <- colnames(Table_12.16)[!grepl("_2", colnames(Table_12.16))]
@@ -1161,13 +1234,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.16 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
-if (length(grep("_2", colnames(Table_12.16))) > 0) {
+if (!is.null(Table_12.16) && length(grep("_2", colnames(Table_12.16))) > 0) {
 comparison_column_names <- colnames(Table_12.16)[grepl("_2", colnames(Table_12.16))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1198,6 +1274,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(Table_12.17)) {
 if (length(grep("_2", colnames(Table_12.17))) > 0) {
 colnames(Table_12.17) <- gsub("%", "\\\\%", colnames(Table_12.17))
 main_column_names <- colnames(Table_12.17)[!grepl("_2", colnames(Table_12.17))]
@@ -1222,13 +1299,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.17 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
-if (length(grep("_2", colnames(Table_12.17))) > 0) {
+if (!is.null(Table_12.17) && length(grep("_2", colnames(Table_12.17))) > 0) {
 comparison_column_names <- colnames(Table_12.17)[grepl("_2", colnames(Table_12.17))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1265,6 +1345,7 @@ kable("latex", escape = TRUE, booktabs = T)
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(Table_12.18)) {
 if (length(grep("_2", colnames(Table_12.18))) > 0) {
 colnames(Table_12.18) <- gsub("%", "\\\\%", colnames(Table_12.18))
 main_column_names <- colnames(Table_12.18)[!grepl("_2", colnames(Table_12.18))]
@@ -1289,13 +1370,16 @@ kable("latex", escape = FALSE, booktabs = T)
 Table_12.18 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
+} else {
+  asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
-if (length(grep("_2", colnames(Table_12.18))) > 0) {
+if (!is.null(Table_12.18) && length(grep("_2", colnames(Table_12.18))) > 0) {
 comparison_column_names <- colnames(Table_12.18)[grepl("_2", colnames(Table_12.18))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
