@@ -113,11 +113,17 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_4.1)) {
 Table_4.1 %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_4.1))) > 0) {
+colnames(Table_4.1) <- gsub("%", "\\\\%", colnames(Table_4.1))
 main_column_names <- colnames(Table_4.1)[!grepl("_2", colnames(Table_4.1))]
 significance_column_names <- colnames(Table_4.1)[grepl("_sig", colnames(Table_4.1))]
 
@@ -140,13 +146,17 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Table_4.1 %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_4.1))) > 0) {
 comparison_column_names <- colnames(Table_4.1)[grepl("_2", colnames(Table_4.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -168,6 +178,9 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.2: Rating of neighbourhood as a place to live by Urban Rural Classification
 ### Column percentages, Adults
@@ -175,11 +188,17 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.2)) {
 Table_4.2 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.2))) > 0) {
+colnames(Table_4.2) <- gsub("%", "\\\\%", colnames(Table_4.2))
 main_column_names <- colnames(Table_4.2)[!grepl("_2", colnames(Table_4.2))]
 significance_column_names <- colnames(Table_4.2)[grepl("_sig", colnames(Table_4.2))]
 
@@ -190,13 +209,17 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.2 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.2))) > 0) {
 comparison_column_names <- colnames(Table_4.2)[grepl("_2", colnames(Table_4.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -206,6 +229,9 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 `Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#C3C3FF", `Rural areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Figure 4.1: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -213,55 +239,74 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Figure_4.1)) {
 Figure_4.1 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Figure_4.1))) > 0) {
+colnames(Figure_4.1) <- gsub("%", "\\\\%", colnames(Figure_4.1))
 main_column_names <- colnames(Figure_4.1)[!grepl("_2", colnames(Figure_4.1))]
 significance_column_names <- colnames(Figure_4.1)[grepl("_sig", colnames(Figure_4.1))]
 
 Figure_4.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Figure_4.1 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Figure_4.1))) > 0) {
 comparison_column_names <- colnames(Figure_4.1)[grepl("_2", colnames(Figure_4.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_4.1 %>% select(tidyselect::all_of(colnames(Figure_4.1)[!colnames(Figure_4.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
-## Figure 4.2a: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20pc most deprived areas
+## Figure 4.2a: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% most deprived areas
 ### Column percentages, Adults
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Figure_4.2a)) {
 Figure_4.2a %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_4.2a))) > 0) {
+colnames(Figure_4.2a) <- gsub("%", "\\\\%", colnames(Figure_4.2a))
 main_column_names <- colnames(Figure_4.2a)[!grepl("_2", colnames(Figure_4.2a))]
 significance_column_names <- colnames(Figure_4.2a)[grepl("_sig", colnames(Figure_4.2a))]
 
@@ -281,13 +326,17 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Figure_4.2a %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_4.2a))) > 0) {
 comparison_column_names <- colnames(Figure_4.2a)[grepl("_2", colnames(Figure_4.2a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -306,18 +355,27 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
-## Figure 4.2b: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20pc least deprived areas
+## Figure 4.2b: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% least deprived areas
 ### Column percentages, Adults
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Figure_4.2b)) {
 Figure_4.2b %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_4.2b))) > 0) {
+colnames(Figure_4.2b) <- gsub("%", "\\\\%", colnames(Figure_4.2b))
 main_column_names <- colnames(Figure_4.2b)[!grepl("_2", colnames(Figure_4.2b))]
 significance_column_names <- colnames(Figure_4.2b)[grepl("_sig", colnames(Figure_4.2b))]
 
@@ -337,13 +395,17 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Figure_4.2b %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_4.2b))) > 0) {
 comparison_column_names <- colnames(Figure_4.2b)[grepl("_2", colnames(Figure_4.2b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -362,6 +424,9 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.3: Percentage of people agreeing with statements about their neighbourhood strengths
 ### Row percentages, Adults
@@ -370,11 +435,17 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.3)) {
 Table_4.3 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.3))) > 0) {
+colnames(Table_4.3) <- gsub("%", "\\\\%", colnames(Table_4.3))
 main_column_names <- colnames(Table_4.3)[!grepl("_2", colnames(Table_4.3))]
 significance_column_names <- colnames(Table_4.3)[grepl("_sig", colnames(Table_4.3))]
 
@@ -389,13 +460,17 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.3 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.3))) > 0) {
 comparison_column_names <- colnames(Table_4.3)[grepl("_2", colnames(Table_4.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -409,6 +484,9 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 `Tend to disagree` = cell_spec(`Tend to disagree`, "latex", background = case_when(`Tend to disagree_sig` == "HIGHER" ~ "#C3C3FF", `Tend to disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.4: Percentage of people agreeing with statements about their neighbourhood strengths by age
 ### Column percentages, Adults
@@ -417,11 +495,17 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.4)) {
 Table_4.4 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.4))) > 0) {
+colnames(Table_4.4) <- gsub("%", "\\\\%", colnames(Table_4.4))
 main_column_names <- colnames(Table_4.4)[!grepl("_2", colnames(Table_4.4))]
 significance_column_names <- colnames(Table_4.4)[grepl("_sig", colnames(Table_4.4))]
 
@@ -433,13 +517,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.4 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.4))) > 0) {
 comparison_column_names <- colnames(Table_4.4)[grepl("_2", colnames(Table_4.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -450,6 +538,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.5: Percentage of people agreeing with statements about their neighbourhood strengths by Urban Rural Classification
 ### Column percentages, Adults
@@ -458,11 +549,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.5)) {
 Table_4.5 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.5))) > 0) {
+colnames(Table_4.5) <- gsub("%", "\\\\%", colnames(Table_4.5))
 main_column_names <- colnames(Table_4.5)[!grepl("_2", colnames(Table_4.5))]
 significance_column_names <- colnames(Table_4.5)[grepl("_sig", colnames(Table_4.5))]
 
@@ -477,13 +574,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.5 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.5))) > 0) {
 comparison_column_names <- colnames(Table_4.5)[grepl("_2", colnames(Table_4.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -497,6 +598,9 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.6: Percentage of people agreeing with statements about their neighbourhood strengths by tenure
 ### Column percentages, Adults
@@ -505,11 +609,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.6)) {
 Table_4.6 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.6))) > 0) {
+colnames(Table_4.6) <- gsub("%", "\\\\%", colnames(Table_4.6))
 main_column_names <- colnames(Table_4.6)[!grepl("_2", colnames(Table_4.6))]
 significance_column_names <- colnames(Table_4.6)[grepl("_sig", colnames(Table_4.6))]
 
@@ -522,13 +632,17 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.6 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.6))) > 0) {
 comparison_column_names <- colnames(Table_4.6)[grepl("_2", colnames(Table_4.6))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -540,6 +654,9 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.7: Strength of feeling of belonging to community by gender, age, ethnicity and Scottish Index of Multiple Deprivation
 ### Row percentages, Adults
@@ -547,11 +664,17 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.7)) {
 Table_4.7 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.7))) > 0) {
+colnames(Table_4.7) <- gsub("%", "\\\\%", colnames(Table_4.7))
 main_column_names <- colnames(Table_4.7)[!grepl("_2", colnames(Table_4.7))]
 significance_column_names <- colnames(Table_4.7)[grepl("_sig", colnames(Table_4.7))]
 
@@ -565,13 +688,17 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.7 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.7))) > 0) {
 comparison_column_names <- colnames(Table_4.7)[grepl("_2", colnames(Table_4.7))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -584,6 +711,9 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 `Very strongly` = cell_spec(`Very strongly`, "latex", background = case_when(`Very strongly_sig` == "HIGHER" ~ "#C3C3FF", `Very strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.8a: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
 ### Column percentages, Adults
@@ -591,11 +721,17 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.8a)) {
 Table_4.8a %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.8a))) > 0) {
+colnames(Table_4.8a) <- gsub("%", "\\\\%", colnames(Table_4.8a))
 main_column_names <- colnames(Table_4.8a)[!grepl("_2", colnames(Table_4.8a))]
 significance_column_names <- colnames(Table_4.8a)[grepl("_sig", colnames(Table_4.8a))]
 
@@ -614,13 +750,17 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Table_4.8a %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.8a))) > 0) {
 comparison_column_names <- colnames(Table_4.8a)[grepl("_2", colnames(Table_4.8a))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -638,6 +778,9 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.8b: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
 ### Column percentages, Adults
@@ -645,11 +788,17 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.8b)) {
 Table_4.8b %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.8b))) > 0) {
+colnames(Table_4.8b) <- gsub("%", "\\\\%", colnames(Table_4.8b))
 main_column_names <- colnames(Table_4.8b)[!grepl("_2", colnames(Table_4.8b))]
 significance_column_names <- colnames(Table_4.8b)[grepl("_sig", colnames(Table_4.8b))]
 
@@ -660,22 +809,26 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Table_4.8b %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.8b))) > 0) {
 comparison_column_names <- colnames(Table_4.8b)[grepl("_2", colnames(Table_4.8b))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -687,13 +840,16 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.9: How often people meet socially with friends, relatives, neighbours or work colleagues by age and gender
 ### Column percentages, Adults
@@ -702,11 +858,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.9)) {
 Table_4.9 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.9))) > 0) {
+colnames(Table_4.9) <- gsub("%", "\\\\%", colnames(Table_4.9))
 main_column_names <- colnames(Table_4.9)[!grepl("_2", colnames(Table_4.9))]
 significance_column_names <- colnames(Table_4.9)[grepl("_sig", colnames(Table_4.9))]
 
@@ -722,13 +884,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.9 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.9))) > 0) {
 comparison_column_names <- colnames(Table_4.9)[grepl("_2", colnames(Table_4.9))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -743,6 +909,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.10: How often people meet socially with friends, relatives, neighbours or work colleagues by Urban-Rural Classification and SIMD
 ### Column percentages, Adults
@@ -751,33 +920,43 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.10)) {
 Table_4.10 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.10))) > 0) {
+colnames(Table_4.10) <- gsub("%", "\\\\%", colnames(Table_4.10))
 main_column_names <- colnames(Table_4.10)[!grepl("_2", colnames(Table_4.10))]
 significance_column_names <- colnames(Table_4.10)[grepl("_sig", colnames(Table_4.10))]
 
 Table_4.10 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#00A3A3", `Urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#00A3A3", `Rural areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.10 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.10))) > 0) {
 comparison_column_names <- colnames(Table_4.10)[grepl("_2", colnames(Table_4.10))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -785,13 +964,16 @@ Table_4.10 %>% select(tidyselect::all_of(colnames(Table_4.10)[!colnames(Table_4.
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#C3C3FF", `Rural areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.11: How often people meet socially with friends, relatives, neighbours or work colleagues by long-term physical or mental health condition
 ### Column percentages, Adults
@@ -800,11 +982,17 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.11)) {
 Table_4.11 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.11))) > 0) {
+colnames(Table_4.11) <- gsub("%", "\\\\%", colnames(Table_4.11))
 main_column_names <- colnames(Table_4.11)[!grepl("_2", colnames(Table_4.11))]
 significance_column_names <- colnames(Table_4.11)[grepl("_sig", colnames(Table_4.11))]
 
@@ -817,13 +1005,17 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.11 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.11))) > 0) {
 comparison_column_names <- colnames(Table_4.11)[grepl("_2", colnames(Table_4.11))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -835,6 +1027,9 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.12: How often people have felt lonely within the last week by age
 ### Column percentages, Adults
@@ -843,11 +1038,17 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.12)) {
 Table_4.12 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.12))) > 0) {
+colnames(Table_4.12) <- gsub("%", "\\\\%", colnames(Table_4.12))
 main_column_names <- colnames(Table_4.12)[!grepl("_2", colnames(Table_4.12))]
 significance_column_names <- colnames(Table_4.12)[grepl("_sig", colnames(Table_4.12))]
 
@@ -859,13 +1060,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.12 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.12))) > 0) {
 comparison_column_names <- colnames(Table_4.12)[grepl("_2", colnames(Table_4.12))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -876,6 +1081,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.13: How often people have felt lonely within the last week by SIMD
 ### Column percentages, Adults
@@ -884,43 +1092,56 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.13)) {
 Table_4.13 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.13))) > 0) {
+colnames(Table_4.13) <- gsub("%", "\\\\%", colnames(Table_4.13))
 main_column_names <- colnames(Table_4.13)[!grepl("_2", colnames(Table_4.13))]
 significance_column_names <- colnames(Table_4.13)[grepl("_sig", colnames(Table_4.13))]
 
 Table_4.13 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.13 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.13))) > 0) {
 comparison_column_names <- colnames(Table_4.13)[grepl("_2", colnames(Table_4.13))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.13 %>% select(tidyselect::all_of(colnames(Table_4.13)[!colnames(Table_4.13) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.14: How often people have felt lonely within the last week by Urban-Rural Classification
 ### Column percentages, Adults
@@ -929,11 +1150,17 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.14)) {
 Table_4.14 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.14))) > 0) {
+colnames(Table_4.14) <- gsub("%", "\\\\%", colnames(Table_4.14))
 main_column_names <- colnames(Table_4.14)[!grepl("_2", colnames(Table_4.14))]
 significance_column_names <- colnames(Table_4.14)[grepl("_sig", colnames(Table_4.14))]
 
@@ -948,13 +1175,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.14 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.14))) > 0) {
 comparison_column_names <- colnames(Table_4.14)[grepl("_2", colnames(Table_4.14))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -968,6 +1199,9 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.15: How often people have felt lonely within the last week by long-term physical or mental health condition
 ### Column percentages, Adults
@@ -976,11 +1210,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.15)) {
 Table_4.15 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.15))) > 0) {
+colnames(Table_4.15) <- gsub("%", "\\\\%", colnames(Table_4.15))
 main_column_names <- colnames(Table_4.15)[!grepl("_2", colnames(Table_4.15))]
 significance_column_names <- colnames(Table_4.15)[grepl("_sig", colnames(Table_4.15))]
 
@@ -993,13 +1233,17 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.15 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.15))) > 0) {
 comparison_column_names <- colnames(Table_4.15)[grepl("_2", colnames(Table_4.15))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1011,6 +1255,9 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.16: How often people have felt lonely within the last week by household type
 ### Column percentages, Adults
@@ -1019,11 +1266,17 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.16)) {
 Table_4.16 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.16))) > 0) {
+colnames(Table_4.16) <- gsub("%", "\\\\%", colnames(Table_4.16))
 main_column_names <- colnames(Table_4.16)[!grepl("_2", colnames(Table_4.16))]
 significance_column_names <- colnames(Table_4.16)[grepl("_sig", colnames(Table_4.16))]
 
@@ -1040,13 +1293,17 @@ mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_whe
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.16 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.16))) > 0) {
 comparison_column_names <- colnames(Table_4.16)[grepl("_2", colnames(Table_4.16))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1062,18 +1319,28 @@ mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_whe
 `Single pensioner` = cell_spec(`Single pensioner`, "latex", background = case_when(`Single pensioner_sig` == "HIGHER" ~ "#C3C3FF", `Single pensioner_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.17: Percentage of people saying a problem is very/fairly common in their neighbourhood
 ### Column percentages, Adults
+### Questions on 'Animal nuisance' and 'Abandoned/Burned out vehicles' were not asked until 2009
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_4.17)) {
 Table_4.17 %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_4.17))) > 0) {
+colnames(Table_4.17) <- gsub("%", "\\\\%", colnames(Table_4.17))
 main_column_names <- colnames(Table_4.17)[!grepl("_2", colnames(Table_4.17))]
 significance_column_names <- colnames(Table_4.17)[grepl("_sig", colnames(Table_4.17))]
 
@@ -1093,13 +1360,17 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Table_4.17 %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_4.17))) > 0) {
 comparison_column_names <- colnames(Table_4.17)[grepl("_2", colnames(Table_4.17))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1118,6 +1389,9 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.18: Percentage of people saying a problem is very/fairly common in their neighbourhood by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1125,43 +1399,56 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.18)) {
 Table_4.18 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.18))) > 0) {
+colnames(Table_4.18) <- gsub("%", "\\\\%", colnames(Table_4.18))
 main_column_names <- colnames(Table_4.18)[!grepl("_2", colnames(Table_4.18))]
 significance_column_names <- colnames(Table_4.18)[grepl("_sig", colnames(Table_4.18))]
 
 Table_4.18 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.18 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.18))) > 0) {
 comparison_column_names <- colnames(Table_4.18)[grepl("_2", colnames(Table_4.18))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.18 %>% select(tidyselect::all_of(colnames(Table_4.18)[!colnames(Table_4.18) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.19: Percentage of people saying a problem is very/fairly common in their neighbourhood by tenure of household
 ### Column percentages, Adults
@@ -1169,11 +1456,17 @@ mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", backgroun
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.19)) {
 Table_4.19 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.19))) > 0) {
+colnames(Table_4.19) <- gsub("%", "\\\\%", colnames(Table_4.19))
 main_column_names <- colnames(Table_4.19)[!grepl("_2", colnames(Table_4.19))]
 significance_column_names <- colnames(Table_4.19)[grepl("_sig", colnames(Table_4.19))]
 
@@ -1186,13 +1479,17 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.19 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.19))) > 0) {
 comparison_column_names <- colnames(Table_4.19)[grepl("_2", colnames(Table_4.19))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1204,6 +1501,9 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 `Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#C3C3FF", `Owned_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.20: Percentage of people saying a problem is very/fairly common in their neighbourhood by age of respondent
 ### Column percentages, Adults
@@ -1211,11 +1511,17 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.20)) {
 Table_4.20 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.20))) > 0) {
+colnames(Table_4.20) <- gsub("%", "\\\\%", colnames(Table_4.20))
 main_column_names <- colnames(Table_4.20)[!grepl("_2", colnames(Table_4.20))]
 significance_column_names <- colnames(Table_4.20)[grepl("_sig", colnames(Table_4.20))]
 
@@ -1227,13 +1533,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.20 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.20))) > 0) {
 comparison_column_names <- colnames(Table_4.20)[grepl("_2", colnames(Table_4.20))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1244,6 +1554,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.21: Percentage of people saying a problem is very/fairly common in their neighbourhood by Urban Rural classification
 ### Column percentages, Adults
@@ -1251,11 +1564,17 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.21)) {
 Table_4.21 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.21))) > 0) {
+colnames(Table_4.21) <- gsub("%", "\\\\%", colnames(Table_4.21))
 main_column_names <- colnames(Table_4.21)[!grepl("_2", colnames(Table_4.21))]
 significance_column_names <- colnames(Table_4.21)[grepl("_sig", colnames(Table_4.21))]
 
@@ -1270,13 +1589,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.21 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.21))) > 0) {
 comparison_column_names <- colnames(Table_4.21)[grepl("_2", colnames(Table_4.21))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1290,6 +1613,9 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Figure 4.3: Perceptions and experience of neighbourhood problems
 ### Column percentages, Adults
@@ -1297,11 +1623,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Figure_4.3)) {
 Figure_4.3 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Figure_4.3))) > 0) {
+colnames(Figure_4.3) <- gsub("%", "\\\\%", colnames(Figure_4.3))
 main_column_names <- colnames(Figure_4.3)[!grepl("_2", colnames(Figure_4.3))]
 significance_column_names <- colnames(Figure_4.3)[grepl("_sig", colnames(Figure_4.3))]
 
@@ -1313,13 +1645,17 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Figure_4.3 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Figure_4.3))) > 0) {
 comparison_column_names <- colnames(Figure_4.3)[grepl("_2", colnames(Figure_4.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1330,6 +1666,9 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 `With experience of problem` = cell_spec(`With experience of problem`, "latex", background = case_when(`With experience of problem_sig` == "HIGHER" ~ "#C3C3FF", `With experience of problem_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.22: Experience of neighbourhood problems by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1337,43 +1676,56 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.22)) {
 Table_4.22 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.22))) > 0) {
+colnames(Table_4.22) <- gsub("%", "\\\\%", colnames(Table_4.22))
 main_column_names <- colnames(Table_4.22)[!grepl("_2", colnames(Table_4.22))]
 significance_column_names <- colnames(Table_4.22)[grepl("_sig", colnames(Table_4.22))]
 
 Table_4.22 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.22 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.22))) > 0) {
 comparison_column_names <- colnames(Table_4.22)[grepl("_2", colnames(Table_4.22))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.22 %>% select(tidyselect::all_of(colnames(Table_4.22)[!colnames(Table_4.22) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.23: Experience of neighbourhood problems by tenure of household
 ### Column percentages, Adults
@@ -1381,11 +1733,17 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.23)) {
 Table_4.23 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.23))) > 0) {
+colnames(Table_4.23) <- gsub("%", "\\\\%", colnames(Table_4.23))
 main_column_names <- colnames(Table_4.23)[!grepl("_2", colnames(Table_4.23))]
 significance_column_names <- colnames(Table_4.23)[grepl("_sig", colnames(Table_4.23))]
 
@@ -1398,13 +1756,17 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.23 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.23))) > 0) {
 comparison_column_names <- colnames(Table_4.23)[grepl("_2", colnames(Table_4.23))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1416,6 +1778,9 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 `Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` == "HIGHER" ~ "#C3C3FF", `Owned_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.24: Experience of neighbourhood problems by Urban Rural Classification
 ### Column percentages, Adults
@@ -1423,11 +1788,17 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.24)) {
 Table_4.24 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.24))) > 0) {
+colnames(Table_4.24) <- gsub("%", "\\\\%", colnames(Table_4.24))
 main_column_names <- colnames(Table_4.24)[!grepl("_2", colnames(Table_4.24))]
 significance_column_names <- colnames(Table_4.24)[grepl("_sig", colnames(Table_4.24))]
 
@@ -1442,13 +1813,17 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.24 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.24))) > 0) {
 comparison_column_names <- colnames(Table_4.24)[grepl("_2", colnames(Table_4.24))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1462,18 +1837,28 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.25: Experiences of discrimination and harassment by gender, age and deprivation
 ### Row percentages, Adults
+### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.25)) {
 Table_4.25 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.25))) > 0) {
+colnames(Table_4.25) <- gsub("%", "\\\\%", colnames(Table_4.25))
 main_column_names <- colnames(Table_4.25)[!grepl("_2", colnames(Table_4.25))]
 significance_column_names <- colnames(Table_4.25)[grepl("_sig", colnames(Table_4.25))]
 
@@ -1486,13 +1871,17 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.25 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.25))) > 0) {
 comparison_column_names <- colnames(Table_4.25)[grepl("_2", colnames(Table_4.25))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1504,18 +1893,28 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 `Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#C3C3FF", `Yes Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition
 ### Row percentages, Adults
+### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.26)) {
 Table_4.26 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.26))) > 0) {
+colnames(Table_4.26) <- gsub("%", "\\\\%", colnames(Table_4.26))
 main_column_names <- colnames(Table_4.26)[!grepl("_2", colnames(Table_4.26))]
 significance_column_names <- colnames(Table_4.26)[grepl("_sig", colnames(Table_4.26))]
 
@@ -1528,13 +1927,17 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.26 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.26))) > 0) {
 comparison_column_names <- colnames(Table_4.26)[grepl("_2", colnames(Table_4.26))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1546,6 +1949,9 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 `Yes Harassment` = cell_spec(`Yes Harassment`, "latex", background = case_when(`Yes Harassment_sig` == "HIGHER" ~ "#C3C3FF", `Yes Harassment_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.27: Reasons for discrimination and harassment
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -1556,43 +1962,56 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.28)) {
 Table_4.28 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.28))) > 0) {
+colnames(Table_4.28) <- gsub("%", "\\\\%", colnames(Table_4.28))
 main_column_names <- colnames(Table_4.28)[!grepl("_2", colnames(Table_4.28))]
 significance_column_names <- colnames(Table_4.28)[grepl("_sig", colnames(Table_4.28))]
 
 Table_4.28 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.28 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.28))) > 0) {
 comparison_column_names <- colnames(Table_4.28)[grepl("_2", colnames(Table_4.28))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.28 %>% select(tidyselect::all_of(colnames(Table_4.28)[!colnames(Table_4.28) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1601,11 +2020,17 @@ mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", b
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_4.29)) {
 Table_4.29 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.29))) > 0) {
+colnames(Table_4.29) <- gsub("%", "\\\\%", colnames(Table_4.29))
 main_column_names <- colnames(Table_4.29)[!grepl("_2", colnames(Table_4.29))]
 significance_column_names <- colnames(Table_4.29)[grepl("_sig", colnames(Table_4.29))]
 
@@ -1614,19 +2039,23 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 `Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_4.29 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_4.29))) > 0) {
 comparison_column_names <- colnames(Table_4.29)[grepl("_2", colnames(Table_4.29))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -1636,8 +2065,11 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 `Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```

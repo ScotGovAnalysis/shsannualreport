@@ -102,11 +102,17 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Figure_7.1)) {
 Figure_7.1 %>%
-kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_7.1))) > 0) {
+colnames(Figure_7.1) <- gsub("%", "\\\\%", colnames(Figure_7.1))
 main_column_names <- colnames(Figure_7.1)[!grepl("_2", colnames(Figure_7.1))]
 significance_column_names <- colnames(Figure_7.1)[grepl("_sig", colnames(Figure_7.1))]
 
@@ -127,13 +133,17 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+Figure_7.1 %>%
+kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_7.1))) > 0) {
 comparison_column_names <- colnames(Figure_7.1)[grepl("_2", colnames(Figure_7.1))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -153,6 +163,9 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Figure 7.2: Households with home internet access by net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -176,11 +189,17 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Figure_7.7)) {
 Figure_7.7 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_7.7))) > 0) {
+colnames(Figure_7.7) <- gsub("%", "\\\\%", colnames(Figure_7.7))
 main_column_names <- colnames(Figure_7.7)[!grepl("_2", colnames(Figure_7.7))]
 significance_column_names <- colnames(Figure_7.7)[grepl("_sig", colnames(Figure_7.7))]
 
@@ -195,13 +214,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Figure_7.7 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Figure_7.7))) > 0) {
 comparison_column_names <- colnames(Figure_7.7)[grepl("_2", colnames(Figure_7.7))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -215,6 +238,9 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Figure 7.8: Use of internet by age
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -241,11 +267,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_7.2)) {
 Table_7.2 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.2))) > 0) {
+colnames(Table_7.2) <- gsub("%", "\\\\%", colnames(Table_7.2))
 main_column_names <- colnames(Table_7.2)[!grepl("_2", colnames(Table_7.2))]
 significance_column_names <- colnames(Table_7.2)[grepl("_sig", colnames(Table_7.2))]
 
@@ -260,13 +292,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_7.2 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.2))) > 0) {
 comparison_column_names <- colnames(Table_7.2)[grepl("_2", colnames(Table_7.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -280,6 +316,9 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 7.3: Smart appliances in the house by area deprivation
 ### Column percentages, Households
@@ -288,11 +327,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison == FALSE)}
+if (!is.null(Table_7.3)) {
 Table_7.3 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_7.3))) > 0) {
+colnames(Table_7.3) <- gsub("%", "\\\\%", colnames(Table_7.3))
 main_column_names <- colnames(Table_7.3)[!grepl("_2", colnames(Table_7.3))]
 significance_column_names <- colnames(Table_7.3)[grepl("_sig", colnames(Table_7.3))]
 
@@ -302,13 +347,17 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_7.3 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison}
+if (length(grep("_2", colnames(Table_7.3))) > 0) {
 comparison_column_names <- colnames(Table_7.3)[grepl("_2", colnames(Table_7.3))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -317,6 +366,9 @@ rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 7.4: Which methods are used to access the internet for personal use by age
 ### Column percentages, Adults
@@ -325,11 +377,17 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_7.4)) {
 Table_7.4 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.4))) > 0) {
+colnames(Table_7.4) <- gsub("%", "\\\\%", colnames(Table_7.4))
 main_column_names <- colnames(Table_7.4)[!grepl("_2", colnames(Table_7.4))]
 significance_column_names <- colnames(Table_7.4)[grepl("_sig", colnames(Table_7.4))]
 
@@ -344,13 +402,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_7.4 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.4))) > 0) {
 comparison_column_names <- colnames(Table_7.4)[grepl("_2", colnames(Table_7.4))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -364,6 +426,9 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 7.5: Reasons for using the internet by tenure
 ### Column percentages, Adults
@@ -372,11 +437,17 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_7.5)) {
 Table_7.5 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.5))) > 0) {
+colnames(Table_7.5) <- gsub("%", "\\\\%", colnames(Table_7.5))
 main_column_names <- colnames(Table_7.5)[!grepl("_2", colnames(Table_7.5))]
 significance_column_names <- colnames(Table_7.5)[grepl("_sig", colnames(Table_7.5))]
 
@@ -389,13 +460,17 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_7.5 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.5))) > 0) {
 comparison_column_names <- colnames(Table_7.5)[grepl("_2", colnames(Table_7.5))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -407,6 +482,9 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 7.6: Percentage of confident users by tenure
 ### Column percentages, Adults
@@ -415,11 +493,17 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(Table_7.6)) {
 Table_7.6 %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", escape = TRUE, booktabs = T)
+ } else {
+        asis_output("### There is no data to show for this table within the specified parameters")
+      }
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.6))) > 0) {
+colnames(Table_7.6) <- gsub("%", "\\\\%", colnames(Table_7.6))
 main_column_names <- colnames(Table_7.6)[!grepl("_2", colnames(Table_7.6))]
 significance_column_names <- colnames(Table_7.6)[grepl("_sig", colnames(Table_7.6))]
 
@@ -432,13 +516,17 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
 kable("latex", escape = FALSE, booktabs = T)
+} else {
+Table_7.6 %>%
+kable("latex", escape = TRUE, booktabs = T)
+}
 ```
-
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (length(grep("_2", colnames(Table_7.6))) > 0) {
 comparison_column_names <- colnames(Table_7.6)[grepl("_2", colnames(Table_7.6))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
@@ -450,6 +538,9 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
+} else {
+asis_output("### There is no data to show for this table within the specified parameters")
+}
 ```
 ## Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online
 ### Base numbers at local authority level are too small to produce robust analysis.

@@ -1722,10 +1722,6 @@ server <- function(input, output, session) {
 
         tmp_report <- paste0(tmp_dir, "/", id, ".pdf")
 
-        # print(tmp_report)
-
-        # file.copy(c("reports/topic_2.Rmd", "www/SG_master_logo_RGB.jpg"), tmp_dir, overwrite = TRUE)
-
         progress <- shiny::Progress$new()
 
         on.exit(progress$close())

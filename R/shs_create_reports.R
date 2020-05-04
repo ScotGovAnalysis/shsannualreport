@@ -202,17 +202,23 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
 ### `r main_table_title`
 
 ```{r eval=(", markdown_comparator, " == FALSE)}\n",
+                         "if (!is.null(", question_id_underscore, ")) {\n",
                          question_id_underscore, " %>%
-kable(\"latex\", escape = FALSE, booktabs = T)")
+kable(\"latex\", escape = TRUE, booktabs = T)")
 
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-          }
+        }
 
-        string <- paste0(string, "\n```
+        string <- paste0(string, "\n } else {
+        asis_output(\"### There is no data to show for this table within the specified parameters\")
+      }
+```
 
 ```{r eval=", markdown_comparator, "}
+if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
+colnames(", question_id_underscore, ") <- gsub(\"%\", \"\\\\\\\\%\", colnames(", question_id_underscore, "))
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 significance_column_names <- colnames(", question_id_underscore, ")[grepl(\"_sig\", colnames(", question_id_underscore, "))]
 
@@ -220,6 +226,8 @@ significance_column_names <- colnames(", question_id_underscore, ")[grepl(\"_sig
 mutate(")
 
         for (significance_column_name in significance_column_names) {
+
+          significance_column_name <- gsub("%", "\\\\\\\\%", significance_column_name)
 
           append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name,
                                   "`, \"latex\", background = case_when(`", significance_column_name,
@@ -240,13 +248,22 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
 
-        string <- paste0(string, "\n```
+        string <- paste0(string, "
+} else {
+", question_id_underscore, " %>%
+kable(\"latex\", escape = TRUE, booktabs = T)")
 
+if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
+
+  string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+}
+        string <- paste0(string, "\n}\n```
 ```{r eval=", markdown_comparator, "}
 asis_output(paste0(\"### \", comparison_table_title))
 ```
 
 ```{r eval=", markdown_comparator, "}
+if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 comparison_column_names <- colnames(", question_id_underscore, ")[grepl(\"_2\", colnames(", question_id_underscore, "))]
 comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
@@ -257,7 +274,12 @@ mutate("
 
         for (significance_column_name in significance_column_names) {
 
-          append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name, "`, \"latex\", background = case_when(`", significance_column_name, "_sig` == \"HIGHER\" ~ \"#C3C3FF\", `", significance_column_name, "_sig` == \"LOWER\" ~ \"#00A3A3\", TRUE ~ \"#FFFFFF\")),\n")
+          significance_column_name <- gsub("%", "\\\\\\\\%", significance_column_name)
+
+          append_string <- paste0("`", significance_column_name, "` = cell_spec(`", significance_column_name,
+                                  "`, \"latex\", background = case_when(`", significance_column_name,
+                                  "_sig` == \"HIGHER\" ~ \"#C3C3FF\", `", significance_column_name,
+                                  "_sig` == \"LOWER\" ~ \"#00A3A3\", TRUE ~ \"#FFFFFF\")),\n")
 
           string <- paste0(string, append_string)
 
@@ -273,7 +295,10 @@ mutate("
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
       }
 
-      string <- paste0(string, "\n```\n")
+      string <- paste0(string, "\n} else {
+asis_output(\"### There is no data to show for this table within the specified parameters\")
+}
+```\n")
       }
 
       if (type == 4) {
