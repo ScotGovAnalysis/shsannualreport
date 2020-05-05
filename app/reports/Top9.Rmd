@@ -126,7 +126,7 @@ Figure_9.1_Table_9.1 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -153,7 +153,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.2: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
@@ -198,7 +198,7 @@ Table_9.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -225,7 +225,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.3: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by Urban Rural Classification
@@ -266,7 +266,7 @@ Table_9.3 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -289,7 +289,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.4: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by Scottish Index of Multiple Deprivation
@@ -314,11 +314,11 @@ main_column_names <- colnames(Table_9.4)[!grepl("_2", colnames(Table_9.4))]
 significance_column_names <- colnames(Table_9.4)[grepl("_sig", colnames(Table_9.4))]
 
 Table_9.4 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -328,7 +328,7 @@ Table_9.4 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -342,15 +342,15 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_9.4 %>% select(tidyselect::all_of(colnames(Table_9.4)[!colnames(Table_9.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.5: Percentage of service users very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
@@ -395,7 +395,7 @@ Table_9.5 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -422,7 +422,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Figure 9.2: Percentage agreeing with various statements about local authority services and performances
@@ -462,7 +462,7 @@ Figure_9.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -485,7 +485,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.6: Percentage of people who agree with the statement 'I can influence decisions affecting my local area' by year
@@ -529,7 +529,7 @@ Table_9.6 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -556,7 +556,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 9.7: Percentage agreeing with various statements about local council services by year
@@ -600,7 +600,7 @@ Table_9.7 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -627,7 +627,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Figure 9.3: Percentage agreeing with various statements about local council services by age
@@ -665,7 +665,7 @@ Figure_9.3 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -685,7 +685,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Figure 9.4: Percentage agreeing with various statements about local council services by Scottish Index of Multiple Deprivation (SIMD)
@@ -711,11 +711,11 @@ main_column_names <- colnames(Figure_9.4)[!grepl("_2", colnames(Figure_9.4))]
 significance_column_names <- colnames(Figure_9.4)[grepl("_sig", colnames(Figure_9.4))]
 
 Figure_9.4 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -725,7 +725,7 @@ Figure_9.4 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -739,14 +739,14 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_9.4 %>% select(tidyselect::all_of(colnames(Figure_9.4)[!colnames(Figure_9.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```

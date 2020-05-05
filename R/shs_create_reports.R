@@ -288,7 +288,7 @@ if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 
         string <- paste0(string, "
 }
 } else {
-  asis_output(\"### There is no data to show for this table within the specified parameters\")
+  asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
 ```
 ```{r eval=", markdown_comparator, "}
@@ -334,7 +334,7 @@ mutate("
       }
 
       string <- paste0(string, "\n} else {
-asis_output(\"### There is no data to show for this table within the specified parameters\")
+asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
 ```\n")
       }

@@ -173,7 +173,7 @@ Figure_3.1 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -210,7 +210,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.1: Tenure of household by year
@@ -264,7 +264,7 @@ Table_3.1 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -301,7 +301,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.1b: Households by tenure and year
@@ -384,7 +384,7 @@ Figure_3.2 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -421,7 +421,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Figure 3.3: Tenure of households by year (HIH aged 16 to 34)
@@ -477,7 +477,7 @@ Figure_3.4 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -514,7 +514,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Figure 3.5: Tenure of households by year (HIH aged 60 plus)
@@ -568,7 +568,7 @@ Figure_3.5 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -605,7 +605,7 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.2a: Housing characteristics by tenure - Dwelling type
@@ -643,7 +643,7 @@ Table_3.2a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -664,7 +664,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.2b: Housing characteristics by tenure - SIMD
@@ -702,7 +702,7 @@ Table_3.2b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -723,7 +723,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.2c: Housing characteristics by tenure - Urban / Rural Classification
@@ -761,7 +761,7 @@ Table_3.2c %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -782,7 +782,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.2d: Housing characteristics by tenure - Number of bedrooms
@@ -820,7 +820,7 @@ Table_3.2d %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -841,7 +841,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3a: Household characteristics by tenure - Number of people in household
@@ -880,7 +880,7 @@ Table_3.3a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -901,7 +901,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3b: Household characteristics by tenure - Household composition
@@ -940,7 +940,7 @@ Table_3.3b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -961,7 +961,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3c: Household characteristics by tenure - Age
@@ -999,7 +999,7 @@ Table_3.3c %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1020,7 +1020,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3d: Household characteristics by tenure - Number of cars
@@ -1059,7 +1059,7 @@ Table_3.3d %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1080,7 +1080,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3e: Household characteristics by tenure - Net household income
@@ -1118,7 +1118,7 @@ Table_3.3e %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1139,7 +1139,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.3f: How well household is managing financially
@@ -1178,7 +1178,7 @@ Table_3.3f %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1199,7 +1199,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.4a: Adult characteristics by tenure - Ethnicity
@@ -1237,7 +1237,7 @@ Table_3.4a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1258,7 +1258,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.4b: Adult characteristics by tenure - Economic situation
@@ -1296,7 +1296,7 @@ Table_3.4b %>%
 kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1317,7 +1317,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.4c: Adult characteristics by tenure - Length of time at current address
@@ -1355,7 +1355,7 @@ Table_3.4c %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1376,7 +1376,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.4d: Adult characteristics by tenure - Tenure of previous address
@@ -1421,7 +1421,7 @@ Table_3.5a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1442,7 +1442,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.5b: Views on housing aspirations, by tenure - When the household expects to move
@@ -1481,7 +1481,7 @@ Table_3.5b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1502,7 +1502,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.6a: Views on housing aspirations, by tenure - Accommodation householder would like to live in
@@ -1541,7 +1541,7 @@ Table_3.6a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1562,7 +1562,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.6b: Compared to current accommodation, the size of property householder would most like to live in
@@ -1601,7 +1601,7 @@ Table_3.6b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1622,7 +1622,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.6c: Barriers to moving to the accommodation the householder would most like to live i
@@ -1665,7 +1665,7 @@ Figure_3.6 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -1689,7 +1689,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.7a: Views on neighbourhood and housing aspirations, by tenure - Rating of neighbourhood as a place to live
@@ -1727,7 +1727,7 @@ Table_3.7a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1748,7 +1748,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.7b: Views on neighbourhoods and housing aspirations, by tenure - Strength of belonging to immediate neighbourhood
@@ -1786,7 +1786,7 @@ Table_3.7b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1807,7 +1807,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.7c: Views on neighbourhoods and housing aspirations, by tenure - Housing satisfaction
@@ -1845,7 +1845,7 @@ Table_3.7c %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1866,7 +1866,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.8: Households renting privately – information on landlord / letting agents and deposits
@@ -1907,7 +1907,7 @@ Table_3.9a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1928,7 +1928,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.9b: Limiting activities by tenure - What about the home limits activities that can be done
@@ -1973,7 +1973,7 @@ Table_3.10a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -1994,7 +1994,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.10b: Housing adaptations and support - Services that household members currently receive
@@ -2032,7 +2032,7 @@ Table_3.10b %>%
 kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -2053,7 +2053,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.11a: Households on a housing list by tenure - Whether household is on a housing list
@@ -2092,7 +2092,7 @@ Table_3.11a %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -2113,7 +2113,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.11b: Households on a housing list by tenure - If not on a housing list, whether household has applied for social housing under a choice-based letting scheme, or similar, in the last year
@@ -2152,7 +2152,7 @@ Table_3.11b %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison}
@@ -2173,7 +2173,7 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.11c: Households on a housing list by tenure - The number of housing lists that households are on (households on a list)
@@ -2219,7 +2219,7 @@ Table_3.12 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -2242,7 +2242,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.13: Households on housing lists
@@ -2282,7 +2282,7 @@ Table_3.13 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters")
+  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ```{r eval=eval_comparison_time_series}
@@ -2305,7 +2305,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
-asis_output("### There is no data to show for this table within the specified parameters")
+asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
 ## Table 3.14: Urban Rural Location of Private Rented Households, by year

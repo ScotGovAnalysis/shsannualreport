@@ -101,6 +101,15 @@ shs_shiny_variables <- function() {
       file = save_file_path,
       append = TRUE)
 
+  cat("years <- c(\"2018\",
+                  \"2017\",
+                  \"2016\",
+                  \"2015\",
+                  \"2014\",
+                  \"2013\")\n\n",
+      file = save_file_path,
+      append = TRUE)
+
   select_topic_string <- "select_list_topics <- c("
 
   counter = 2
