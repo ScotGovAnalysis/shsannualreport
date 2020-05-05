@@ -1,8 +1,6 @@
 # main_table_string ####
 main_table_string <- function(question_type, year_present) {
 
-  print("main_table_string")
-
   if (question_type == "0" | year_present == FALSE) {
 
     "table_main <- NULL"
@@ -19,8 +17,6 @@ main_table_string <- function(question_type, year_present) {
 
 # comparison_table_string ####
 comparison_table_string <- function(comparison_type, question_type, column_variables) {
-
-  print("comparison_table_string")
 
   if (question_type %in% c("1", "4")) {
 
@@ -74,8 +70,6 @@ comparison_table_string <- function(comparison_type, question_type, column_varia
 # merge_string ####
 merge_string <- function(question_type, merge_by, row_variable, column_variables) {
 
-  print("merge_string")
-
   if (question_type %in% c("1", "2", "3")) {
 
     merge_string <- paste0("table <- merge(table_main, table_comparison, by = ", merge_by, ") %>%
@@ -105,15 +99,11 @@ merge_string <- function(question_type, merge_by, row_variable, column_variables
 # remove_significance_string ####
 remove_significance_string <- function(row_variable) {
 
-  print("remove_significance_string")
-
   paste0("table[table$`", row_variable, "` == 'All' | table$`", row_variable, "` == 'Base', colnames(table)[grep('_sig', colnames(table))]] <- \"NO\"")
 }
 
 # arrange_select_mutate_string ####
 arrange_select_mutate_string <- function(comparison_type, question_type, row_variable, column_variables, year_present, comparison_year_present) {
-
-  print("arrange_select_mutate_string")
 
   if (question_type == "0" | year_present == FALSE) {
 

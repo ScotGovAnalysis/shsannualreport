@@ -220,7 +220,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 10.3: Percentage of adults perceiving that 'Climate change is an immediate and urgent problem' by area deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Base sizes are too small for breakdown by area deprivation. See Figure 10.1 for breakdown by year
-## Table 10.2: 'It’s not worth me doing things to help the environment if others don’t do the same”
+## Table 10.2: 'It's not worth me doing things to help the environment if others don't do the same'
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
@@ -278,7 +278,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-## Table 10.3: 'I don’t believe my behaviour and everyday lifestyle contribute to climate change'
+## Table 10.3: 'I don't believe my behaviour and everyday lifestyle contribute to climate change'
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
