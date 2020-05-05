@@ -487,11 +487,11 @@ main_column_names <- colnames(Table_12.5_Figure_12.4)[!grepl("_2", colnames(Tabl
 significance_column_names <- colnames(Table_12.5_Figure_12.4)[grepl("_sig", colnames(Table_12.5_Figure_12.4))]
 
 Table_12.5_Figure_12.4 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -515,11 +515,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_12.5_Figure_12.4 %>% select(tidyselect::all_of(colnames(Table_12.5_Figure_12.4)[!colnames(Table_12.5_Figure_12.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -550,10 +550,10 @@ main_column_names <- colnames(Table_12.6_Figure_12.5)[!grepl("_2", colnames(Tabl
 significance_column_names <- colnames(Table_12.6_Figure_12.5)[grepl("_sig", colnames(Table_12.6_Figure_12.5))]
 
 Table_12.6_Figure_12.5 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`GBP0 - GBP10,000` = cell_spec(`GBP0 - GBP10,000`, "latex", background = case_when(`GBP0 - GBP10,000_sig` == "HIGHER" ~ "#00A3A3", `GBP0 - GBP10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`GBP10,001 to GBP20,000` = cell_spec(`GBP10,001 to GBP20,000`, "latex", background = case_when(`GBP10,001 to GBP20,000_sig` == "HIGHER" ~ "#00A3A3", `GBP10,001 to GBP20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`GBP20,001 to GBP30,000` = cell_spec(`GBP20,001 to GBP30,000`, "latex", background = case_when(`GBP20,001 to GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `GBP20,001 to GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `Over GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#00A3A3", `£0 - £10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#00A3A3", `£10,001 to £20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#00A3A3", `£20,001 to £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#00A3A3", `Over £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -577,10 +577,10 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_12.6_Figure_12.5 %>% select(tidyselect::all_of(colnames(Table_12.6_Figure_12.5)[!colnames(Table_12.6_Figure_12.5) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`GBP0 - GBP10,000` = cell_spec(`GBP0 - GBP10,000`, "latex", background = case_when(`GBP0 - GBP10,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP0 - GBP10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`GBP10,001 to GBP20,000` = cell_spec(`GBP10,001 to GBP20,000`, "latex", background = case_when(`GBP10,001 to GBP20,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP10,001 to GBP20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`GBP20,001 to GBP30,000` = cell_spec(`GBP20,001 to GBP30,000`, "latex", background = case_when(`GBP20,001 to GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP20,001 to GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#C3C3FF", `£0 - £10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#C3C3FF", `£10,001 to £20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#C3C3FF", `£20,001 to £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -1037,11 +1037,11 @@ main_column_names <- colnames(Table_12.13_Figure_12.9)[!grepl("_2", colnames(Tab
 significance_column_names <- colnames(Table_12.13_Figure_12.9)[grepl("_sig", colnames(Table_12.13_Figure_12.9))]
 
 Table_12.13_Figure_12.9 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1065,11 +1065,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_12.13_Figure_12.9 %>% select(tidyselect::all_of(colnames(Table_12.13_Figure_12.9)[!colnames(Table_12.13_Figure_12.9) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -1100,10 +1100,10 @@ main_column_names <- colnames(Table_12.14_Figure_12.10)[!grepl("_2", colnames(Ta
 significance_column_names <- colnames(Table_12.14_Figure_12.10)[grepl("_sig", colnames(Table_12.14_Figure_12.10))]
 
 Table_12.14_Figure_12.10 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`GBP0 - GBP10,000` = cell_spec(`GBP0 - GBP10,000`, "latex", background = case_when(`GBP0 - GBP10,000_sig` == "HIGHER" ~ "#00A3A3", `GBP0 - GBP10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`GBP10,001 to GBP20,000` = cell_spec(`GBP10,001 to GBP20,000`, "latex", background = case_when(`GBP10,001 to GBP20,000_sig` == "HIGHER" ~ "#00A3A3", `GBP10,001 to GBP20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`GBP20,001 to GBP30,000` = cell_spec(`GBP20,001 to GBP30,000`, "latex", background = case_when(`GBP20,001 to GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `GBP20,001 to GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#00A3A3", `Over GBP30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#00A3A3", `£0 - £10,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#00A3A3", `£10,001 to £20,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#00A3A3", `£20,001 to £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#00A3A3", `Over £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1127,10 +1127,10 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_12.14_Figure_12.10 %>% select(tidyselect::all_of(colnames(Table_12.14_Figure_12.10)[!colnames(Table_12.14_Figure_12.10) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`GBP0 - GBP10,000` = cell_spec(`GBP0 - GBP10,000`, "latex", background = case_when(`GBP0 - GBP10,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP0 - GBP10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`GBP10,001 to GBP20,000` = cell_spec(`GBP10,001 to GBP20,000`, "latex", background = case_when(`GBP10,001 to GBP20,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP10,001 to GBP20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`GBP20,001 to GBP30,000` = cell_spec(`GBP20,001 to GBP30,000`, "latex", background = case_when(`GBP20,001 to GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP20,001 to GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Over GBP30,000` = cell_spec(`Over GBP30,000`, "latex", background = case_when(`Over GBP30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over GBP30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case_when(`£0 - £10,000_sig` == "HIGHER" ~ "#C3C3FF", `£0 - £10,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`£10,001 to £20,000` = cell_spec(`£10,001 to £20,000`, "latex", background = case_when(`£10,001 to £20,000_sig` == "HIGHER" ~ "#C3C3FF", `£10,001 to £20,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`£20,001 to £30,000` = cell_spec(`£20,001 to £30,000`, "latex", background = case_when(`£20,001 to £30,000_sig` == "HIGHER" ~ "#C3C3FF", `£20,001 to £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {

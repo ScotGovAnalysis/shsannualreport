@@ -263,11 +263,11 @@ main_column_names <- colnames(Figure_4.1)[!grepl("_2", colnames(Figure_4.1))]
 significance_column_names <- colnames(Figure_4.1)[grepl("_sig", colnames(Figure_4.1))]
 
 Figure_4.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -291,11 +291,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_4.1 %>% select(tidyselect::all_of(colnames(Figure_4.1)[!colnames(Figure_4.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -854,11 +854,11 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#00A3A3", `Remote small towns_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#00A3A3", `Accessible rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#00A3A3", `Remote rural_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -888,11 +888,11 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Remote small towns` = cell_spec(`Remote small towns`, "latex", background = case_when(`Remote small towns_sig` == "HIGHER" ~ "#C3C3FF", `Remote small towns_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 } else {
@@ -990,11 +990,11 @@ significance_column_names <- colnames(Table_4.10)[grepl("_sig", colnames(Table_4
 Table_4.10 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#00A3A3", `Urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#00A3A3", `Rural areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1020,11 +1020,11 @@ Table_4.10 %>% select(tidyselect::all_of(colnames(Table_4.10)[!colnames(Table_4.
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(`Urban areas_sig` == "HIGHER" ~ "#C3C3FF", `Urban areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Rural areas` = cell_spec(`Rural areas`, "latex", background = case_when(`Rural areas_sig` == "HIGHER" ~ "#C3C3FF", `Rural areas_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -1172,11 +1172,11 @@ main_column_names <- colnames(Table_4.13)[!grepl("_2", colnames(Table_4.13))]
 significance_column_names <- colnames(Table_4.13)[grepl("_sig", colnames(Table_4.13))]
 
 Table_4.13 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1200,11 +1200,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.13 %>% select(tidyselect::all_of(colnames(Table_4.13)[!colnames(Table_4.13) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -1499,11 +1499,11 @@ main_column_names <- colnames(Table_4.18)[!grepl("_2", colnames(Table_4.18))]
 significance_column_names <- colnames(Table_4.18)[grepl("_sig", colnames(Table_4.18))]
 
 Table_4.18 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1527,11 +1527,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.18 %>% select(tidyselect::all_of(colnames(Table_4.18)[!colnames(Table_4.18) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`20pc most deprived` = cell_spec(`20pc most deprived`, "latex", background = case_when(`20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", background = case_when(`20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`20pc least deprived` = cell_spec(`20pc least deprived`, "latex", background = case_when(`20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`20\\% least deprived` = cell_spec(`20\\% least deprived`, "latex", background = case_when(`20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -1796,11 +1796,11 @@ main_column_names <- colnames(Table_4.22)[!grepl("_2", colnames(Table_4.22))]
 significance_column_names <- colnames(Table_4.22)[grepl("_sig", colnames(Table_4.22))]
 
 Table_4.22 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1824,11 +1824,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.22 %>% select(tidyselect::all_of(colnames(Table_4.22)[!colnames(Table_4.22) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -2102,11 +2102,11 @@ main_column_names <- colnames(Table_4.28)[!grepl("_2", colnames(Table_4.28))]
 significance_column_names <- colnames(Table_4.28)[grepl("_sig", colnames(Table_4.28))]
 
 Table_4.28 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#00A3A3", `2_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#00A3A3", `3_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#00A3A3", `4_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -2130,11 +2130,11 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.28 %>% select(tidyselect::all_of(colnames(Table_4.28)[!colnames(Table_4.28) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2` = cell_spec(`2`, "latex", background = case_when(`2_sig` == "HIGHER" ~ "#C3C3FF", `2_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `3` = cell_spec(`3`, "latex", background = case_when(`3_sig` == "HIGHER" ~ "#C3C3FF", `3_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -2168,8 +2168,8 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 `Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#00A3A3", `Social rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#00A3A3", `Private rented_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#00A3A3", `Other_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20pc most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20pc least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#00A3A3", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -2197,8 +2197,8 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 `Social rented` = cell_spec(`Social rented`, "latex", background = case_when(`Social rented_sig` == "HIGHER" ~ "#C3C3FF", `Social rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Private rented` = cell_spec(`Private rented`, "latex", background = case_when(`Private rented_sig` == "HIGHER" ~ "#C3C3FF", `Private rented_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` == "HIGHER" ~ "#C3C3FF", `Other_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`1 - 20pc most deprived` = cell_spec(`1 - 20pc most deprived`, "latex", background = case_when(`1 - 20pc most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20pc most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`5 - 20pc least deprived` = cell_spec(`5 - 20pc least deprived`, "latex", background = case_when(`5 - 20pc least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20pc least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#C3C3FF", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
