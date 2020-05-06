@@ -136,9 +136,10 @@ Figure_6.1 %>%
 kable("latex", escape = TRUE, booktabs = T) %>% column_spec(1, width = "20em") %>% kable_styling(latex_options = "scale_down")
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -170,6 +171,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Figure 6.2: How the household is managing financially by net annual household income
 ### Column percentages, Households
@@ -206,9 +208,10 @@ Figure_6.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -229,6 +232,7 @@ mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Figure 6.3: How the household is managing financially by household type
 ### Column percentages, Households
@@ -265,9 +269,10 @@ Figure_6.3 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -288,6 +293,7 @@ mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adul
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Figure 6.4: How the household is managing financially by tenure of household
 ### Row percentages, Households
@@ -324,9 +330,10 @@ Figure_6.4 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -347,6 +354,7 @@ mutate(`Does not manage well` = cell_spec(`Does not manage well`, "latex", backg
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Table 6.1: How the household is managing financially by income sources
 ### Column percentages, Households
@@ -384,9 +392,10 @@ Table_6.1 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -408,6 +417,7 @@ mutate(`Main income from earnings` = cell_spec(`Main income from earnings`, "lat
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Table 6.2: How the household is managing financially this year by gender and age of highest income householder
 ### Column percentages, Households
@@ -448,9 +458,10 @@ Table_6.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -475,6 +486,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Figure 6.5: How households were managing financially by the Scottish Index of Multiple Deprivation
 ### Column percentages, Households
@@ -513,9 +525,10 @@ Figure_6.5 %>%
 kable("latex", escape = TRUE, booktabs = T)
 }
 } else {
-  asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
+  asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+
 ```{r eval=eval_comparison}
 asis_output(paste0("### ", comparison_table_title))
 ```
@@ -538,6 +551,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 
 ## Figure 6.6: Households who manage well financially by deprivation over time
 ### Base numbers at local authority level are too small to produce robust analysis.

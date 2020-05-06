@@ -294,9 +294,10 @@ if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 
         string <- paste0(string, "
 }
 } else {
-  asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
+  asis_output(\"### There is no data to show for this table within the specified parameters.\")
 }
 ```
+
 ```{r eval=", markdown_comparator, "}
 asis_output(paste0(\"### \", comparison_table_title))
 ```
@@ -342,7 +343,7 @@ mutate("
       string <- paste0(string, "\n} else {
 asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
-```\n")
+```\n\n")
       }
 
       if (type == 4) {
@@ -414,7 +415,7 @@ writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
       counter_2 <- counter_2 + 1
     }
-  }
 close(connection)
+  }
 }
 
