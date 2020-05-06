@@ -40,17 +40,29 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Table_5.1_Figure_5.1 <- topic_data[[1]]
+
 Table_5.2 <- topic_data[[2]]
+
 Table_5.3_Figure_5.2 <- topic_data[[3]]
+
 Figure_5.3 <- topic_data[[4]]
+
 Figure_5.4 <- topic_data[[5]]
+
 Figure_5.5 <- topic_data[[6]]
+
 Figure_5.6 <- topic_data[[7]]
+
 Table_5.4 <- topic_data[[8]]
+
 Table_5.5 <- topic_data[[9]]
+
 Figure_5.7 <- topic_data[[10]]
+
 Figure_5.8 <- topic_data[[11]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -84,6 +96,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Table 5.1, Figure 5.1: Highest level of qualifications held by adults aged 16 and over by year, 2007-2018
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -164,6 +177,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 5.2: Highest level of qualification held by gender and age of adults aged 16 and over
 ### Column percentages, Adults
 
@@ -229,6 +243,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 5.3, Figure 5.2: Highest level of qualification held by adults aged 16-64 by net annual household income
 ### Column percentages, Adults
 
@@ -286,6 +301,7 @@ mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.3: Current economic situation of adults aged 16 and over
 ### Column percentages, Adults
 
@@ -345,6 +361,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.4: Adults aged 16 and over in work over time, 1999-2018
 ### Column percentages, Adults
 
@@ -424,6 +441,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.5: Current economic situation of adults aged 16-64 over time, 1999-2018
 ### Column percentages, Adults
 
@@ -503,6 +521,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.6: Current economic situation of adults aged 16-64 by gender
 ### Column percentages, Adults
 
@@ -562,6 +581,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 5.4: Current economic situation of adults aged 16-64 by highest level of qualification
 ### Column percentages, Adults
 
@@ -623,6 +643,7 @@ mutate(`Degree / professional qualification` = cell_spec(`Degree / professional 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 5.5: Current economic situation of adults aged 16-64 by long-standing limiting illness, health problem or disability
 ### Column percentages, Adults
 
@@ -647,10 +668,10 @@ significance_column_names <- colnames(Table_5.5)[grepl("_sig", colnames(Table_5.
 Table_5.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex", background = case_when(`Yes long-term condition_sig` == "HIGHER" ~ "#00A3A3", `Yes long-term condition_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No long-term condition` = cell_spec(`No long-term condition`, "latex", background = case_when(`No long-term condition_sig` == "HIGHER" ~ "#00A3A3", `No long-term condition_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`_All_inc_permsick` = cell_spec(`_All_inc_permsick`, "latex", background = case_when(`_All_inc_permsick_sig` == "HIGHER" ~ "#00A3A3", `_All_inc_permsick_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`All ('including permanently sick or disabled')` = cell_spec(`All ('including permanently sick or disabled')`, "latex", background = case_when(`All ('including permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `All ('including permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Yes ('excluding permanently sick or disabled')` = cell_spec(`Yes ('excluding permanently sick or disabled')`, "latex", background = case_when(`Yes ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `Yes ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No ('excluding permanently sick or disabled')` = cell_spec(`No ('excluding permanently sick or disabled')`, "latex", background = case_when(`No ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `No ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`_All_exc_permsick` = cell_spec(`_All_exc_permsick`, "latex", background = case_when(`_All_exc_permsick_sig` == "HIGHER" ~ "#00A3A3", `_All_exc_permsick_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`All ('excluding permanently sick or disabled')` = cell_spec(`All ('excluding permanently sick or disabled')`, "latex", background = case_when(`All ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `All ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -676,16 +697,17 @@ Table_5.5 %>% select(tidyselect::all_of(colnames(Table_5.5)[!colnames(Table_5.5)
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex", background = case_when(`Yes long-term condition_sig` == "HIGHER" ~ "#C3C3FF", `Yes long-term condition_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No long-term condition` = cell_spec(`No long-term condition`, "latex", background = case_when(`No long-term condition_sig` == "HIGHER" ~ "#C3C3FF", `No long-term condition_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`_All_inc_permsick` = cell_spec(`_All_inc_permsick`, "latex", background = case_when(`_All_inc_permsick_sig` == "HIGHER" ~ "#C3C3FF", `_All_inc_permsick_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`All ('including permanently sick or disabled')` = cell_spec(`All ('including permanently sick or disabled')`, "latex", background = case_when(`All ('including permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `All ('including permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Yes ('excluding permanently sick or disabled')` = cell_spec(`Yes ('excluding permanently sick or disabled')`, "latex", background = case_when(`Yes ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `Yes ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No ('excluding permanently sick or disabled')` = cell_spec(`No ('excluding permanently sick or disabled')`, "latex", background = case_when(`No ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `No ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`_All_exc_permsick` = cell_spec(`_All_exc_permsick`, "latex", background = case_when(`_All_exc_permsick_sig` == "HIGHER" ~ "#C3C3FF", `_All_exc_permsick_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`All ('excluding permanently sick or disabled')` = cell_spec(`All ('excluding permanently sick or disabled')`, "latex", background = case_when(`All ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `All ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.7: Number of adults aged 16 or over in paid employment by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
 
@@ -747,6 +769,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 5.8: Current economic situation of women aged 16-64 by the presence of children in the household
 ### Column percentages, Adults
 
@@ -802,3 +825,4 @@ mutate(`Yes have children` = cell_spec(`Yes have children`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+

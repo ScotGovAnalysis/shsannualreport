@@ -40,16 +40,27 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Figure_9.1_Table_9.1 <- topic_data[[1]]
+
 Table_9.2 <- topic_data[[2]]
+
 Table_9.3 <- topic_data[[3]]
+
 Table_9.4 <- topic_data[[4]]
+
 Table_9.5 <- topic_data[[5]]
+
 Figure_9.2 <- topic_data[[6]]
+
 Table_9.6 <- topic_data[[7]]
+
 Table_9.7 <- topic_data[[8]]
+
 Figure_9.3 <- topic_data[[9]]
+
 Figure_9.4 <- topic_data[[10]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -83,6 +94,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Figure 9.1, Table 9.1: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
 ### Column percentages, Adults
 ### Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
@@ -156,6 +168,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.2: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -228,6 +241,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.3: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by Urban Rural Classification
 ### Column percentages, Adults
 ### Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
@@ -292,6 +306,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.4: Percentage of people very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
 
@@ -353,6 +368,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.5: Percentage of service users very or fairly satisfied with the quality of public services delivered (local health services, local schools and public transport) by year
 ### Column percentages, Adults
 ### User of Local health services not available prior to 2017. Users of Local schools identified by whether there is a school child present in the household. Users of Public transport identified by whether the respondent has used a bus or train within the last month
@@ -425,6 +441,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 9.2: Percentage agreeing with various statements about local authority services and performances
 ### Column percentages, Adults
 
@@ -488,6 +505,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.6: Percentage of people who agree with the statement 'I can influence decisions affecting my local area' by year
 ### Column percentages, Adults
 
@@ -559,6 +577,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 9.7: Percentage agreeing with various statements about local council services by year
 ### Column percentages, Adults
 
@@ -630,6 +649,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 9.3: Percentage agreeing with various statements about local council services by age
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -688,6 +708,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 9.4: Percentage agreeing with various statements about local council services by Scottish Index of Multiple Deprivation (SIMD)
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -750,3 +771,4 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+

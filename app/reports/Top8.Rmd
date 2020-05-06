@@ -40,22 +40,39 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Table_8.1_Figure_8.1_Figure_8.2 <- topic_data[[1]]
+
 Figure_8.3 <- topic_data[[2]]
+
 Table_8.2 <- topic_data[[3]]
+
 Figure_8.4 <- topic_data[[4]]
+
 Figure_8.5 <- topic_data[[5]]
+
 Figure_8.6 <- topic_data[[6]]
+
 Figure_8.7 <- topic_data[[7]]
+
 Figure_8.8 <- topic_data[[8]]
+
 Table_8.3 <- topic_data[[9]]
+
 Figure_8.9 <- topic_data[[10]]
+
 Figure_8.10 <- topic_data[[11]]
+
 Figure_8.11 <- topic_data[[12]]
+
 Figure_8.12 <- topic_data[[13]]
+
 Figure_8.13 <- topic_data[[14]]
+
 Table_8.4 <- topic_data[[15]]
+
 Table_8.5 <- topic_data[[16]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -89,6 +106,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Table 8.1, Figure 8.1, Figure 8.2: Trends in participation in physical activity and sport in the last four weeks, 2007 to 2018
 ### Column percentages, Adults
 
@@ -160,6 +178,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.3: Trends in frequency of participation by adults who took part in physical activity and sport in the previous four weeks
 ### Column percentages, Adults
 
@@ -231,6 +250,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 8.2: Participation in physical activity and sport in the past four weeks by gender and age
 ### Column percentages, Adults
 
@@ -296,6 +316,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.4: Trends in participation in physical activity and sport (including walking) in the last four weeks by age
 ### Column percentages, Adults
 
@@ -367,6 +388,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.5: Trends in participation in any physical activity and sport (excluding walking) in the last four weeks by age
 ### Column percentages, Adults
 
@@ -438,6 +460,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.6: Trends in participation in recreational walking in the last four weeks by age
 ### Column percentages, Adults
 
@@ -509,6 +532,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.7: Participation in physical activity and sport in the past four weeks by highest level of qualification
 ### Column percentages, Adults
 
@@ -570,6 +594,7 @@ mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qu
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.8: Participation in physical activity and sport in the past four weeks by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
 
@@ -631,6 +656,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 8.3: Participation in different types of physical activity and sport in the last four weeks by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
 
@@ -692,14 +718,19 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 8.9: Participation in physical activity and sport (including walking) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Figure 8.10: Participation in physical activity and sport (excluding walking) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Figure 8.11: Participation in walking (at least 30 minutes) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Figure 8.12: Participation of none of these in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Figure 8.13: Participation in physical activity and sport in the last four weeks, by long-term physical/mental health condition
 ### Row percentages, Adults
 
@@ -757,6 +788,7 @@ mutate(`Any sport` = cell_spec(`Any sport`, "latex", background = case_when(`Any
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 8.4: Satisfaction with local authority sport and leisure facilities
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -829,6 +861,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 8.5: Satisfaction with local authority cultural and sport facilities (service users in the past 12 months only)
 ### Column percentages, Adults
 
@@ -900,3 +933,4 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+

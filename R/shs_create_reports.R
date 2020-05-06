@@ -27,10 +27,16 @@ shs_create_reports <- function() {
     number <- sub("Top", "", topic_id)
     topic_questions <- questions[questions$Topic == number,]
 
+    if (file.exists(report_file_path)) {
+
+      unlink(report_file_path)
+    }
+
     file.create(report_file_path)
 
-    cat(
-      "---
+    connection <- file(report_file_path, "wt")
+
+    string <- "---
 params:
   report_title: \"\"
   local_authority: \"\"
@@ -72,8 +78,8 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
-",
-      file = report_file_path, append = TRUE)
+"
+    writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
     counter <- 1
 
@@ -86,14 +92,13 @@ comparator <- params$comparator
       string <- paste0(question_id_underscore, " <- topic_data[[", counter, "]]
 ")
 
-      cat(string, file = report_file_path, append = TRUE)
+      writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
       counter <- counter + 1
 
     }
 
-    cat(
-      "
+    string <- "
 main_table_title <- paste0(local_authority, \", \", year)
 
 eval_comparison <- ifelse(comparison_type == \"No comparison\", FALSE, TRUE)
@@ -126,7 +131,8 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower
 ```
-", file = report_file_path, append = TRUE)
+"
+    writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
     counter_2 <- 1
 
@@ -402,11 +408,13 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
         string <- paste0(string, "\n```\n")
       }
 
-      cat(string, file = report_file_path, append = TRUE)
+writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
+
+
 
       counter_2 <- counter_2 + 1
     }
   }
-
+close(connection)
 }
 

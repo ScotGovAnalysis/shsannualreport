@@ -40,14 +40,23 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Figure_6.1 <- topic_data[[1]]
+
 Figure_6.2 <- topic_data[[2]]
+
 Figure_6.3 <- topic_data[[3]]
+
 Figure_6.4 <- topic_data[[4]]
+
 Table_6.1 <- topic_data[[5]]
+
 Table_6.2 <- topic_data[[6]]
+
 Figure_6.5 <- topic_data[[7]]
+
 Figure_6.6 <- topic_data[[8]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -81,6 +90,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Figure 6.1: How households are managing financially by year
 ### Column percentages, Households
 
@@ -160,6 +170,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 6.2: How the household is managing financially by net annual household income
 ### Column percentages, Households
 ### Excludes Refused and Don't know
@@ -218,6 +229,7 @@ mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 6.3: How the household is managing financially by household type
 ### Column percentages, Households
 ### Excludes Refused and Don't know
@@ -276,6 +288,7 @@ mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adul
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 6.4: How the household is managing financially by tenure of household
 ### Row percentages, Households
 ### Excludes Refused and Don't know
@@ -334,6 +347,7 @@ mutate(`Does not manage well` = cell_spec(`Does not manage well`, "latex", backg
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 6.1: How the household is managing financially by income sources
 ### Column percentages, Households
 ### Excludes Refused and Don't know
@@ -394,6 +408,7 @@ mutate(`Main income from earnings` = cell_spec(`Main income from earnings`, "lat
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 6.2: How the household is managing financially this year by gender and age of highest income householder
 ### Column percentages, Households
 ### Excludes Refused and Don't know
@@ -460,6 +475,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 6.5: How households were managing financially by the Scottish Index of Multiple Deprivation
 ### Column percentages, Households
 ### Excludes Refused and Don't know
@@ -522,5 +538,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 6.6: Households who manage well financially by deprivation over time
 ### Base numbers at local authority level are too small to produce robust analysis.
+

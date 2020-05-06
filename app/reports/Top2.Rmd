@@ -40,27 +40,49 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Table_2.1 <- topic_data[[1]]
+
 Table_2.2 <- topic_data[[2]]
+
 Table_2.3 <- topic_data[[3]]
+
 Figure_2.1 <- topic_data[[4]]
+
 Figure_2.2 <- topic_data[[5]]
+
 Table_2.4_Figure_2.3 <- topic_data[[6]]
+
 Table_2.5 <- topic_data[[7]]
+
 Table_2.6 <- topic_data[[8]]
+
 Figure_2.4 <- topic_data[[9]]
+
 Table_2.7 <- topic_data[[10]]
+
 Figure_2.5 <- topic_data[[11]]
+
 Table_2.8 <- topic_data[[12]]
+
 Table_2.9 <- topic_data[[13]]
+
 Table_2.10 <- topic_data[[14]]
+
 Table_2.11 <- topic_data[[15]]
+
 Table_2.12 <- topic_data[[16]]
+
 Table_2.13 <- topic_data[[17]]
+
 Table_2.14 <- topic_data[[18]]
+
 Table_2.15 <- topic_data[[19]]
+
 Table_2.16 <- topic_data[[20]]
+
 Table_2.17 <- topic_data[[21]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -94,6 +116,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Table 2.1: Age of all household members by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -160,6 +183,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.2: Gender of all household members by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -226,6 +250,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.3: All household members with a long-term physical or mental health condition by year
 ### Column percentages, Adults
 ### This question was changed in 2014, so this data is no longer comparable with previous years. Therefore, 2013 data is not presented here.
@@ -289,6 +314,7 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 2.1: Age of adults by year
 ### Column percentages, Adults
 
@@ -368,6 +394,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 2.2: Gender of adults by year
 ### Column percentages, Adults
 
@@ -447,6 +474,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.4, Figure 2.3: Adults with a long-term physical or mental health condition by year
 ### Column percentages, Adults
 ### The question asked in its current form was introduced in 2012 and so not directly comparable with the previous years
@@ -514,6 +542,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.5: Ethnicity of adults by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -578,6 +607,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.6: Economic status of all adults aged 16-64
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -634,6 +664,7 @@ mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`A
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 2.4: Economic status of adults by year - selected groups
 ### Column percentages, Adults
 
@@ -713,6 +744,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.7: Sexual orientation of adults by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -781,6 +813,7 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 2.5: Religious belonging of adults by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -851,6 +884,7 @@ mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.8: Marital status of adults by year
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -915,6 +949,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.9: Current marital status of adults by age
 ### Column percentages, Adults
 
@@ -978,6 +1013,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.10: Age of adults by marital status
 ### Row percentages, Adults
 
@@ -1041,6 +1077,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.11: Household type of households by year
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -1107,6 +1144,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.12: Households with children by year
 ### Column percentages, Households
 
@@ -1172,6 +1210,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.13: Property type of households by year
 ### Column percentages, Households
 
@@ -1237,6 +1276,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.14: Tenure of households by year
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -1303,6 +1343,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.15: Scottish Index of Multiple Deprivation of households by year
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -1369,6 +1410,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.16: Urban rural split of households by year
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
@@ -1435,6 +1477,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 2.17: Household income of households by year
 ### Column percentages, Households
 
@@ -1500,3 +1543,4 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+

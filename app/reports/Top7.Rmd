@@ -40,29 +40,53 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Figure_7.1 <- topic_data[[1]]
+
 Figure_7.2 <- topic_data[[2]]
+
 Figure_7.3 <- topic_data[[3]]
+
 Figure_7.4 <- topic_data[[4]]
+
 Figure_7.5 <- topic_data[[5]]
+
 Figure_7.6 <- topic_data[[6]]
+
 Figure_7.7 <- topic_data[[7]]
+
 Figure_7.8 <- topic_data[[8]]
+
 Table_7.1 <- topic_data[[9]]
+
 Figure_7.9 <- topic_data[[10]]
+
 Figure_7.10 <- topic_data[[11]]
+
 Figure_7.11 <- topic_data[[12]]
+
 Figure_7.12 <- topic_data[[13]]
+
 Table_7.2 <- topic_data[[14]]
+
 Table_7.3 <- topic_data[[15]]
+
 Table_7.4 <- topic_data[[16]]
+
 Table_7.5 <- topic_data[[17]]
+
 Table_7.6 <- topic_data[[18]]
+
 Table_7.7 <- topic_data[[19]]
+
 Table_7.8 <- topic_data[[20]]
+
 Table_7.9 <- topic_data[[21]]
+
 Table_7.10 <- topic_data[[22]]
+
 Table_7.11 <- topic_data[[23]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -96,6 +120,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Figure 7.1: Households with home internet access by year
 ### Column percentages, Households
 
@@ -171,21 +196,27 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 7.2: Households with home internet access by net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
 ## Figure 7.3: Households with home internet access by year and net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
 ## Figure 7.4: Households with home internet access by SIMD and year
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
 ## Figure 7.5: Households with home internet access by tenure
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
 ## Figure 7.6: Households with home internet access by Urban Rural classification
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
 ## Figure 7.7: Use of internet over time and by age
 ### Column percentages, NA
 ### Base numbers prevent breakdown by age at local authority level
@@ -250,24 +281,31 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 7.8: Use of internet by age
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Table 7.1: Use of the internet by whether has a long-standing limiting illness, health problem or disability and age
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Figure 7.9: Use of the internet by net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Figure 7.10: Use of the internet by year and net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Figure 7.11: Use of the internet by area deprivation level
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Figure 7.12: Use of internet by tenure
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
 ## Table 7.2: Where adults who use the internet access it for personal use
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by age at local authority level. Columns may not add up to 100 per cent as multiple responses were allowed
@@ -332,6 +370,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 7.3: Smart appliances in the house by area deprivation
 ### Column percentages, Households
 ### Base numbers prevent breakdown by deprivation at local authority level. Question first asked in 2018
@@ -386,6 +425,7 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 7.4: Which methods are used to access the internet for personal use by age
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by age at local authority level. Columns may not add up to 100 per cent as multiple responses were allowed
@@ -450,6 +490,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 7.5: Reasons for using the internet by tenure
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple reponses were allowed. This option was only included from 2018
@@ -510,6 +551,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 7.6: Percentage of confident users by tenure
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple responses were allowed.
@@ -570,13 +612,19 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Table 7.8: Use of public services on the internet in the past 12 months (internet users)
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Table 7.9: Satisfaction with quality of public service websites
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Table 7.10: Online security measures by age and deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
 ## Table 7.11: Impact of security concerns on internet use by age and physical or mental health condition
 ### Base numbers at local authority level are too small to produce robust analysis.
+

@@ -40,27 +40,49 @@ topic_data <- params$topic_data
 comparison_type <- params$comparison_type
 comparator <- params$comparator
 
+
 Figure_12.1 <- topic_data[[1]]
+
 Table_12.1 <- topic_data[[2]]
+
 Figure_12.2 <- topic_data[[3]]
+
 Table_12.2 <- topic_data[[4]]
+
 Table_12.3 <- topic_data[[5]]
+
 Table_12.4_Figure_12.3 <- topic_data[[6]]
+
 Table_12.5_Figure_12.4 <- topic_data[[7]]
+
 Table_12.6_Figure_12.5 <- topic_data[[8]]
+
 Table_12.7_Figure_12.6 <- topic_data[[9]]
+
 Table_12.8 <- topic_data[[10]]
+
 Table_12.9 <- topic_data[[11]]
+
 Figure_12.7 <- topic_data[[12]]
+
 Table_12.10 <- topic_data[[13]]
+
 Table_12.11 <- topic_data[[14]]
+
 Table_12.12_Figure_12.8 <- topic_data[[15]]
+
 Table_12.13_Figure_12.9 <- topic_data[[16]]
+
 Table_12.14_Figure_12.10 <- topic_data[[17]]
+
 Table_12.15_Figure_12.11 <- topic_data[[18]]
+
 Table_12.16 <- topic_data[[19]]
+
 Table_12.17 <- topic_data[[20]]
+
 Table_12.18 <- topic_data[[21]]
+
 
 main_table_title <- paste0(local_authority, ", ", year)
 
@@ -94,6 +116,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+
 ## Figure 12.1: Cultural engagement by adults in the last 12 months by year
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2018
@@ -160,6 +183,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.1: Attendance at any cultural event and visiting place of culture in the last 12 months by year
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
@@ -226,6 +250,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 12.2: Attendance at cultural events and visiting places of culture in the last 12 months in 2018
 ### Column percentages, Adults
 ### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
@@ -280,6 +305,7 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.2: Attendance at cultural events and visiting places of culture in the last 12 months by gender
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -341,6 +367,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.3: Attendance at cultural events and visiting places of culture in the last 12 months by age
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -400,6 +427,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.4, Figure 12.3: Attendance at cultural events and visiting places of culture in the last 12 months by highest qualification level
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -463,6 +491,7 @@ mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qu
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.5, Figure 12.4: Attendance at cultural events and visiting places of culture in the last 12 months by area deprivation
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -526,6 +555,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.6, Figure 12.5: Attendance at cultural events and visiting places of culture in the last 12 months by net annual household income
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -587,6 +617,7 @@ mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.7, Figure 12.6: Attendance at cultural events and visiting places of culture in the last 12 months by long-term physical/mental health condition
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -648,6 +679,7 @@ mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.8: Frequency of attending cultural events and visiting places of culture in the last 12 months
 ### Row percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -709,6 +741,7 @@ mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", backg
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.9: Participation in any cultural activity in the last 12 months by year
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
@@ -775,6 +808,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Figure 12.7: Participation in cultural activities in the last 12 months in 2018
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -830,6 +864,7 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.10: Participation in cultural activities in the last 12 months by gender
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -891,6 +926,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.11: Participation in cultural activities in the last 12 months by age
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -950,6 +986,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.12, Figure 12.8: Participation in cultural activities in the last 12 months by highest level of qualification
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -1013,6 +1050,7 @@ mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qu
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.13, Figure 12.9: Participation in cultural events and visiting places of culture in the last 12 months by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -1076,6 +1114,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.14, Figure 12.10: Participation in cultural events and visiting places of culture in the last 12 months by net annual household income
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -1137,6 +1176,7 @@ mutate(`£0 - £10,000` = cell_spec(`£0 - £10,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.15, Figure 12.11: Participation in cultural activities in the last 12 months by long-term physical/mental health condition physical/mental health condition
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -1198,6 +1238,7 @@ mutate(`Yes, long term major reduced daily capacity` = cell_spec(`Yes, long term
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.16: Frequency of participating in cultural activities in the last 12 months
 ### Row percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
@@ -1259,6 +1300,7 @@ mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", backg
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.17: Satisfaction with local authority culture facilities.
 ### Column percentages, Adults
 
@@ -1330,6 +1372,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
 ## Table 12.18: Satisfaction with local authority culture facilities; service users in the past year only
 ### Column percentages, Adults
 
@@ -1401,3 +1444,4 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
+
