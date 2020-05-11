@@ -96,6 +96,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+\pagebreak
 
 ## Table 5.1, Figure 5.1: Highest level of qualifications held by adults aged 16 and over by year, 2007-2018
 ### Column percentages, Adults
@@ -178,7 +179,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 5.2: Highest level of qualification held by gender and age of adults aged 16 and over
 ### Column percentages, Adults
@@ -246,7 +247,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 5.3, Figure 5.2: Highest level of qualification held by adults aged 16-64 by net annual household income
 ### Column percentages, Adults
@@ -306,7 +307,7 @@ mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.3: Current economic situation of adults aged 16 and over
 ### Column percentages, Adults
@@ -368,7 +369,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.4: Adults aged 16 and over in work over time, 1999-2018
 ### Column percentages, Adults
@@ -450,7 +451,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.5: Current economic situation of adults aged 16-64 over time, 1999-2018
 ### Column percentages, Adults
@@ -532,7 +533,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.6: Current economic situation of adults aged 16-64 by gender
 ### Column percentages, Adults
@@ -594,7 +595,7 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 5.4: Current economic situation of adults aged 16-64 by highest level of qualification
 ### Column percentages, Adults
@@ -658,7 +659,7 @@ mutate(`Degree / professional qualification` = cell_spec(`Degree / professional 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 5.5: Current economic situation of adults aged 16-64 by long-standing limiting illness, health problem or disability
 ### Column percentages, Adults
@@ -724,7 +725,7 @@ mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.7: Number of adults aged 16 or over in paid employment by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -788,7 +789,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 5.8: Current economic situation of women aged 16-64 by the presence of children in the household
 ### Column percentages, Adults
@@ -846,5 +847,5 @@ mutate(`Yes have children` = cell_spec(`Yes have children`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 

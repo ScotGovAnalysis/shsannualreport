@@ -120,6 +120,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+\pagebreak
 
 ## Figure 7.1: Households with home internet access by year
 ### Column percentages, Households
@@ -197,7 +198,7 @@ mutate(`2003/2004` = cell_spec(`2003/2004`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 7.2: Households with home internet access by net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -284,7 +285,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 7.8: Use of internet by age
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -375,7 +376,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 7.3: Smart appliances in the house by area deprivation
 ### Column percentages, Households
@@ -432,7 +433,7 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 7.4: Which methods are used to access the internet for personal use by age
 ### Column percentages, Adults
@@ -499,7 +500,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 7.5: Reasons for using the internet by tenure
 ### Column percentages, Adults
@@ -562,7 +563,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 7.6: Percentage of confident users by tenure
 ### Column percentages, Adults
@@ -625,7 +626,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online
 ### Base numbers at local authority level are too small to produce robust analysis.

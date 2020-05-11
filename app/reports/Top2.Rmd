@@ -116,6 +116,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+\pagebreak
 
 ## Table 2.1: Age of all household members by year
 ### Column percentages, Adults
@@ -184,7 +185,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.2: Gender of all household members by year
 ### Column percentages, Adults
@@ -253,7 +254,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.3: All household members with a long-term physical or mental health condition by year
 ### Column percentages, Adults
@@ -319,7 +320,7 @@ mutate(`2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 2.1: Age of adults by year
 ### Column percentages, Adults
@@ -401,7 +402,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 2.2: Gender of adults by year
 ### Column percentages, Adults
@@ -483,7 +484,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.4, Figure 2.3: Adults with a long-term physical or mental health condition by year
 ### Column percentages, Adults
@@ -553,7 +554,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.5: Ethnicity of adults by year
 ### Column percentages, Adults
@@ -620,7 +621,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.6: Economic status of all adults aged 16-64
 ### Column percentages, Adults
@@ -679,7 +680,7 @@ mutate(`All adults` = cell_spec(`All adults`, "latex", background = case_when(`A
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 2.4: Economic status of adults by year - selected groups
 ### Column percentages, Adults
@@ -761,7 +762,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.7: Sexual orientation of adults by year
 ### Column percentages, Adults
@@ -832,7 +833,7 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 2.5: Religious belonging of adults by year
 ### Column percentages, Adults
@@ -905,7 +906,7 @@ mutate(`2009/2010` = cell_spec(`2009/2010`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.8: Marital status of adults by year
 ### Column percentages, Adults
@@ -972,7 +973,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.9: Current marital status of adults by age
 ### Column percentages, Adults
@@ -1038,7 +1039,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.10: Age of adults by marital status
 ### Row percentages, Adults
@@ -1104,7 +1105,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.11: Household type of households by year
 ### Column percentages, Households
@@ -1173,7 +1174,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.12: Households with children by year
 ### Column percentages, Households
@@ -1241,7 +1242,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.13: Property type of households by year
 ### Column percentages, Households
@@ -1309,7 +1310,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.14: Tenure of households by year
 ### Column percentages, Households
@@ -1378,7 +1379,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.15: Scottish Index of Multiple Deprivation of households by year
 ### Column percentages, Households
@@ -1447,7 +1448,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.16: Urban rural split of households by year
 ### Column percentages, Households
@@ -1516,7 +1517,7 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 2.17: Household income of households by year
 ### Column percentages, Households
@@ -1584,5 +1585,5 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 

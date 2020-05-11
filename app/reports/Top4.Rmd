@@ -142,6 +142,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+\pagebreak
 
 ## Table 4.1: Rating of neighbourhood as a place to live by year
 ### Column percentages, Adults
@@ -223,7 +224,7 @@ mutate(`1999/2000` = cell_spec(`1999/2000`, "latex", background = case_when(`199
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.2: Rating of neighbourhood as a place to live by Urban Rural Classification
 ### Column percentages, Adults
@@ -281,7 +282,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 4.1: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -345,7 +346,7 @@ mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", backgro
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 4.2a: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% most deprived areas
 ### Column percentages, Adults
@@ -421,7 +422,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 4.2b: Rating of neighbourhood as a place to live by Scottish Index of Multiple Deprivation - 20% least deprived areas
 ### Column percentages, Adults
@@ -497,7 +498,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.3: Percentage of people agreeing with statements about their neighbourhood strengths
 ### Row percentages, Adults
@@ -564,7 +565,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.4: Percentage of people agreeing with statements about their neighbourhood strengths by age
 ### Column percentages, Adults
@@ -625,7 +626,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.5: Percentage of people agreeing with statements about their neighbourhood strengths by Urban Rural Classification
 ### Column percentages, Adults
@@ -692,7 +693,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.6: Percentage of people agreeing with statements about their neighbourhood strengths by tenure
 ### Column percentages, Adults
@@ -755,7 +756,7 @@ mutate(`Owner occupied` = cell_spec(`Owner occupied`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.7: Strength of feeling of belonging to community by gender, age, ethnicity and Scottish Index of Multiple Deprivation
 ### Row percentages, Adults
@@ -819,7 +820,7 @@ mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`D
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.8a: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
 ### Column percentages, Adults
@@ -893,7 +894,7 @@ mutate(`16-24` = cell_spec(`16-24`, "latex", background = case_when(`16-24_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.8b: Percentage of people agreeing with statements about their involvement with other people in the neighbourhood
 ### Column percentages, Adults
@@ -969,7 +970,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.9: How often people meet socially with friends, relatives, neighbours or work colleagues by age and gender
 ### Column percentages, Adults
@@ -1038,7 +1039,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.10: How often people meet socially with friends, relatives, neighbours or work colleagues by Urban-Rural Classification and SIMD
 ### Column percentages, Adults
@@ -1107,7 +1108,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.11: How often people meet socially with friends, relatives, neighbours or work colleagues by long-term physical or mental health condition
 ### Column percentages, Adults
@@ -1170,7 +1171,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.12: How often people have felt lonely within the last week by age
 ### Column percentages, Adults
@@ -1231,7 +1232,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.13: How often people have felt lonely within the last week by SIMD
 ### Column percentages, Adults
@@ -1296,7 +1297,7 @@ mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", backgro
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.14: How often people have felt lonely within the last week by Urban-Rural Classification
 ### Column percentages, Adults
@@ -1363,7 +1364,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.15: How often people have felt lonely within the last week by long-term physical or mental health condition
 ### Column percentages, Adults
@@ -1426,7 +1427,7 @@ mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HI
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.16: How often people have felt lonely within the last week by household type
 ### Column percentages, Adults
@@ -1497,7 +1498,7 @@ mutate(`Single adult` = cell_spec(`Single adult`, "latex", background = case_whe
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.17: Percentage of people saying a problem is very/fairly common in their neighbourhood
 ### Column percentages, Adults
@@ -1574,7 +1575,7 @@ mutate(`2005/2006` = cell_spec(`2005/2006`, "latex", background = case_when(`200
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.18: Percentage of people saying a problem is very/fairly common in their neighbourhood by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1638,7 +1639,7 @@ mutate(`20\\% most deprived` = cell_spec(`20\\% most deprived`, "latex", backgro
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.19: Percentage of people saying a problem is very/fairly common in their neighbourhood by tenure of household
 ### Column percentages, Adults
@@ -1700,7 +1701,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.20: Percentage of people saying a problem is very/fairly common in their neighbourhood by age of respondent
 ### Column percentages, Adults
@@ -1760,7 +1761,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.21: Percentage of people saying a problem is very/fairly common in their neighbourhood by Urban Rural classification
 ### Column percentages, Adults
@@ -1826,7 +1827,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 4.3: Perceptions and experience of neighbourhood problems
 ### Column percentages, Adults
@@ -1886,7 +1887,7 @@ mutate(`description` = cell_spec(`description`, "latex", background = case_when(
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.22: Experience of neighbourhood problems by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1950,7 +1951,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.23: Experience of neighbourhood problems by tenure of household
 ### Column percentages, Adults
@@ -2012,7 +2013,7 @@ mutate(`Other` = cell_spec(`Other`, "latex", background = case_when(`Other_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.24: Experience of neighbourhood problems by Urban Rural Classification
 ### Column percentages, Adults
@@ -2078,7 +2079,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.25: Experiences of discrimination and harassment by gender, age and deprivation
 ### Row percentages, Adults
@@ -2141,7 +2142,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.26: Experiences of discrimination and harassment by sexual orientation, ethnicity, religion, and long-term physical/mental health condition
 ### Row percentages, Adults
@@ -2204,7 +2205,7 @@ mutate(`No Discrimination` = cell_spec(`No Discrimination`, "latex", background 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.27: Reasons for discrimination and harassment
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -2272,7 +2273,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 4.29: Availability of emergency response items in household by tenure of household and Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -2339,5 +2340,5 @@ mutate(`Owned` = cell_spec(`Owned`, "latex", background = case_when(`Owned_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 

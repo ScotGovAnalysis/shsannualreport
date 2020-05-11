@@ -131,6 +131,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower
 ```
+\\pagebreak
 "
     writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
@@ -343,7 +344,9 @@ mutate("
       string <- paste0(string, "\n} else {
 asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
-```\n\n")
+```
+\\pagebreak
+")
       }
 
       if (type == 4) {
@@ -406,7 +409,10 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
         }
 
-        string <- paste0(string, "\n```\n")
+        string <- paste0(string, "
+```
+\\pagebreak
+")
       }
 
 writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)

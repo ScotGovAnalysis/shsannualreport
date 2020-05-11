@@ -114,6 +114,7 @@ and relentless efforts during the fieldwork.
 ```{=latex}
 $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
 ```
+\pagebreak
 
 ## Table 10.1: Perceptions about climate change as a problem
 ### Column percentages, Adults
@@ -179,7 +180,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.1: Perception about climate change as an 'immediate and urgent problem' by age
 ### Column percentages, Adults
@@ -240,7 +241,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.2: Percentage of adults perceiving that 'Climate change is an immediate and urgent problem' by educational attainment
 ### Base numbers at local authority level are too small to produce robust analysis.
@@ -309,7 +310,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.3: 'I don't believe my behaviour and everyday lifestyle contribute to climate change'
 ### Column percentages, Adults
@@ -370,7 +371,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.4: 'Climate change will only have an impact on other countries, there is no need for me to worry'
 ### Column percentages, Adults
@@ -431,7 +432,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.5: 'I understand what actions people like myself should take to help tackle climate change'
 ### Column percentages, Adults
@@ -492,7 +493,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.6: Frequency of visits made to the outdoors
 ### Column percentages, Adults
@@ -562,7 +563,7 @@ mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.7: Frequency of visits made to the outdoors by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -626,7 +627,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.4: Percentage of adults visiting outdoors at least once a week
 ### Column percentages, Adults
@@ -692,7 +693,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.8: Frequency of visits made to the outdoors by urban/rural classification
 ### Column percentages, Adults
@@ -750,7 +751,7 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.9: Frequency of visits made to the outdoors by age group and gender
 ### Column percentages, Adults
@@ -818,7 +819,7 @@ mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.10: Frequency of visits made to the outdoors by self perception of health
 ### Column percentages, Adults
@@ -878,7 +879,7 @@ mutate(`Bad / very bad` = cell_spec(`Bad / very bad`, "latex", background = case
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.5: Walking distance to nearest useable greenspace
 ### Column percentages, Adults
@@ -944,7 +945,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.11: Walking distance to nearest greenspace by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
@@ -1008,7 +1009,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.6: Percentage of adults expressing satisfaction with nearest greenspace
 ### Column percentages, Adults
@@ -1074,7 +1075,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Figure 10.7: Percentage of adults who have not visited nearest greenspace in previous 12 months
 ### Column percentages, Adults
@@ -1139,7 +1140,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.12: Percentage of people who gave their views on land use in the last 12 months
 ### Column percentages, Adults
@@ -1200,7 +1201,7 @@ mutate(`2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == 
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
 ## Table 10.13: Percentage of People who gave their views on land use by urban rural classification
 ### Column percentages, Adults
@@ -1259,5 +1260,5 @@ mutate(`Urban areas` = cell_spec(`Urban areas`, "latex", background = case_when(
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
 ```
-
+\pagebreak
 
