@@ -320,14 +320,15 @@ server <- function(input, output, session) {
 
     welcome_modal <- modalDialog(
 
-        p(img(src = "new_logo.png", height = "100%", width = "100%"), style = "text-align: center"),
+        p(img(src = "new_logo.png", height = "50%", width = "50%"), style = "text-align: center"),
         br(),
-        tags$div(h4("This interactive tool provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
+        tags$div(h4("The Data Explorer provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
                  style = "color: 0E3E5D; font-size:20px; text-align: center"),
         br(),
-        h4("If this is your first time using the tool, take a tour to learn more about how to get the most out of it."),
+        h4("If this is your first time using the tool, watch our video tutorial to get the most out of it"),
+        HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
+        h4("Prefer written guidance? Take a tour by clicking on the button below."),
         actionButton("tour", "Take a tour", icon("play-circle")),
-        actionButton("modal_to_resources", "Resources", icon("wrench")),
 
         easyClose = TRUE, fade = FALSE
     )
@@ -335,12 +336,6 @@ server <- function(input, output, session) {
     #Shows modal first time
     showModal(welcome_modal)
 
-
-    #Links modal button to 'resources' tab
-    observeEvent(input$modal_to_resources, {
-        updateTabsetPanel(session, "navbar",
-                          selected = "resourcesTab")
-    })
 
     #Reloads modal on request from home tab
     observeEvent(input$reload_modal,
@@ -352,14 +347,16 @@ server <- function(input, output, session) {
         size = "l",
         fluidRow(
             br(),
-            img(src = "modal-into.png", height = "50%", width = "50%"), style = "text-align: center"),
-        h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's take a tour!"),
-
+            img(src = "new_logo.png", height = "50%", width = "50%"), style = "text-align: center"),
+        h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's look at how to use the website!"),
+        actionButton("back0", "Back", icon("chevron-circle-left")),
         actionButton("next1", "Next", icon("play-circle"))
+
     )
 
     observeEvent(input$tour, {showModal(tour_modal_1)})
     observeEvent(input$next1, {showModal(tour_modal_2)})
+    observeEvent(input$back0, {showModal(welcome_modal)})
 
     #TOUR 2
     tour_modal_2 <- modalDialog(
@@ -1671,34 +1668,44 @@ server <- function(input, output, session) {
     # Chart help modal ####
 
     chartModal <- modalDialog(
+          h4("How go use the Data Explorer charts", style = "text-align: center"),
+          HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o?start=196" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
+          h4("Prefer written guidance? Go to the next page"),
+          actionButton("tochartModal2", "Written guidance"),
+          easyClose = TRUE, fade = FALSE, footer = NULL)
+
+
+    observeEvent(input$help, {showModal(chartModal)})
+    observeEvent(input$tochartModal2, {showModal(chartModal2)})
+
+    chartModal2 <- modalDialog(
         size = "l",
-        br(),
-        p(tags$h4("How go use the SHS charts", style = "text-align: center"),
-          tags$br(),
-          p(img(src = "modal_chart.png", height = "100%", width = "100%"), style = "text-align: center"),
-          tags$b("Whenever possible, choose full-scale Y-axis when comparing charts. Different zoomed in scales can potentially create misleading data visualisation and comparison."),
-          easyClose = TRUE, fade = FALSE, footer = NULL))
-
-
-    observeEvent(input$help, {
-        showModal(chartModal)
-    })
+        h4("How to use the Data Explorer charts"),
+        p(img(src = "modal_chart.png", height = "100%", width = "100%"), style = "text-align: center"),
+        tags$b("Whenever possible, choose full-scale Y-axis when comparing charts. Different zoomed in scales can potentially create misleading data visualisation and comparison.")
+    )
 
     # Table help modal ####
 
     tableModal <- modalDialog(
-        size = "l",
-        br(),
-        p(tags$h4("How go use the SHS tables", style = "text-align: center"),
-          tags$br(),
-          p(img(src = "modal_table2.png", height = "100%", width = "100%"), style = "text-align: center"),
-          p(img(src = "sign_table.png", height = "100%", width = "100%"), style = "text-align: center"),
-          tags$b("Statistical significance is indicated through different coloured cells. Dark green cells indicate a statistically significantly different value to the corresponding comparator table, where light purple cells indicate that the value is statistically significantly lower."),
+        p(tags$h4("How go use the Data Explorer tables", style = "text-align: center"),
+          HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o?start=56" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
+          h4("Prefer written guidance? Go to the next page"),
+          actionButton("tableModal2", "Written guidance"),
           easyClose = TRUE, fade = FALSE, footer = NULL))
 
-    observeEvent(input$helpTable, {
-        showModal(tableModal)
-    })
+    observeEvent(input$helpTable, {showModal(tableModal)})
+    observeEvent(input$tableModal2, {showModal(tableModal2)})
+
+    #Table help modal 2 ####
+
+    tableModal2 <- modalDialog(
+        size = "l",
+        h4("How to use the Data Explorer tables"),
+        p(img(src = "modal_table2.png", height = "70%", width = "70%"), style = "text-align: center"),
+        p(img(src = "sign_table.png", height = "70%", width = "70%"), style = "text-align: center"),
+        tags$b("Statistical significance is indicated through different coloured cells. Dark green cells indicate a statistically significantly different value to the corresponding comparator table, where light purple cells indicate that the value is statistically significantly lower.")
+    )
 
     # output$report ####
 
