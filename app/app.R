@@ -291,6 +291,7 @@ ui <- fluidPage(
                                        tags$h3("Learn more about SHS"),
                                        tags$h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
                                        br(),
+                                       p(icon("fas fa-clipboard-list"), tags$a(href = "https://veriksson94.shinyapps.io/shsapptutorial/", target = "_blank", "Data Explorer Quiz")),
                                        p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/september-2018/", target = "_blank", "Inquality Data Comic"), tags$em("illustrated by Katie Quinn")),
                                        p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/", target = "_blank", "Housing and Finances Data Comic"), tags$em("illustrated by Katie Quinn")),
                                        p(icon("far fa-book"), tags$a(href = "https://www.gov.scot/publications/single-step/", target = "_blank", "Physical Activity Report")),
