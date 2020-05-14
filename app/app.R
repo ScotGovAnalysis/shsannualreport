@@ -1065,7 +1065,7 @@ server <- function(input, output, session) {
 
     output$statistical_significance_key <- renderText ({
 
-        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_0_questions) {
+        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions & !input$select_question %in% type_0_questions) {
 
             if (input$select_comparison_type == "Year") {
 
