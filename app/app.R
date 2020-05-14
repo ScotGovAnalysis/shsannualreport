@@ -58,8 +58,8 @@ ui <- fluidPage(
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
-                                br()
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
+
                             )
                             )
                         ),
@@ -79,13 +79,14 @@ ui <- fluidPage(
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
 
-                        fluidRow(br(),
+                        fluidRow(column(9, offset = 1,
+                            br(),
                                  h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
-                        ),
+                        )),
 
                         br(), br(),
-                        column(7, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
-                        column(2, offset = 3, p(img(src = "nat_stat.png", width = 130, height = 130))),
+                        column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
+                        column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
                         br(), br(), br(), br(), br(),
                         actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right"),
                         br(), br()
@@ -205,11 +206,17 @@ ui <- fluidPage(
                        "Create Report"),
                    style = "margin-left: 4%; margin-right: 4%",
 
-                        wellPanel(style = "background: #ffd480",
-                                  h4("This function is still under construction."),
-                                  h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
-                        ),
+                   fluidRow(
+                       column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
+                   ),
 
+                   wellPanel(style = "background: #D9DDF9",
+                             h4("Download survey results as a PDF Report."),
+                             h5("Below you can download all the tables in a topic for a local authority or Scotland, and a specific year as a PDF report."),
+                             h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year."),
+                             h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears.")
+                   ),
+                    wellPanel(
                         fluidRow(
                             column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
                         ),
@@ -220,7 +227,7 @@ ui <- fluidPage(
                             column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
                             column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
                             column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
-                        ),
+                        )),
 
                         fluidRow(
                             column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
@@ -251,7 +258,7 @@ ui <- fluidPage(
                tabPanel("Resources", value = "resourcesTab", style = "margin-left: 4%; margin-right: 4%",
 
                         fluidRow(
-                            column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
+                            column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
                         ),
 
                         fluidRow(
@@ -284,6 +291,7 @@ ui <- fluidPage(
                                        tags$h3("Learn more about SHS"),
                                        tags$h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
                                        br(),
+                                       p(icon("fas fa-clipboard-list"), tags$a(href = "https://veriksson94.shinyapps.io/shsapptutorial/", target = "_blank", "Data Explorer Quiz")),
                                        p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/september-2018/", target = "_blank", "Inquality Data Comic"), tags$em("illustrated by Katie Quinn")),
                                        p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/", target = "_blank", "Housing and Finances Data Comic"), tags$em("illustrated by Katie Quinn")),
                                        p(icon("far fa-book"), tags$a(href = "https://www.gov.scot/publications/single-step/", target = "_blank", "Physical Activity Report")),
