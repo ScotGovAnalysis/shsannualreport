@@ -205,11 +205,17 @@ ui <- fluidPage(
                        "Create Report"),
                    style = "margin-left: 4%; margin-right: 4%",
 
-                        wellPanel(style = "background: #ffd480",
-                                  h4("This function is still under construction."),
-                                  h5("Below you can download an example chapter for a local authority to see what it might look like in the future. In the mean time if you require local authority reports, please", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/LAtables2018", target = "_blank", "click here!"))
-                        ),
+                   fluidRow(
+                       column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
+                   ),
 
+                   wellPanel(style = "background: #D9DDF9",
+                             h4("Download survey results as a PDF Report."),
+                             h5("Below you can download all the tables in a topic for a local authority or Scotland, and a specific year as a PDF report."),
+                             h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year."),
+                             h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears.")
+                   ),
+                    wellPanel(
                         fluidRow(
                             column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
                         ),
@@ -220,7 +226,7 @@ ui <- fluidPage(
                             column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
                             column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
                             column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
-                        ),
+                        )),
 
                         fluidRow(
                             column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
