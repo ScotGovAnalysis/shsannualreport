@@ -58,8 +58,8 @@ ui <- fluidPage(
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
-                                br()
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
+
                             )
                             )
                         ),
@@ -79,13 +79,14 @@ ui <- fluidPage(
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
 
-                        fluidRow(br(),
+                        fluidRow(column(9, offset = 1,
+                            br(),
                                  h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
-                        ),
+                        )),
 
                         br(), br(),
-                        column(7, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
-                        column(2, offset = 3, p(img(src = "nat_stat.png", width = 130, height = 130))),
+                        column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
+                        column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
                         br(), br(), br(), br(), br(),
                         actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right"),
                         br(), br()
@@ -206,7 +207,7 @@ ui <- fluidPage(
                    style = "margin-left: 4%; margin-right: 4%",
 
                    fluidRow(
-                       column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
+                       column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
                    ),
 
                    wellPanel(style = "background: #D9DDF9",
@@ -257,7 +258,7 @@ ui <- fluidPage(
                tabPanel("Resources", value = "resourcesTab", style = "margin-left: 4%; margin-right: 4%",
 
                         fluidRow(
-                            column(4, offset = 4, p(img(src = "new_logo.png", height = "100%", width = "100%")))
+                            column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
                         ),
 
                         fluidRow(
