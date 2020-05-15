@@ -1486,6 +1486,7 @@ server <- function(input, output, session) {
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
                                               panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              legend.title = element_blank(),
                                               text = element_text(family = \"Arial\")) +
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
@@ -1504,6 +1505,7 @@ server <- function(input, output, session) {
                                        panel.grid.major.x = element_blank(),
                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
                                        panel.background = element_rect(\"transparent\"),
+                                       legend.title = element_blank(),
                                        legend.position = \"bottom\") +
 
                                      scale_fill_manual(values = shs_colours) +
@@ -1584,6 +1586,7 @@ server <- function(input, output, session) {
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
+                                              legend.title = element_blank(),
                                               panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
                                               text = element_text(family = \"Arial\")) +
                                               scale_colour_manual(values = shs_colours) +
@@ -1603,6 +1606,7 @@ server <- function(input, output, session) {
                                            theme(panel.grid.minor = element_blank(),
                                            panel.grid.major.x = element_blank(),
                                            panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                           legend.title = element_blank(),
                                            panel.background = element_rect(\"transparent\"),
                                            legend.position = \"bottom\") +
                                            scale_fill_manual(values = shs_colours) +
