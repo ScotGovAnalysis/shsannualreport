@@ -15,34 +15,34 @@
 
 # round_comparison_df_values example ####
 
-# dplyr::mutate(df, 
-#               `1999/2000` = round(`1999/2000`, 0), 
-#               `2001/2002` = round(`2001/2002`, 0), 
-#               `2003/2004` = round(`2003/2004`, 0), 
-#               `2005/2006` = round(`2005/2006`, 0), 
-#               `2007/2008` = round(`2007/2008`, 0), 
-#               `2009/2010` = round(`2009/2010`, 0), 
-#               `2011` = round(`2011`, 0), 
-#               `2012` = round(`2012`, 0), 
-#               `2013` = round(`2013`, 0), 
-#               `2014` = round(`2014`, 0), 
-#               `2015` = round(`2015`, 0), 
-#               `2016` = round(`2016`, 0), 
-#               `2017` = round(`2017`, 0), 
-#               `2018` = round(`2018`, 0)) 
+# dplyr::mutate(df,
+#               `1999/2000` = round(`1999/2000`, 0),
+#               `2001/2002` = round(`2001/2002`, 0),
+#               `2003/2004` = round(`2003/2004`, 0),
+#               `2005/2006` = round(`2005/2006`, 0),
+#               `2007/2008` = round(`2007/2008`, 0),
+#               `2009/2010` = round(`2009/2010`, 0),
+#               `2011` = round(`2011`, 0),
+#               `2012` = round(`2012`, 0),
+#               `2013` = round(`2013`, 0),
+#               `2014` = round(`2014`, 0),
+#               `2015` = round(`2015`, 0),
+#               `2016` = round(`2016`, 0),
+#               `2017` = round(`2017`, 0),
+#               `2018` = round(`2018`, 0))
 
 # round_comparison_df_values ####
 
 round_comparison_df_values <- function(variable_column_names) {
-  
+
   round_string = "dplyr::mutate(df,"
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name)) {
       round_string  = paste0(round_string , " `", variable_column_name, "` = ifelse(`", variable_column_name, "` > 0, suppressWarnings(as.character(round(as.numeric(`", variable_column_name, "`,  0)))), `", variable_column_name, "`),")
     }
   }
-  round_string  <- (substr(round_string, 1, nchar(round_string ) - 1)) 
+  round_string  <- (substr(round_string, 1, nchar(round_string ) - 1))
   round_string  <- paste0(round_string, ")")
 
   # print(paste0("round_string: ", round_string))
@@ -99,15 +99,15 @@ round_comparison_df_values <- function(variable_column_names) {
 # rename_comparison_df_values ####
 
 rename_comparison_df_columns <- function(column_names, measure_column_name) {
-  
+
   rename_string = "dplyr::rename(df,"
-  
+
   for (column_name in column_names) {
     if (column_name != measure_column_name) {
       rename_string <- paste0(rename_string, "`", column_name, "2` = `", column_name, "`,")
     }
   }
-  rename_string <- (substr(rename_string, 1, nchar(rename_string) - 1)) 
+  rename_string <- (substr(rename_string, 1, nchar(rename_string) - 1))
   rename_string <- paste0(rename_string, ")")
 
   # print(paste0("rename_string: ", rename_string))
@@ -138,20 +138,20 @@ rename_comparison_df_columns <- function(column_names, measure_column_name) {
 # statistical_significance ####
 
 statistical_significance <- function(variable_column_names) {
-  
+
   statistical_significance_string <- "dplyr::mutate(base_df,"
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name)) {
-      statistical_significance_string <- paste0(statistical_significance_string, 
+      statistical_significance_string <- paste0(statistical_significance_string,
                                                 "`", variable_column_name, "_sig`= case_when(`", variable_column_name, "_l` > `", variable_column_name, "_u2` ~ 'HIGHER', `",
                                                 variable_column_name, "_u` < `", variable_column_name, "_l2` ~ 'LOWER', TRUE ~ 'NO'),"
       )
     }
   }
-  statistical_significance_string <- (substr(statistical_significance_string, 1, nchar(statistical_significance_string) - 1)) 
+  statistical_significance_string <- (substr(statistical_significance_string, 1, nchar(statistical_significance_string) - 1))
   statistical_significance_string <- paste0(statistical_significance_string, ")")
-  
+
   # print(paste0("statistical_significance_string: ", statistical_significance_string))
   return(statistical_significance_string)
 }
@@ -165,7 +165,7 @@ return(remove_significance_from_rows_string)
 
 # s_select_mutate example ####
 
-# arrange(main_df, `Age`) %>% 
+# arrange(main_df, `Age`) %>%
 #   select(`Age`,
 #          `1999/2000`,
 #          `2001/2002`,
@@ -180,7 +180,7 @@ return(remove_significance_from_rows_string)
 #          `2015`,
 #          `2016`,
 #          `2017`,
-#          `2018`) %>% 
+#          `2018`) %>%
 #   mutate(`1999/2000` = round(`1999/2000`, 0),
 #          `2001/2002` = round(`2001/2002`, 0),
 #          `2003/2004` = round(`2003/2004`, 0),
@@ -199,34 +199,34 @@ return(remove_significance_from_rows_string)
 # arrange_select_mutate ####
 
 arrange_select_mutate <- function(variable_column_names, measure_column_name) {
-  
+
   arrange_select_mutate_string <- paste0("arrange(base_df(), `", measure_column_name, "`) %>% select(`", measure_column_name, "`,")
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name)) {
       arrange_select_mutate_string <- paste0(arrange_select_mutate_string, "`", variable_column_name, "`,")
     }
   }
-  
-  arrange_select_mutate_string <- (substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 1)) 
+
+  arrange_select_mutate_string <- (substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 1))
   arrange_select_mutate_string <- paste0(arrange_select_mutate_string, ") %>% mutate(")
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name)) {
       arrange_select_mutate_string  = paste0(arrange_select_mutate_string, " `", variable_column_name, "` = ifelse(`", variable_column_name, "` > 0, suppressWarnings(as.character(round(as.numeric(`", variable_column_name, "`,  0)))), `", variable_column_name, "`),")
     }
   }
-  
-  arrange_select_mutate_string <- (substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 1)) 
+
+  arrange_select_mutate_string <- (substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 1))
   arrange_select_mutate_string <- paste0(arrange_select_mutate_string, ")")
-  
+
   # print(paste0("arrange_select_mutate_string: ", arrange_select_mutate_string))
   return(arrange_select_mutate_string)
 }
 
 # arrange_select_mutate_comparison example ####
 
-# dplyr::arrange(main_df, `Age`) %>% 
+# dplyr::arrange(main_df, `Age`) %>%
 #   select(`Age`,
 #          `1999/2000`,
 #          `2001/2002`,
@@ -255,7 +255,7 @@ arrange_select_mutate <- function(variable_column_names, measure_column_name) {
 #          `2015_sig`,
 #          `2016_sig`,
 #          `2017_sig`,
-#          `2018_sig`) %>% 
+#          `2018_sig`) %>%
 #   mutate(`1999/2000` = round(`1999/2000`, 0),
 #          `2001/2002` = round(`2001/2002`, 0),
 #          `2003/2004` = round(`2003/2004`, 0),
@@ -274,33 +274,33 @@ arrange_select_mutate <- function(variable_column_names, measure_column_name) {
 # arrange_select_mutate_comparison ####
 
 arrange_select_mutate_comparison <- function(variable_column_names, measure_column_name) {
-  
+
   arrange_select_mutate_comparison_string <- paste0("dplyr::arrange(base_df(), `", measure_column_name, "`) %>% select(`", measure_column_name, "`,")
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name)) {
       arrange_select_mutate_comparison_string <- paste0(arrange_select_mutate_comparison_string, "`", variable_column_name, "`,")
     }
   }
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name) & variable_column_name != "Base" & variable_column_name != "All") {
       arrange_select_mutate_comparison_string <- paste0(arrange_select_mutate_comparison_string, "`", variable_column_name, "_sig`,")
     }
   }
-  
-  arrange_select_mutate_comparison_string <- (substr(arrange_select_mutate_comparison_string, 1, nchar(arrange_select_mutate_comparison_string) - 1)) 
+
+  arrange_select_mutate_comparison_string <- (substr(arrange_select_mutate_comparison_string, 1, nchar(arrange_select_mutate_comparison_string) - 1))
   arrange_select_mutate_comparison_string <- paste0(arrange_select_mutate_comparison_string, ") %>% mutate(")
-  
+
   for (variable_column_name in variable_column_names) {
     if (!grepl("_l", variable_column_name) & !grepl("_u", variable_column_name) & variable_column_name != "Base" & variable_column_name != "All") {
       arrange_select_mutate_comparison_string  = paste0(arrange_select_mutate_comparison_string, " `", variable_column_name, "` = ifelse(`", variable_column_name, "` > 0, suppressWarnings(as.character(round(as.numeric(`", variable_column_name, "`,  0)))), `", variable_column_name, "`),")
     }
   }
-  
-  arrange_select_mutate_comparison_string <- (substr(arrange_select_mutate_comparison_string, 1, nchar(arrange_select_mutate_comparison_string) - 1)) 
+
+  arrange_select_mutate_comparison_string <- (substr(arrange_select_mutate_comparison_string, 1, nchar(arrange_select_mutate_comparison_string) - 1))
   arrange_select_mutate_comparison_string <- paste0(arrange_select_mutate_comparison_string, ")")
-  
+
   # print(paste0("arrange_select_mutate_comparison_string: ", arrange_select_mutate_comparison_string))
   return(arrange_select_mutate_comparison_string)
 }
@@ -309,15 +309,15 @@ arrange_select_mutate_comparison <- function(variable_column_names, measure_colu
 
 # main_df_comparison_output example ####
 
-# DT::datatable(main_df(), 
-#               options = list(digits = 1, 
-#                              na = '-', 
-#                              paging = FALSE, 
-#                              ordering = FALSE, 
-#                              info = FALSE, 
-#                              searching = FALSE, 
-#                              columnDefs = list(list(targets = c(0, 16:29), 
-#                                                     visible = FALSE)))) %>% 
+# DT::datatable(main_df(),
+#               options = list(digits = 1,
+#                              na = '-',
+#                              paging = FALSE,
+#                              ordering = FALSE,
+#                              info = FALSE,
+#                              searching = FALSE,
+#                              columnDefs = list(list(targets = c(0, 16:29),
+#                                                     visible = FALSE)))) %>%
 #   formatStyle(c('1999/2000',
 #                 '2001/2002',
 #                 '2003/2004',
@@ -331,7 +331,7 @@ arrange_select_mutate_comparison <- function(variable_column_names, measure_colu
 #                 '2015',
 #                 '2016',
 #                 '2017',
-#                 '2018'), 
+#                 '2018'),
 #               c('1999/2000_sig',
 #                 '2001/2002_sig',
 #                 '2003/2004_sig',
@@ -345,42 +345,42 @@ arrange_select_mutate_comparison <- function(variable_column_names, measure_colu
 #                 '2015_sig',
 #                 '2016_sig',
 #                 '2017_sig',
-#                 '2018_sig'), 
+#                 '2018_sig'),
 #               backgroundColor = styleEqual(c('NO', 'HIGHER', 'LOWER'),
 #                                            c('transparent', '#00A3A3', '#C3C3FF')))
 
 # main_df_comparison_output ####
 
 main_df_comparison_output <- function(variable_column_names, hide_columns) {
-  
-  comparison_output_string <- paste0("DT::datatable(main_df(), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE)))) %>% formatStyle(c(")
-  
+
+  comparison_output_string <- paste0("DT::datatable(main_df(), colnames = gsub(\"blank\", \"\", colnames(main_df())), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE)))) %>% formatStyle(c(")
+
   variable_column_names_without_all_base <- variable_column_names[variable_column_names != "All" & variable_column_names != "Base"]
-  
+
   for (variable_column_name in variable_column_names_without_all_base) {
     comparison_output_string <- paste0(comparison_output_string, "'", variable_column_name, "',")
   }
-  
-  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1)) 
+
+  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1))
   comparison_output_string <- paste0(comparison_output_string, "), c(")
-  
+
   for (variable_column_name in variable_column_names_without_all_base ) {
     comparison_output_string <- paste0(comparison_output_string, "'", variable_column_name, "_sig',")
   }
-  
-  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1)) 
+
+  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1))
   comparison_output_string <- paste0(comparison_output_string, "), backgroundColor = styleEqual(c('NO', 'HIGHER', 'LOWER'),c('transparent', '#00A3A3', '#C3C3FF')))")
-  
+
   # print(paste0("comparison_output_string: ", comparison_output_string))
   return(comparison_output_string)
 }
 
 # comparison_df_output example ####
 
-# DT::datatable(comparison_df(), 
-#               colnames = c('', 
-#                            '', 
-#                            'Age', 
+# DT::datatable(comparison_df(),
+#               colnames = c('',
+#                            '',
+#                            'Age',
 #                            '1999/2000',
 #                            '2001/2002',
 #                            '2003/2004',
@@ -394,40 +394,40 @@ main_df_comparison_output <- function(variable_column_names, hide_columns) {
 #                            '2015',
 #                            '2016',
 #                            '2017',
-#                            '2018'), 
-#               options = list(digits = 1, 
-#                              na = '-', 
-#                              paging = FALSE, 
-#                              ordering = FALSE, 
-#                              info = FALSE, 
-#                              searching = FALSE, 
-#                              columnDefs = list(list(targets = c(0:1, 17:44), 
+#                            '2018'),
+#               options = list(digits = 1,
+#                              na = '-',
+#                              paging = FALSE,
+#                              ordering = FALSE,
+#                              info = FALSE,
+#                              searching = FALSE,
+#                              columnDefs = list(list(targets = c(0:1, 17:44),
 #                                                     visible = FALSE))))
 
 # comparison_df_output ####
 
 comparison_df_output <- function(measure_column_name, variable_column_names, hide_columns, target_end) {
-  
+
   comparison_output_string <- "DT::datatable(comparison_df(), colnames = c('', '', "
-  
+
   if (target_end == "2") {
     comparison_output_string <- paste0(comparison_output_string, "'', ")
   }
-  
-  comparison_output_string <- paste0(comparison_output_string, "'", measure_column_name, "', ")
-  
+
+  comparison_output_string <- paste0(comparison_output_string, "'", gsub("blank", "", measure_column_name), "', ")
+
   for (variable_column_name in variable_column_names) {
     comparison_output_string <- paste0(comparison_output_string, "'", variable_column_name, "',")
   }
-  
-  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1)) 
+
+  comparison_output_string <- (substr(comparison_output_string, 1, nchar(comparison_output_string) - 1))
   comparison_output_string <- paste0(comparison_output_string,
                                      "), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0:",
                                      target_end,
                                      ", ",
                                      hide_columns,
                                      "), visible = FALSE))))")
-  
+
   # print(paste0("comparison_output_string: ", comparison_output_string))
   return(comparison_output_string)
 }
@@ -435,48 +435,48 @@ comparison_df_output <- function(measure_column_name, variable_column_names, hid
 # chart_data_processing
 
 chart_data_processing <- function(variable_column_names, measure_column_name, df_name) {
-  
+
   chart_data_processing_string <- paste0(df_name, " %>% reshape(v.names = c(\"Percent\", \"LowerConfidenceLimit\", \"UpperConfidenceLimit\"), idvar = \"ID\", direction = \"long\", times = c(")
-    
+
   for (variable_column_name in variable_column_names) {
-    
+
     chart_data_processing_string <- paste0(chart_data_processing_string, "\"", variable_column_name, "\", ")
-    
+
   }
-    
+
   chart_data_processing_string <- (substr(chart_data_processing_string, 1, nchar(chart_data_processing_string) - 2))
-  
+
   chart_data_processing_string <- paste0(chart_data_processing_string, "), varying = list(Percent = c(")
-  
+
   for (variable_column_name in variable_column_names) {
-    
+
     chart_data_processing_string <- paste0(chart_data_processing_string, "\"", variable_column_name, "\", ")
-    
+
   }
-  
+
   chart_data_processing_string <- (substr(chart_data_processing_string, 1, nchar(chart_data_processing_string) - 2))
-  
+
   chart_data_processing_string <- paste0(chart_data_processing_string, "), LowerConfidenceLimit = c(")
-  
+
   for (variable_column_name in variable_column_names) {
-    
+
     chart_data_processing_string <- paste0(chart_data_processing_string, "\"", variable_column_name, "_l\", ")
-    
+
   }
-  
+
   chart_data_processing_string <- (substr(chart_data_processing_string, 1, nchar(chart_data_processing_string) - 2))
-  
+
   chart_data_processing_string <- paste0(chart_data_processing_string, "), UpperConfidenceLimit = c(")
-  
+
   for (variable_column_name in variable_column_names) {
-    
+
     chart_data_processing_string <- paste0(chart_data_processing_string, "\"", variable_column_name, "_u\", ")
-    
+
   }
-  
+
   chart_data_processing_string <- (substr(chart_data_processing_string, 1, nchar(chart_data_processing_string) - 2))
-  
-  chart_data_processing_string <- paste0(chart_data_processing_string, 
+
+  chart_data_processing_string <- paste0(chart_data_processing_string,
                                          "))) %>% dplyr::select(`", measure_column_name, "`, `time`, `Percent`, `LowerConfidenceLimit`, `UpperConfidenceLimit`) %>%",
                                          "dplyr::mutate(`Percent`= as.numeric(`Percent`), `LowerConfidenceLimit`= as.numeric(`LowerConfidenceLimit`), `UpperConfidenceLimit`= as.numeric(`UpperConfidenceLimit`))")
 

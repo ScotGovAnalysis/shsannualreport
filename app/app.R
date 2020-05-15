@@ -1324,10 +1324,8 @@ server <- function(input, output, session) {
             } else {
 
                 data_table <- DT::datatable(main_df(),
-
-                                            # extensions = "Buttons",
+                                            colnames = gsub("blank", "", colnames(main_df())),
                                             options = list(
-                                                # buttons = c("copy", "csv", "excel"),
                                                 dom = "t",
                                                 digits = 1,
                                                 na = "-",
@@ -1343,9 +1341,8 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% type_4_questions) {
 
             data_table <- DT::datatable(main_df(),
-                                        # extensions = "Buttons",
+                                        colnames = gsub("blank", "", colnames(main_df())),
                                         options = list(
-                                            # buttons = c("copy", "csv", "excel"),
                                             dom = "t",
                                             digits = 1,
                                             na = "-",
@@ -1444,7 +1441,7 @@ server <- function(input, output, session) {
     output$excel_table <- DT::renderDataTable({
 
         excel_datatable <- DT::datatable(excel_df(),
-
+                                         colnames = gsub("blank", "", colnames(excel_df())),
                                          extensions = "Buttons",
                                          options = list(
 
