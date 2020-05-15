@@ -148,7 +148,7 @@ Table_11.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -176,7 +176,7 @@ rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -207,9 +207,9 @@ main_column_names <- colnames(Table_11.2)[!grepl("_2", colnames(Table_11.2))]
 significance_column_names <- colnames(Table_11.2)[grepl("_sig", colnames(Table_11.2))]
 
 Table_11.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -235,9 +235,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.2 %>% select(tidyselect::all_of(colnames(Table_11.2)[!colnames(Table_11.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
@@ -722,9 +722,9 @@ main_column_names <- colnames(Table_11.7)[!grepl("_2", colnames(Table_11.7))]
 significance_column_names <- colnames(Table_11.7)[grepl("_sig", colnames(Table_11.7))]
 
 Table_11.7 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -752,9 +752,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.7 %>% select(tidyselect::all_of(colnames(Table_11.7)[!colnames(Table_11.7) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -789,10 +789,9 @@ main_column_names <- colnames(Table_11.8)[!grepl("_2", colnames(Table_11.8))]
 significance_column_names <- colnames(Table_11.8)[grepl("_sig", colnames(Table_11.8))]
 
 Table_11.8 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#00A3A3", `description_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -820,10 +819,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.8 %>% select(tidyselect::all_of(colnames(Table_11.8)[!colnames(Table_11.8) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#C3C3FF", `description_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -857,9 +855,9 @@ main_column_names <- colnames(Table_11.9)[!grepl("_2", colnames(Table_11.9))]
 significance_column_names <- colnames(Table_11.9)[grepl("_sig", colnames(Table_11.9))]
 
 Table_11.9 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -887,9 +885,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.9 %>% select(tidyselect::all_of(colnames(Table_11.9)[!colnames(Table_11.9) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -903,7 +901,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.10: Total number of hours of unpaid work provided in the past month
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -960,7 +958,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.11: Reasons why adults may undertake unpaid help in the future
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -981,8 +979,9 @@ main_column_names <- colnames(Table_11.11)[!grepl("_2", colnames(Table_11.11))]
 significance_column_names <- colnames(Table_11.11)[grepl("_sig", colnames(Table_11.11))]
 
 Table_11.11 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -1008,8 +1007,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.11 %>% select(tidyselect::all_of(colnames(Table_11.11)[!colnames(Table_11.11) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T) %>% column_spec(1, width = "20em")
@@ -1021,7 +1021,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.12: Whether involved in any Informal Volunteering in the last 12 months by gender
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1042,9 +1042,9 @@ main_column_names <- colnames(Table_11.12)[!grepl("_2", colnames(Table_11.12))]
 significance_column_names <- colnames(Table_11.12)[grepl("_sig", colnames(Table_11.12))]
 
 Table_11.12 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -1070,9 +1070,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.12 %>% select(tidyselect::all_of(colnames(Table_11.12)[!colnames(Table_11.12) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
@@ -1084,7 +1084,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Figure 11.4: Whether involved in any Informal Volunteering in the last 12 months by age within gender
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1105,10 +1105,9 @@ main_column_names <- colnames(Figure_11.4)[!grepl("_2", colnames(Figure_11.4))]
 significance_column_names <- colnames(Figure_11.4)[grepl("_sig", colnames(Figure_11.4))]
 
 Figure_11.4 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Informal volunteering` = cell_spec(`Informal volunteering`, "latex", background = case_when(`Informal volunteering_sig` == "HIGHER" ~ "#00A3A3", `Informal volunteering_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -1134,10 +1133,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_11.4 %>% select(tidyselect::all_of(colnames(Figure_11.4)[!colnames(Figure_11.4) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Informal volunteering` = cell_spec(`Informal volunteering`, "latex", background = case_when(`Informal volunteering_sig` == "HIGHER" ~ "#C3C3FF", `Informal volunteering_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
@@ -1149,7 +1147,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.13: Whether involved in any Informal Volunteering in the last 12 months by current economic status
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1210,7 +1208,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.14: Whether involved in any Informal Volunteering in the last 12 months by net annual income
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1271,7 +1269,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Figure 11.5: Whether involved in any Informal Volunteering in the last 12 months by Scottish Index of Multiple Deprivation
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1336,7 +1334,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.15: Whether involved in any Informal Volunteering in the last 12 months by Urban/Rural classification
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1403,7 +1401,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.16: Types of Informal Volunteering activity in the last 12 months by gender and age
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1424,10 +1422,9 @@ main_column_names <- colnames(Table_11.16)[!grepl("_2", colnames(Table_11.16))]
 significance_column_names <- colnames(Table_11.16)[grepl("_sig", colnames(Table_11.16))]
 
 Table_11.16 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#00A3A3", `description_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -1455,10 +1452,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.16 %>% select(tidyselect::all_of(colnames(Table_11.16)[!colnames(Table_11.16) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`description` = cell_spec(`description`, "latex", background = case_when(`description_sig` == "HIGHER" ~ "#C3C3FF", `description_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -1472,7 +1468,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.17: Frequency of Informal Volunteering in the last 12 months by gender and age
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 
@@ -1493,9 +1489,9 @@ main_column_names <- colnames(Table_11.17)[!grepl("_2", colnames(Table_11.17))]
 significance_column_names <- colnames(Table_11.17)[grepl("_sig", colnames(Table_11.17))]
 
 Table_11.17 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -1523,9 +1519,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_11.17 %>% select(tidyselect::all_of(colnames(Table_11.17)[!colnames(Table_11.17) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -1539,7 +1535,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Table 11.18: Total number of Informal Volunteering hours in the last 12 months
 ### Column percentages, Adults
-### <a href="https://www2.gov.scot/Topics/Statistics/16002/LAtables2017">See 2017 LA tables for historic data due to wording changes</a>
+### [See 2017 LA tables for historic data due to wording changes](https://www2.gov.scot/Topics/Statistics/16002/LAtables2017)
 
 ### `r main_table_title`
 

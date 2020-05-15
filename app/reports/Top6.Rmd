@@ -258,8 +258,8 @@ main_column_names <- colnames(Figure_6.3)[!grepl("_2", colnames(Figure_6.3))]
 significance_column_names <- colnames(Figure_6.3)[grepl("_sig", colnames(Figure_6.3))]
 
 Figure_6.3 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adult / small adult small / Large adult`, "latex", background = case_when(`Single adult / small adult small / Large adult_sig` == "HIGHER" ~ "#00A3A3", `Single adult / small adult small / Large adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Single parent / small family / large family` = cell_spec(`Single parent / small family / large family`, "latex", background = case_when(`Single parent / small family / large family_sig` == "HIGHER" ~ "#00A3A3", `Single parent / small family / large family_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Single adult / Small adult / Large adult` = cell_spec(`Single adult / Small adult / Large adult`, "latex", background = case_when(`Single adult / Small adult / Large adult_sig` == "HIGHER" ~ "#00A3A3", `Single adult / Small adult / Large adult_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Single parent / Small family / Large family` = cell_spec(`Single parent / Small family / Large family`, "latex", background = case_when(`Single parent / Small family / Large family_sig` == "HIGHER" ~ "#00A3A3", `Single parent / Small family / Large family_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Older smaller / Single older` = cell_spec(`Older smaller / Single older`, "latex", background = case_when(`Older smaller / Single older_sig` == "HIGHER" ~ "#00A3A3", `Older smaller / Single older_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -285,8 +285,8 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_6.3 %>% select(tidyselect::all_of(colnames(Figure_6.3)[!colnames(Figure_6.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Single adult / small adult small / Large adult` = cell_spec(`Single adult / small adult small / Large adult`, "latex", background = case_when(`Single adult / small adult small / Large adult_sig` == "HIGHER" ~ "#C3C3FF", `Single adult / small adult small / Large adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Single parent / small family / large family` = cell_spec(`Single parent / small family / large family`, "latex", background = case_when(`Single parent / small family / large family_sig` == "HIGHER" ~ "#C3C3FF", `Single parent / small family / large family_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Single adult / Small adult / Large adult` = cell_spec(`Single adult / Small adult / Large adult`, "latex", background = case_when(`Single adult / Small adult / Large adult_sig` == "HIGHER" ~ "#C3C3FF", `Single adult / Small adult / Large adult_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Single parent / Small family / Large family` = cell_spec(`Single parent / Small family / Large family`, "latex", background = case_when(`Single parent / Small family / Large family_sig` == "HIGHER" ~ "#C3C3FF", `Single parent / Small family / Large family_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Older smaller / Single older` = cell_spec(`Older smaller / Single older`, "latex", background = case_when(`Older smaller / Single older_sig` == "HIGHER" ~ "#C3C3FF", `Older smaller / Single older_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
@@ -443,9 +443,9 @@ main_column_names <- colnames(Table_6.2)[!grepl("_2", colnames(Table_6.2))]
 significance_column_names <- colnames(Table_6.2)[grepl("_sig", colnames(Table_6.2))]
 
 Table_6.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -474,9 +474,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_6.2 %>% select(tidyselect::all_of(colnames(Table_6.2)[!colnames(Table_6.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),

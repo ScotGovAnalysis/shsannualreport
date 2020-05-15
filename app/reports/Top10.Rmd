@@ -184,7 +184,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ## Figure 10.1: Perception about climate change as an 'immediate and urgent problem' by age
 ### Column percentages, Adults
-### Base sizes are too small for breakdown by age
+### Base sizes too small for breakdown by age
 
 ### `r main_table_title`
 
@@ -205,9 +205,7 @@ main_column_names <- colnames(Figure_10.1)[!grepl("_2", colnames(Figure_10.1))]
 significance_column_names <- colnames(Figure_10.1)[grepl("_sig", colnames(Figure_10.1))]
 
 Figure_10.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#00A3A3", `65+_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+mutat
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -232,9 +230,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_10.1 %>% select(tidyselect::all_of(colnames(Figure_10.1)[!colnames(Figure_10.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+mutat) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)
 } else {
@@ -251,7 +247,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Base sizes are too small for breakdown by area deprivation. See Figure 10.1 for breakdown by year
 
-## Table 10.2: 'It's not worth me doing things to help the environment if others don't do the same'
+## Table 10.2: 'It's not worth me doing things to help the environment if others donâ€™t do the same'
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
@@ -517,8 +513,7 @@ main_column_names <- colnames(Table_10.6)[!grepl("_2", colnames(Table_10.6))]
 significance_column_names <- colnames(Table_10.6)[grepl("_sig", colnames(Table_10.6))]
 
 Table_10.6 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#00A3A3", `2011_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#00A3A3", `2012_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#00A3A3", `2014_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#00A3A3", `2015_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -549,8 +544,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_10.6 %>% select(tidyselect::all_of(colnames(Table_10.6)[!colnames(Table_10.6) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`2011` = cell_spec(`2011`, "latex", background = case_when(`2011_sig` == "HIGHER" ~ "#C3C3FF", `2011_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == "HIGHER" ~ "#C3C3FF", `2012_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#C3C3FF", `2013_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2014` = cell_spec(`2014`, "latex", background = case_when(`2014_sig` == "HIGHER" ~ "#C3C3FF", `2014_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2015` = cell_spec(`2015`, "latex", background = case_when(`2015_sig` == "HIGHER" ~ "#C3C3FF", `2015_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
@@ -775,9 +769,9 @@ main_column_names <- colnames(Table_10.9)[!grepl("_2", colnames(Table_10.9))]
 significance_column_names <- colnames(Table_10.9)[grepl("_sig", colnames(Table_10.9))]
 
 Table_10.9 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#00A3A3", `In another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#00A3A3", `40-64_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -806,9 +800,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_10.9 %>% select(tidyselect::all_of(colnames(Table_10.9)[!colnames(Table_10.9) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`In another way` = cell_spec(`In another way`, "latex", background = case_when(`In another way_sig` == "HIGHER" ~ "#C3C3FF", `In another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
@@ -843,8 +837,8 @@ main_column_names <- colnames(Table_10.10)[!grepl("_2", colnames(Table_10.10))]
 significance_column_names <- colnames(Table_10.10)[grepl("_sig", colnames(Table_10.10))]
 
 Table_10.10 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Bad / very bad` = cell_spec(`Bad / very bad`, "latex", background = case_when(`Bad / very bad_sig` == "HIGHER" ~ "#00A3A3", `Bad / very bad_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Good / very good` = cell_spec(`Good / very good`, "latex", background = case_when(`Good / very good_sig` == "HIGHER" ~ "#00A3A3", `Good / very good_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Bad / Very bad` = cell_spec(`Bad / Very bad`, "latex", background = case_when(`Bad / Very bad_sig` == "HIGHER" ~ "#00A3A3", `Bad / Very bad_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Good / Very good` = cell_spec(`Good / Very good`, "latex", background = case_when(`Good / Very good_sig` == "HIGHER" ~ "#00A3A3", `Good / Very good_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Fair` = cell_spec(`Fair`, "latex", background = case_when(`Fair_sig` == "HIGHER" ~ "#00A3A3", `Fair_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -870,8 +864,8 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_10.10 %>% select(tidyselect::all_of(colnames(Table_10.10)[!colnames(Table_10.10) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Bad / very bad` = cell_spec(`Bad / very bad`, "latex", background = case_when(`Bad / very bad_sig` == "HIGHER" ~ "#C3C3FF", `Bad / very bad_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Good / very good` = cell_spec(`Good / very good`, "latex", background = case_when(`Good / very good_sig` == "HIGHER" ~ "#C3C3FF", `Good / very good_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Bad / Very bad` = cell_spec(`Bad / Very bad`, "latex", background = case_when(`Bad / Very bad_sig` == "HIGHER" ~ "#C3C3FF", `Bad / Very bad_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Good / Very good` = cell_spec(`Good / Very good`, "latex", background = case_when(`Good / Very good_sig` == "HIGHER" ~ "#C3C3FF", `Good / Very good_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Fair` = cell_spec(`Fair`, "latex", background = case_when(`Fair_sig` == "HIGHER" ~ "#C3C3FF", `Fair_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", escape = FALSE, booktabs = T)

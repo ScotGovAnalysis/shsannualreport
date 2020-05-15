@@ -278,10 +278,10 @@ main_column_names <- colnames(Table_8.2)[!grepl("_2", colnames(Table_8.2))]
 significance_column_names <- colnames(Table_8.2)[grepl("_sig", colnames(Table_8.2))]
 
 Table_8.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#00A3A3", `Male_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#00A3A3", `Man / Boy_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#00A3A3", `Woman / Girl_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#00A3A3", `Identified in another way_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#00A3A3", `Refused_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#00A3A3", `Female_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#00A3A3", `40-59_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#00A3A3", `60 plus_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
@@ -309,10 +309,10 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_8.2 %>% select(tidyselect::all_of(colnames(Table_8.2)[!colnames(Table_8.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Male` = cell_spec(`Male`, "latex", background = case_when(`Male_sig` == "HIGHER" ~ "#C3C3FF", `Male_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man / Boy_sig` == "HIGHER" ~ "#C3C3FF", `Man / Boy_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Woman / Girl` = cell_spec(`Woman / Girl`, "latex", background = case_when(`Woman / Girl_sig` == "HIGHER" ~ "#C3C3FF", `Woman / Girl_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Identified in another way` = cell_spec(`Identified in another way`, "latex", background = case_when(`Identified in another way_sig` == "HIGHER" ~ "#C3C3FF", `Identified in another way_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refused` = cell_spec(`Refused`, "latex", background = case_when(`Refused_sig` == "HIGHER" ~ "#C3C3FF", `Refused_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Female` = cell_spec(`Female`, "latex", background = case_when(`Female_sig` == "HIGHER" ~ "#C3C3FF", `Female_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#C3C3FF", `16-39_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `40-59` = cell_spec(`40-59`, "latex", background = case_when(`40-59_sig` == "HIGHER" ~ "#C3C3FF", `40-59_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `60 plus` = cell_spec(`60 plus`, "latex", background = case_when(`60 plus_sig` == "HIGHER" ~ "#C3C3FF", `60 plus_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
@@ -568,7 +568,7 @@ main_column_names <- colnames(Figure_8.7)[!grepl("_2", colnames(Figure_8.7))]
 significance_column_names <- colnames(Figure_8.7)[grepl("_sig", colnames(Figure_8.7))]
 
 Figure_8.7 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#00A3A3", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`HNC/HND/Degree/Professional Qualification` = cell_spec(`HNC/HND/Degree/Professional Qualification`, "latex", background = case_when(`HNC/HND/Degree/Professional Qualification_sig` == "HIGHER" ~ "#00A3A3", `HNC/HND/Degree/Professional Qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#00A3A3", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#00A3A3", `Other qualification_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#00A3A3", `No qualifications_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -597,7 +597,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_8.7 %>% select(tidyselect::all_of(colnames(Figure_8.7)[!colnames(Figure_8.7) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`HNC/HND/Degree/ Prof.Qualification` = cell_spec(`HNC/HND/Degree/ Prof.Qualification`, "latex", background = case_when(`HNC/HND/Degree/ Prof.Qualification_sig` == "HIGHER" ~ "#C3C3FF", `HNC/HND/Degree/ Prof.Qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`HNC/HND/Degree/Professional Qualification` = cell_spec(`HNC/HND/Degree/Professional Qualification`, "latex", background = case_when(`HNC/HND/Degree/Professional Qualification_sig` == "HIGHER" ~ "#C3C3FF", `HNC/HND/Degree/Professional Qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `O grade/Standard grade/Higher/A level/Equivalent` = cell_spec(`O grade/Standard grade/Higher/A level/Equivalent`, "latex", background = case_when(`O grade/Standard grade/Higher/A level/Equivalent_sig` == "HIGHER" ~ "#C3C3FF", `O grade/Standard grade/Higher/A level/Equivalent_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Other qualification` = cell_spec(`Other qualification`, "latex", background = case_when(`Other qualification_sig` == "HIGHER" ~ "#C3C3FF", `Other qualification_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No qualifications` = cell_spec(`No qualifications`, "latex", background = case_when(`No qualifications_sig` == "HIGHER" ~ "#C3C3FF", `No qualifications_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),

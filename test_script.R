@@ -18,7 +18,7 @@
 # shs_extract_data()
 #
 # # Remove specified columns from dataset (add any other unwanted columns to "columns_to_remove")
-# columns_to_remove <- c("sort", "_LABEL_", "var")
+# columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
 # shs_remove_columns(columns_to_remove)
 #
 # # Write all column and variable names from data in "app\data\dataset" to Excel sheets in "variable_names_new"
@@ -28,7 +28,7 @@
 # # Update new column/variable names with values in folder "variable_names_old" (optional, only if populated files added to "variable_names_old")
 # # Note: This function works for either column or variable names, depending on the file names provided, so is used twice
 # new_workbook_path <- "variable_names_new/column_names.xlsx"            # Column names sheet created by shs_get_column_names()
-# old_workbook_path <- file.path("variable_names_old/column_names.xls")  # Set the old_workbook_path to spreadsheet in "variable_names_old"
+# old_workbook_path <- file.path("variable_names_old/column_names.xlsx")  # Set the old_workbook_path to spreadsheet in "variable_names_old"
 # shs_update_names_workbook(new_workbook_path, old_workbook_path)         # Update the new workbook with any names present in the old workbook
 #
 # # The process for variable names works exactly the same as for column names
