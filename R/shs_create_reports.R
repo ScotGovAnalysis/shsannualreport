@@ -223,7 +223,7 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
 ```{r eval=(", markdown_comparator, " == FALSE)}\n",
                          "if (!is.null(", question_id_underscore, ")) {\n",
                          question_id_underscore, " %>%
-kable(\"latex\", escape = TRUE, booktabs = T)")
+kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = TRUE, booktabs = T)")
 
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
@@ -246,6 +246,7 @@ if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 colnames(", question_id_underscore, ") <- gsub(\"%\", \"\\\\\\\\%\", colnames(", question_id_underscore, "))
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 significance_column_names <- colnames(", question_id_underscore, ")[grepl(\"_sig\", colnames(", question_id_underscore, "))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(")
@@ -266,7 +267,7 @@ mutate(")
                          "\n", "
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable(\"latex\", escape = FALSE, booktabs = T)")
+kable(\"latex\", col.names = gsub(\"blank\", \"\", presentation_column_names), escape = FALSE, booktabs = T)")
 
         if (max_variable_length > 50) {
 
@@ -281,7 +282,7 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
         string <- paste0(string, "
 } else {
 ", question_id_underscore, " %>%
-kable(\"latex\", escape = TRUE, booktabs = T)")
+kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = TRUE, booktabs = T)")
 
         if (max_variable_length > 50) {
 
@@ -329,7 +330,7 @@ mutate("
         string <- paste0(substr(string, 1, nchar(string ) - 2),
                          ") %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable(\"latex\", escape = FALSE, booktabs = T)")
+        kable(\"latex\", col.names = gsub(\"blank\", \"\", presentation_column_names), escape = FALSE, booktabs = T)")
 
         if (max_variable_length > 50) {
 
@@ -373,7 +374,7 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
-kable(\"latex\", escape = FALSE, booktabs = T)")
+kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = FALSE, booktabs = T)")
 
         if (max_variable_length > 50) {
 
@@ -397,7 +398,7 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-kable(\"latex\", escape = FALSE, booktabs = T)")
+kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = FALSE, booktabs = T)")
 
         if (max_variable_length > 50) {
 

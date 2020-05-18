@@ -106,7 +106,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_9.1_Table_9.1)) {
 Figure_9.1_Table_9.1 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.1_Table_9.1)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -118,6 +118,7 @@ if (length(grep("_2", colnames(Figure_9.1_Table_9.1))) > 0) {
 colnames(Figure_9.1_Table_9.1) <- gsub("%", "\\\\%", colnames(Figure_9.1_Table_9.1))
 main_column_names <- colnames(Figure_9.1_Table_9.1)[!grepl("_2", colnames(Figure_9.1_Table_9.1))]
 significance_column_names <- colnames(Figure_9.1_Table_9.1)[grepl("_sig", colnames(Figure_9.1_Table_9.1))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Figure_9.1_Table_9.1 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -133,10 +134,10 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Figure_9.1_Table_9.1 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.1_Table_9.1)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -165,7 +166,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -181,7 +182,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.2)) {
 Table_9.2 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.2)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -193,6 +194,7 @@ if (length(grep("_2", colnames(Table_9.2))) > 0) {
 colnames(Table_9.2) <- gsub("%", "\\\\%", colnames(Table_9.2))
 main_column_names <- colnames(Table_9.2)[!grepl("_2", colnames(Table_9.2))]
 significance_column_names <- colnames(Table_9.2)[grepl("_sig", colnames(Table_9.2))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -208,10 +210,10 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.2 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.2)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -240,7 +242,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -256,7 +258,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_9.3)) {
 Table_9.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.3)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -268,6 +270,7 @@ if (length(grep("_2", colnames(Table_9.3))) > 0) {
 colnames(Table_9.3) <- gsub("%", "\\\\%", colnames(Table_9.3))
 main_column_names <- colnames(Table_9.3)[!grepl("_2", colnames(Table_9.3))]
 significance_column_names <- colnames(Table_9.3)[grepl("_sig", colnames(Table_9.3))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.3 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background = case_when(`Large urban areas_sig` == "HIGHER" ~ "#00A3A3", `Large urban areas_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -279,10 +282,10 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.3)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -307,7 +310,7 @@ mutate(`Large urban areas` = cell_spec(`Large urban areas`, "latex", background 
 `Accessible rural` = cell_spec(`Accessible rural`, "latex", background = case_when(`Accessible rural_sig` == "HIGHER" ~ "#C3C3FF", `Accessible rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Remote rural` = cell_spec(`Remote rural`, "latex", background = case_when(`Remote rural_sig` == "HIGHER" ~ "#C3C3FF", `Remote rural_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -322,7 +325,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Table_9.4)) {
 Table_9.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.4)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -334,6 +337,7 @@ if (length(grep("_2", colnames(Table_9.4))) > 0) {
 colnames(Table_9.4) <- gsub("%", "\\\\%", colnames(Table_9.4))
 main_column_names <- colnames(Table_9.4)[!grepl("_2", colnames(Table_9.4))]
 significance_column_names <- colnames(Table_9.4)[grepl("_sig", colnames(Table_9.4))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.4 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -344,10 +348,10 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.4)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -371,7 +375,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -387,7 +391,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.5)) {
 Table_9.5 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.5)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -399,6 +403,7 @@ if (length(grep("_2", colnames(Table_9.5))) > 0) {
 colnames(Table_9.5) <- gsub("%", "\\\\%", colnames(Table_9.5))
 main_column_names <- colnames(Table_9.5)[!grepl("_2", colnames(Table_9.5))]
 significance_column_names <- colnames(Table_9.5)[grepl("_sig", colnames(Table_9.5))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -414,10 +419,10 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.5 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.5)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -446,7 +451,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -461,7 +466,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_9.2)) {
 Figure_9.2 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.2)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -473,6 +478,7 @@ if (length(grep("_2", colnames(Figure_9.2))) > 0) {
 colnames(Figure_9.2) <- gsub("%", "\\\\%", colnames(Figure_9.2))
 main_column_names <- colnames(Figure_9.2)[!grepl("_2", colnames(Figure_9.2))]
 significance_column_names <- colnames(Figure_9.2)[grepl("_sig", colnames(Figure_9.2))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Figure_9.2 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == "HIGHER" ~ "#00A3A3", `2013_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -484,10 +490,10 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Figure_9.2 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.2)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -512,7 +518,7 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -527,7 +533,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.6)) {
 Table_9.6 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.6)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -539,6 +545,7 @@ if (length(grep("_2", colnames(Table_9.6))) > 0) {
 colnames(Table_9.6) <- gsub("%", "\\\\%", colnames(Table_9.6))
 main_column_names <- colnames(Table_9.6)[!grepl("_2", colnames(Table_9.6))]
 significance_column_names <- colnames(Table_9.6)[grepl("_sig", colnames(Table_9.6))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.6 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -554,10 +561,10 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.6 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.6)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -586,7 +593,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -601,7 +608,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.7)) {
 Table_9.7 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.7)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -613,6 +620,7 @@ if (length(grep("_2", colnames(Table_9.7))) > 0) {
 colnames(Table_9.7) <- gsub("%", "\\\\%", colnames(Table_9.7))
 main_column_names <- colnames(Table_9.7)[!grepl("_2", colnames(Table_9.7))]
 significance_column_names <- colnames(Table_9.7)[grepl("_sig", colnames(Table_9.7))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_9.7 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`2007/2008_sig` == "HIGHER" ~ "#00A3A3", `2007/2008_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -628,10 +636,10 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Table_9.7 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Table_9.7)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -660,7 +668,7 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 `2017` = cell_spec(`2017`, "latex", background = case_when(`2017_sig` == "HIGHER" ~ "#C3C3FF", `2017_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == "HIGHER" ~ "#C3C3FF", `2018_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -676,7 +684,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Figure_9.3)) {
 Figure_9.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.3)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -688,6 +696,7 @@ if (length(grep("_2", colnames(Figure_9.3))) > 0) {
 colnames(Figure_9.3) <- gsub("%", "\\\\%", colnames(Figure_9.3))
 main_column_names <- colnames(Figure_9.3)[!grepl("_2", colnames(Figure_9.3))]
 significance_column_names <- colnames(Figure_9.3)[grepl("_sig", colnames(Figure_9.3))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Figure_9.3 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` == "HIGHER" ~ "#00A3A3", `16-39_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -696,10 +705,10 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Figure_9.3 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.3)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -721,7 +730,7 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 `40-64` = cell_spec(`40-64`, "latex", background = case_when(`40-64_sig` == "HIGHER" ~ "#C3C3FF", `40-64_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `65+` = cell_spec(`65+`, "latex", background = case_when(`65+_sig` == "HIGHER" ~ "#C3C3FF", `65+_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
@@ -737,7 +746,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ```{r eval=(eval_comparison == FALSE)}
 if (!is.null(Figure_9.4)) {
 Figure_9.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.4)), escape = TRUE, booktabs = T)
  } else {
         asis_output("### There is no data to show for this table within the specified parameters")
       }
@@ -749,6 +758,7 @@ if (length(grep("_2", colnames(Figure_9.4))) > 0) {
 colnames(Figure_9.4) <- gsub("%", "\\\\%", colnames(Figure_9.4))
 main_column_names <- colnames(Figure_9.4)[!grepl("_2", colnames(Figure_9.4))]
 significance_column_names <- colnames(Figure_9.4)[grepl("_sig", colnames(Figure_9.4))]
+presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Figure_9.4 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex", background = case_when(`1 - 20\\% most deprived_sig` == "HIGHER" ~ "#00A3A3", `1 - 20\\% most deprived_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -759,10 +769,10 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
-kable("latex", escape = FALSE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 Figure_9.4 %>%
-kable("latex", escape = TRUE, booktabs = T)
+kable("latex", col.names = gsub("blank", "", colnames(Figure_9.4)), escape = TRUE, booktabs = T)
 }
 } else {
   asis_output("### There is no data to show for this table within the specified parameters.")
@@ -786,7 +796,7 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 `4` = cell_spec(`4`, "latex", background = case_when(`4_sig` == "HIGHER" ~ "#C3C3FF", `4_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `5 - 20\\% least deprived` = cell_spec(`5 - 20\\% least deprived`, "latex", background = case_when(`5 - 20\\% least deprived_sig` == "HIGHER" ~ "#C3C3FF", `5 - 20\\% least deprived_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
-        kable("latex", escape = FALSE, booktabs = T)
+        kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
