@@ -187,7 +187,7 @@ ui <- fluidPage(
                                     fluidRow(plotly::plotlyOutput("main_chart")),
                                     fluidRow(h3(textOutput("comparison_plot_title"))),
 
-                                    conditionalPanel(condition = "input.select_comparison_type != 'No comparison'",
+                                    conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4' && input.select_comparison_type != 'No comparison'",
                                                      fluidRow(plotly::plotlyOutput("comparison_chart")),
                                                      fluidRow(
                                                          column(3, offset = 6, checkboxInput("compareConfidenceInterval", "Display Confidence Intervals", value = TRUE)),
@@ -713,7 +713,13 @@ server <- function(input, output, session) {
 
             df <- df()
 
+            year_count = 0
+
+            if ("Year" %in% colnames(df)) {
+
             year_count <- length(unique(df$Year))
+
+            }
 
         if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
 
@@ -988,14 +994,14 @@ server <- function(input, output, session) {
 
             main_chart_df <- NULL
         }
-        return(main_chart_df)
+        # return(main_chart_df)
     })
 
     # comparison_chart_df() ####
 
     comparison_chart_df <- reactive ({
 
-        if (input$select_comparison_type != "No comparison") {
+        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions) {
 
             if (input$select_question %in% type_1_questions) {
 
@@ -1033,7 +1039,7 @@ server <- function(input, output, session) {
             comparison_chart_df <- NULL
         }
 
-        return(comparison_chart_df)
+        # return(comparison_chart_df)
     })
 
     # OUTPUTS ####
@@ -1258,7 +1264,7 @@ server <- function(input, output, session) {
     # comparison_plot_title ####
     output$comparison_plot_title <- renderText({
 
-        if (!input$select_question %in% type_0_questions) {
+        if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
 
             if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
 
@@ -1495,7 +1501,7 @@ server <- function(input, output, session) {
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
 
-                chart <- eval(parse(text = line_chart_string))
+                chart <- suppressWarnings(eval(parse(text = line_chart_string)))
 
             } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
@@ -1515,7 +1521,7 @@ server <- function(input, output, session) {
                                      scale_fill_manual(values = shs_colours) +
                                        labs(title = input$question, x = NULL)")
 
-                chart <- eval(parse(text = bar_chart_string))
+                chart <- suppressWarnings(eval(parse(text = bar_chart_string)))
 
             }
 
@@ -1545,14 +1551,10 @@ server <- function(input, output, session) {
             width = 0.3)")
 
 
-                chart <- eval(parse(text=confidence_intervals_string))
+                chart <- suppressWarnings(eval(parse(text=confidence_intervals_string)))
             }
 
-
-            else {
-
-                chart
-            }
+            if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
             if(input$zoomLevel_main == "Full scale") {
                 chart <- chart + ylim(0,100)
@@ -1563,6 +1565,11 @@ server <- function(input, output, session) {
                        displayModeBar = TRUE,
                        modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
+            } else {
+
+                chart
+            }
+
         }
     })
 
@@ -1570,7 +1577,9 @@ server <- function(input, output, session) {
 
     output$comparison_chart <- plotly::renderPlotly({
 
-        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_0_questions) {
+        if (input$select_comparison_type != "No comparison") {
+
+            if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
 
             df <- comparison_chart_df()
 
@@ -1619,17 +1628,8 @@ server <- function(input, output, session) {
 
                 chart <- eval(parse(text = bar_chart_string))
 
-            } else if (input$select_question %in% c(type_4_questions)) {
-
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `", measure_column_name(), "`, fill = `Percent`)) + geom_bar(position = \"dodge\", stat = \"identity\")")
-
-                chart <- eval(parse(text = bar_chart_string))
-
             }
 
-        } else {
-
-            chart <- NULL
         }
 
         if(input$compareConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
@@ -1640,9 +1640,8 @@ server <- function(input, output, session) {
             ),
             width = 0.4,
             position = position_dodge(width = 0.9))
-        }
 
-        else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
+        } else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
 
             confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
@@ -1653,25 +1652,28 @@ server <- function(input, output, session) {
             width = 0.3)")
 
 
-            chart <- eval(parse(text=confidence_intervals_string))
+            chart <- suppressWarnings(eval(parse(text=confidence_intervals_string)))
+
         }
 
+        if (input$select_question %in% c(type_0_questions, type_4_questions)) {
 
-        else {
+            chart <- NULL
 
-            chart
-        }
+        } else {
 
         if(input$zoomLevel_comparator == "Full scale") {
             chart <- chart + ylim(0,100)
         }
 
         #Removes tooltip duplicates and plotly modebar options
-        ggplotly(tooltip = "text") %>%
+        suppressWarnings(ggplotly(tooltip = "text") %>%
             config(displaylogo = FALSE,
                    displayModeBar = TRUE,
-                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
+                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d")))
 
+        }
+        }
     })
 
     # Chart help modal ####
