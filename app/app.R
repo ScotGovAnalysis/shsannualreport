@@ -80,8 +80,8 @@ ui <- fluidPage(
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
 
                         fluidRow(column(9, offset = 1,
-                            br(),
-                                 h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
+                                        br(),
+                                        h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
                         )),
 
                         br(), br(),
@@ -216,23 +216,23 @@ ui <- fluidPage(
                              h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year."),
                              h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears.")
                    ),
-                    wellPanel(
-                        fluidRow(
-                            column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
-                        ),
+                   wellPanel(
+                       fluidRow(
+                           column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
+                       ),
 
-                        fluidRow(
-                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
-                            column(3, selectInput("select_report_year", "Select Year", choices = years)),
-                            column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
-                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
-                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
-                        )),
+                       fluidRow(
+                           column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
+                           column(3, selectInput("select_report_year", "Select Year", choices = years)),
+                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
+                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                       )),
 
-                        fluidRow(
-                            column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
-                            column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
-                        )
+                   fluidRow(
+                       column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
+                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
+                   )
                ),
 
                # Raw Data tab ####
@@ -1321,10 +1321,8 @@ server <- function(input, output, session) {
             } else {
 
                 data_table <- DT::datatable(main_df(),
-
-                                            # extensions = "Buttons",
+                                            colnames = gsub("blank", "", colnames(main_df())),
                                             options = list(
-                                                # buttons = c("copy", "csv", "excel"),
                                                 dom = "t",
                                                 digits = 1,
                                                 na = "-",
@@ -1340,9 +1338,8 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% type_4_questions) {
 
             data_table <- DT::datatable(main_df(),
-                                        # extensions = "Buttons",
+                                        colnames = gsub("blank", "", colnames(main_df())),
                                         options = list(
-                                            # buttons = c("copy", "csv", "excel"),
                                             dom = "t",
                                             digits = 1,
                                             na = "-",
@@ -1399,9 +1396,8 @@ server <- function(input, output, session) {
         } else if (input$select_question %in% type_4_questions & input$select_comparison_type != "No comparison"){
 
             DT::datatable(comparison_df(),
-                          # extensions = "Buttons",
                           options = list(
-                              # buttons = c("copy", "csv", "excel"),
+                              colnames = gsub("blank", "", colnames(main_df())),
                               dom = "t",
                               digits = 1,
                               na = "-",
@@ -1441,7 +1437,7 @@ server <- function(input, output, session) {
     output$excel_table <- DT::renderDataTable({
 
         excel_datatable <- DT::datatable(excel_df(),
-
+                                         colnames = gsub("blank", "", colnames(excel_df())),
                                          extensions = "Buttons",
                                          options = list(
 
@@ -1486,6 +1482,7 @@ server <- function(input, output, session) {
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
                                               panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                              legend.title = element_blank(),
                                               text = element_text(family = \"Arial\")) +
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
@@ -1504,6 +1501,7 @@ server <- function(input, output, session) {
                                        panel.grid.major.x = element_blank(),
                                        panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
                                        panel.background = element_rect(\"transparent\"),
+                                       legend.title = element_blank(),
                                        legend.position = \"bottom\") +
 
                                      scale_fill_manual(values = shs_colours) +
@@ -1584,6 +1582,7 @@ server <- function(input, output, session) {
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
+                                              legend.title = element_blank(),
                                               panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
                                               text = element_text(family = \"Arial\")) +
                                               scale_colour_manual(values = shs_colours) +
@@ -1603,6 +1602,7 @@ server <- function(input, output, session) {
                                            theme(panel.grid.minor = element_blank(),
                                            panel.grid.major.x = element_blank(),
                                            panel.grid.major.y = element_line(colour = \"#b8b8ba\", size = 0.3),
+                                           legend.title = element_blank(),
                                            panel.background = element_rect(\"transparent\"),
                                            legend.position = \"bottom\") +
                                            scale_fill_manual(values = shs_colours) +
@@ -1668,11 +1668,11 @@ server <- function(input, output, session) {
     # Chart help modal ####
 
     chartModal <- modalDialog(
-          h4("How to use the Data Explorer charts", style = "text-align: center"),
-          HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o?start=196" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
-          h4("Prefer written guidance? Go to the next page"),
-          actionButton("tochartModal2", "Written guidance"),
-          easyClose = TRUE, fade = FALSE, footer = NULL)
+        h4("How to use the Data Explorer charts", style = "text-align: center"),
+        HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o?start=196" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
+        h4("Prefer written guidance? Go to the next page"),
+        actionButton("tochartModal2", "Written guidance"),
+        easyClose = TRUE, fade = FALSE, footer = NULL)
 
 
     observeEvent(input$help, {showModal(chartModal)})
@@ -1767,22 +1767,23 @@ server <- function(input, output, session) {
                                        comparison_type = input$select_report_comparison_type,
                                        comparator = comparator)
 
-        report_title_value <- paste0("Scotland's People Local Authority Tables | ",
-                                     topic_titles[topic_titles$title == input$select_report_topic, ]$title, " | ",
-                                     input$select_report_local_authority, " (",
-                                     input$select_report_year, ")")
+        report_title_value <- "Scotland's People Local Authority Tables"
+        author_value <- topic_titles[topic_titles$title == input$select_report_topic, ]$title
+        date_value <- paste0(input$select_report_local_authority, " (", input$select_report_year, ")")
 
         if (input$select_report_comparison_type == "Local Authority") {
 
-            report_title_value <- paste0(report_title_value, " compared to ", comparator, " (", input$select_report_year, ")")
+            date_value <- paste0(date_value, " compared to ", comparator, " (", input$select_report_year, ")")
 
-            } else if (input$select_report_comparison_type == "Year") {
+        } else if (input$select_report_comparison_type == "Year") {
 
-                report_title_value <- paste0(report_title_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
+                date_value <- paste0(date_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
 
-            }
+        }
 
         params <- list(report_title = report_title_value,
+                       author = author_value,
+                       date = date_value,
                        local_authority = input$select_report_local_authority,
                        year = input$select_report_year,
                        topic_data = data,

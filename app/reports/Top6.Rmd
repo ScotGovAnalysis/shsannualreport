@@ -1,12 +1,16 @@
 ---
 params:
   report_title: ""
+  author: ""
+  date: ""
   local_authority: ""
   year: ""
   topic_data: ""
   comparison_type: ""
   comparator: ""
 title: "`r params$report_title`"
+author: "`r params$author`"
+date: "`r params$date`"
 output:
   pdf_document:
     toc: yes
@@ -95,7 +99,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ## Figure 6.1: How households are managing financially by year
 ### Column percentages, Households
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_6.1)) {
@@ -143,7 +147,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_6.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -216,7 +222,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_6.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -278,7 +286,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_6.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -340,7 +350,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_6.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -403,7 +415,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_6.1)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -470,7 +484,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_6.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -538,7 +554,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_6.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}

@@ -39,12 +39,16 @@ shs_create_reports <- function() {
     string <- "---
 params:
   report_title: \"\"
+  author: \"\"
+  date: \"\"
   local_authority: \"\"
   year: \"\"
   topic_data: \"\"
   comparison_type: \"\"
   comparator: \"\"
 title: \"`r params$report_title`\"
+author: \"`r params$author`\"
+date: \"`r params$date`\"
 output:
   pdf_document:
     toc: yes
@@ -216,10 +220,20 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
         string <- paste0(string, "### [", link_comment, "]", "(", url, ")\n")
       }
 
-      if (type %in% c(1, 2, 3)) {
+      if (type == "1") {
+        string <- paste0(string, "
+### `r local_authority`
+")
+      }
+
+      if (type %in% c("2", "3")) {
         string <- paste0(string, "
 ### `r main_table_title`
+")
+      }
 
+      if (type %in% c("1", "2", "3")) {
+        string <- paste0(string, "
 ```{r eval=(", markdown_comparator, " == FALSE)}\n",
                          "if (!is.null(", question_id_underscore, ")) {\n",
                          question_id_underscore, " %>%
@@ -301,7 +315,20 @@ if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 
 ```
 
 ```{r eval=", markdown_comparator, "}
+")
+        if (type  == "1") {
+          string <- paste0(string, "
+asis_output(paste0(\"### \", comparator))
+  ")
+        }
+
+        if (type %in% c("2", "3")) {
+          string <- paste0(string, "
 asis_output(paste0(\"### \", comparison_table_title))
+  ")
+        }
+
+        string <- paste0(string, "
 ```
 
 ```{r eval=", markdown_comparator, "}

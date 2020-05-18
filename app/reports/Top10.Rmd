@@ -1,12 +1,16 @@
 ---
 params:
   report_title: ""
+  author: ""
+  date: ""
   local_authority: ""
   year: ""
   topic_data: ""
   comparison_type: ""
   comparator: ""
 title: "`r params$report_title`"
+author: "`r params$author`"
+date: "`r params$date`"
 output:
   pdf_document:
     toc: yes
@@ -119,7 +123,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ## Table 10.1: Perceptions about climate change as a problem
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.1)) {
@@ -159,7 +163,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -222,7 +228,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_10.1)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -253,7 +261,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.2)) {
@@ -290,7 +298,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -315,7 +325,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.3)) {
@@ -352,7 +362,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -377,7 +389,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.4)) {
@@ -414,7 +426,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -439,7 +453,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.5)) {
@@ -476,7 +490,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -500,7 +516,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 10.6: Frequency of visits made to the outdoors
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.6)) {
@@ -541,7 +557,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.6)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -608,7 +626,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.7)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -634,7 +654,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 10.4: Percentage of adults visiting outdoors at least once a week
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_10.4)) {
@@ -674,7 +694,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_10.4)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -737,7 +759,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.8)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -801,7 +825,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.9)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -866,7 +892,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.10)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -890,7 +918,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 10.5: Walking distance to nearest useable greenspace
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_10.5)) {
@@ -930,7 +958,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_10.5)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -996,7 +1026,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.11)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1024,7 +1056,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Question not asked in 2018. Base numbers too small to show line chart for local authorities.
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_10.6)) {
@@ -1063,7 +1095,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_10.6)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1090,7 +1124,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Question not asked in 2018. Base numbers too small to show line chart for local authorities.
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_10.7)) {
@@ -1129,7 +1163,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_10.7)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1156,7 +1192,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Columns may not add up to 100 per cent as multiple responses were allowed
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_10.12)) {
@@ -1193,7 +1229,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.12)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1254,7 +1292,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_10.13)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}

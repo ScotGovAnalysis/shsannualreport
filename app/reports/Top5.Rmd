@@ -1,12 +1,16 @@
 ---
 params:
   report_title: ""
+  author: ""
+  date: ""
   local_authority: ""
   year: ""
   topic_data: ""
   comparison_type: ""
   comparator: ""
 title: "`r params$report_title`"
+author: "`r params$author`"
+date: "`r params$date`"
 output:
   pdf_document:
     toc: yes
@@ -102,7 +106,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_5.1_Figure_5.1)) {
@@ -146,7 +150,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_5.1_Figure_5.1)), es
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -218,7 +224,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_5.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -283,7 +291,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_5.3_Figure_5.2)), es
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -345,7 +355,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -370,7 +382,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 5.4: Adults aged 16 and over in work over time, 1999-2018
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_5.4)) {
@@ -418,7 +430,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -453,7 +467,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 5.5: Current economic situation of adults aged 16-64 over time, 1999-2018
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_5.5)) {
@@ -501,7 +515,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -574,7 +590,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.6)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -638,7 +656,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_5.4)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -704,7 +724,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_5.5)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -770,7 +792,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.7)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -832,7 +856,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_5.8)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
