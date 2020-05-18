@@ -1465,7 +1465,8 @@ server <- function(input, output, session) {
 
             df <- main_chart_df()
 
-            df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
+            df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
+                                "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
 
             df <- eval(parse(text = df_string))
 
@@ -1566,7 +1567,8 @@ server <- function(input, output, session) {
 
             df <- comparison_chart_df()
 
-            df_string <- paste0("df[df$`", measure_column_name(), "` != \"All\" & df$`", measure_column_name(), "` != \"Base\",]")
+            df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
+                                "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
 
             df <- eval(parse(text = df_string))
 
