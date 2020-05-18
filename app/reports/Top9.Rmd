@@ -458,7 +458,7 @@ asis_output("### There is no data to show for this table within the specified pa
 
 ### `r main_table_title`
 
-```{r eval=(eval_comparison == FALSE)}
+```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_9.2)) {
 Figure_9.2 %>%
 kable("latex", escape = TRUE, booktabs = T)
@@ -467,7 +467,7 @@ kable("latex", escape = TRUE, booktabs = T)
       }
 ```
 
-```{r eval=eval_comparison}
+```{r eval=eval_comparison_time_series}
 if (!is.null(Figure_9.2)) {
 if (length(grep("_2", colnames(Figure_9.2))) > 0) {
 colnames(Figure_9.2) <- gsub("%", "\\\\%", colnames(Figure_9.2))
@@ -494,11 +494,11 @@ kable("latex", escape = TRUE, booktabs = T)
 }
 ```
 
-```{r eval=eval_comparison}
+```{r eval=eval_comparison_time_series}
 asis_output(paste0("### ", comparison_table_title))
 ```
 
-```{r eval=eval_comparison}
+```{r eval=eval_comparison_time_series}
 if (!is.null(Figure_9.2) && length(grep("_2", colnames(Figure_9.2))) > 0) {
 comparison_column_names <- colnames(Figure_9.2)[grepl("_2", colnames(Figure_9.2))]
 comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
