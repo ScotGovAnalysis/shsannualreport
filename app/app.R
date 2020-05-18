@@ -173,7 +173,6 @@ ui <- fluidPage(
                            tabPanel("Chart",
                                     fluidRow(
                                         column(6, h3(textOutput("main_plot_title"))),
-
                                         column(3, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", checkboxInput("ConfidenceInterval", "Display Confidence Intervals", value = TRUE))),
                                         column(2, conditionalPanel(condition = "output.question_type != '0' && output.question_type != '4'", radioButtons("zoomLevel_main",
                                                                                                                                                           "Y-axis zoom level:",
@@ -182,6 +181,8 @@ ui <- fluidPage(
                                         column(1, actionButton("help", icon("question")))
                                     ),
                                     fluidRow(h4(textOutput("main_chart_type_comment"))),
+
+                                    fluidRow(conditionalPanel(condition = "output.question_type == '4'", h4("Due to differences in data structure, no chart is displayed for this table"))),
 
 
                                     fluidRow(plotly::plotlyOutput("main_chart")),
