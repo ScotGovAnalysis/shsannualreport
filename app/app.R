@@ -709,7 +709,13 @@ server <- function(input, output, session) {
 
     observe ({
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
+        if (!is.null(df())) {
+
+            df <- df()
+
+            year_count <- length(unique(df$Year))
+
+        if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
 
@@ -719,7 +725,7 @@ server <- function(input, output, session) {
             shinyjs::showElement("select_year_comparator")
             shinyjs::showElement("select_local_authority_comparator")
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
+        } else if (input$select_question %in% c(type_2_questions, type_3_questions) & year_count > 1) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
 
@@ -737,6 +743,7 @@ server <- function(input, output, session) {
             shinyjs::hideElement("select_year_comparator")
             shinyjs::hideElement("select_local_authority_comparator")
 
+        }
         }
     })
 
