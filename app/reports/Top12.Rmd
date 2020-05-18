@@ -126,7 +126,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2018
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_12.1)) {
@@ -167,7 +167,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.1)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -196,7 +198,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_12.1)) {
@@ -237,7 +239,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -301,7 +305,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.2)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -363,7 +369,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -427,7 +435,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -492,7 +502,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.4_Figure_12.3)), 
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -559,7 +571,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.5_Figure_12.4)), 
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -625,7 +639,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.6_Figure_12.5)), 
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -690,7 +706,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.7_Figure_12.6)), 
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -755,7 +773,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.8)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -781,7 +801,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Note that figures from 2018 onwards are not directly comparable with figures from previous years due to changes in the wording of the cultural attendance and participation questions in 2019
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_12.9)) {
@@ -822,7 +842,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.9)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -887,7 +909,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.7)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -949,7 +973,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.10)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1013,7 +1039,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.11)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1078,7 +1106,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.12_Figure_12.8)),
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1145,7 +1175,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.13_Figure_12.9)),
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1211,7 +1243,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.14_Figure_12.10))
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1276,7 +1310,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.15_Figure_12.11))
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1341,7 +1377,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.16)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1366,7 +1404,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 12.17: Satisfaction with local authority culture facilities.
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_12.17)) {
@@ -1410,7 +1448,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.17)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1441,7 +1481,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 12.18: Satisfaction with local authority culture facilities; service users in the past year only
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_12.18)) {
@@ -1485,7 +1525,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.18)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}

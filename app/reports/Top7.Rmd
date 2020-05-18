@@ -129,7 +129,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ## Figure 7.1: Households with home internet access by year
 ### Column percentages, Households
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_7.1)) {
@@ -175,7 +175,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_7.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -229,7 +231,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, NA
 ### Base numbers prevent breakdown by age at local authority level
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_7.7)) {
@@ -269,7 +271,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_7.7)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -321,7 +325,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by age at local authority level. Columns may not add up to 100 per cent as multiple responses were allowed
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_7.2)) {
@@ -361,7 +365,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_7.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -424,7 +430,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_7.3)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -447,7 +455,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by age at local authority level. Columns may not add up to 100 per cent as multiple responses were allowed
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_7.4)) {
@@ -487,7 +495,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_7.4)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -515,7 +525,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple reponses were allowed. This option was only included from 2018
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_7.5)) {
@@ -553,7 +563,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_7.5)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -579,7 +591,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### Base numbers prevent breakdown by tenure at local authority level. Data prior to 2015 not available. Columns may not add up to 100 per cent as multiple responses were allowed.
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_7.6)) {
@@ -617,7 +629,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_7.6)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}

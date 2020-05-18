@@ -168,7 +168,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -231,7 +233,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -256,7 +260,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 11.1: Whether provided unpaid help to organisations or groups in the last 12 months by gender
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_11.1)) {
@@ -299,7 +303,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_11.1)), escape = TR
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -367,7 +373,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_11.2)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -428,7 +436,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -489,7 +499,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -552,7 +564,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_11.3)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -618,7 +632,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -687,7 +703,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.6)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -756,7 +774,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.7)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -824,7 +844,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.8)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -891,7 +913,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.9)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -954,7 +978,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.10)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1015,7 +1041,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.11)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1079,7 +1107,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.12)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1143,7 +1173,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_11.4)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1206,7 +1238,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.13)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1268,7 +1302,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.14)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1332,7 +1368,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_11.5)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1399,7 +1437,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.15)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1467,7 +1507,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.16)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1535,7 +1577,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.17)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1598,7 +1642,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_11.18)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}

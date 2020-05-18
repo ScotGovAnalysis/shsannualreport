@@ -105,7 +105,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### Percentages reported for all three services combined are those for which an opinion was given. Respondents could express no opinion for up to two of the services
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_9.1_Table_9.1)) {
@@ -149,7 +149,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_9.1_Table_9.1)), es
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -181,7 +183,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.2)) {
@@ -225,7 +227,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -297,7 +301,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.3)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -363,7 +369,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.4)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -390,7 +398,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### User of Local health services not available prior to 2017. Users of Local schools identified by whether there is a school child present in the household. Users of Public transport identified by whether the respondent has used a bus or train within the last month
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.5)) {
@@ -434,7 +442,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.5)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -465,7 +475,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 9.2: Percentage agreeing with various statements about local authority services and performances
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_9.2)) {
@@ -505,7 +515,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_9.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -532,7 +544,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 9.6: Percentage of people who agree with the statement 'I can influence decisions affecting my local area' by year
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.6)) {
@@ -576,7 +588,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.6)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -607,7 +621,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 9.7: Percentage agreeing with various statements about local council services by year
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_9.7)) {
@@ -651,7 +665,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_9.7)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -720,7 +736,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_9.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -784,7 +802,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_9.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}

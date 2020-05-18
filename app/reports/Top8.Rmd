@@ -115,7 +115,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ## Table 8.1, Figure 8.1, Figure 8.2: Trends in participation in physical activity and sport in the last four weeks, 2007 to 2018
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_8.1_Figure_8.1_Figure_8.2)) {
@@ -159,7 +159,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_8.1_Figure_8.1_Figur
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -190,7 +192,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 8.3: Trends in frequency of participation by adults who took part in physical activity and sport in the previous four weeks
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_8.3)) {
@@ -234,7 +236,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.3)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -306,7 +310,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_8.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -334,7 +340,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 8.4: Trends in participation in physical activity and sport (including walking) in the last four weeks by age
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_8.4)) {
@@ -378,7 +384,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -409,7 +417,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 8.5: Trends in participation in any physical activity and sport (excluding walking) in the last four weeks by age
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_8.5)) {
@@ -453,7 +461,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -484,7 +494,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 8.6: Trends in participation in recreational walking in the last four weeks by age
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_8.6)) {
@@ -528,7 +538,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.6)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -598,7 +610,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.7)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -663,7 +677,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.8)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -728,7 +744,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_8.3)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -803,7 +821,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_8.13)), escape = TR
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -828,7 +848,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_8.4)) {
@@ -872,7 +892,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_8.4)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -903,7 +925,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 8.5: Satisfaction with local authority cultural and sport facilities (service users in the past 12 months only)
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_8.5)) {
@@ -947,7 +969,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_8.5)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}

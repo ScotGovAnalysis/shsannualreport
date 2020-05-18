@@ -126,7 +126,7 @@ $ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.1)) {
@@ -167,7 +167,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.1)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -196,7 +198,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.2)) {
@@ -237,7 +239,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.2)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -267,7 +271,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### This question was changed in 2014, so this data is no longer comparable with previous years. Therefore, 2013 data is not presented here.
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.3)) {
@@ -306,7 +310,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.3)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -332,7 +338,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 2.1: Age of adults by year
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_2.1)) {
@@ -380,7 +386,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_2.1)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -415,7 +423,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 2.2: Gender of adults by year
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_2.2)) {
@@ -463,7 +471,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_2.2)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -500,7 +510,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### The question asked in its current form was introduced in 2012 and so not directly comparable with the previous years
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.4_Figure_2.3)) {
@@ -541,7 +551,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.4_Figure_2.3)), es
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -570,7 +582,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.5)) {
@@ -610,7 +622,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.5)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -674,7 +688,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.6)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -697,7 +713,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Figure 2.4: Economic status of adults by year - selected groups
 ### Column percentages, Adults
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_2.4)) {
@@ -745,7 +761,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_2.4)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -781,7 +799,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.7)) {
@@ -823,7 +841,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.7)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -853,7 +873,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Figure_2.5)) {
@@ -896,7 +916,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_2.5)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -927,7 +949,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Adults
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.8)) {
@@ -967,7 +989,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.8)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1034,7 +1058,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.9)), escape = TRUE
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1101,7 +1127,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.10)), escape = TRU
 ```
 
 ```{r eval=eval_comparison}
+
 asis_output(paste0("### ", comparison_table_title))
+  
 ```
 
 ```{r eval=eval_comparison}
@@ -1129,7 +1157,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.11)) {
@@ -1170,7 +1198,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.11)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1198,7 +1228,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 2.12: Households with children by year
 ### Column percentages, Households
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.12)) {
@@ -1239,7 +1269,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.12)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1267,7 +1299,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 2.13: Property type of households by year
 ### Column percentages, Households
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.13)) {
@@ -1308,7 +1340,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.13)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1337,7 +1371,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.14)) {
@@ -1378,7 +1412,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.14)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1407,7 +1443,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.15)) {
@@ -1448,7 +1484,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.15)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1477,7 +1515,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Column percentages, Households
 ### [Another breakdown of this table can be found at the Scottish Surveys Core Questions](https://www2.gov.scot/Topics/Statistics/About/Surveys/SSCQ)
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.16)) {
@@ -1518,7 +1556,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.16)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -1546,7 +1586,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ## Table 2.17: Household income of households by year
 ### Column percentages, Households
 
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 if (!is.null(Table_2.17)) {
@@ -1587,7 +1627,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_2.17)), escape = TRU
 ```
 
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0("### ", comparison_table_title))
+
+asis_output(paste0("### ", comparator))
+  
 ```
 
 ```{r eval=eval_comparison_time_series}
