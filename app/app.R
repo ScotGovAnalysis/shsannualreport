@@ -709,7 +709,7 @@ server <- function(input, output, session) {
 
     observe ({
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
+        if (input$select_question %in% c(type_1_questions, type_4_questions) | length(unique(df()$Year) == 1)) {
 
             updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
 
