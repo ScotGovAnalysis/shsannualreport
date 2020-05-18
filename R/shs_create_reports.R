@@ -39,12 +39,16 @@ shs_create_reports <- function() {
     string <- "---
 params:
   report_title: \"\"
+  author: \"\"
+  date: \"\"
   local_authority: \"\"
   year: \"\"
   topic_data: \"\"
   comparison_type: \"\"
   comparator: \"\"
 title: \"`r params$report_title`\"
+author: \"`r params$author`\"
+date: \"`r params$date`\"
 output:
   pdf_document:
     toc: yes
