@@ -1668,7 +1668,7 @@ server <- function(input, output, session) {
     # Chart help modal ####
 
     chartModal <- modalDialog(
-          h4("How go use the Data Explorer charts", style = "text-align: center"),
+          h4("How to use the Data Explorer charts", style = "text-align: center"),
           HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o?start=196" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
           h4("Prefer written guidance? Go to the next page"),
           actionButton("tochartModal2", "Written guidance"),
