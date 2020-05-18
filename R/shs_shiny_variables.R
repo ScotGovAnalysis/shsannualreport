@@ -2,16 +2,19 @@
 #'
 #' \code{shs_shiny_variables} creates a file of R variables to based on extracted data, to be used in the SHS annual report Shiny app.
 #'
-#' @return \code{null}.
+#' @param min_year \code{double}. The first year of data available for selection.
+#' @param max_year \code{string}. The final year of data available for selection.
+#'
+#' @return \code{double}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_shiny_variables()
+#' shs_shiny_variables(2013, 2018)
 #' }
 #'
 #' @export
 
-shs_shiny_variables <- function() {
+shs_shiny_variables <- function(min_year, max_year) {
 
   save_file_path <- "app/source/variables.R"
 
@@ -101,12 +104,22 @@ shs_shiny_variables <- function() {
       file = save_file_path,
       append = TRUE)
 
-  cat("years <- c(\"2018\",
-                  \"2017\",
-                  \"2016\",
-                  \"2015\",
-                  \"2014\",
-                  \"2013\")\n\n",
+  years_string <- "years <- c("
+
+  year <- max_year
+
+  while(year >= min_year) {
+
+    years_string <- paste0(years_string, "\"", year, "\", ")
+
+    year = year - 1
+  }
+
+  years_string <- (substr(years_string, 1, nchar(years_string) - 2))
+
+  years_string <- paste0(years_string, ")\n\n")
+
+  cat(years_string,
       file = save_file_path,
       append = TRUE)
 

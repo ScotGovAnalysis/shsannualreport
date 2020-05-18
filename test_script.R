@@ -50,7 +50,7 @@
 # shs_process_data()
 #
 # # Create file "app\\source\\variables.R" based on processed data
-# shs_shiny_variables()
+# shs_shiny_variables(2013, 2018)
 #
 # # Create reports based on processed data
 # shs_create_reports()
