@@ -1777,11 +1777,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_report_comparison_type == "Year") {
 
-<<<<<<< HEAD
                 date_value <- paste0(date_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
-=======
-            report_title_value <- paste0(report_title_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
->>>>>>> master
 
         }
 
