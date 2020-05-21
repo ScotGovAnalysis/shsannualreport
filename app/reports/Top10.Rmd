@@ -257,7 +257,7 @@ asis_output("### There is no data to show for this table within the specified pa
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Base sizes are too small for breakdown by area deprivation. See Figure 10.1 for breakdown by year
 
-## Table 10.2: 'It's not worth me doing things to help the environment if others donâ€™t do the same'
+## Table 10.2: 'It's not worth me doing things to help the environment if others don't do the same'
 ### Column percentages, Adults
 ### Data for 2016/prior to 2015 not available
 
