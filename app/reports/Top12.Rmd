@@ -756,7 +756,7 @@ presentation_column_names <-  main_column_names[!main_column_names %in% signific
 
 Table_12.8 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#00A3A3", `At least once a week_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#00A3A3", `Once a month and within year_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#00A3A3", `Once a week but at least once a month_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
@@ -786,7 +786,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 Table_12.8 %>% select(tidyselect::all_of(colnames(Table_12.8)[!colnames(Table_12.8) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#C3C3FF", `At least once a week_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#C3C3FF", `Once a month and within year_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#C3C3FF", `Once a week but at least once a month_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
@@ -1360,7 +1360,7 @@ presentation_column_names <-  main_column_names[!main_column_names %in% signific
 
 Table_12.16 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#00A3A3", `At least once a week_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#00A3A3", `Once a month and within year_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#00A3A3", `Once a week but at least once a month_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
@@ -1390,7 +1390,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 Table_12.16 %>% select(tidyselect::all_of(colnames(Table_12.16)[!colnames(Table_12.16) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", background = case_when(`At least once a week_sig` == "HIGHER" ~ "#C3C3FF", `At least once a week_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Once a month and within year` = cell_spec(`Once a month and within year`, "latex", background = case_when(`Once a month and within year_sig` == "HIGHER" ~ "#C3C3FF", `Once a month and within year_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Once a week but at least once a month` = cell_spec(`Once a week but at least once a month`, "latex", background = case_when(`Once a week but at least once a month_sig` == "HIGHER" ~ "#C3C3FF", `Once a week but at least once a month_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
