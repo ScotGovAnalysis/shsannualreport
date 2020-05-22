@@ -168,11 +168,11 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
 
           max_variable_length <- max(nchar(as.character(readRDS(data_file_path)[[2]])))
 
-          } else if (type %in% c("2", "3")) {
+        } else if (type %in% c("2", "3")) {
 
           max_variable_length <- max(nchar(as.character(readRDS(data_file_path)[[3]])))
 
-          }
+        }
 
         if (type == 1) {
 
@@ -246,7 +246,7 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 
         if (max_variable_length > 50) {
 
-         string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
         }
 
         string <- paste0(string, "\n } else {
@@ -303,10 +303,10 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
           string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
         }
 
-if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
+        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-  string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-}
+          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+        }
         string <- paste0(string, "
 }
 } else {
@@ -367,9 +367,9 @@ mutate("
         if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
           string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-      }
+        }
 
-      string <- paste0(string, "\n} else {
+        string <- paste0(string, "\n} else {
 asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
 ```
@@ -377,43 +377,43 @@ asis_output(\"### There is no data to show for this table within the specified p
 ")
       }
 
-      if (type == 4) {
-        string <- paste0(string, "
+if (type == 4) {
+  string <- paste0(string, "
 ### `r main_table_title`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
 ", question_id_underscore, " %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (max_variable_length > 50) {
+  if (max_variable_length > 50) {
 
-          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
-        }
+    string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+  }
 
-        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
+  if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-        }
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+  }
 
-        string <- paste0(string, "
+  string <- paste0(string, "
 ```
 ```{r eval=eval_comparison_time_series}
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
-kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = FALSE, booktabs = T)")
+kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (max_variable_length > 50) {
+  if (max_variable_length > 50) {
 
-          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
-        }
+    string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+  }
 
-        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
+  if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-        }
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+  }
 
-        string <- paste0(string, "
+  string <- paste0(string, "
 ```
 ```{r eval=eval_comparison_time_series}
 asis_output(paste0(\"### \", comparison_table_title))
@@ -425,31 +425,30 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_underscore, ")), escape = FALSE, booktabs = T)")
+kable(\"latex\", escape = FALSE, booktabs = T)")
 
-        if (max_variable_length > 50) {
+  if (max_variable_length > 50) {
 
-          string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
-        }
+    string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
+  }
 
-        if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
+  if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-          string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
-        }
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+  }
 
-        string <- paste0(string, "
+  string <- paste0(string, "
 ```
 \\pagebreak
 ")
-      }
+}
 
 writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
 
 
 
-      counter_2 <- counter_2 + 1
+counter_2 <- counter_2 + 1
     }
 close(connection)
   }
 }
-
