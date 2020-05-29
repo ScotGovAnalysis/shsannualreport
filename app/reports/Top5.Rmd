@@ -274,9 +274,9 @@ significance_column_names <- colnames(Table_5.3_Figure_5.2)[grepl("_sig", colnam
 presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_5.3_Figure_5.2 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case_when(`Up to £15,000_sig` == "HIGHER" ~ "#00A3A3", `Up to £15,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`£15,001 to £30,000` = cell_spec(`£15,001 to £30,000`, "latex", background = case_when(`£15,001 to £30,000_sig` == "HIGHER" ~ "#00A3A3", `£15,001 to £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#00A3A3", `Over £30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
+mutate(`Up to GBP 15,000` = cell_spec(`Up to GBP 15,000`, "latex", background = case_when(`Up to GBP 15,000_sig` == "HIGHER" ~ "#00A3A3", `Up to GBP 15,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`GBP 15,001 to GBP 30,000` = cell_spec(`GBP 15,001 to GBP 30,000`, "latex", background = case_when(`GBP 15,001 to GBP 30,000_sig` == "HIGHER" ~ "#00A3A3", `GBP 15,001 to GBP 30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Over GBP 30,000` = cell_spec(`Over GBP 30,000`, "latex", background = case_when(`Over GBP 30,000_sig` == "HIGHER" ~ "#00A3A3", `Over GBP 30,000_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -303,9 +303,9 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_5.3_Figure_5.2 %>% select(tidyselect::all_of(colnames(Table_5.3_Figure_5.2)[!colnames(Table_5.3_Figure_5.2) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Up to £15,000` = cell_spec(`Up to £15,000`, "latex", background = case_when(`Up to £15,000_sig` == "HIGHER" ~ "#C3C3FF", `Up to £15,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`£15,001 to £30,000` = cell_spec(`£15,001 to £30,000`, "latex", background = case_when(`£15,001 to £30,000_sig` == "HIGHER" ~ "#C3C3FF", `£15,001 to £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Over £30,000` = cell_spec(`Over £30,000`, "latex", background = case_when(`Over £30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over £30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
+mutate(`Up to GBP 15,000` = cell_spec(`Up to GBP 15,000`, "latex", background = case_when(`Up to GBP 15,000_sig` == "HIGHER" ~ "#C3C3FF", `Up to GBP 15,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`GBP 15,001 to GBP 30,000` = cell_spec(`GBP 15,001 to GBP 30,000`, "latex", background = case_when(`GBP 15,001 to GBP 30,000_sig` == "HIGHER" ~ "#C3C3FF", `GBP 15,001 to GBP 30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Over GBP 30,000` = cell_spec(`Over GBP 30,000`, "latex", background = case_when(`Over GBP 30,000_sig` == "HIGHER" ~ "#C3C3FF", `Over GBP 30,000_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
@@ -707,8 +707,8 @@ Table_5.5 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex", background = case_when(`Yes long-term condition_sig` == "HIGHER" ~ "#00A3A3", `Yes long-term condition_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No long-term condition` = cell_spec(`No long-term condition`, "latex", background = case_when(`No long-term condition_sig` == "HIGHER" ~ "#00A3A3", `No long-term condition_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `All (including permanently sick or disabled)` = cell_spec(`All (including permanently sick or disabled)`, "latex", background = case_when(`All (including permanently sick or disabled)_sig` == "HIGHER" ~ "#00A3A3", `All (including permanently sick or disabled)_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Yes ('excluding permanently sick or disabled')` = cell_spec(`Yes ('excluding permanently sick or disabled')`, "latex", background = case_when(`Yes ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `Yes ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`No ('excluding permanently sick or disabled')` = cell_spec(`No ('excluding permanently sick or disabled')`, "latex", background = case_when(`No ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#00A3A3", `No ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Yes (excluding permanently sick or disabled)` = cell_spec(`Yes (excluding permanently sick or disabled)`, "latex", background = case_when(`Yes (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#00A3A3", `Yes (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`No (excluding permanently sick or disabled)` = cell_spec(`No (excluding permanently sick or disabled)`, "latex", background = case_when(`No (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#00A3A3", `No (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `All (excluding permanently sick or disabled)` = cell_spec(`All (excluding permanently sick or disabled)`, "latex", background = case_when(`All (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#00A3A3", `All (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -739,8 +739,8 @@ rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Yes long-term condition` = cell_spec(`Yes long-term condition`, "latex", background = case_when(`Yes long-term condition_sig` == "HIGHER" ~ "#C3C3FF", `Yes long-term condition_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No long-term condition` = cell_spec(`No long-term condition`, "latex", background = case_when(`No long-term condition_sig` == "HIGHER" ~ "#C3C3FF", `No long-term condition_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `All (including permanently sick or disabled)` = cell_spec(`All (including permanently sick or disabled)`, "latex", background = case_when(`All (including permanently sick or disabled)_sig` == "HIGHER" ~ "#C3C3FF", `All (including permanently sick or disabled)_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Yes ('excluding permanently sick or disabled')` = cell_spec(`Yes ('excluding permanently sick or disabled')`, "latex", background = case_when(`Yes ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `Yes ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`No ('excluding permanently sick or disabled')` = cell_spec(`No ('excluding permanently sick or disabled')`, "latex", background = case_when(`No ('excluding permanently sick or disabled')_sig` == "HIGHER" ~ "#C3C3FF", `No ('excluding permanently sick or disabled')_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Yes (excluding permanently sick or disabled)` = cell_spec(`Yes (excluding permanently sick or disabled)`, "latex", background = case_when(`Yes (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#C3C3FF", `Yes (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`No (excluding permanently sick or disabled)` = cell_spec(`No (excluding permanently sick or disabled)`, "latex", background = case_when(`No (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#C3C3FF", `No (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `All (excluding permanently sick or disabled)` = cell_spec(`All (excluding permanently sick or disabled)`, "latex", background = case_when(`All (excluding permanently sick or disabled)_sig` == "HIGHER" ~ "#C3C3FF", `All (excluding permanently sick or disabled)_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T) %>% kable_styling(latex_options = "scale_down")

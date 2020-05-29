@@ -543,7 +543,7 @@ significance_column_names <- colnames(Table_4.3)[grepl("_sig", colnames(Table_4.
 presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_4.3 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Neither agree nor disagree` = cell_spec(`Neither agree nor disagree`, "latex", background = case_when(`Neither agree nor disagree_sig` == "HIGHER" ~ "#00A3A3", `Neither agree nor disagree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Strongly agree` = cell_spec(`Strongly agree`, "latex", background = case_when(`Strongly agree_sig` == "HIGHER" ~ "#00A3A3", `Strongly agree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Strongly disagree` = cell_spec(`Strongly disagree`, "latex", background = case_when(`Strongly disagree_sig` == "HIGHER" ~ "#00A3A3", `Strongly disagree_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -575,7 +575,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.3 %>% select(tidyselect::all_of(colnames(Table_4.3)[!colnames(Table_4.3) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Neither agree nor disagree` = cell_spec(`Neither agree nor disagree`, "latex", background = case_when(`Neither agree nor disagree_sig` == "HIGHER" ~ "#C3C3FF", `Neither agree nor disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Strongly agree` = cell_spec(`Strongly agree`, "latex", background = case_when(`Strongly agree_sig` == "HIGHER" ~ "#C3C3FF", `Strongly agree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Strongly disagree` = cell_spec(`Strongly disagree`, "latex", background = case_when(`Strongly disagree_sig` == "HIGHER" ~ "#C3C3FF", `Strongly disagree_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
@@ -812,7 +812,7 @@ significance_column_names <- colnames(Table_4.7)[grepl("_sig", colnames(Table_4.
 presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Table_4.7 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+mutate(`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Fairly strongly` = cell_spec(`Fairly strongly`, "latex", background = case_when(`Fairly strongly_sig` == "HIGHER" ~ "#00A3A3", `Fairly strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Not at all strongly` = cell_spec(`Not at all strongly`, "latex", background = case_when(`Not at all strongly_sig` == "HIGHER" ~ "#00A3A3", `Not at all strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Not very strongly` = cell_spec(`Not very strongly`, "latex", background = case_when(`Not very strongly_sig` == "HIGHER" ~ "#00A3A3", `Not very strongly_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
@@ -843,7 +843,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Table_4.7 %>% select(tidyselect::all_of(colnames(Table_4.7)[!colnames(Table_4.7) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate(`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+mutate(`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Fairly strongly` = cell_spec(`Fairly strongly`, "latex", background = case_when(`Fairly strongly_sig` == "HIGHER" ~ "#C3C3FF", `Fairly strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Not at all strongly` = cell_spec(`Not at all strongly`, "latex", background = case_when(`Not at all strongly_sig` == "HIGHER" ~ "#C3C3FF", `Not at all strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Not very strongly` = cell_spec(`Not very strongly`, "latex", background = case_when(`Not very strongly_sig` == "HIGHER" ~ "#C3C3FF", `Not very strongly_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
@@ -1182,7 +1182,7 @@ presentation_column_names <-  main_column_names[!main_column_names %in% signific
 Table_4.11 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#00A3A3", `Yes_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#00A3A3", `No_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#00A3A3", `Refusal_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -1212,7 +1212,7 @@ Table_4.11 %>% select(tidyselect::all_of(colnames(Table_4.11)[!colnames(Table_4.
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#C3C3FF", `Yes_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#C3C3FF", `No_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
@@ -1450,7 +1450,7 @@ presentation_column_names <-  main_column_names[!main_column_names %in% signific
 Table_4.15 %>% select(tidyselect::all_of(main_column_names)) %>%
 mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#00A3A3", `Yes_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#00A3A3", `No_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#00A3A3", `Don't know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#00A3A3", `Do not know_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF")),
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#00A3A3", `Refusal_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
@@ -1480,7 +1480,7 @@ Table_4.15 %>% select(tidyselect::all_of(colnames(Table_4.15)[!colnames(Table_4.
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
 mutate(`Yes` = cell_spec(`Yes`, "latex", background = case_when(`Yes_sig` == "HIGHER" ~ "#C3C3FF", `Yes_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `No` = cell_spec(`No`, "latex", background = case_when(`No_sig` == "HIGHER" ~ "#C3C3FF", `No_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
-`Don't know` = cell_spec(`Don't know`, "latex", background = case_when(`Don't know_sig` == "HIGHER" ~ "#C3C3FF", `Don't know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
+`Do not know` = cell_spec(`Do not know`, "latex", background = case_when(`Do not know_sig` == "HIGHER" ~ "#C3C3FF", `Do not know_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF")),
 `Refusal` = cell_spec(`Refusal`, "latex", background = case_when(`Refusal_sig` == "HIGHER" ~ "#C3C3FF", `Refusal_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
