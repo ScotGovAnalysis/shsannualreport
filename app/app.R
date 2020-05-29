@@ -1743,6 +1743,8 @@ server <- function(input, output, session) {
 
     observeEvent(input$generate, {
 
+        if (any(grepl("package:kableExtra", search()))) detach("package:kableExtra", unload = TRUE)
+
         id <- topic_titles[topic_titles$title == input$select_report_topic,]$code
 
         tmp_dir <- tempdir()
