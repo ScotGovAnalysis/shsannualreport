@@ -999,7 +999,8 @@ server <- function(input, output, session) {
 
             main_chart_df <- NULL
         }
-        # return(main_chart_df)
+
+        main_chart_df
     })
 
     # comparison_chart_df() ####
@@ -1044,7 +1045,7 @@ server <- function(input, output, session) {
             comparison_chart_df <- NULL
         }
 
-        # return(comparison_chart_df)
+        comparison_chart_df
     })
 
     # OUTPUTS ####
