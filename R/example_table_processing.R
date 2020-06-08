@@ -15,12 +15,12 @@ question <- "Table 2.6" # type 2
 
 local_authority <- "Scotland"
 year <- "2018"
-comparison_type <- "No comparison"
+comparison_type <- "Local Authority/Scotland"
 # comparison_type <- "Local Authority"
-comparator <- NULL
+comparator <- "Aberdeenshire"
 
 table <- table_processing(question, local_authority, year, comparison_type, comparator)
-table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
+table <- table[!grepl("Year", colnames(table)) & !grepl("Council", colnames(table))]
 
 table
 
@@ -55,8 +55,18 @@ variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
 
 main_df_comparison_output("table_df", variable_column_names, hide_columns)
 
-DT::datatable(table_df, colnames = gsub("blank", "", colnames(table_df)), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, 4:5), visible = FALSE)))) %>% formatStyle(c('All adults','Adults aged 16 to 64'), c('All adults_sig','Adults aged 16 to 64_sig'), backgroundColor = styleEqual(c('NO', 'HIGHER', 'LOWER'),c('transparent', '#00A3A3', '#C3C3FF')))
+eval(parse(text = main_df_comparison_output("table_df", variable_column_names, hide_columns)))
 
+round_string(column_variables = column_variables, comparison_year_present = comparison_year_present)
 
-
-
+if (length(colnames(table)[grep("_2", colnames(table))]) > 0) {
+  table <- dplyr::mutate(table,
+                         `All adults` = ifelse(`All adults` > 0, suppressWarnings(as.character(round(as.numeric(`All adults`,  0)))), `All adults`),
+                         `Adults aged 16 to 64` = ifelse(`Adults aged 16 to 64` > 0, suppressWarnings(as.character(round(as.numeric(`Adults aged 16 to 64`,  0)))), `Adults aged 16 to 64`),
+                         `All adults_2` = ifelse(`All adults_2` > 0, suppressWarnings(as.character(round(as.numeric(`All adults_2`,  0)))), `All adults_2`),
+                         `Adults aged 16 to 64_2` = ifelse(`Adults aged 16 to 64_2` > 0, suppressWarnings(as.character(round(as.numeric(`Adults aged 16 to 64_2`,  0)))), `Adults aged 16 to 64_2`))
+  } else {
+    table <- dplyr::mutate(table,
+                           `All adults` = ifelse(`All adults` > 0, suppressWarnings(as.character(round(as.numeric(`All adults`,  0)))), `All adults`),
+                           `Adults aged 16 to 64` = ifelse(`Adults aged 16 to 64` > 0, suppressWarnings(as.character(round(as.numeric(`Adults aged 16 to 64`,  0)))), `Adults aged 16 to 64`))
+  }

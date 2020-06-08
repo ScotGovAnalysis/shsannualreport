@@ -24,11 +24,13 @@ comparison_table_string <- function(comparison_type, question_type, column_varia
 
   } else if(question_type %in% c("2", "3")) {
 
-    if (comparison_type == "Local Authority") {
+    if (comparison_type == "Local Authority/Scotland") {
 
       comparison_table_string <- "table_comparison <- table[table$Council == comparator & table$Year == year,] %>% dplyr::rename(`Council_2` = `Council`, "
 
     } else if (comparison_type == "Year") {
+
+      print(comparison_type)
 
       comparison_table_string <- "table_comparison <- table[table$Council == local_authority & table$Year == comparator,] %>% dplyr::rename(`Year_2` = `Year`, "
     }
@@ -112,7 +114,8 @@ arrange_row_variables_string <- function(row_variable) {
 # round_string ####
 round_string <- function(column_variables, comparison_year_present) {
 
-      round_string <- "table <- dplyr::mutate(table, "
+      round_string <- "if (length(colnames(table)[grep(\"_2\", colnames(table))]) > 0) {
+      table <- dplyr::mutate(table, "
 
       for (column_variable in column_variables) {
 
@@ -121,17 +124,27 @@ round_string <- function(column_variables, comparison_year_present) {
         round_string <- paste0(round_string, addition_string)
       }
 
-      if (length(colnames(table)[grep("_2", colnames(table))]) > 0) {
-
       for (column_variable in column_variables) {
 
         addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`,  0)))), `", column_variable, "_2`), ")
 
         round_string <- paste0(round_string, addition_string)
       }
-      }
 
-    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")")
+    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
+                           ",
+                           "} else {
+                           table <- dplyr::mutate(table, ")
+
+                           for (column_variable in column_variables) {
+
+                             addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
+
+                             round_string <- paste0(round_string, addition_string)
+
+                           }
+    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
+                           }")
 
     round_string
 }

@@ -38,7 +38,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
       column_variables <- colnames(table)[!grepl("_l", colnames(table)) & !grepl("_u", colnames(table)) & !colnames(table) %in% c(row_variable, "Year", "Council")]
 
-      if (comparison_type == "Local Authority") {
+      if (comparison_type == "Local Authority/Scotland") {
 
         merge_by <- paste0("c(\"Year\", \"", row_variable, "\")")
 
@@ -75,11 +75,11 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
     eval(parse(text = round_string(column_variables = column_variables, comparison_year_present = comparison_year_present)))
 
-    table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
+    table <- table[!grepl("Year", colnames(table)) & !grepl("Council", colnames(table))]
 
   }  else if (question_type == "4") {
 
-    table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
+    table <- table[!grepl("Year", colnames(table)) & !grepl("Council", colnames(table))]
 
   }
 }

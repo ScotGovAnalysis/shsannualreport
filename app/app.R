@@ -779,6 +779,8 @@ server <- function(input, output, session) {
 
     observe ({
 
+        question <- input$select_question
+
         if (nchar(question) > 0) {
 
             selected_year <- input$select_year
@@ -1367,7 +1369,7 @@ server <- function(input, output, session) {
                                             ordering = FALSE,
                                             info = FALSE,
                                             searching = FALSE,
-                                            columnDefs = list(list(targets = c(0:1),
+                                            columnDefs = list(list(targets = c(0),
                                                                    visible = FALSE))))
 
         } else if (input$select_question %in% type_0_questions){
@@ -1415,7 +1417,7 @@ server <- function(input, output, session) {
                               ordering = FALSE,
                               info = FALSE,
                               searching = FALSE,
-                              columnDefs = list(list(targets = c(0:1),
+                              columnDefs = list(list(targets = c(0),
                                                      visible = FALSE))))
 
         } else {
