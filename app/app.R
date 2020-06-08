@@ -987,7 +987,7 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-            main_chart_df <- base_df()
+            main_chart_df <- df()
 
             main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
 
