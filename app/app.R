@@ -545,7 +545,7 @@ server <- function(input, output, session) {
 
     # Assign dynamic variables ####
     # years() ####
-    years <- reactive ({
+    years <- reactive ({ # TODO change as years already used as name in variables
 
         question <- input$select_question
 
@@ -1658,8 +1658,8 @@ server <- function(input, output, session) {
         #update input$select_report_year_comparator by input$select_report_year. Ensures that user cannot choose same year for comparison in report.
         selected_report_year <- input$select_report_year
 
-        # updateSelectInput(session, inputId = "select_report_year_comparator", label = "Year",
-        #                   choices = years[!years %in% selected_report_year])
+        updateSelectInput(session, inputId = "select_report_year_comparator", label = "Year",
+                          choices = years[!years %in% selected_report_year])
     })
 
     #update input$select_report_local_authority_comparator by input$select_report_local_authority. Ensures that user cannot choose same LA for comparison in report.
