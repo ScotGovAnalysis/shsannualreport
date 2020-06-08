@@ -17,7 +17,6 @@ library(RColorBrewer)
 source("source/variables.R")$values
 source("source/functions.R")$values
 source("source/report_data_processing.R")$values
-source("source/report_functions.R")$values
 source("source/table_processing.R")$values
 
 # ui ####
@@ -885,6 +884,17 @@ server <- function(input, output, session) {
         variable_column_names
     })
 
+    # main_df() ####
+
+    main_df <- reactive({
+
+        main_df <- df()
+
+        main_df <- main_df[!grepl("_2", colnames(main_df))]
+
+        main_df
+    })
+
     # comparison_df() ####
 
     comparison_df <- reactive ({
@@ -909,62 +919,6 @@ server <- function(input, output, session) {
         }
 
         comparison_df
-    })
-
-    # base_df() ####
-
-    base_df <- reactive({
-
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
-
-            base_df <- df()[df()$Council == input$select_local_authority,]
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            base_df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority,]
-
-        } else {
-
-            base_df <- NULL
-        }
-
-        if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
-
-            if (input$select_comparison_type != "No comparison") {
-
-                base_df <- merge(base_df, comparison_df(), by = measure_column_name())
-
-                if (input$select_question %in% c(type_1_questions, type_2_questions)) {
-
-                    base_df <- eval(parse(text = statistical_significance(variable_column_names())))
-
-                    eval(parse(text = remove_significance_from_rows(measure_column_name())))
-
-                } else if (input$select_question %in% type_3_questions) {
-
-                    stat_sig_columns <- colnames(base_df)[4:column_names_count()]
-
-                    stat_sig_columns <- stat_sig_columns[stat_sig_columns != "All" & stat_sig_columns != "Base"]
-
-                    base_df <- eval(parse(text = statistical_significance(stat_sig_columns)))
-
-                    eval(parse(text = remove_significance_from_rows(measure_column_name())))
-                }
-            }
-        }
-
-        return(base_df)
-    })
-
-    # main_df() ####
-
-    main_df <- reactive({
-
-        main_df <- df()
-
-        main_df <- main_df[!grepl("_2", colnames(main_df))]
-
-        main_df
     })
 
     # main_chart_df() ####
