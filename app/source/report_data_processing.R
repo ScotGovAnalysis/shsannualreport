@@ -18,6 +18,8 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
     table <- eval(parse(text = round_string("table", variable_column_names)))
 
+    table <- table[!grepl("_l", colnames(table)) & !grepl("_u", colnames(table))]
+
     assign(question, table)
 
     data_list_string <- paste0(data_list_string, "`", question, "`, ")
