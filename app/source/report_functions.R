@@ -102,6 +102,7 @@ remove_significance_string <- function(row_variable) {
   paste0("table[table$`", row_variable, "` == 'All' | table$`", row_variable, "` == 'Base', colnames(table)[grep('_sig', colnames(table))]] <- \"NO\"")
 }
 
+
 # arrange_select_mutate_string ####
 arrange_select_mutate_string <- function(comparison_type, question_type, row_variable, column_variables, year_present, comparison_year_present) {
 
@@ -111,37 +112,7 @@ arrange_select_mutate_string <- function(comparison_type, question_type, row_var
 
   } else if (question_type %in% c("1", "2", "3") & year_present == TRUE) {
 
-    arrange_select_mutate_string <- paste0("table <-  dplyr::arrange(table, `", row_variable, "`) %>% ",
-                                           "dplyr::select(`", row_variable, "`, ")
-
-    for (column_variable in column_variables) {
-
-      addition_string <- paste0("`", column_variable, "`, ")
-
-      arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
-    }
-
-    if ((question_type %in% c("2", "3") & comparison_type != "No comparison" & comparison_year_present == TRUE) | (question_type == "1" & !comparison_type %in% c("Year", "No comparison"))) {
-
-      for (column_variable in column_variables) {
-
-        addition_string <- paste0("`", column_variable, "_2`, ")
-
-        arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
-      }
-
-      for (column_variable in column_variables) {
-
-        if (!column_variable %in% c("All", "Base")) {
-
-          addition_string <- paste0("`", column_variable, "_sig`, ")
-
-          arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
-
-        }
-      }
-
-      arrange_select_mutate_string <- substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 2)
+    arrange_select_mutate_string <- paste0("table <-  dplyr::arrange(table, `", row_variable, "`")
 
       arrange_select_mutate_string <- paste0(arrange_select_mutate_string, ") %>% dplyr::mutate(")
 
@@ -158,7 +129,6 @@ arrange_select_mutate_string <- function(comparison_type, question_type, row_var
 
         arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
       }
-    }
 
     arrange_select_mutate_string <- paste0(substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 2), ")")
 
@@ -167,6 +137,7 @@ arrange_select_mutate_string <- function(comparison_type, question_type, row_var
     arrange_select_mutate_string <- "table <- table[, -which(names(table) %in% c(\"Council\", \"Council_2\"))]"
   }
 
+  print(arrange_select_mutate_string)
   arrange_select_mutate_string
 }
 
