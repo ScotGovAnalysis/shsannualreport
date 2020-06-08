@@ -5,9 +5,8 @@ question <- "Table 2.6" # type 2
 question <- "Table 2.10" # type 3
 question <- "Table 3.1b" # type 4
 
-
 local_authority <- "Scotland"
-year <- "2018"
+year <- "2001"
 comparison_type <- "Local Authority"
 comparator <- "Aberdeenshire"
 

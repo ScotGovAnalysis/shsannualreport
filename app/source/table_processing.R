@@ -65,10 +65,21 @@ table_processing <- function(question, local_authority, year, comparison_type, c
     eval(parse(text = remove_significance_string(row_variable = row_variable)))
   }
 
-  eval(parse(text = arrange_select_mutate_string(comparison_type = comparison_type,
-                                                 question_type = question_type,
-                                                 row_variable = row_variable,
-                                                 column_variables = column_variables,
-                                                 year_present = year_present,
-                                                 comparison_year_present = comparison_year_present)))
+  if (question_type == "0" | year_present == FALSE) {
+
+    table <- NULL
+
+  } else if (question_type %in% c("1", "2", "3") & year_present == TRUE) {
+
+    eval(parse(text = arrange_row_variables_string(row_variable = row_variable)))
+
+    eval(parse(text = round_string(column_variables = column_variables)))
+
+    table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
+
+  }  else if (question_type == "4") {
+
+    table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
+
+  }
 }

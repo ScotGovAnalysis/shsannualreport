@@ -102,42 +102,35 @@ remove_significance_string <- function(row_variable) {
   paste0("table[table$`", row_variable, "` == 'All' | table$`", row_variable, "` == 'Base', colnames(table)[grep('_sig', colnames(table))]] <- \"NO\"")
 }
 
+arrange_row_variables_string <- function(row_variable) {
 
-# arrange_select_mutate_string ####
-arrange_select_mutate_string <- function(comparison_type, question_type, row_variable, column_variables, year_present, comparison_year_present) {
+  paste0("table <-  dplyr::arrange(table, `", row_variable, "`)")
+  }
 
-  if (question_type == "0" | year_present == FALSE) {
 
-    arrange_select_mutate_string <- "table <- NULL"
+# round_string ####
+round_string <- function(column_variables) {
 
-  } else if (question_type %in% c("1", "2", "3") & year_present == TRUE) {
-
-    arrange_select_mutate_string <- paste0("table <-  dplyr::arrange(table, `", row_variable, "`")
-
-      arrange_select_mutate_string <- paste0(arrange_select_mutate_string, ") %>% dplyr::mutate(")
+      round_string <- "table <- dplyr::mutate(table, "
 
       for (column_variable in column_variables) {
 
         addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
 
-        arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
+        round_string <- paste0(round_string, addition_string)
       }
 
       for (column_variable in column_variables) {
 
         addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`,  0)))), `", column_variable, "_2`), ")
 
-        arrange_select_mutate_string <- paste0(arrange_select_mutate_string, addition_string)
+        round_string <- paste0(round_string, addition_string)
       }
 
-    arrange_select_mutate_string <- paste0(substr(arrange_select_mutate_string, 1, nchar(arrange_select_mutate_string) - 2), ")")
+    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")")
 
-  } else if (question_type == "4") {
+    print(round_string)
 
-    arrange_select_mutate_string <- "table <- table[, -which(names(table) %in% c(\"Council\", \"Council_2\"))]"
-  }
-
-  print(arrange_select_mutate_string)
-  arrange_select_mutate_string
+    round_string
 }
 
