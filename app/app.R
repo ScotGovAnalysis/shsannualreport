@@ -868,35 +868,21 @@ server <- function(input, output, session) {
 
     column_names_count <- reactive({
 
-        return(length(colnames(df())))
+        length(colnames(main_df()))
     })
 
     measure_column_name <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
-
-            measure_column_name <- colnames(df())[2]
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            measure_column_name <- colnames(df())[3]
-        }
-
-        return(measure_column_name)
+            measure_column_name <- colnames(main_df())[1]
     })
 
     variable_column_names <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
+            variable_column_names <- colnames(main_df())[2:column_names_count()]
 
-            variable_column_names <- colnames(df())[3:column_names_count()]
+            variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) & !variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            variable_column_names <- colnames(df())[4:column_names_count()]
-        }
-
-        return(variable_column_names)
+        variable_column_names
     })
 
     # comparison_df() ####
@@ -987,11 +973,13 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-            main_chart_df <- df()
+            main_chart_df <- main_df()
+
+            measure_column_name <- measure_column_name()
+
+            variable_column_names <- variable_column_names()
 
             main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
-
-            variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
 
             main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "main_chart_df"))))
 
@@ -1007,42 +995,25 @@ server <- function(input, output, session) {
 
     comparison_chart_df <- reactive ({
 
+        comparison_chart_df <- NULL
+
         if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions) {
 
-            if (input$select_question %in% type_1_questions) {
+            comparison_chart_df <- comparison_df()
 
-                comparison_chart_df <- comparison_df()[-1]
+            measure_column_name <- measure_column_name()
 
-            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-                comparison_chart_df <- comparison_df()[-c(1, 2)]
-            }
-
-            column_names <- colnames(comparison_chart_df)
-
-            new_names <- c()
-
-            for (column_name in column_names) {
-
-                if (substr(column_name, nchar(column_name), nchar(column_name)) == "2") {
-                    column_name <- substr(column_name, 1, nchar(column_name) - 1)
-                    new_names <- c(new_names, column_name)
-                } else {
-                    new_names <- c(new_names, column_name)
-                }
-            }
-
-            colnames(comparison_chart_df) <- new_names
+            variable_column_names <- variable_column_names()
 
             comparison_chart_df <- comparison_chart_df[comparison_chart_df[1] != "All" & comparison_chart_df[1] != "Base",]
 
-            variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
+          #  variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) &!variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
+
+            if(!is.null(variable_column_names)) {
 
             comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "comparison_chart_df"))))
 
-        } else {
-
-            comparison_chart_df <- NULL
+            }
         }
 
         comparison_chart_df
@@ -1326,7 +1297,11 @@ server <- function(input, output, session) {
 
         table_df <- main_df()
 
+        variable_column_names <- variable_column_names()
+
         table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
+
+        table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
 
         if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
@@ -1391,6 +1366,10 @@ server <- function(input, output, session) {
             if (input$select_comparison_type != "No comparison") {
 
                 table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
+
+                variable_column_names <- variable_column_names()
+
+                table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
 
                 hide_columns <- grep("_sig", colnames(table_df))
                 start_of_hide <- hide_columns[1]

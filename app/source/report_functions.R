@@ -30,8 +30,6 @@ comparison_table_string <- function(comparison_type, question_type, column_varia
 
     } else if (comparison_type == "Year") {
 
-      print(comparison_type)
-
       comparison_table_string <- "table_comparison <- table[table$Council == local_authority & table$Year == comparator,] %>% dplyr::rename(`Year_2` = `Year`, "
     }
   }
@@ -112,10 +110,10 @@ arrange_row_variables_string <- function(row_variable) {
 
 
 # round_string ####
-round_string <- function(column_variables, comparison_year_present) {
+round_string <- function(table_name, column_variables) {
 
-      round_string <- "if (length(colnames(table)[grep(\"_2\", colnames(table))]) > 0) {
-      table <- dplyr::mutate(table, "
+      round_string <- paste0("if (length(colnames(", table_name, ")[grep(\"_2\", colnames(", table_name, "))]) > 0) {
+      ", table_name, " <- dplyr::mutate(", table_name, ", ")
 
       for (column_variable in column_variables) {
 
@@ -134,7 +132,7 @@ round_string <- function(column_variables, comparison_year_present) {
     round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
                            ",
                            "} else {
-                           table <- dplyr::mutate(table, ")
+                           ", table_name, " <- dplyr::mutate(", table_name, ", ")
 
                            for (column_variable in column_variables) {
 
