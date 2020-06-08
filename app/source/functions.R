@@ -351,9 +351,9 @@ arrange_select_mutate_comparison <- function(variable_column_names, measure_colu
 
 # main_df_comparison_output ####
 
-main_df_comparison_output <- function(variable_column_names, hide_columns) {
+main_df_comparison_output <- function(df_name, variable_column_names, hide_columns) {
 
-  comparison_output_string <- paste0("DT::datatable(main_df(), colnames = gsub(\"blank\", \"\", colnames(main_df())), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE)))) %>% formatStyle(c(")
+  comparison_output_string <- paste0("DT::datatable(", df_name, ", colnames = gsub(\"blank\", \"\", colnames(", df_name, ")), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE)))) %>% formatStyle(c(")
 
   variable_column_names_without_all_base <- variable_column_names[variable_column_names != "All" & variable_column_names != "Base"]
 

@@ -73,7 +73,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
     eval(parse(text = arrange_row_variables_string(row_variable = row_variable)))
 
-    eval(parse(text = round_string(column_variables = column_variables)))
+    eval(parse(text = round_string(column_variables = column_variables, comparison_year_present = comparison_year_present)))
 
     table <- table[colnames(table) != "Year" & !grepl("Council", colnames(table))]
 
