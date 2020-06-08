@@ -102,6 +102,7 @@ remove_significance_string <- function(row_variable) {
   paste0("table[table$`", row_variable, "` == 'All' | table$`", row_variable, "` == 'Base', colnames(table)[grep('_sig', colnames(table))]] <- \"NO\"")
 }
 
+# arrange_row_variables_string ####
 arrange_row_variables_string <- function(row_variable) {
 
   paste0("table <-  dplyr::arrange(table, `", row_variable, "`)")
@@ -128,8 +129,6 @@ round_string <- function(column_variables) {
       }
 
     round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")")
-
-    print(round_string)
 
     round_string
 }
