@@ -1,5 +1,4 @@
 # libraries ####
-
 library(shiny)
 library(shinyjs)
 library(plyr)
@@ -9,15 +8,10 @@ library(magrittr)
 library(ggplot2)
 library(plotly)
 library(RColorBrewer)
-# library(ggthemes)
-# library(shinythemes)
 
 # sources ####
-
 source("source/variables.R")$values
 source("source/functions.R")$values
-source("source/report_data_processing.R")$values
-source("source/table_processing.R")$values
 
 # ui ####
 
@@ -808,6 +802,7 @@ server <- function(input, output, session) {
     df <- reactive({
 
         question <- input$select_question
+
         comparison_type <- input$select_comparison_type
 
         if (comparison_type == "No comparison") {
@@ -935,7 +930,7 @@ server <- function(input, output, session) {
 
             main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
 
-            main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "main_chart_df"))))
+            main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "main_chart_df"))))
 
         } else {
 
@@ -965,7 +960,7 @@ server <- function(input, output, session) {
 
             if(!is.null(variable_column_names)) {
 
-            comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "comparison_chart_df"))))
+            comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "comparison_chart_df"))))
 
             }
         }
@@ -1272,7 +1267,7 @@ server <- function(input, output, session) {
 
                 variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
 
-                data_table <- eval(parse(text = main_df_comparison_output("table_df", variable_column_names, hide_columns)))
+                data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, TRUE)))
 
             } else {
 
@@ -1336,7 +1331,7 @@ server <- function(input, output, session) {
 
                 variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
 
-                data_table <- eval(parse(text = main_df_comparison_output("table_df", variable_column_names, hide_columns)))
+                data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, FALSE)))
 
 } else {
 
