@@ -956,8 +956,6 @@ server <- function(input, output, session) {
 
             comparison_chart_df <- comparison_chart_df[comparison_chart_df[1] != "All" & comparison_chart_df[1] != "Base",]
 
-          #  variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) &!variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
-
             if(!is.null(variable_column_names)) {
 
             comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "comparison_chart_df"))))

@@ -59,17 +59,20 @@ for (column_2_value in column_2_values) {
 
 main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
-  paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(Base = Percent[`",
-                        column_2_name,
-                        "` == '", base_row, "']) %>% ",
-                        "merge(design, by = 'Year') %>% ",
-                        "dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))), ",
-                        "sig_lower = as.numeric(Percent) - (100 * sig_value), ",
-                        "sig_lower = round(as.numeric(sig_lower), 1), ",
-                        "sig_upper = as.numeric(Percent) + (100 * sig_value), ",
-                        "sig_upper = round(as.numeric(sig_upper), 1), ",
-                        "Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), as.character(Percent)) ",
-                        ") %>% dplyr::ungroup()")
+  paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(Base = Percent)\n",
+         "df$Base <- grepl('Base', df$`", column_2_name, "`)\n",
+         "df$Base <- ifelse(df$Base == FALSE, df$Base, df$Percent)\n",
+         "df$Base <- gsub(FALSE, NA, df$Base)\n",
+         "df <- fill(df, Base, .direction= c (\"up\"))\n",
+         "df <- df %>%\n",
+         "merge(design, by = 'Year') %>%\n",
+         "dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))), ",
+         "sig_lower = as.numeric(Percent) - (100 * sig_value), ",
+         "sig_lower = round(as.numeric(sig_lower), 1), ",
+         "sig_upper = as.numeric(Percent) + (100 * sig_value), ",
+         "sig_upper = round(as.numeric(sig_upper), 1), ",
+         "Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), as.character(Percent)) \n",
+         ") %>% dplyr::ungroup()")
 
 values_df_string <- paste0("values_df <- df %>% dplyr::select(`Council`, `", column_2_name, "`,`Year`, `Percent`) %>% tidyr::spread(key = `Year`, value = `Percent`)")
 
