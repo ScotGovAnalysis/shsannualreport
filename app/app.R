@@ -17,7 +17,7 @@ library(RColorBrewer)
 source("source/variables.R")$values
 source("source/functions.R")$values
 source("source/report_data_processing.R")$values
-source("source/report_functions.R")$values
+source("source/table_processing.R")$values
 
 # ui ####
 
@@ -141,7 +141,7 @@ ui <- fluidPage(
                    ),
                    wellPanel(
                        fluidRow(
-                           column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
+                           column(3, selectInput("select_local_authority", label = "Local Authority/Scotland", choices = local_authorities, selected = "Scotland", width = "100%")),
                            column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
                            column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
                            column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
@@ -225,9 +225,9 @@ ui <- fluidPage(
                        fluidRow(
                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
                            column(3, selectInput("select_report_year", "Select Year", choices = years)),
-                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")), # TODO: Update choices
                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
-                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority/Scotland'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
                        )),
 
                    fluidRow(
@@ -543,6 +543,23 @@ server <- function(input, output, session) {
     })
 
 
+    # Assign dynamic variables ####
+    # years() ####
+    years_in_df <- reactive ({ # TODO change as years already used as name in variables
+
+        question <- input$select_question
+
+        if (nchar(question) > 0) {
+
+            years_in_df <- suppressWarnings(unique(readRDS(paste0("data/dataset/", gsub("/", " ", question), ".Rds"))$Year))
+
+        } else {
+
+            years_in_df <- NULL
+        }
+
+        years_in_df
+    })
     # Update input$select_question by input$select_topic ####
 
     observe({
@@ -646,8 +663,6 @@ server <- function(input, output, session) {
 
             question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
-            print(question_update_string)
-
             eval(parse(text = question_update_string))
         }
     })
@@ -710,17 +725,9 @@ server <- function(input, output, session) {
 
     observe ({
 
-        if (!is.null(df())) {
+        question <- input$select_question
 
-            df <- df()
-
-            year_count = 0
-
-            if ("Year" %in% colnames(df)) {
-
-            year_count <- length(unique(df$Year))
-
-            }
+        year_count <- length(years_in_df())
 
         if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
 
@@ -751,21 +758,19 @@ server <- function(input, output, session) {
             shinyjs::hideElement("select_local_authority_comparator")
 
         }
-        }
     })
 
     # Update input$select_year by selected question type ####
 
     observe ({
 
-        if (!is.null(df())) {
+        question <- input$select_question
 
-            df <- df()
+            if (!question %in% c(type_1_questions, type_4_questions)) {
 
-            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
+                years_in_df <- years_in_df()
 
-                updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(unique(df$Year), decreasing = TRUE))
-            }
+                updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(years_in_df, decreasing = TRUE))
         }
     })
 
@@ -773,14 +778,16 @@ server <- function(input, output, session) {
 
     observe ({
 
-        if (!is.null(df())) {
+        question <- input$select_question
+
+        if (nchar(question) > 0) {
 
             selected_year <- input$select_year
 
             if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year_comparator", label = "Year",
-                                  choices = sort(unique(df()$Year)[!sort(unique(df()$Year)) %in% selected_year], decreasing = TRUE))
+                                  choices = sort(years_in_df()[!sort(years_in_df()) %in% selected_year], decreasing = TRUE))
             }
         }
     })
@@ -800,18 +807,36 @@ server <- function(input, output, session) {
 
     df <- reactive({
 
-        data_file_path <- paste0("data/dataset/", gsub("/", " ", input$select_question), ".Rds")
+        question <- input$select_question
+        comparison_type <- input$select_comparison_type
 
-        if (input$select_question > 0 & !input$select_question %in% type_0_questions) {
+        if (comparison_type == "No comparison") {
 
-            df <- readRDS(data_file_path)
+            comparator <- NULL
 
-            return(df)
+            } else if (comparison_type == "Local Authority/Scotland") {
+
+                comparator <- input$select_local_authority_comparator
+
+            } else if (comparison_type == "Year") {
+
+                comparator <- input$select_year_comparator
+            }
+
+        if (question > 0) {
+
+            df <- table_processing(question = question,
+                                   local_authority = input$select_local_authority,
+                                   year = input $select_year,
+                                   comparison_type = comparison_type,
+                                   comparator = comparator)
 
         } else {
 
-            return(NULL)
+            df <- NULL
         }
+
+        df
     })
 
     # excel_df() ####
@@ -842,139 +867,58 @@ server <- function(input, output, session) {
 
     column_names_count <- reactive({
 
-        return(length(colnames(df())))
+        length(colnames(main_df()))
     })
 
     measure_column_name <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
-
-            measure_column_name <- colnames(df())[2]
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            measure_column_name <- colnames(df())[3]
-        }
-
-        return(measure_column_name)
+            measure_column_name <- colnames(main_df())[1]
     })
 
     variable_column_names <- reactive({
 
-        if (input$select_question %in% type_1_questions) {
+            variable_column_names <- colnames(main_df())[2:column_names_count()]
 
-            variable_column_names <- colnames(df())[3:column_names_count()]
+            variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) & !variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            variable_column_names <- colnames(df())[4:column_names_count()]
-        }
-
-        return(variable_column_names)
-    })
-
-    # comparison_df() ####
-
-    comparison_df <- reactive ({
-
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
-
-            df <- df()[df()$Council == input$select_local_authority_comparator,]
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            if (input$select_comparison_type == "Year") {
-
-                df <- df()[df()$Year == input$select_year_comparator & df()$Council == input$select_local_authority,]
-
-            } else if (input$select_comparison_type == "Local Authority/Scotland") {
-
-                df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority_comparator,]
-            }
-
-        } else if (input$select_question %in% c(type_0_questions)) {
-
-            df <- NULL
-        }
-
-        if (!input$select_question %in% type_4_questions) {
-
-            df <- eval(parse(text = round_comparison_df_values(variable_column_names())))
-
-            df <- eval(parse(text = rename_comparison_df_columns(colnames(df), measure_column_name())))
-        }
-
-        return(df)
-    })
-
-    # base_df() ####
-
-    base_df <- reactive({
-
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
-
-            base_df <- df()[df()$Council == input$select_local_authority,]
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            base_df <- df()[df()$Year == input$select_year & df()$Council == input$select_local_authority,]
-
-        } else {
-
-            base_df <- NULL
-        }
-
-        if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
-
-            if (input$select_comparison_type != "No comparison") {
-
-                base_df <- merge(base_df, comparison_df(), by = measure_column_name())
-
-                if (input$select_question %in% c(type_1_questions, type_2_questions)) {
-
-                    base_df <- eval(parse(text = statistical_significance(variable_column_names())))
-
-                    eval(parse(text = remove_significance_from_rows(measure_column_name())))
-
-                } else if (input$select_question %in% type_3_questions) {
-
-                    stat_sig_columns <- colnames(base_df)[4:column_names_count()]
-
-                    stat_sig_columns <- stat_sig_columns[stat_sig_columns != "All" & stat_sig_columns != "Base"]
-
-                    base_df <- eval(parse(text = statistical_significance(stat_sig_columns)))
-
-                    eval(parse(text = remove_significance_from_rows(measure_column_name())))
-                }
-            }
-        }
-
-        return(base_df)
+        variable_column_names
     })
 
     # main_df() ####
 
     main_df <- reactive({
 
-        comparison_type <- input$select_comparison_type
+        main_df <- df()
 
-        if (!input$select_question %in% c(type_4_questions, type_0_questions)) {
+        main_df <- main_df[!grepl("_2", colnames(main_df))]
 
-            if (comparison_type == "No comparison") {
+        main_df
+    })
 
-                main_df <- eval(parse(text = arrange_select_mutate(variable_column_names(), measure_column_name())))
+    # comparison_df() ####
 
-            } else if (comparison_type != "No comparison") {
+    comparison_df <- reactive ({
 
-                main_df <- eval(parse(text = arrange_select_mutate_comparison(variable_column_names(), measure_column_name())))
-            }
+        comparison_df <- df()
+
+        comparison_columns <- colnames(comparison_df)[grep("_2", colnames(comparison_df))]
+
+        if (length(comparison_columns) > 0) {
+
+            variable_column_name <- colnames(comparison_df)[1]
+
+            significance_columns <- colnames(comparison_df)[grep("_sig", colnames(comparison_df))]
+
+            comparison_df <- comparison_df[c(variable_column_name, comparison_columns, significance_columns)]
+
+            colnames(comparison_df) <- gsub("_2", "", colnames(comparison_df))
 
         } else {
 
-            main_df <- base_df()
+            comparison_df <- NULL
         }
 
-        return(main_df)
+        comparison_df
     })
 
     # main_chart_df() ####
@@ -983,11 +927,13 @@ server <- function(input, output, session) {
 
         if (!input$select_question %in% type_0_questions) {
 
-            main_chart_df <- base_df()
+            main_chart_df <- main_df()
+
+            measure_column_name <- measure_column_name()
+
+            variable_column_names <- variable_column_names()
 
             main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
-
-            variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
 
             main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "main_chart_df"))))
 
@@ -995,52 +941,36 @@ server <- function(input, output, session) {
 
             main_chart_df <- NULL
         }
-        # return(main_chart_df)
+
+        main_chart_df
     })
 
     # comparison_chart_df() ####
 
     comparison_chart_df <- reactive ({
 
+        comparison_chart_df <- NULL
+
         if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions) {
 
-            if (input$select_question %in% type_1_questions) {
+            comparison_chart_df <- comparison_df()
 
-                comparison_chart_df <- comparison_df()[-1]
+            measure_column_name <- measure_column_name()
 
-            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-                comparison_chart_df <- comparison_df()[-c(1, 2)]
-            }
-
-            column_names <- colnames(comparison_chart_df)
-
-            new_names <- c()
-
-            for (column_name in column_names) {
-
-                if (substr(column_name, nchar(column_name), nchar(column_name)) == "2") {
-                    column_name <- substr(column_name, 1, nchar(column_name) - 1)
-                    new_names <- c(new_names, column_name)
-                } else {
-                    new_names <- c(new_names, column_name)
-                }
-            }
-
-            colnames(comparison_chart_df) <- new_names
+            variable_column_names <- variable_column_names()
 
             comparison_chart_df <- comparison_chart_df[comparison_chart_df[1] != "All" & comparison_chart_df[1] != "Base",]
 
-            variable_column_names <- variable_column_names()[!grepl("_l", variable_column_names()) & !grepl("_u", variable_column_names()) & !variable_column_names() %in% c(measure_column_name(), "Year", "Council", "All", "Base")]
+          #  variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) &!variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
+
+            if(!is.null(variable_column_names)) {
 
             comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing(variable_column_names, measure_column_name(), "comparison_chart_df"))))
 
-        } else {
-
-            comparison_chart_df <- NULL
+            }
         }
 
-        # return(comparison_chart_df)
+        comparison_chart_df
     })
 
     # OUTPUTS ####
@@ -1319,23 +1249,35 @@ server <- function(input, output, session) {
     # output$main_table ####
     output$main_table <- renderDataTable({
 
+        table_df <- main_df()
+
+        if (!is.null(table_df)) {
+
+        variable_column_names <- variable_column_names()
+
+        table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
+
+        table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+
+        }
+
         if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
             if (input$select_comparison_type != "No comparison") {
 
-                hide_columns <- grep("_sig", colnames(main_df()))
+                hide_columns <- grep("_sig", colnames(table_df))
                 start_of_hide <- hide_columns[1]
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                variable_column_names <- colnames(main_df())[3:start_of_hide - 1]
+                variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
 
-                data_table <- eval(parse(text = main_df_comparison_output(variable_column_names, hide_columns)))
+                data_table <- eval(parse(text = main_df_comparison_output("table_df", variable_column_names, hide_columns)))
 
             } else {
 
-                data_table <- DT::datatable(main_df(),
-                                            colnames = gsub("blank", "", colnames(main_df())),
+                data_table <- DT::datatable(table_df,
+                                            colnames = gsub("blank", "", colnames(table_df)),
                                             options = list(
                                                 dom = "t",
                                                 digits = 1,
@@ -1351,8 +1293,8 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
-            data_table <- DT::datatable(main_df(),
-                                        colnames = gsub("blank", "", colnames(main_df())),
+            data_table <- DT::datatable(table_df,
+                                        colnames = gsub("blank", "", colnames(table_df)),
                                         options = list(
                                             dom = "t",
                                             digits = 1,
@@ -1361,7 +1303,7 @@ server <- function(input, output, session) {
                                             ordering = FALSE,
                                             info = FALSE,
                                             searching = FALSE,
-                                            columnDefs = list(list(targets = c(0:1),
+                                            columnDefs = list(list(targets = c(0),
                                                                    visible = FALSE))))
 
         } else if (input$select_question %in% type_0_questions){
@@ -1369,47 +1311,41 @@ server <- function(input, output, session) {
             data_table <- NULL
         }
 
-        return(data_table)
+        data_table
     })
 
     # comparison_table ####
     output$comparison_table <- renderDataTable({
 
-        if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
+        table_df <- comparison_df()
 
-            if(input$select_comparison_type != "No comparison") {
+        if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
-                hide_columns <- grep("_l|_u", colnames(comparison_df()))
+            if (input$select_comparison_type != "No comparison") {
+
+                table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
+
+                variable_column_names <- variable_column_names()
+
+                table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+
+                hide_columns <- grep("_sig", colnames(table_df))
                 start_of_hide <- hide_columns[1]
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                if (input$select_question %in% type_1_questions) {
+                variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
 
-                    measure_column_name <- colnames(comparison_df())[2]
-                    variable_column_names <- colnames(comparison_df())[4:start_of_hide - 1]
-                    variable_column_names <- substr(variable_column_names,1,nchar(variable_column_names)-1)
+                data_table <- eval(parse(text = main_df_comparison_output("table_df", variable_column_names, hide_columns)))
 
-                    data_table <- eval(parse(text = comparison_df_output(measure_column_name, variable_column_names, hide_columns, "1")))
-
-                } else if (input$select_question %in% type_2_questions | input$select_question %in% type_3_questions) {
-
-                    measure_column_name <- colnames(comparison_df())[3]
-                    variable_column_names <- colnames(comparison_df())[5:start_of_hide - 1]
-                    variable_column_names <- substr(variable_column_names,1,nchar(variable_column_names)-1)
-                    data_table <- eval(parse(text = comparison_df_output(measure_column_name, variable_column_names, hide_columns, "2")))
-                }
-
-                return(data_table)
-
-            } else {
+} else {
 
                 NULL
             }
 
         } else if (input$select_question %in% type_4_questions & input$select_comparison_type != "No comparison"){
 
-            DT::datatable(comparison_df(),
+            DT::datatable(table_df,
                           options = list(
                               colnames = gsub("blank", "", colnames(main_df())),
                               dom = "t",
@@ -1419,7 +1355,7 @@ server <- function(input, output, session) {
                               ordering = FALSE,
                               info = FALSE,
                               searching = FALSE,
-                              columnDefs = list(list(targets = c(0:1),
+                              columnDefs = list(list(targets = c(0),
                                                      visible = FALSE))))
 
         } else {
@@ -1735,7 +1671,7 @@ server <- function(input, output, session) {
 
         selected_report_local_authority <- input$select_report_local_authority
 
-        updateSelectInput(session, inputId = "select_report_local_authority_comparator", label = "Local Authority",
+        updateSelectInput(session, inputId = "select_report_local_authority_comparator", label = "Local Authority/Scotland",
                           choices = local_authorities[!local_authorities %in% selected_report_local_authority])
     })
 
@@ -1759,7 +1695,7 @@ server <- function(input, output, session) {
                      detail = "This may take a while. This window will disappear
                      when the report is ready.", value = 1)
 
-        if (input$select_report_comparison_type == "Local Authority") {
+        if (input$select_report_comparison_type == "Local Authority/Scotland") {
 
             comparator <- input$select_report_local_authority_comparator
 
@@ -1785,7 +1721,7 @@ server <- function(input, output, session) {
         author_value <- topic_titles[topic_titles$title == input$select_report_topic, ]$title
         date_value <- paste0(input$select_report_local_authority, " (", input$select_report_year, ")")
 
-        if (input$select_report_comparison_type == "Local Authority") {
+        if (input$select_report_comparison_type == "Local Authority/Scotland") {
 
             date_value <- paste0(date_value, " compared to ", comparator, " (", input$select_report_year, ")")
 

@@ -213,7 +213,7 @@ significance_column_names <- colnames(Figure_10.1)[grepl("_sig", colnames(Figure
 presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 Figure_10.1 %>% select(tidyselect::all_of(main_column_names)) %>%
-mutat
+mutate(`All Ages` = cell_spec(`All Ages`, "latex", background = case_when(`All Ages_sig` == "HIGHER" ~ "#00A3A3", `All Ages_sig` == "LOWER" ~ "#C3C3FF", TRUE ~ "#FFFFFF"))
 
 ) %>%
 select(!tidyselect::all_of(significance_column_names)) %>%
@@ -240,7 +240,7 @@ comparison_rename_column_names <- gsub("_2", "", comparison_column_names)
 
 Figure_10.1 %>% select(tidyselect::all_of(colnames(Figure_10.1)[!colnames(Figure_10.1) %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutat) %>%
+mutate(`All Ages` = cell_spec(`All Ages`, "latex", background = case_when(`All Ages_sig` == "HIGHER" ~ "#C3C3FF", `All Ages_sig` == "LOWER" ~ "#00A3A3", TRUE ~ "#FFFFFF"))) %>%
         select(!tidyselect::all_of(significance_column_names)) %>%
         kable("latex", col.names = gsub("blank", "", presentation_column_names), escape = FALSE, booktabs = T)
 } else {
