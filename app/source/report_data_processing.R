@@ -8,6 +8,8 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
     table <- table_processing(question, local_authority, year, comparison_type, comparator)
 
+    if (!is.null(table)) {
+
     variable_column_names <- colnames(table)[2:length(colnames(table))]
 
     measure_column_name <- colnames(table)[1]
@@ -19,6 +21,8 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
     table <- eval(parse(text = round_string("table", variable_column_names)))
 
     table <- table[!grepl("_l", colnames(table)) & !grepl("_u", colnames(table))]
+
+    }
 
     assign(question, table)
 

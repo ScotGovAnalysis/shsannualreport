@@ -171,7 +171,7 @@ main_df_comparison_output <- function(df_name, variable_column_names, hide_colum
   return(comparison_output_string)
 }
 
-# chart_data_processing
+# chart_data_processing ####
 
 chart_data_processing <- function(variable_column_names, measure_column_name, df_name) {
 

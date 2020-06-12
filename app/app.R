@@ -141,7 +141,7 @@ ui <- fluidPage(
                    ),
                    wellPanel(
                        fluidRow(
-                           column(3, selectInput("select_local_authority", label = "Local Authority", choices = local_authorities, selected = "Scotland", width = "100%")),
+                           column(3, selectInput("select_local_authority", label = "Local Authority/Scotland", choices = local_authorities, selected = "Scotland", width = "100%")),
                            column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
                            column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
                            column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
@@ -225,9 +225,9 @@ ui <- fluidPage(
                        fluidRow(
                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
                            column(3, selectInput("select_report_year", "Select Year", choices = years)),
-                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority"), selected = "No comparison", width = "100%")), # TODO: Update choices
+                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")), # TODO: Update choices
                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
-                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
+                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority/Scotland'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
                        )),
 
                    fluidRow(
@@ -545,20 +545,20 @@ server <- function(input, output, session) {
 
     # Assign dynamic variables ####
     # years() ####
-    years <- reactive ({ # TODO change as years already used as name in variables
+    years_in_df <- reactive ({ # TODO change as years already used as name in variables
 
         question <- input$select_question
 
         if (nchar(question) > 0) {
 
-            years <- suppressWarnings(unique(readRDS(paste0("data/dataset/", gsub("/", " ", question), ".Rds"))$Year))
+            years_in_df <- suppressWarnings(unique(readRDS(paste0("data/dataset/", gsub("/", " ", question), ".Rds"))$Year))
 
         } else {
 
-            years <- NULL
+            years_in_df <- NULL
         }
 
-        years
+        years_in_df
     })
     # Update input$select_question by input$select_topic ####
 
@@ -727,7 +727,7 @@ server <- function(input, output, session) {
 
         question <- input$select_question
 
-        year_count <- length(years())
+        year_count <- length(years_in_df())
 
         if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
 
@@ -768,9 +768,9 @@ server <- function(input, output, session) {
 
             if (!question %in% c(type_1_questions, type_4_questions)) {
 
-                years <- years()
+                years_in_df <- years_in_df()
 
-                updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(years, decreasing = TRUE))
+                updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(years_in_df, decreasing = TRUE))
         }
     })
 
@@ -787,7 +787,7 @@ server <- function(input, output, session) {
             if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year_comparator", label = "Year",
-                                  choices = sort(years()[!sort(years()) %in% selected_year], decreasing = TRUE))
+                                  choices = sort(years_in_df()[!sort(years_in_df()) %in% selected_year], decreasing = TRUE))
             }
         }
     })
@@ -1251,11 +1251,15 @@ server <- function(input, output, session) {
 
         table_df <- main_df()
 
+        if (!is.null(table_df)) {
+
         variable_column_names <- variable_column_names()
 
         table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
 
         table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+
+        }
 
         if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
@@ -1667,7 +1671,7 @@ server <- function(input, output, session) {
 
         selected_report_local_authority <- input$select_report_local_authority
 
-        updateSelectInput(session, inputId = "select_report_local_authority_comparator", label = "Local Authority",
+        updateSelectInput(session, inputId = "select_report_local_authority_comparator", label = "Local Authority/Scotland",
                           choices = local_authorities[!local_authorities %in% selected_report_local_authority])
     })
 
@@ -1691,7 +1695,7 @@ server <- function(input, output, session) {
                      detail = "This may take a while. This window will disappear
                      when the report is ready.", value = 1)
 
-        if (input$select_report_comparison_type == "Local Authority") {
+        if (input$select_report_comparison_type == "Local Authority/Scotland") {
 
             comparator <- input$select_report_local_authority_comparator
 
@@ -1717,7 +1721,7 @@ server <- function(input, output, session) {
         author_value <- topic_titles[topic_titles$title == input$select_report_topic, ]$title
         date_value <- paste0(input$select_report_local_authority, " (", input$select_report_year, ")")
 
-        if (input$select_report_comparison_type == "Local Authority") {
+        if (input$select_report_comparison_type == "Local Authority/Scotland") {
 
             date_value <- paste0(date_value, " compared to ", comparator, " (", input$select_report_year, ")")
 
