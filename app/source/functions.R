@@ -234,7 +234,7 @@ chart_data_processing_string <- function(variable_column_names, measure_column_n
                                          "))) %>% dplyr::select(`", measure_column_name, "`, `time`, `Percent`, `LowerConfidenceLimit`, `UpperConfidenceLimit`) %>%",
                                          "dplyr::mutate(`Percent`= as.numeric(`Percent`), `LowerConfidenceLimit`= as.numeric(`LowerConfidenceLimit`), `UpperConfidenceLimit`= as.numeric(`UpperConfidenceLimit`))")
 
-  print(chart_data_processing_string)
+  # print(chart_data_processing_string)
   chart_data_processing_string
 }
 

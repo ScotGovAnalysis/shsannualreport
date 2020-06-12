@@ -61,8 +61,7 @@ main_df_string <- (substr(main_df_string, 1, nchar(main_df_string) - 2)) %>%
 
   paste0("))) %>% dplyr::group_by(Council, Year) %>% dplyr::mutate(Base = Percent)\n",
          "df$Base <- grepl('Base', df$`", column_2_name, "`)\n",
-         "df$Base <- ifelse(df$Base == FALSE, df$Base, df$Percent)\n",
-         "df$Base <- gsub(FALSE, NA, df$Base)\n",
+         "df$Base <- ifelse(df$Base == FALSE, NA, df$Percent)\n",
          "df <- fill(df, Base, .direction= c (\"up\"))\n",
          "df <- df %>%\n",
          "merge(design, by = 'Year') %>%\n",
