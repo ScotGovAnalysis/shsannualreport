@@ -219,8 +219,8 @@ ui <- fluidPage(
                        fluidRow(
                            column(3, selectInput("select_report_local_authority", "Select Local Authority", choices = local_authorities)),
                            column(3, selectInput("select_report_year", "Select Year", choices = years)),
-                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")), # TODO: Update choices
-                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = c("2018", "2017", "2016", "2015", "2014", "2013"), width = "100%"))), # TODO: Update choices dynamically
+                           column(3, selectInput("select_report_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
+                           column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Year'", selectInput("select_report_year_comparator", label = "Comparator", choices = years, width = "100%"))),
                            column(3, conditionalPanel(condition = "input.select_report_comparison_type == 'Local Authority/Scotland'",selectInput("select_report_local_authority_comparator", label = "Comparator", choices = c(local_authorities), width = "100%")))
                        )),
 
@@ -539,7 +539,7 @@ server <- function(input, output, session) {
 
     # Assign dynamic variables ####
     # years() ####
-    years_in_df <- reactive ({ # TODO change as years already used as name in variables
+    years_in_df <- reactive ({
 
         question <- input$select_question
 
@@ -1640,7 +1640,7 @@ server <- function(input, output, session) {
     observeEvent(input$helpTable, {showModal(tableModal)})
     observeEvent(input$tableModal2, {showModal(tableModal2)})
 
-    #Table help modal 2 ####
+    # Table help modal 2 ####
 
     tableModal2 <- modalDialog(
         size = "l",
