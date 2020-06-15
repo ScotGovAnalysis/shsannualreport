@@ -109,13 +109,40 @@ eval_comparison <- ifelse(comparison_type == \"No comparison\", FALSE, TRUE)
 
 eval_comparison_time_series <- ifelse(comparison_type == \"Year\" | comparison_type == \"No comparison\", FALSE, TRUE)
 
-comparison_table_title <- if (comparison_type == \"Local Authority\") {
+comparison_table_title <- if (comparison_type == \"Local Authority/Scotland\") {
   paste0(comparator, \", \", year)
 } else if (comparison_type == \"Year\") {
   paste0(local_authority, \", \", comparator)
 } else {
   NULL
-  }
+}
+
+if (comparison_type == \"Local Authority/Scotland\") {
+
+main_significance_key <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", comparator, \" (\", year, \")  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", comparator, \" (\", year, \")
+  ```\"))
+
+comparison_significance_key <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", local_authority, \" (\", year, \")  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", local_authority, \" (\", year, \")
+  ```\"))
+
+} else if (comparison_type == \"Year\") {
+
+  main_significance_key <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", local_authority, \" (\", comparator, \")  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", local_authority, \" (\", comparator, \")
+  ```\"))
+
+  comparison_significance_key <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", local_authority, \" (\", year, \")  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", local_authority, \" (\", year, \")
+  ```\"))
+
+} else {
+
+  main_significance_key <- \"\"
+
+  comparison_significance_key <- \"\"
+}
 
 ```
 
@@ -313,6 +340,9 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
   asis_output(\"### There is no data to show for this table within the specified parameters.\")
 }
 ```
+```{r eval=", markdown_comparator, "}
+main_significance_key
+```
 
 ```{r eval=", markdown_comparator, "}
 ")
@@ -372,6 +402,9 @@ mutate("
         string <- paste0(string, "\n} else {
 asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
 }
+```
+```{r eval=", markdown_comparator, "}
+comparison_significance_key
 ```
 \\pagebreak
 ")

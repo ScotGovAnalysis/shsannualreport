@@ -94,13 +94,40 @@ eval_comparison <- ifelse(comparison_type == "No comparison", FALSE, TRUE)
 
 eval_comparison_time_series <- ifelse(comparison_type == "Year" | comparison_type == "No comparison", FALSE, TRUE)
 
-comparison_table_title <- if (comparison_type == "Local Authority") {
+comparison_table_title <- if (comparison_type == "Local Authority/Scotland") {
   paste0(comparator, ", ", year)
 } else if (comparison_type == "Year") {
   paste0(local_authority, ", ", comparator)
 } else {
   NULL
-  }
+}
+
+if (comparison_type == "Local Authority/Scotland") {
+
+main_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", comparator, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", comparator, " (", year, ")
+  ```"))
+
+comparison_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", year, ")
+  ```"))
+
+} else if (comparison_type == "Year") {
+
+  main_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", comparator, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", comparator, ")
+  ```"))
+
+  comparison_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", year, ")
+  ```"))
+
+} else {
+
+  main_significance_key <- ""
+
+  comparison_significance_key <- ""
+}
 
 ```
 
@@ -165,6 +192,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.1)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -191,6 +221,9 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -237,6 +270,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.1)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -263,6 +299,9 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -303,6 +342,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.2)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -323,6 +365,9 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -367,6 +412,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.2)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -390,6 +438,9 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -433,6 +484,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.3)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -455,6 +509,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -500,6 +557,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.4_Figure_12.3)), 
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -524,6 +584,9 @@ mutate(`HNC/HND/Degree/Professional Qualification` = cell_spec(`HNC/HND/Degree/P
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -569,6 +632,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.5_Figure_12.4)), 
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -593,6 +659,9 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -637,6 +706,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.6_Figure_12.5)), 
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -660,6 +732,9 @@ mutate(`GBP 0 - GBP 10,000` = cell_spec(`GBP 0 - GBP 10,000`, "latex", backgroun
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -704,6 +779,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.7_Figure_12.6)), 
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -727,6 +805,9 @@ mutate(`Yes, long-term major reduced daily capacity` = cell_spec(`Yes, long-term
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -771,6 +852,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.8)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -794,6 +878,9 @@ mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", backg
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -840,6 +927,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.9)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -866,6 +956,9 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -907,6 +1000,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_12.7)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -927,6 +1023,9 @@ mutate(`2018` = cell_spec(`2018`, "latex", background = case_when(`2018_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -971,6 +1070,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.10)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -994,6 +1096,9 @@ mutate(`Man / Boy` = cell_spec(`Man / Boy`, "latex", background = case_when(`Man
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1037,6 +1142,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.11)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1059,6 +1167,9 @@ mutate(`16-39` = cell_spec(`16-39`, "latex", background = case_when(`16-39_sig` 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1104,6 +1215,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.12_Figure_12.8)),
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1128,6 +1242,9 @@ mutate(`HNC/HND/Degree/Professional Qualification` = cell_spec(`HNC/HND/Degree/P
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1173,6 +1290,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.13_Figure_12.9)),
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1197,6 +1317,9 @@ mutate(`1 - 20\\% most deprived` = cell_spec(`1 - 20\\% most deprived`, "latex",
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1241,6 +1364,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.14_Figure_12.10))
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1264,6 +1390,9 @@ mutate(`GBP 0 - GBP 10,000` = cell_spec(`GBP 0 - GBP 10,000`, "latex", backgroun
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1308,6 +1437,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.15_Figure_12.11))
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1331,6 +1463,9 @@ mutate(`Yes, long-term major reduced daily capacity` = cell_spec(`Yes, long-term
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1375,6 +1510,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.16)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1398,6 +1536,9 @@ mutate(`At least once a week` = cell_spec(`At least once a week`, "latex", backg
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1446,6 +1587,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.17)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -1475,6 +1619,9 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1523,6 +1670,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_12.18)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -1552,6 +1702,9 @@ mutate(`2007/2008` = cell_spec(`2007/2008`, "latex", background = case_when(`200
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 

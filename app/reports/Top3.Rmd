@@ -150,13 +150,40 @@ eval_comparison <- ifelse(comparison_type == "No comparison", FALSE, TRUE)
 
 eval_comparison_time_series <- ifelse(comparison_type == "Year" | comparison_type == "No comparison", FALSE, TRUE)
 
-comparison_table_title <- if (comparison_type == "Local Authority") {
+comparison_table_title <- if (comparison_type == "Local Authority/Scotland") {
   paste0(comparator, ", ", year)
 } else if (comparison_type == "Year") {
   paste0(local_authority, ", ", comparator)
 } else {
   NULL
-  }
+}
+
+if (comparison_type == "Local Authority/Scotland") {
+
+main_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", comparator, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", comparator, " (", year, ")
+  ```"))
+
+comparison_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", year, ")
+  ```"))
+
+} else if (comparison_type == "Year") {
+
+  main_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", comparator, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", comparator, ")
+  ```"))
+
+  comparison_significance_key <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", year, ")
+  ```"))
+
+} else {
+
+  main_significance_key <- ""
+
+  comparison_significance_key <- ""
+}
 
 ```
 
@@ -233,6 +260,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.1)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -272,6 +302,9 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -330,6 +363,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.1)), escape = TRUE
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -369,6 +405,9 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -458,6 +497,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.2)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -497,6 +539,9 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -558,6 +603,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.4)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -597,6 +645,9 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -655,6 +706,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.5)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -694,6 +748,9 @@ mutate(`1999` = cell_spec(`1999`, "latex", background = case_when(`1999_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -736,6 +793,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.2a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -759,6 +819,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -801,6 +864,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.2b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -824,6 +890,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -866,6 +935,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.2c)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -889,6 +961,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -931,6 +1006,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.2d)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -954,6 +1032,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -997,6 +1078,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1020,6 +1104,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1063,6 +1150,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1086,6 +1176,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1128,6 +1221,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3c)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1151,6 +1247,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1194,6 +1293,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3d)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1217,6 +1319,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1259,6 +1364,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3e)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1282,6 +1390,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1325,6 +1436,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.3f)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1348,6 +1462,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1390,6 +1507,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.4a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1413,6 +1533,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1455,6 +1578,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.4b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1478,6 +1604,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1520,6 +1649,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.4c)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1543,6 +1675,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1594,6 +1729,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.5a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1617,6 +1755,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1660,6 +1801,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.5b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1683,6 +1827,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1726,6 +1873,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.6a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1749,6 +1899,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1792,6 +1945,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.6b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1815,6 +1971,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1863,6 +2022,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.6)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -1889,6 +2051,9 @@ mutate(`2012` = cell_spec(`2012`, "latex", background = case_when(`2012_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1931,6 +2096,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.7a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -1954,6 +2122,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -1996,6 +2167,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.7b)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2019,6 +2193,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2061,6 +2238,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.7c)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2084,6 +2264,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2130,6 +2313,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.9a)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2153,6 +2339,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2204,6 +2393,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.10a)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2227,6 +2419,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2269,6 +2464,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.10b)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2292,6 +2490,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2335,6 +2536,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.11a)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2358,6 +2562,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2401,6 +2608,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.11b)), escape = TR
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison}
+main_significance_key
+```
 
 ```{r eval=eval_comparison}
 
@@ -2424,6 +2634,9 @@ mutate(`Owner occupier` = cell_spec(`Owner occupier`, "latex", background = case
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2477,6 +2690,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.12)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -2502,6 +2718,9 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
@@ -2546,6 +2765,9 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.13)), escape = TRU
   asis_output("### There is no data to show for this table within the specified parameters.")
 }
 ```
+```{r eval=eval_comparison_time_series}
+main_significance_key
+```
 
 ```{r eval=eval_comparison_time_series}
 
@@ -2571,6 +2793,9 @@ mutate(`2013` = cell_spec(`2013`, "latex", background = case_when(`2013_sig` == 
 } else {
 asis_output("### There is no data to show for this table within the specified parameters, or there is no data to compare with.")
 }
+```
+```{r eval=eval_comparison_time_series}
+comparison_significance_key
 ```
 \pagebreak
 
