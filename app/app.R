@@ -546,7 +546,12 @@ server <- function(input, output, session) {
 
         if (nchar(question) > 0) {
 
-            years_in_df <- suppressWarnings(unique(readRDS(paste0("data/dataset/", gsub("/", " ", question), ".Rds"))$Year))
+            question_type <- question_titles[question_titles$ID == question,]$Type
+
+            if (question_type != 0) {
+
+                years_in_df <- suppressWarnings(unique(readRDS(paste0("data/dataset/", gsub("/", " ", question), ".Rds"))$Year))
+            }
 
         } else {
 
@@ -761,11 +766,11 @@ server <- function(input, output, session) {
 
         question <- input$select_question
 
-            if (!question %in% c(type_1_questions, type_4_questions)) {
+        if (!question %in% c(type_0_questions, type_1_questions, type_4_questions)) {
 
-                years_in_df <- years_in_df()
+            years_in_df <- years_in_df()
 
-                updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(years_in_df, decreasing = TRUE))
+            updateSelectInput(session, inputId = "select_year", label = "Year", choices = sort(years_in_df, decreasing = TRUE))
         }
     })
 
@@ -779,7 +784,7 @@ server <- function(input, output, session) {
 
             selected_year <- input$select_year
 
-            if (!input$select_question %in% c(type_1_questions, type_4_questions)) {
+            if (!input$select_question %in% c(type_0_questions, type_1_questions, type_4_questions)) {
 
                 updateSelectInput(session, inputId = "select_year_comparator", label = "Year",
                                   choices = sort(years_in_df()[!sort(years_in_df()) %in% selected_year], decreasing = TRUE))
@@ -810,14 +815,14 @@ server <- function(input, output, session) {
 
             comparator <- NULL
 
-            } else if (comparison_type == "Local Authority/Scotland") {
+        } else if (comparison_type == "Local Authority/Scotland") {
 
-                comparator <- input$select_local_authority_comparator
+            comparator <- input$select_local_authority_comparator
 
-            } else if (comparison_type == "Year") {
+        } else if (comparison_type == "Year") {
 
-                comparator <- input$select_year_comparator
-            }
+            comparator <- input$select_year_comparator
+        }
 
         if (question > 0) {
 
@@ -868,14 +873,14 @@ server <- function(input, output, session) {
 
     measure_column_name <- reactive({
 
-            measure_column_name <- colnames(main_df())[1]
+        measure_column_name <- colnames(main_df())[1]
     })
 
     variable_column_names <- reactive({
 
-            variable_column_names <- colnames(main_df())[2:column_names_count()]
+        variable_column_names <- colnames(main_df())[2:column_names_count()]
 
-            variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) & !variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
+        variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) & !variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
 
         variable_column_names
     })
@@ -959,7 +964,7 @@ server <- function(input, output, session) {
 
             if(!is.null(variable_column_names)) {
 
-            comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "comparison_chart_df"))))
+                comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "comparison_chart_df"))))
 
             }
         }
@@ -1047,11 +1052,11 @@ server <- function(input, output, session) {
 
                     if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
 
-                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year, ")")
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator, " (", input$select_year, ")")
 
                     } else {
 
-                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority)
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator)
                     }
                 }
             }
@@ -1274,11 +1279,11 @@ server <- function(input, output, session) {
 
         if (!is.null(table_df)) {
 
-        variable_column_names <- variable_column_names()
+            variable_column_names <- variable_column_names()
 
-        table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
+            table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
 
-        table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+            table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
 
         }
 
@@ -1359,7 +1364,7 @@ server <- function(input, output, session) {
 
                 data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, FALSE)))
 
-} else {
+            } else {
 
                 NULL
             }
@@ -1514,14 +1519,14 @@ server <- function(input, output, session) {
 
             if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
 
-            if(input$zoomLevel_main == "Full scale") {
-                chart <- chart + ylim(0,100)
-            }
+                if(input$zoomLevel_main == "Full scale") {
+                    chart <- chart + ylim(0,100)
+                }
 
-            chart <- ggplotly(tooltip = "text") %>%
-                config(displaylogo = FALSE,
-                       displayModeBar = TRUE,
-                       modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
+                chart <- ggplotly(tooltip = "text") %>%
+                    config(displaylogo = FALSE,
+                           displayModeBar = TRUE,
+                           modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d"))
 
             } else {
 
@@ -1539,18 +1544,18 @@ server <- function(input, output, session) {
 
             if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
 
-            df <- comparison_chart_df()
+                df <- comparison_chart_df()
 
-            df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
-                                "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
+                df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
+                                    "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
 
-            df <- eval(parse(text = df_string))
+                df <- eval(parse(text = df_string))
 
-            gather_key <- colnames(df[2])
+                gather_key <- colnames(df[2])
 
-            if (input$select_question %in% type_1_questions) {
+                if (input$select_question %in% type_1_questions) {
 
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
+                    line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
                                         geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
@@ -1564,11 +1569,11 @@ server <- function(input, output, session) {
                                               scale_colour_manual(values = shs_colours) +
                                               labs(title = input$question, x = \"Year\")")
 
-                chart <- eval(parse(text = line_chart_string))
+                    chart <- eval(parse(text = line_chart_string))
 
-            } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
+                } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, , text = paste(\"Value: \", Percent, \"%\", \"\n\",
+                    bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, , text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                                                          \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
                                                                          \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
 
@@ -1584,24 +1589,24 @@ server <- function(input, output, session) {
                                            scale_fill_manual(values = shs_colours) +
                                            labs(title = input$question, x = NULL)")
 
-                chart <- eval(parse(text = bar_chart_string))
+                    chart <- eval(parse(text = bar_chart_string))
+
+                }
 
             }
 
-        }
+            if(input$compareConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-        if(input$compareConfidenceInterval == TRUE & input$select_question %in% c(type_2_questions, type_3_questions)) {
+                chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                                                   ymax = df$UpperConfidenceLimit
 
-            chart <- chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
-                                               ymax = df$UpperConfidenceLimit
+                ),
+                width = 0.4,
+                position = position_dodge(width = 0.9))
 
-            ),
-            width = 0.4,
-            position = position_dodge(width = 0.9))
+            } else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
 
-        } else if (input$compareConfidenceInterval == TRUE & input$select_question %in% type_1_questions) {
-
-            confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
+                confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
                                                text = paste(\"Value: \", Percent, \"%\", \"\n\",
                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
@@ -1610,27 +1615,27 @@ server <- function(input, output, session) {
             width = 0.3)")
 
 
-            chart <- suppressWarnings(eval(parse(text=confidence_intervals_string)))
+                chart <- suppressWarnings(eval(parse(text=confidence_intervals_string)))
 
-        }
+            }
 
-        if (input$select_question %in% c(type_0_questions, type_4_questions)) {
+            if (input$select_question %in% c(type_0_questions, type_4_questions)) {
 
-            chart <- NULL
+                chart <- NULL
 
-        } else {
+            } else {
 
-        if(input$zoomLevel_comparator == "Full scale") {
-            chart <- chart + ylim(0,100)
-        }
+                if(input$zoomLevel_comparator == "Full scale") {
+                    chart <- chart + ylim(0,100)
+                }
 
-        #Removes tooltip duplicates and plotly modebar options
-        suppressWarnings(ggplotly(tooltip = "text") %>%
-            config(displaylogo = FALSE,
-                   displayModeBar = TRUE,
-                   modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d")))
+                #Removes tooltip duplicates and plotly modebar options
+                suppressWarnings(ggplotly(tooltip = "text") %>%
+                                     config(displaylogo = FALSE,
+                                            displayModeBar = TRUE,
+                                            modeBarButtonsToRemove = list("zoom2d", "pan2d", "select2d", "zoomIn2d", "zoomOut2d", "autoScale2d")))
 
-        }
+            }
         }
     })
 
@@ -1748,7 +1753,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_report_comparison_type == "Year") {
 
-                date_value <- paste0(date_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
+            date_value <- paste0(date_value, " compared to ", input$select_report_local_authority, " (", comparator, ")")
 
         }
 
