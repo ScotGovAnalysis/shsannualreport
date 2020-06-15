@@ -155,13 +155,14 @@ ui <- fluidPage(
                                     fluidRow(h5(textOutput("comment"))),
                                     fluidRow(h5(htmlOutput("link"))),
                                     fluidRow(dataTableOutput("main_table")),
-                                    fluidRow(h4(htmlOutput("statistical_significance_key"))),
+                                    fluidRow(h4(htmlOutput("main_statistical_significance_key"))),
                                     fluidRow(h3(textOutput("comparison_title"))),
                                     fluidRow(
                                         column(10, h4(textOutput("comparison_table_type_comment"))),
                                         column(2, conditionalPanel(condition = "input.select_comparison_type != 'No comparison' && output.question_type != '0'", downloadButton("download_comparison_table", "Download comparison table")))
                                     ),
-                                    fluidRow(dataTableOutput("comparison_table"))
+                                    fluidRow(dataTableOutput("comparison_table")),
+                                    fluidRow(h4(htmlOutput("comparison_statistical_significance_key")))
                            ),
 
                            tabPanel("Chart",
@@ -1003,15 +1004,15 @@ server <- function(input, output, session) {
 
     outputOptions(output, "question_type", suspendWhenHidden = FALSE)
 
-    # output$statistical_significance_key ####
+    # output$main_statistical_significance_key ####
 
-    output$statistical_significance_key <- renderText ({
+    output$main_statistical_significance_key <- renderText ({
 
         if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions & !input$select_question %in% type_0_questions) {
 
             if (input$select_comparison_type == "Year") {
 
-                statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year_comparator, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year_comparator, ")")
+                main_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year_comparator, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year_comparator, ")")
 
             } else if (input$select_comparison_type == "Local Authority/Scotland") {
 
@@ -1019,11 +1020,38 @@ server <- function(input, output, session) {
 
                     if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
 
-                        statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator, " (", input$select_year, ")")
+                        main_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator, " (", input$select_year, ")")
 
                     } else {
 
-                        statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator)
+                        main_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator)
+                    }
+                }
+            }
+        }
+    })
+
+    # output$comparison_statistical_significance_key ####
+
+    output$comparison_statistical_significance_key <- renderText ({
+
+        if (input$select_comparison_type != "No comparison" & !input$select_question %in% type_4_questions & !input$select_question %in% type_0_questions) {
+
+            if (input$select_comparison_type == "Year") {
+
+                comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year, ")")
+
+            } else if (input$select_comparison_type == "Local Authority/Scotland") {
+
+                if (input$select_comparison_type == "Local Authority/Scotland") {
+
+                    if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
+
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year, ")")
+
+                    } else {
+
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority)
                     }
                 }
             }
