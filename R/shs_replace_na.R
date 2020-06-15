@@ -12,7 +12,9 @@
 #' shs_replace_na(dataframe, c(incomplete_year_1, incomplete_year_2))
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
 
 shs_replace_na <- function(data_file_path, incomplete_years) {
