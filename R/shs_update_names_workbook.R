@@ -12,7 +12,9 @@
 #' shs_update_names_workbook(new_workbook_path, old_workbook_path)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
 shs_update_names_workbook <- function(new_workbook_path, old_workbook_path) {
 

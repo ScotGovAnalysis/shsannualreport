@@ -2,27 +2,32 @@
 #'
 #' \code{shs_create_reports} creates an Rmd report file for each topic in the SHS annual report data.
 #'
+#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
+#' @param app_reports_directory \code{string}. The path of the app directory to save report files to.
+#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_reports()
+#' shs_create_reports(app_metadata_directory, app_reports_directory)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_create_reports <- function() {
+shs_create_reports <- function(app_metadata_directory, app_reports_directory) {
 
-  topics <- readRDS("app/data/metadata/topic_titles.Rds")
+  topics <- readRDS(file.path(app_metadata_directory, "topic_titles.Rds"))
   topics <- topics[topics$has_data == "y",]
 
-  questions <- readRDS("app/data/metadata/question_titles.Rds")
+  questions <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
   for (row in 1:nrow(topics)) {
 
     topic_id <- topics[row, "code"]
     title <- topics[row, "title"]
-    report_file_path <- paste0("app/reports/", topic_id, ".Rmd")
+    report_file_path <- file.path(app_reports_directory, paste0(topic_id, ".Rmd"))
 
     number <- sub("Top", "", topic_id)
     topic_questions <- questions[questions$Topic == number,]

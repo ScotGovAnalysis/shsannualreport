@@ -4,23 +4,23 @@
 #' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #' Internal function for \code{shs_extract_data}.
 #'
-#' @param source_dataset_path \code{string}. The path of the directory containing survey data in Excel format.
-#' @param extracted_dataset_path \code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.
+#' @param source_dataset_directory \code{string}. The path of the directory containing survey data in Excel format.
+#' @param app_dataset_directory \code{string}. The path of the app directory to save the dataset to.
 #'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_extract_dataset(source_dataset_path, extracted_dataset_path)
+#' shs_extract_dataset(source_dataset_directory, app_dataset_directory)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
+shs_extract_dataset <- function(source_dataset_directory, app_dataset_directory) {
 
-  files <- list.files(source_dataset_path)
+  files <- list.files(source_dataset_directory)
   years <- list()
 
   for (file in files) {
@@ -31,7 +31,7 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
   for (file in files) {
 
-    workbook_path <- file.path(source_dataset_path, file)
+    workbook_path <- file.path(source_dataset_directory, file)
     sheets <- readxl::excel_sheets(workbook_path)
 
     for (sheet in sheets) {
@@ -58,7 +58,7 @@ shs_extract_dataset <- function(source_dataset_path, extracted_dataset_path) {
 
       df <- readxl::read_excel(workbook_path, sheet = sheet)
 
-      saveRDS(df, file = file.path(extracted_dataset_path,
+      saveRDS(df, file = file.path(app_dataset_directory,
                                    paste0(dataframe_id, ".Rds")))
     }
   }

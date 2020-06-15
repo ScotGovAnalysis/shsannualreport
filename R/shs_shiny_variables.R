@@ -1,30 +1,32 @@
 #' Create R variables to use in the Shiny App
 #'
-#' \code{shs_shiny_variables} creates a file of R variables to based on extracted data, to be used in the SHS annual report Shiny app.
+#' \code{shs_create_shiny_variables} creates a file of R variables to based on extracted data, to be used in the SHS annual report Shiny app.
 #'
-#' @param min_year \code{double}. The first year of data available for selection.
-#' @param max_year \code{string}. The final year of data available for selection.
+#' @param reports_start_year \code{double}. The first year of data available for selection in report builder.
+#' @param reports_end_year \code{string}. The final year of data available for selection in report builder.
+#' @param app_source_directory \code{string}. The path of the app directory containing source files (variables and functions).
+#' @param app_dataset_directory \code{string}. The path of the app directory containing the dataset.
+#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
 #'
 #' @return \code{double}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_shiny_variables(2013, 2018)
+#' shs_create_shiny_variables(reports_start_year, reports_end_year, app_source_directory, app_dataset_directory, app_metadata_directory)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_shiny_variables <- function(min_year, max_year) {
+shs_create_shiny_variables <- function(reports_start_year, reports_end_year, app_source_directory, app_dataset_directory, app_metadata_directory) {
 
-  save_file_path <- "app/source/variables.R"
+  save_file_path <- file.path(app_source_directory, "variables.R")
 
   file.create(save_file_path)
 
-  extracted_dataset_path <- "app/data/dataset"
-  extracted_metadata_path <- "app/data/metadata"
-
-  topic_titles <- readRDS(file.path(extracted_metadata_path, "topic_titles.Rds"))
-  question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
+  topic_titles <- readRDS(file.path(app_metadata_directory, "topic_titles.Rds"))
+  question_titles <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
   question_titles$HasDataFile <- "N"
 
@@ -39,7 +41,7 @@ shs_shiny_variables <- function(min_year, max_year) {
 
   question_titles <- question_titles[question_titles$HasDataFile == "Y" | question_titles$Type == 0,]
 
-  files <- list.files(extracted_dataset_path)
+  files <- list.files(app_dataset_directory)
 
   cat("question_titles <- readRDS(\"data/metadata/question_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
 
@@ -106,9 +108,9 @@ shs_shiny_variables <- function(min_year, max_year) {
 
   years_string <- "years <- c("
 
-  year <- max_year
+  year <- reports_end_year
 
-  while(year >= min_year) {
+  while(year >= reports_start_year) {
 
     years_string <- paste0(years_string, "\"", year, "\", ")
 

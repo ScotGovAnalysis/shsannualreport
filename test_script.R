@@ -1,57 +1,174 @@
-# # This script allows a Shiny app to be made based on the SHS Annual Report, using Excel spreadsheets and the package shsannualreport.
-# #
-# # Before running the script:
-# #                             * add chapter data to process to folder "source\dataset" in project
-# #                             * add metadata spreadsheets to process ("chapter_titles.xlsx", "design_factors.xlsx", "question_titles.xlsx") to folder "source\metadata" in project
-# #                             * add existing "column_names.xlsx" and "variable_names.xlsx" spreadsheets to variable_names_old (optional)
-# #
-# # When ready to run the script:
-# #                             * make sure this script is commented out (CTRL + A, then CTRL + SHIFT + C)
-# #                             * from the top menu select 'Build' > 'Clean and rebuild'
-# #                             * run each line (stop and check spreadsheets at line 38 if necessary)
-# #
-# # When processing is finished, the app can be run by opening "app\app.R" and clicking 'Run app'
-#
 # library(shsannualreport)
 #
-# # Write data from Excel sheets in "source\dataset" and "source\metadata" to "app\data\dataset" and "app\data\metadata"
-# shs_extract_data()
-#
-# # Remove specified columns from dataset (add any other unwanted columns to "columns_to_remove")
+# source_data_directory <- "C:/Users/dsap01/Documents/shsannualreportdata"
+# top_level_directory <- "C:/Users/dsap01/Documents"
 # columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
-# shs_remove_columns(columns_to_remove)
+# old_column_names_path <- "C:/Users/dsap01/Documents/shsannualreportdata/variable_names_old/column_names.xls"
+# old_variable_names_path <- "C:/Users/dsap01/Documents/shsannualreportdata/variable_names_old/variable_names.xls"
+# reports_start_year <- 2013
+# reports_end_year <- 2018
 #
-# # Write all column and variable names from data in "app\data\dataset" to Excel sheets in "variable_names_new"
-# shs_get_column_names()
-# shs_get_variable_names()
+# source_dataset_directory <- file.path(source_data_directory, "dataset")
+# source_metadata_directory <- file.path(source_data_directory, "metadata")
 #
-# # Update new column/variable names with values in folder "variable_names_old" (optional, only if populated files added to "variable_names_old")
-# # Note: This function works for either column or variable names, depending on the file names provided, so is used twice
-# new_workbook_path <- "variable_names_new/column_names.xlsx"            # Column names sheet created by shs_get_column_names()
-# old_workbook_path <- file.path("variable_names_old/column_names.xls")  # Set the old_workbook_path to spreadsheet in "variable_names_old"
-# shs_update_names_workbook(new_workbook_path, old_workbook_path)         # Update the new workbook with any names present in the old workbook
+# time <- gsub(" ", "-", Sys.time())
+# time <- gsub(":", "-", time)
 #
-# # The process for variable names works exactly the same as for column names
-# new_workbook_path <- file.path("variable_names_new/variable_names.xlsx")
-# old_workbook_path <- file.path("variable_names_old/variable_names.xls")
-# shs_update_names_workbook(new_workbook_path, old_workbook_path)
+# top_level_directory <- file.path(top_level_directory, time)
 #
-# # STOP
-# # At this point you can open the new column/variable names sheet and modify any display names you want
+# app_directory <- file.path(top_level_directory, "app")
+# app_data_directory <- file.path(app_directory, "data")
+# app_dataset_directory <- file.path(app_data_directory, "dataset")
+# app_metadata_directory <- file.path(app_data_directory, "metadata")
+# app_source_directory <- file.path(app_data_directory, "source")
+# app_reports_directory <- file.path(app_data_directory, "reports")
 #
-# # Extract the data from the column/variable names sheets to the extracted metadata folder
-# shs_extract_column_and_variable_names()
+# unlink(app_dataset_directory, recursive = TRUE)
+# unlink(app_metadata_directory, recursive = TRUE)
 #
-# # Update the extracted dataset with the display column/variable names
-# shs_process_column_names()
-# shs_process_variable_names()
+# dir.create(top_level_directory)
+# dir.create(app_directory)
+# dir.create(app_data_directory)
+# dir.create(app_dataset_directory)
+# dir.create(app_metadata_directory)
+# dir.create(app_source_directory)
+# dir.create(app_reports_directory)
 #
-# # Process data (order rows, add statistical significance etc.), remove old file and re-save
-# shs_process_data()
+# column_names_save_file_path <- file.path(source_metadata_directory, "column_names.xlsx")
+# variable_names_save_file_path <- file.path(source_metadata_directory, "variable_names.xlsx")
 #
-# # Create file "app\\source\\variables.R" based on processed data
-# shs_shiny_variables(2013, 2018)
+# tryCatch({
+#   message(paste0("Extracting metadata from ", source_metadata_directory, " to ", app_metadata_directory))
+#   shsannualreport:::shs_extract_metadata(source_metadata_directory = source_metadata_directory, app_metadata_directory = app_metadata_directory)
+#   message("Successfully extracted metadata")
+# }, error = function(e) {
+#   message("Failed to extract metadata")
+#   message(e)
+# })
 #
-# # Create reports based on processed data
-# shs_create_reports()
+# tryCatch({
+#   message(paste0("Extracting dataset from ", source_dataset_directory, " to ", app_dataset_directory))
+# shsannualreport:::shs_extract_dataset(source_dataset_directory = source_dataset_directory, app_dataset_directory = app_dataset_directory)
+#   message("Successfully extracted dataset")
+# }, error = function(e) {
+#   message("Failed to extract data")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Removing columns ", paste(columns_to_remove, collapse = ", "), " from data in ", app_dataset_directory))
+#   shsannualreport:::shs_remove_columns(app_dataset_directory = app_dataset_directory, columns_to_remove = columns_to_remove)
+#   message("Successfully removed columns")
+# }, error = function(e) {
+#   message("Failed to remove columns")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Writing column names present in ", app_dataset_directory, " to ", column_names_save_file_path))
+#   shsannualreport:::shs_get_column_names(app_dataset_directory = app_dataset_directory, column_names_save_file_path = column_names_save_file_path)
+#   message("Successfully wrote column names")
+# }, error = function(e) {
+#   message("Failed to write column names")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Writing variable names present in ", app_dataset_directory, " to ", variable_names_save_file_path))
+#   shsannualreport:::shs_get_variable_names(app_dataset_directory = app_dataset_directory, variable_names_save_file_path = variable_names_save_file_path)
+#   message("Successfully wrote variable names")
+# }, error = function(e) {
+#   message("Failed to write variable names")
+#   message(e)
+# })
+#
+# if (file.exists(old_column_names_path)) {
+# tryCatch({
+#   message(paste0("Writing column names present in ", old_column_names_path, " to ", column_names_save_file_path))
+#   shsannualreport:::shs_update_names_workbook(new_workbook_path = column_names_save_file_path, old_workbook_path = old_column_names_path)
+#   message("Successfully wrote column names")
+# }, error = function(e) {
+#   message("Failed to write column names")
+#   message(e)
+# })
+#
+# } else {
+#
+#   message(paste0("The value given for 'old_column_names_path' does not exist, so ", column_names_save_file_path, " has not been updated."))
+#   message(paste0("The value given was ", old_column_names_path))
+#   }
+#
+# if (file.exists(old_variable_names_path)) {
+# tryCatch({
+#   message(paste0("Writing variable names present in ", old_variable_names_path, " to ", variable_names_save_file_path))
+#   shsannualreport:::shs_update_names_workbook(new_workbook_path = variable_names_save_file_path, old_workbook_path = old_variable_names_path)
+#   message("Successfully wrote variable names")
+# }, error = function(e) {
+#   message("Failed to write variable names")
+#   message(e)
+# })
+#
+# } else {
+#
+#   message(paste0("The value given for 'old_variable_names_path' does not exist, so ", variable_names_save_file_path, " has not been updated."))
+#   message(paste0("The value given was", old_variable_names_path))
+# }
+#
+# tryCatch({
+#   message(paste0("Extracting  ", column_names_save_file_path, " and ", variable_names_save_file_path, " to ", app_metadata_directory))
+#   shsannualreport:::shs_extract_column_and_variable_names(app_metadata_directory = app_metadata_directory, column_names_save_file_path = column_names_save_file_path, variable_names_save_file_path = variable_names_save_file_path)
+# message("Successfully extracted column and variable names")
+# }, error = function(e) {
+#   message("Failed to extract column and variable names")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Processing column names in ", app_dataset_directory))
+#   shsannualreport:::shs_process_column_names(app_dataset_directory = app_dataset_directory, app_metadata_directory = app_metadata_directory)
+# message("Successfully processed column names")
+# }, error = function(e) {
+#   message("Failed to process column names")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Processing variable names in ", app_dataset_directory))
+#   shsannualreport:::shs_process_variable_names(app_dataset_directory = app_dataset_directory, app_metadata_directory = app_metadata_directory)
+#   message("Successfully processed variable names")
+# }, error = function(e) {
+#   message("Failed to process variable names")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Processing data in ", app_dataset_directory))
+#   shsannualreport:::shs_process_data(app_dataset_directory = app_dataset_directory, app_metadata_directory = app_metadata_directory)
+#   message("Successfully processed data")
+# }, error = function(e) {
+#   message("Failed to process data")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Creating variables source file in ", app_source_directory))
+#   shsannualreport:::shs_create_shiny_variables(reports_start_year = reports_start_year,
+#                                         reports_end_year = reports_end_year,
+#                                         app_source_directory = app_source_directory,
+#                                         app_dataset_directory = app_dataset_directory,
+#                                         app_metadata_directory = app_metadata_directory)
+#   message("Successfully created variables file")
+# }, error = function(e) {
+#   message("Failed to create variables file")
+#   message(e)
+# })
+#
+# tryCatch({
+#   message(paste0("Creating reports files in ", app_reports_directory))
+#   shsannualreport:::shs_create_reports(app_metadata_directory = app_metadata_directory, app_reports_directory = app_reports_directory)
+#   message("Successfully created reports files")
+# }, error = function(e) {
+#   message("Failed to create reports files")
+#   message(e)
+# })
 #

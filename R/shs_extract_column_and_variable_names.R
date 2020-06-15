@@ -3,35 +3,33 @@
 #' \code{shs_extract_column_and_variable_names} extracts survey metadata from Excel workbooks in a specified location,
 #' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #'
+#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
+#' @param column_names_save_file_path \code{string}. The path of the Excel file containing column names metadata.
+#' @param variable_names_save_file_path \code{string}. The path of the Excel file containing variable names metadata.
+#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_extract_column_and_variable_names()
+#' shs_extract_column_and_variable_names(app_metadata_directory, column_names_save_file_path, variable_names_save_file_path)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_extract_column_and_variable_names <- function() {
+shs_extract_column_and_variable_names <- function(app_metadata_directory, column_names_save_file_path, variable_names_save_file_path) {
 
-  source_column_and_variable_names_path <- "variable_names_new"
-  extracted_metadata_path <- "app/data/metadata"
+  files <- c(column_names_save_file_path, variable_names_save_file_path)
 
-  # Get all column and variable_names files
-  files <- list.files(source_column_and_variable_names_path)
-
-  # Loop through column and variable_names files
   for (file in files) {
 
-    workbook_path <- file.path(source_column_and_variable_names_path, file)
-    sheets <- readxl::excel_sheets(workbook_path)
+    sheets <- readxl::excel_sheets(file)
 
-    # Save sheet as .Rds file in output directory
     for (sheet in sheets) {
 
-      df <- readxl::read_excel(workbook_path, sheet = sheet)
-      saveRDS(df, file = file.path(extracted_metadata_path,
-                                   paste0(sheet, ".Rds")))
+      df <- readxl::read_excel(file, sheet = sheet)
+      saveRDS(df, file = file.path(app_metadata_directory, paste0(sheet, ".Rds")))
     }
   }
 }

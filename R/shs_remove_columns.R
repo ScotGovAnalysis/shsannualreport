@@ -2,6 +2,7 @@
 #'
 #' \code{shs_remove_columns} removes columns from extracted datasets.
 #'
+#' @param app_dataset_directory \code{string}. The path to the directory the app will be created in.
 #' @param columns_to_remove \code{character vector}. The names of all columns to remove.
 #'
 #' @return \code{null}.
@@ -11,17 +12,17 @@
 #' shs_remove_columns(columns_to_remove)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_remove_columns <- function(columns_to_remove) {
+shs_remove_columns <- function(app_dataset_directory, columns_to_remove) {
 
-  extracted_dataset_path <- "app/data/dataset"
-
-  files <- list.files(extracted_dataset_path)
+  files <- list.files(app_dataset_directory)
 
   for (file in files){
 
-    file_path <- file.path(extracted_dataset_path, file)
+    file_path <- file.path(app_dataset_directory, file)
 
     df <- readRDS(file_path)
     column_names <- colnames(df)
