@@ -552,6 +552,8 @@ comparison_significance_key_time_series
 ## Figure 3.3: Tenure of households by year (HIH aged 16 to 34)
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Figure 3.4: Tenure of households by year (HIH aged 35 to 59)
 ### Column percentages, Households
 
@@ -1689,9 +1691,13 @@ comparison_significance_key
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Only asked of those who have been at their current address for less than a year
 
+\pagebreak
+
 ## Table 3.4e: Adult characteristics by tenure - Whether the change of address was to join an existing family/household, or to occupy the entire property
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Only asked of those who have been at their current address for less than a year
+
+\pagebreak
 
 ## Table 3.5a: Views on housing aspirations, by tenure - Reasons for moving to the area
 ### Column percentages, Adults
@@ -1983,6 +1989,8 @@ comparison_significance_key
 
 ## Table 3.6c: Barriers to moving to the accommodation the householder would most like to live i
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Figure 3.6: Percentage of households very or fairly satisfied with housing
 ### Column percentages, Households
@@ -2277,6 +2285,8 @@ comparison_significance_key
 ## Table 3.8: Households renting privately - information on landlord / letting agents and deposits
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.9a: Limiting activities by tenure - Household has someone with a long-term physical/mental health condition/illness
 ### Column percentages, Adults
 ### A long-term condition is defined as lasting or expecting to last for 12 months or more
@@ -2353,9 +2363,13 @@ comparison_significance_key
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Asked of households with someone with a long-term condition/illness
 
+\pagebreak
+
 ## Table 3.9c: Limiting activities by tenure - Whether the home requires adaptations to  make it easier to go about daily activities
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Asked of households with someone with a long-term condition/illness
+
+\pagebreak
 
 ## Table 3.10a: Housing adaptations and support - Home adaptations that are already in place
 ### Column percentages, Households
@@ -2647,11 +2661,17 @@ comparison_significance_key
 ## Table 3.11c: Households on a housing list by tenure - The number of housing lists that households are on (households on a list)
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.11d: Households on a housing list by tenure - How long the household has been on a housing list (households on a list)
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.11e: Households on a housing list by tenure - The main reason for household being on a housing list (households on a list)
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Table 3.12: Adults on housing lists
 ### Column percentages, Adults
@@ -2806,15 +2826,25 @@ comparison_significance_key_time_series
 ## Table 3.14: Urban Rural Location of Private Rented Households, by year
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.15: Age of Highest Income Householder in Private Rented Households, by year
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Table 3.16: Household Composition of Private Rented Households, by year
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.17: Economic situation of Adults in Private Rented Households, by year
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 3.18: Length of Time at address in private rented households, by year
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 

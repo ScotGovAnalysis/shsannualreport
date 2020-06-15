@@ -255,6 +255,12 @@ and relentless efforts during the fieldwork.
         string <- paste0(string, "### [", link_comment, "]", "(", url, ")\n")
       }
 
+      if (type == "0") {
+        string <- paste0(string, "
+\\pagebreak
+")
+      }
+
       if (type == "1") {
         string <- paste0(string, "
 ### `r local_authority`
@@ -283,7 +289,7 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 
           string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
         }
-# TODO add pagebreak here for no data
+
         string <- paste0(string, "\n } else {
         asis_output(\"### There is no data to show for this table within the specified parameters\")
       }

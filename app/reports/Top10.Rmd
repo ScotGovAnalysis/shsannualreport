@@ -296,9 +296,13 @@ comparison_significance_key
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Base sizes are too small for breakdown by educational attainment. See Figure 10.1 for breakdown by year
 
+\pagebreak
+
 ## Figure 10.3: Percentage of adults perceiving that 'Climate change is an immediate and urgent problem' by area deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### Base sizes are too small for breakdown by area deprivation. See Figure 10.1 for breakdown by year
+
+\pagebreak
 
 ## Table 10.2: 'It's not worth me doing things to help the environment if others don't do the same'
 ### Column percentages, Adults

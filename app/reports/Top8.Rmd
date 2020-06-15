@@ -857,14 +857,22 @@ comparison_significance_key
 ## Figure 8.9: Participation in physical activity and sport (including walking) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Figure 8.10: Participation in physical activity and sport (excluding walking) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Figure 8.11: Participation in walking (at least 30 minutes) in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Figure 8.12: Participation of none of these in the last four weeks over time by Scottish Index of Multiple Deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Figure 8.13: Participation in physical activity and sport in the last four weeks, by long-term physical/mental health condition
 ### Row percentages, Adults

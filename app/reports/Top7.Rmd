@@ -248,21 +248,31 @@ comparison_significance_key_time_series
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
 
+\pagebreak
+
 ## Figure 7.3: Households with home internet access by year and net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
+\pagebreak
 
 ## Figure 7.4: Households with home internet access by SIMD and year
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
 
+\pagebreak
+
 ## Figure 7.5: Households with home internet access by tenure
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
 
+\pagebreak
+
 ## Figure 7.6: Households with home internet access by Urban Rural classification
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.1
+
+\pagebreak
 
 ## Figure 7.7: Use of internet over time and by age
 ### Column percentages, NA
@@ -344,25 +354,37 @@ comparison_significance_key_time_series
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
 
+\pagebreak
+
 ## Table 7.1: Use of the internet by whether has a long-standing limiting illness, health problem or disability and age
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
+\pagebreak
 
 ## Figure 7.9: Use of the internet by net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
 
+\pagebreak
+
 ## Figure 7.10: Use of the internet by year and net annual household income
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
+\pagebreak
 
 ## Figure 7.11: Use of the internet by area deprivation level
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
 
+\pagebreak
+
 ## Figure 7.12: Use of internet by tenure
 ### Base numbers at local authority level are too small to produce robust analysis.
 ### High level estimates are provided in the table accompanying Figure 7.7
+
+\pagebreak
 
 ## Table 7.2: Where adults who use the internet access it for personal use
 ### Column percentages, Adults
@@ -729,15 +751,25 @@ comparison_significance_key_time_series
 ## Table 7.7: Reasons that could convince people, who don't use the internet for personal use, to online
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 7.8: Use of public services on the internet in the past 12 months (internet users)
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 
 ## Table 7.9: Satisfaction with quality of public service websites
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 7.10: Online security measures by age and deprivation
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 7.11: Impact of security concerns on internet use by age and physical or mental health condition
 ### Base numbers at local authority level are too small to produce robust analysis.
+
+\pagebreak
 

@@ -2522,6 +2522,8 @@ comparison_significance_key
 ## Table 4.27: Reasons for discrimination and harassment
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
 ## Table 4.28: Activity undertaken to prepare for events like severe weather or flooding
 ### Column percentages, Adults
 ### This question was first asked in 2017

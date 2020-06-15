@@ -655,3 +655,5 @@ comparison_significance_key
 ## Figure 6.6: Households who manage well financially by deprivation over time
 ### Base numbers at local authority level are too small to produce robust analysis.
 
+\pagebreak
+
