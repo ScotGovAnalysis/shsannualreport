@@ -168,6 +168,15 @@ comparison_significance_key <- asis_output(paste0("```{=latex}
   $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, " (", year, ")  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, " (", year, ")
   ```"))
 
+main_significance_key_time_series <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", comparator, "  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", comparator, "
+  ```"))
+
+comparison_significance_key_time_series <- asis_output(paste0("```{=latex}
+  $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly greater than ", local_authority, "  $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower than ", local_authority, "
+  ```"))
+
+
 } else if (comparison_type == "Year") {
 
   main_significance_key <- asis_output(paste0("```{=latex}
@@ -198,11 +207,6 @@ contributed to the project.
 Finally, special thanks to Ipsos MORI and their interviewers for continuous
 and relentless efforts during the fieldwork.
 
-## Key
-
-```{=latex}
-$ \color[RGB]{0, 163, 163} \blacksquare $ Significantly higher $ \color[RGB]{195, 195, 255} \blacksquare $ Significantly lower
-```
 \pagebreak
 
 ## Figure 3.1: Tenure of households by year
@@ -261,7 +265,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.1)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -304,7 +308,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -364,7 +368,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.1)), escape = TRUE
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -407,7 +411,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -498,7 +502,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.2)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -541,7 +545,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -604,7 +608,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.4)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -647,7 +651,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -707,7 +711,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.5)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -750,7 +754,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -2023,7 +2027,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Figure_3.6)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -2053,7 +2057,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -2691,7 +2695,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.12)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -2720,7 +2724,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 
@@ -2766,7 +2770,7 @@ kable("latex", col.names = gsub("blank", "", colnames(Table_3.13)), escape = TRU
 }
 ```
 ```{r eval=eval_comparison_time_series}
-main_significance_key
+main_significance_key_time_series
 ```
 
 ```{r eval=eval_comparison_time_series}
@@ -2795,7 +2799,7 @@ asis_output("### There is no data to show for this table within the specified pa
 }
 ```
 ```{r eval=eval_comparison_time_series}
-comparison_significance_key
+comparison_significance_key_time_series
 ```
 \pagebreak
 

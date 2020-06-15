@@ -127,6 +127,15 @@ comparison_significance_key <- asis_output(paste0(\"```{=latex}
   $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", local_authority, \" (\", year, \")  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", local_authority, \" (\", year, \")
   ```\"))
 
+main_significance_key_time_series <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", comparator, \"  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", comparator, \"
+  ```\"))
+
+comparison_significance_key_time_series <- asis_output(paste0(\"```{=latex}
+  $ \\\\color[RGB]{0, 163, 163} \\\\blacksquare $ Significantly greater than \", local_authority, \"  $ \\\\color[RGB]{195, 195, 255} \\\\blacksquare $ Significantly lower than \", local_authority, \"
+  ```\"))
+
+
 } else if (comparison_type == \"Year\") {
 
   main_significance_key <- asis_output(paste0(\"```{=latex}
@@ -157,11 +166,6 @@ contributed to the project.
 Finally, special thanks to Ipsos MORI and their interviewers for continuous
 and relentless efforts during the fieldwork.
 
-## Key
-
-```{=latex}
-$ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{195, 195, 255} \\blacksquare $ Significantly lower
-```
 \\pagebreak
 "
     writeLines(iconv(string, to = "UTF-8"), connection, useBytes=T)
@@ -204,10 +208,14 @@ $ \\color[RGB]{0, 163, 163} \\blacksquare $ Significantly higher $ \\color[RGB]{
         if (type == 1) {
 
           markdown_comparator <- "eval_comparison_time_series"
+          main_key <- "main_significance_key_time_series"
+          comparison_key <- "comparison_significance_key_time_series"
 
         } else {
 
           markdown_comparator <- "eval_comparison"
+          main_key <- "main_significance_key"
+          comparison_key <- "comparison_significance_key"
         }
 
       }
@@ -275,7 +283,7 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 
           string <- paste0(string, " %>% column_spec(1, width = \"20em\")")
         }
-
+# TODO add pagebreak here for no data
         string <- paste0(string, "\n } else {
         asis_output(\"### There is no data to show for this table within the specified parameters\")
       }
@@ -341,7 +349,7 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 }
 ```
 ```{r eval=", markdown_comparator, "}
-main_significance_key
+", main_key, "
 ```
 
 ```{r eval=", markdown_comparator, "}
@@ -404,7 +412,7 @@ asis_output(\"### There is no data to show for this table within the specified p
 }
 ```
 ```{r eval=", markdown_comparator, "}
-comparison_significance_key
+", comparison_key, "
 ```
 \\pagebreak
 ")
