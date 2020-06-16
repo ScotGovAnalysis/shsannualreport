@@ -13,7 +13,8 @@ Depends:
   writexl,
   tidyr,
   dplyr,
-  magrittr
+  magrittr,
+  plyr
 Suggests: knitr
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
