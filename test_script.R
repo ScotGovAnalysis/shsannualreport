@@ -10,6 +10,7 @@
 # reports_end_year <- 2018
 #
 # shsannualreport::shs_app_processing_1(top_level_directory = top_level_directory,
+#                                       source_data_directory = source_data_directory,
 #                                       columns_to_remove = columns_to_remove)
 #
 # shsannualreport::shs_app_processing_2(top_level_directory = top_level_directory,

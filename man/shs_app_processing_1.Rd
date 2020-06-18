@@ -4,22 +4,32 @@
 \alias{shs_app_processing_1}
 \title{First part of SHS Data Explorer app processing}
 \usage{
-shs_app_processing_1(top_level_directory, columns_to_remove)
+shs_app_processing_1(
+  top_level_directory,
+  source_data_directory,
+  columns_to_remove
+)
 }
 \arguments{
-\item{top_level_directory}{\code{string}. The path of the directory the app will be created in.}
+\item{top_level_directory}{\code{string}.
+The path of the directory the app will be created in.}
 
-\item{columns_to_remove}{\code{string}. Unnecessary columns to remove from the dataset.}
+\item{source_data_directory}{\code{string}.
+The path of the directory containing source data and metadata.}
+
+\item{columns_to_remove}{\code{string}.
+Unnecessary columns to remove from the dataset.}
 }
 \value{
 \code{null}.
 }
 \description{
-\code{shs_app_processing_1} extracts data and metadata, removes unnecessary columns, and creates Excel files of variable names for review.
+\code{shs_app_processing_1} extracts data and metadata, removes unnecessary columns,
+and creates Excel files of variable names for review.
 }
 \examples{
 \dontrun{
-shs_app_processing_1(top_level_directory, columns_to_remove, old_column_names_path, old_variable_names_path)
+shs_app_processing_1(top_level_directory, source_data_directory, columns_to_remove)
 }
 
 }

@@ -4,14 +4,25 @@
 \alias{shs_app_processing_2}
 \title{Second part of SHS Data Explorer app processing}
 \usage{
-shs_app_processing_2(top_level_directory, reports_start_year, reports_end_year)
+shs_app_processing_2(
+  top_level_directory,
+  source_data_directory,
+  reports_start_year,
+  reports_end_year
+)
 }
 \arguments{
-\item{top_level_directory}{\code{string}. The path of the directory the app was created in in \code{shs_app_processing_1}.}
+\item{top_level_directory}{\code{string}.
+The path of the directory the app was created in in \code{shs_app_processing_1}.}
 
-\item{reports_start_year}{\code{string}. The first year available to select in the report generator.}
+\item{source_data_directory}{\code{string}.
+The path of the directory containing source data and metadata.}
 
-\item{reports_end_year}{\code{string}. The final year available to select in the report generator.}
+\item{reports_start_year}{\code{string}.
+The first year available to select in the app's report generator.}
+
+\item{reports_end_year}{\code{string}.
+The final year available to select in the app's report generator.}
 }
 \value{
 \code{null}.
@@ -21,7 +32,7 @@ shs_app_processing_2(top_level_directory, reports_start_year, reports_end_year)
 }
 \examples{
 \dontrun{
-shs_app_processing_2(top_level_directory, reports_start_year, reports_end_year)
+shs_app_processing_2(top_level_directory, source_data_directory, reports_start_year, reports_end_year)
 }
 
 }
