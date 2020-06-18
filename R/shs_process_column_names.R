@@ -1,11 +1,15 @@
 #' Rename column names in extracted datasets
 #'
-#' \code{shs_process_column_names} renames columns in extracted datasets according to data specified in \code{column_names.Rds} in extracted metadata.
-#' This metadata is extracted from an Excel sheet \code{column_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
+#' \code{shs_process_column_names} renames columns in extracted datasets
+#' according to data specified in \code{column_names.Rds} in extracted metadata.
+#' This metadata is extracted from an Excel sheet \code{column_names.xlsx}.
+#' For more information see \code{shs_extract_data} and the internal function
 #' \code{shs_extract_metadata}.
 #'
-#' @param app_dataset_directory \code{string}. The path of the app directory containing the dataset.
-#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory containing the dataset.
+#' @param app_metadata_directory \code{string}.
+#' The path of the app directory containing metadata.
 #'
 #' @return \code{null}.
 #'
@@ -46,4 +50,3 @@ shs_process_column_names <- function(app_dataset_directory, app_metadata_directo
     saveRDS(df, file = file_path)
   }
 }
-

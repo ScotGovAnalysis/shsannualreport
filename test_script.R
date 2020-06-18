@@ -14,5 +14,6 @@
 #                                       columns_to_remove = columns_to_remove)
 #
 # shsannualreport::shs_app_processing_2(top_level_directory = top_level_directory,
+#                                       source_data_directory = source_data_directory,
 #                                       reports_start_year = reports_start_year,
 #                                       reports_end_year = reports_end_year)

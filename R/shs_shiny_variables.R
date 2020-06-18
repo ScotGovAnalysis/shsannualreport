@@ -32,7 +32,7 @@ shs_create_shiny_variables <- function(reports_start_year, reports_end_year, app
 
   for (ID in question_titles$ID) {
 
-    if (paste0(ID, ".Rds") %in% list.files("app/data/dataset")) {
+    if (paste0(ID, ".Rds") %in% list.files(app_dataset_directory)) {
 
       question_titles[question_titles$ID == ID,]$HasDataFile <- "Y"
 

@@ -27,14 +27,6 @@ shs_get_variable_names <- function(app_dataset_directory, variable_names_save_fi
     file_path <- file.path(app_dataset_directory, file)
     df <- readRDS(file_path)
 
-    if ("sort" %in% colnames(df)){
-      df <- subset(df, select=-c(sort))
-    }
-
-    if ("_LABEL_" %in% colnames(df)){
-      df <- subset(df, select=-c(`_LABEL_`))
-    }
-
     variable_names <- unique(df[2])[[1]]
     all_variable_names <- c(all_variable_names, variable_names)
   }

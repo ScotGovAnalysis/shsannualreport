@@ -3,8 +3,10 @@
 #' \code{shs_get_column_names} gets column names from extracted SHS survey data in a specified location,
 #' and saves them to an xlsx file, which can then be updated with names to display in the annual report Shiny app.
 #'
-#' @param app_dataset_directory \code{string}. The path of the directory the dataset has been extracted to.
-#' @param column_names_save_file_path \code{string}. The path to save the column names spreadsheet to.
+#' @param app_dataset_directory \code{string}.
+#' The path of the directory the dataset has been extracted to.
+#' @param column_names_save_file_path \code{string}.
+#' The path to save the column names spreadsheet to.
 #'
 #' @return \code{null}.
 #'

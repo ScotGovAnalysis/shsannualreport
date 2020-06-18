@@ -2,6 +2,8 @@
 #'
 #' \code{shs_create_reports} creates an Rmd report file for each topic in the SHS annual report data.
 #'
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory containing dataset.
 #' @param app_metadata_directory \code{string}.
 #' The path of the app directory containing metadata.
 #' @param app_reports_directory \code{string}.
@@ -11,14 +13,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_reports(app_metadata_directory, app_reports_directory)
+#' shs_create_reports(app_dataset_directory, app_metadata_directory, app_reports_directory)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_create_reports <- function(app_metadata_directory, app_reports_directory) {
+shs_create_reports <- function(app_dataset_directory, app_metadata_directory, app_reports_directory) {
 
   topics <- readRDS(file.path(app_metadata_directory, "topic_titles.Rds"))
   topics <- topics[topics$has_data == "y",]
@@ -192,7 +194,7 @@ and relentless efforts during the fieldwork.
 
       if (type != "0") {
 
-        data_file_path <- paste0("app/data/dataset/", question_id, ".Rds")
+        data_file_path <- file.path(app_dataset_directory, paste0(question_id, ".Rds"))
 
         column_names <- colnames(readRDS(data_file_path))
         main_column_names <- column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]

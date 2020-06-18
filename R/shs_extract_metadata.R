@@ -4,8 +4,10 @@
 #' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #' Internal function for \code{shs_extract_data}.
 #'
-#' @param source_metadata_directory \code{string}. The path of the directory containing survey metadata in Excel format.
-#' @param app_metadata_directory \code{string}. The path of the directory to be extracted to, created by \code{shs_extract_data}.
+#' @param source_metadata_directory \code{string}.
+#' The path of the directory containing survey metadata in Excel format.
+#' @param app_metadata_directory \code{string}.
+#' The path of the directory to be extracted to, created by \code{shs_extract_data}.
 #'
 #' @return \code{null}.
 #'

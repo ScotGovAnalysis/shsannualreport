@@ -130,7 +130,8 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message(paste0("Creating reports files in ", app_reports_directory))
 
-    shsannualreport:::shs_create_reports(app_metadata_directory = app_metadata_directory,
+    shsannualreport:::shs_create_reports(app_dataset_directory = app_dataset_directory,
+                                         app_metadata_directory = app_metadata_directory,
                                          app_reports_directory = app_reports_directory)
 
     message("Successfully created reports files")
