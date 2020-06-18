@@ -1,10 +1,10 @@
 Package: shsannualreport
 Type: Package
-Title: Prepare data for publication in SHS Annual Report
+Title: SHS Annual Report
 Version: 0.1.0
 Authors@R: person("Thomas", "Crines", email = "Thomas.Crines@gov.scot", role = c("aut", "cre"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: A package to take Scottish Household Survey results data and create an R Shiny app.
+    Raw data is taken read from Excel data, processed, and a Shiny app built based on the data. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
