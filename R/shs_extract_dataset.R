@@ -4,8 +4,10 @@
 #' and saves each sheet into a specified destination as an individual \code{.Rds} file.
 #' Internal function for \code{shs_extract_data}.
 #'
-#' @param source_dataset_directory \code{string}. The path of the directory containing survey data in Excel format.
-#' @param app_dataset_directory \code{string}. The path of the app directory to save the dataset to.
+#' @param source_dataset_directory \code{string}.
+#' The path of the directory containing survey data in Excel format.
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory to save the dataset to.
 #'
 #' @return \code{null}.
 #'
@@ -21,13 +23,6 @@
 shs_extract_dataset <- function(source_dataset_directory, app_dataset_directory) {
 
   files <- list.files(source_dataset_directory)
-  years <- list()
-
-  for (file in files) {
-    years <- c(years, sub(".*SHS *(.*?) *_CH.*", "\\1", file))
-  }
-
-  year <- unique(years)
 
   for (file in files) {
 

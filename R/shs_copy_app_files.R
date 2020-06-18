@@ -2,9 +2,12 @@
 #'
 #' \code{shs_copy_app_files} copies necessary static files from package into newly created app project.
 #'
-#' @param app_directory \code{string}. The path of the directory the app has been created in.
-#' @param app_source_directory \code{string}. The path of the app directory containing source files (variables and functions).
-#' @param app_www_directory \code{string}. The path of the app directory containing stylesheets and images.
+#' @param app_directory \code{string}.
+#' The path of the directory the app has been created in.
+#' @param app_source_directory \code{string}.
+#' The path of the app directory containing source files (variables and functions).
+#' @param app_www_directory \code{string}.
+#' The path of the app directory containing stylesheets and images.
 #'
 #' @return \code{null}.
 #'

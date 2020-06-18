@@ -2,8 +2,10 @@
 #'
 #' \code{shs_create_reports} creates an Rmd report file for each topic in the SHS annual report data.
 #'
-#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
-#' @param app_reports_directory \code{string}. The path of the app directory to save report files to.
+#' @param app_metadata_directory \code{string}.
+#' The path of the app directory containing metadata.
+#' @param app_reports_directory \code{string}.
+#' The path of the app directory to save report files to.
 #'
 #' @return \code{null}.
 #'
