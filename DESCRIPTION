@@ -12,9 +12,9 @@ Depends:
   readxl,
   writexl,
   tidyr,
+  plyr,
   dplyr,
-  magrittr,
-  plyr
+  magrittr
 Suggests: knitr
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr

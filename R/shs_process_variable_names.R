@@ -1,11 +1,15 @@
 #' Rename variable names in extracted datasets
 #'
-#' \code{shs_process_variable_names} renames variables in extracted datasets according to data specified in \code{variable_names.Rds} in extracted metadata.
-#' This metadata is extracted from an Excel sheet \code{variable_names.xlsx}. For more information see \code{shs_extract_data} and the internal function
+#' \code{shs_process_variable_names} renames variables in extracted datasets
+#' according to data specified in \code{variable_names.Rds} in extracted metadata.
+#' This metadata is extracted from an Excel sheet \code{variable_names.xlsx}.
+#' For more information see \code{shs_extract_data} and the internal function
 #' \code{shs_extract_metadata}.
 #'
-#' @param app_dataset_directory \code{string}. The path of the app directory containing the dataset.
-#' @param app_metadata_directory \code{string}. The path of the app directory containing metadata.
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory containing the dataset.
+#' @param app_metadata_directory \code{string}.
+#' The path of the app directory containing metadata.
 #'
 #' @return \code{null}.
 #'
@@ -27,20 +31,20 @@ shs_process_variable_names <- function(app_dataset_directory, app_metadata_direc
 
   files <- list.files(app_dataset_directory)
 
-  for (file in files){
+  for (file in files) {
 
     file_path <- file.path(app_dataset_directory, file)
 
     df <- readRDS(file_path)
-    variable_names <- unique(df[,2][[1]])
+    variable_names <- unique(df[, 2][[1]])
 
-    for (variable_name in variable_names){
+    for (variable_name in variable_names) {
 
       new_variable_name <- variable_reference[variable_reference$source_name == variable_name, 2]$display_name
 
       tryCatch({
 
-      df[df[2] == variable_name,][2] <- new_variable_name
+      df[df[2] == variable_name, ][2] <- new_variable_name
 
       }, error = function(cond) {
 

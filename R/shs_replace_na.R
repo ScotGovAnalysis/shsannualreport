@@ -1,9 +1,12 @@
 #' Replace NA values in processed dataframes
 #'
-#' \code{shs_replace_na} replaces NA values in processed dataframes with hyphens, or asterisks for incomplete years' data
+#' \code{shs_replace_na} replaces NA values in processed dataframes
+#' with hyphens, or asterisks for incomplete years' data
 #'
-#' @param data_file_path \code{string}. A path to an Rds file to replace values in.
-#' @param incomplete_years \code{character vector}. The path to a file containing design factor values.
+#' @param data_file_path \code{string}.
+#' A path to an Rds file to replace values in.
+#' @param incomplete_years \code{character vector}.
+#' The path to a file containing design factor values.
 #'
 #' @return \code{null}.
 #'
