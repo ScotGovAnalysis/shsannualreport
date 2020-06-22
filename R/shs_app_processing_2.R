@@ -50,11 +50,11 @@ shs_app_processing_2 <- function(top_level_directory,
       column_names_save_file_path = column_names_save_file_path,
       variable_names_save_file_path = variable_names_save_file_path)
 
-    message("Successfully extracted column and variable names")
+    cat(green("Successfully extracted column and variable names\n"))
 
   }, error = function(e) {
 
-    message("Failed to extract column and variable names")
+    cat(red("Failed to extract column and variable names\n"))
 
     stop(message(e))
   })
@@ -66,11 +66,11 @@ shs_app_processing_2 <- function(top_level_directory,
     shsannualreport:::shs_process_column_names(app_dataset_directory = app_dataset_directory,
                                                app_metadata_directory = app_metadata_directory)
 
-    message("Successfully processed column names")
+    cat(green("Successfully processed column names\n"))
 
   }, error = function(e) {
 
-    message("Failed to process column names")
+    cat(red("Failed to process column names\n"))
 
     stop(message(e))
   })
@@ -82,11 +82,11 @@ shs_app_processing_2 <- function(top_level_directory,
     shsannualreport:::shs_process_variable_names(app_dataset_directory = app_dataset_directory,
                                                  app_metadata_directory = app_metadata_directory)
 
-    message("Successfully processed variable names")
+    cat(green("Successfully processed variable names\n"))
 
   }, error = function(e) {
 
-    message("Failed to process variable names")
+    cat(red("Failed to process variable names\n"))
 
     stop(message(e))
   })
@@ -98,11 +98,11 @@ shs_app_processing_2 <- function(top_level_directory,
     shsannualreport:::shs_clean_scotland_only_tables(app_dataset_directory = app_dataset_directory,
                                                      app_metadata_directory = app_metadata_directory)
 
-    message("Successfully removed local authority data")
+    cat(green("Successfully removed local authority data\n"))
 
   }, error = function(e) {
 
-    message("Failed to remove local authority data")
+    cat(red("Failed to remove local authority data\n"))
 
     stop(message(e))
   })
@@ -114,11 +114,11 @@ shs_app_processing_2 <- function(top_level_directory,
     shsannualreport:::shs_process_data(app_dataset_directory = app_dataset_directory,
                                        app_metadata_directory = app_metadata_directory)
 
-    message("Successfully processed data")
+    cat(green("Successfully processed data\n"))
 
   }, error = function(e) {
 
-    message("Failed to process data")
+    cat(red("Failed to process data\n"))
 
     stop(message(e))
   })
@@ -133,11 +133,11 @@ shs_app_processing_2 <- function(top_level_directory,
                                                  app_dataset_directory = app_dataset_directory,
                                                  app_metadata_directory = app_metadata_directory)
 
-    message("Successfully created variables file")
+    cat(green("Successfully created variables file\n"))
 
   }, error = function(e) {
 
-    message("Failed to create variables file")
+    cat(red("Failed to create variables file\n"))
 
     stop(message(e))
   })
@@ -150,11 +150,11 @@ shs_app_processing_2 <- function(top_level_directory,
                                          app_metadata_directory = app_metadata_directory,
                                          app_reports_directory = app_reports_directory)
 
-    message("Successfully created reports files")
+    cat(green("Successfully created reports files\n"))
 
   }, error = function(e) {
 
-    message("Failed to create reports files")
+    cat(red("Failed to create reports files\n"))
 
     stop(message(e))
   })
@@ -167,16 +167,16 @@ shs_app_processing_2 <- function(top_level_directory,
                                          app_source_directory = app_source_directory,
                                          app_www_directory = app_www_directory)
 
-    message("Successfully copied files")
+    cat(green("Successfully copied files\n"))
 
   }, error = function(e) {
 
-    message("Failed to copy files")
+    cat(red("Failed to copy files\n"))
 
     stop(message(e))
   })
 
-  message("Processing completed successfully")
+  cat(green("Processing completed successfully\n"))
 
-  message(paste0("The completed app can be run from ", app_directory))
+  cat(blue("The completed app can be run from", app_directory, "\n"))
 }

@@ -21,9 +21,6 @@
 
 shs_clean_scotland_only_tables <- function(app_dataset_directory, app_metadata_directory) {
 
-  app_dataset_directory <- "C:/Users/dsap01/Documents/SHS Data Explorer/app/data/dataset"
-  app_metadata_directory <- "C:/Users/dsap01/Documents/SHS Data Explorer/app/data/metadata"
-
   question_titles <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
   scotland_only_tables <- question_titles[!is.na(question_titles$ScotlandOnly),]

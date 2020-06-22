@@ -50,11 +50,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     shsannualreport:::shs_extract_metadata(source_metadata_directory = source_metadata_directory,
                                            app_metadata_directory = app_metadata_directory)
 
-    message("Successfully extracted metadata")
+    cat(green("Successfully extracted metadata\n"))
 
   }, error = function(e) {
 
-    message("Failed to extract metadata")
+    cat(red("Failed to extract metadata\n"))
 
     stop(message(e))
   })
@@ -66,11 +66,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     shsannualreport:::shs_extract_dataset(source_dataset_directory = source_dataset_directory,
                                           app_dataset_directory = app_dataset_directory)
 
-    message("Successfully extracted dataset")
+    cat(green("Successfully extracted dataset\n"))
 
   }, error = function(e) {
 
-    message("Failed to extract data")
+    cat(red("Failed to extract data\n"))
 
     stop(message(e))
   })
@@ -83,11 +83,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     shsannualreport:::shs_remove_columns(app_dataset_directory = app_dataset_directory,
                                          columns_to_remove = columns_to_remove)
 
-    message("Successfully removed columns")
+    cat(green("Successfully removed columns\n"))
 
   }, error = function(e) {
 
-    message("Failed to remove columns")
+    cat(red("Failed to remove columns\n"))
 
     stop(message(e))
   })
@@ -100,11 +100,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     shsannualreport:::shs_get_column_names(app_dataset_directory = app_dataset_directory,
                                            column_names_save_file_path = column_names_save_file_path)
 
-    message("Successfully wrote column names")
+    cat(green("Successfully wrote column names\n"))
 
   }, error = function(e) {
 
-    message("Failed to write column names")
+    cat(red("Failed to write column names\n"))
 
     stop(message(e))
   })
@@ -117,11 +117,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     shsannualreport:::shs_get_variable_names(app_dataset_directory = app_dataset_directory,
                                              variable_names_save_file_path = variable_names_save_file_path)
 
-    message("Successfully wrote variable names")
+    cat(green("Successfully wrote variable names\n"))
 
   }, error = function(e) {
 
-    message("Failed to write variable names")
+    cat(red("Failed to write variable names\n"))
 
     stop(message(e))
   })
@@ -136,11 +136,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
       shsannualreport:::shs_update_names_workbook(new_workbook_path = column_names_save_file_path,
                                                   old_workbook_path = old_column_names_path)
 
-      message("Successfully wrote column names")
+      cat(green("Successfully wrote column names\n"))
 
     }, error = function(e) {
 
-      message("Failed to write column names")
+      cat(red("Failed to write column names\n"))
 
       stop(message(e))
     })
@@ -163,11 +163,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
       shsannualreport:::shs_update_names_workbook(new_workbook_path = variable_names_save_file_path,
                                                   old_workbook_path = old_variable_names_path)
 
-      message("Successfully wrote variable names")
+      cat(green("Successfully wrote variable names\n"))
 
     }, error = function(e) {
 
-      message("Failed to write variable names")
+      cat(red("Failed to write variable names\n"))
 
       stop(message(e))
     })
@@ -177,11 +177,11 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     message(paste0("The value given for 'old_variable_names_path' does not exist, so ",
                    variable_names_save_file_path, " has not been updated."))
 
-    message(paste0("The value given was", old_variable_names_path))
+    message(paste0("The value given was ", old_variable_names_path))
   }
 
-  message("Processing completed successfully")
+  cat(green("Processing completed successfully\n"))
 
-  message(paste0("Please review ", column_names_save_file_path, " and ",
-                 variable_names_save_file_path, " and run shs_app_processing_2"))
+  cat(blue("Please review", column_names_save_file_path, "and",
+                 variable_names_save_file_path, "and run shs_app_processing_2\n"))
 }

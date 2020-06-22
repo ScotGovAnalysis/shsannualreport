@@ -14,7 +14,8 @@ Depends:
   tidyr,
   plyr,
   dplyr,
-  magrittr
+  magrittr,
+  crayon
 Suggests: knitr
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
