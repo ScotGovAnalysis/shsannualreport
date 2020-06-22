@@ -364,7 +364,9 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 }
 ```
 ```{r eval=", markdown_comparator, "}
+if (!is.null(", question_id_underscore, ")) {
 ", main_key, "
+}
 ```
 
 ```{r eval=", markdown_comparator, "}
@@ -427,7 +429,9 @@ asis_output(\"### There is no data to show for this table within the specified p
 }
 ```
 ```{r eval=", markdown_comparator, "}
+if (!is.null(", question_id_underscore, ") && length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 ", comparison_key, "
+}
 ```
 \\pagebreak
 ")

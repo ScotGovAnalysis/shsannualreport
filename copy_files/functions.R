@@ -332,9 +332,12 @@ table_processing <- function(question, local_authority, year, comparison_type, c
     table <- table[!grepl("Year", colnames(table)) & !grepl("Council", colnames(table))]
   }
 
-  if (8 == 0) {
+  if (!is.null(table)) {
+
+    if (nrow(table) == 0) {
 
     table <- NULL
+    }
   }
 
   table
