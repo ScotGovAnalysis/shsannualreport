@@ -24,7 +24,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
   source_dataset_directory <- file.path(source_data_directory, "dataset")
   source_metadata_directory <- file.path(source_data_directory, "metadata")
 
-  app_directory <- file.path(top_level_directory, "app")
+  app_directory <- file.path(top_level_directory, "ShsDataExplorer")
   app_data_directory <- file.path(app_directory, "data")
   app_dataset_directory <- file.path(app_data_directory, "dataset")
   app_metadata_directory <- file.path(app_data_directory, "metadata")
@@ -38,7 +38,6 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
   unlink(app_dataset_directory, recursive = TRUE)
   unlink(app_metadata_directory, recursive = TRUE)
 
-  dir.create(top_level_directory)
   dir.create(app_directory)
   dir.create(app_data_directory)
   dir.create(app_dataset_directory)
@@ -57,7 +56,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
     message("Failed to extract metadata")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -73,7 +72,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
     message("Failed to extract data")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -90,7 +89,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
     message("Failed to remove columns")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -107,7 +106,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
     message("Failed to write column names")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -124,7 +123,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
     message("Failed to write variable names")
 
-    message(e)
+    stop(message(e))
   })
 
   if (file.exists(old_column_names_path)) {
@@ -143,7 +142,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
       message("Failed to write column names")
 
-      message(e)
+      stop(message(e))
     })
 
   } else {
@@ -170,7 +169,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
 
       message("Failed to write variable names")
 
-      message(e)
+      stop(message(e))
     })
 
   } else {

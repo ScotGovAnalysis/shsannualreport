@@ -2,7 +2,7 @@
 #
 # source_data_directory <- "C:/Users/dsap01/Documents/shsannualreportdata"
 #
-# top_level_directory <- "C:/Users/dsap01/Documents/SHS Data Explorer"
+# top_level_directory <- "C:/Users/dsap01/Documents"
 #
 # columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
 #

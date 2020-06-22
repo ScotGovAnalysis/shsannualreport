@@ -25,7 +25,7 @@ shs_app_processing_2 <- function(top_level_directory,
                                  reports_start_year,
                                  reports_end_year) {
 
-  app_directory <- file.path(top_level_directory, "app")
+  app_directory <- file.path(top_level_directory, "ShsDataExplorer")
   app_data_directory <- file.path(app_directory, "data")
   app_dataset_directory <- file.path(app_data_directory, "dataset")
   app_metadata_directory <- file.path(app_data_directory, "metadata")
@@ -56,7 +56,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to extract column and variable names")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -72,7 +72,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to process column names")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -88,7 +88,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to process variable names")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -104,7 +104,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to remove local authority data")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -120,7 +120,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to process data")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -139,7 +139,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to create variables file")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -156,7 +156,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to create reports files")
 
-    message(e)
+    stop(message(e))
   })
 
   tryCatch({
@@ -173,7 +173,7 @@ shs_app_processing_2 <- function(top_level_directory,
 
     message("Failed to copy files")
 
-    message(e)
+    stop(message(e))
   })
 
   message("Processing completed successfully")
