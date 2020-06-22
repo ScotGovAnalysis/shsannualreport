@@ -22,23 +22,25 @@
 
 shs_copy_app_files <- function(app_directory, app_source_directory, app_www_directory) {
 
-  file.copy("inst/app.R", app_directory, overwrite = TRUE)
-  file.copy("inst/home.Rmd", app_directory, overwrite = TRUE)
-  file.copy("inst/.gitignore", app_directory, overwrite = TRUE)
+  package_path <- file.path(.libPaths()[1], "shsannualreport")
 
-  file.copy("inst/functions.R", app_source_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "app.R"), app_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "home.Rmd"), app_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, ".gitignore"), app_directory, overwrite = TRUE)
 
-  file.copy("inst/ci_graph.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/home_logo.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/modal-into.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/modal_chart.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/modal_download.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/modal_survey2.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/modal_table2.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/nat_stat.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/new_logo.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/SG_master_logo_RGB.jpg", app_www_directory, overwrite = TRUE)
-  file.copy("inst/shs-logo.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/sign_table.png", app_www_directory, overwrite = TRUE)
-  file.copy("inst/styles.css", app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "functions.R"), app_source_directory, overwrite = TRUE)
+
+  file.copy(file.path(package_path, "ci_graph.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "home_logo.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "modal-into.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "modal_chart.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "modal_download.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "modal_survey2.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "modal_table2.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "nat_stat.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "new_logo.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "SG_master_logo_RGB.jpg"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "shs-logo.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "sign_table.png"), app_www_directory, overwrite = TRUE)
+  file.copy(file.path(package_path, "styles.css"), app_www_directory, overwrite = TRUE)
 }
