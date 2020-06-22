@@ -19,7 +19,6 @@
 
 shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
 
-  #TODO - test setting this in shs_process_data and referring from there
   design <- readRDS(design_factors_path)
 
   tryCatch({
