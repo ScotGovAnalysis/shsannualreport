@@ -180,7 +180,7 @@ shs_app_processing_1 <- function(top_level_directory, source_data_directory, col
     message(paste0("The value given was ", old_variable_names_path))
   }
 
-  cat(green("Processing completed successfully\n"))
+  cat(green("\nProcessing completed successfully\n"))
 
   cat(blue("Please review", column_names_save_file_path, "and",
                  variable_names_save_file_path, "and run shs_app_processing_2\n"))

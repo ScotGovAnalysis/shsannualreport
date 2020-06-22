@@ -176,7 +176,7 @@ shs_app_processing_2 <- function(top_level_directory,
     stop(message(e))
   })
 
-  cat(green("Processing completed successfully\n"))
+  cat(green("\nProcessing completed successfully\n"))
 
   cat(blue("The completed app can be run from", app_directory, "\n"))
 }
