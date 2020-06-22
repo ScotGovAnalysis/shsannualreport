@@ -119,40 +119,40 @@ arrange_row_variables_string <- function(row_variable) {
 # round_string ####
 round_string <- function(table_name, column_variables) {
 
-      round_string <- paste0("if (length(colnames(", table_name, ")[grep(\"_2\", colnames(", table_name, "))]) > 0) {
+  round_string <- paste0("if (length(colnames(", table_name, ")[grep(\"_2\", colnames(", table_name, "))]) > 0) {
       ", table_name, " <- dplyr::mutate(", table_name, ", ")
 
-      for (column_variable in column_variables) {
+  for (column_variable in column_variables) {
 
-        addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
 
-        round_string <- paste0(round_string, addition_string)
-      }
+    round_string <- paste0(round_string, addition_string)
+  }
 
-      for (column_variable in column_variables) {
+  for (column_variable in column_variables) {
 
-        addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`,  0)))), `", column_variable, "_2`), ")
+    addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`,  0)))), `", column_variable, "_2`), ")
 
-        round_string <- paste0(round_string, addition_string)
-      }
+    round_string <- paste0(round_string, addition_string)
+  }
 
-    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
+  round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
                            ",
-                           "} else {
+                         "} else {
                            ", table_name, " <- dplyr::mutate(", table_name, ", ")
 
-                           for (column_variable in column_variables) {
+  for (column_variable in column_variables) {
 
-                             addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
 
-                             round_string <- paste0(round_string, addition_string)
+    round_string <- paste0(round_string, addition_string)
 
-                           }
-    round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
+  }
+  round_string <- paste0(substr(round_string, 1, nchar(round_string) - 2), ")
                            }")
 
-    # print(paste0("round_string: ", round_string))
-    round_string
+  # print(paste0("round_string: ", round_string))
+  round_string
 }
 
 # data_table_string ####
@@ -247,6 +247,19 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   question_type <- question_titles[question_titles$ID == question,]$Type
 
+  scotland_only <- question_titles[question_titles$ID == question,]$ScotlandOnly
+
+  if (is.na(scotland_only)) {scotland_only <- "N"}
+
+  if (scotland_only == "Y") {
+
+    scotland_only <- TRUE
+
+  } else {
+
+    scotland_only <- FALSE
+  }
+
   if (question_type != "0") {
 
     table <- readRDS(paste0("data/dataset/", question, ".Rds"))
@@ -291,7 +304,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   eval(parse(text = main_table_string(question_type = question_type, year_present = year_present)))
 
-  if (comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE))  {
+  if (isTRUE(scotland_only) | comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE))  {
 
     table <- table_main
 
@@ -318,6 +331,13 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
     table <- table[!grepl("Year", colnames(table)) & !grepl("Council", colnames(table))]
   }
+
+  if (8 == 0) {
+
+    table <- NULL
+  }
+
+  table
 }
 
 # report_data_processing ####
@@ -358,5 +378,3 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
   report_data
 }
-
-

@@ -93,6 +93,22 @@ shs_app_processing_2 <- function(top_level_directory,
 
   tryCatch({
 
+    message(paste0("Removing local authority data from Scotland-only tables in ", app_dataset_directory))
+
+    shsannualreport:::shs_clean_scotland_only_tables(app_dataset_directory = app_dataset_directory,
+                                                     app_metadata_directory = app_metadata_directory)
+
+    message("Successfully removed local authority data")
+
+  }, error = function(e) {
+
+    message("Failed to remove local authority data")
+
+    message(e)
+  })
+
+  tryCatch({
+
     message(paste0("Processing data in ", app_dataset_directory))
 
     shsannualreport:::shs_process_data(app_dataset_directory = app_dataset_directory,
