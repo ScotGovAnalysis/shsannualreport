@@ -1,9 +1,12 @@
 #' Update workbook of variable names from an extracted dataset
 #'
-#' \code{shs_update_names_workbook} updates column or variable names in an  Excel spreadsheet with populated values from another spreadsheet.
+#' \code{shs_update_names_workbook} updates column or variable names in an
+#' Excel spreadsheet with populated values from another spreadsheet.
 #'
-#' @param new_workbook_path \code{string}. The path of the file containing the new variable names.
-#' @param old_workbook_path \code{string}. The path of the file containing the previous diplay name of the variable.
+#' @param new_workbook_path \code{string}.
+#' The path of the file containing the new variable names.
+#' @param old_workbook_path \code{string}.
+#' The path of the file containing the previous diplay name of the variable.
 #'
 #' @return \code{null}.
 #'
@@ -12,7 +15,9 @@
 #' shs_update_names_workbook(new_workbook_path, old_workbook_path)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
 shs_update_names_workbook <- function(new_workbook_path, old_workbook_path) {
 

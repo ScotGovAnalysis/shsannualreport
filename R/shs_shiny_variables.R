@@ -1,45 +1,55 @@
 #' Create R variables to use in the Shiny App
 #'
-#' \code{shs_shiny_variables} creates a file of R variables to based on extracted data, to be used in the SHS annual report Shiny app.
+#' \code{shs_create_shiny_variables} creates a file of R variables to based on extracted data,
+#' to be used in the SHS annual report Shiny app.
 #'
-#' @param min_year \code{double}. The first year of data available for selection.
-#' @param max_year \code{string}. The final year of data available for selection.
+#' @param reports_start_year \code{double}.
+#' The first year of data available for selection in report builder.
+#' @param reports_end_year \code{string}.
+#' The final year of data available for selection in report builder.
+#' @param app_source_directory \code{string}.
+#' The path of the app directory containing source files (variables and functions).
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory containing the dataset.
+#' @param app_metadata_directory \code{string}.
+#' The path of the app directory containing metadata.
 #'
 #' @return \code{double}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_shiny_variables(2013, 2018)
+#' shs_create_shiny_variables(reports_start_year, reports_end_year, app_source_directory, app_dataset_directory, app_metadata_directory)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_shiny_variables <- function(min_year, max_year) {
+shs_create_shiny_variables <- function(reports_start_year,
+                                       reports_end_year,
+                                       app_source_directory,
+                                       app_dataset_directory,
+                                       app_metadata_directory) {
 
-  save_file_path <- "app/source/variables.R"
+  save_file_path <- file.path(app_source_directory, "variables.R")
 
   file.create(save_file_path)
 
-  extracted_dataset_path <- "app/data/dataset"
-  extracted_metadata_path <- "app/data/metadata"
-
-  topic_titles <- readRDS(file.path(extracted_metadata_path, "topic_titles.Rds"))
-  question_titles <- readRDS(file.path(extracted_metadata_path, "question_titles.Rds"))
+  topic_titles <- readRDS(file.path(app_metadata_directory, "topic_titles.Rds"))
+  question_titles <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
   question_titles$HasDataFile <- "N"
 
   for (ID in question_titles$ID) {
 
-    if (paste0(ID, ".Rds") %in% list.files("app/data/dataset")) {
+    if (paste0(ID, ".Rds") %in% list.files(app_dataset_directory)) {
 
-      question_titles[question_titles$ID == ID,]$HasDataFile <- "Y"
+      question_titles[question_titles$ID == ID, ]$HasDataFile <- "Y"
 
     }
   }
 
-  question_titles <- question_titles[question_titles$HasDataFile == "Y" | question_titles$Type == 0,]
-
-  files <- list.files(extracted_dataset_path)
+  question_titles <- question_titles[question_titles$HasDataFile == "Y" | question_titles$Type == 0, ]
 
   cat("question_titles <- readRDS(\"data/metadata/question_titles.Rds\")\n\n", file = save_file_path, append = TRUE)
 
@@ -106,13 +116,13 @@ shs_shiny_variables <- function(min_year, max_year) {
 
   years_string <- "years <- c("
 
-  year <- max_year
+  year <- reports_end_year
 
-  while(year >= min_year) {
+  while (year >= reports_start_year) {
 
     years_string <- paste0(years_string, "\"", year, "\", ")
 
-    year = year - 1
+    year <- year - 1
   }
 
   years_string <- (substr(years_string, 1, nchar(years_string) - 2))
@@ -125,11 +135,12 @@ shs_shiny_variables <- function(min_year, max_year) {
 
   select_topic_string <- "select_list_topics <- c("
 
-  counter = 2
-  for (topic_title in topic_titles[topic_titles$has_data == 'y',]$title) {
+  counter <- 2
+  for (topic_title in topic_titles[topic_titles$has_data == "y", ]$title) {
 
-    select_topic_string <- paste0(select_topic_string, "\"Topic ", counter, ": ", topic_title, "\" = \"", topic_title, "\",\n")
-    counter = counter + 1
+    select_topic_string <- paste0(select_topic_string, "\"Topic ", counter, ": ",
+                                  topic_title, "\" = \"", topic_title, "\",\n")
+    counter <- counter + 1
   }
 
   select_topic_string <- (substr(select_topic_string, 1, nchar(select_topic_string) - 2)) %>%
@@ -142,8 +153,8 @@ shs_shiny_variables <- function(min_year, max_year) {
   for (topic_number in topic_numbers) {
 
     select_question_string <- ""
-    valid_question_ids <- c()
-    question_ids_by_topic <- question_titles[grepl(paste0(" ", topic_number, "."), question_titles$ID),]$ID
+
+    question_ids_by_topic <- question_titles[grepl(paste0(" ", topic_number, "."), question_titles$ID), ]$ID
 
     if (length(question_ids_by_topic) > 0) {
 
@@ -151,9 +162,10 @@ shs_shiny_variables <- function(min_year, max_year) {
 
       for (question_id in question_ids_by_topic) {
 
-        question_title <- question_titles[question_titles$ID == question_id,]$Title
+        question_title <- question_titles[question_titles$ID == question_id, ]$Title
 
-        select_question_string <- paste0(select_question_string, "\"", question_id, ": ", question_title, "\"", " = ", "\"", question_id, "\",", "\n")
+        select_question_string <- paste0(select_question_string, "\"", question_id, ": ",
+                                         question_title, "\"", " = ", "\"", question_id, "\",", "\n")
       }
 
       if (length(question_ids_by_topic) > 0) {
@@ -167,8 +179,12 @@ shs_shiny_variables <- function(min_year, max_year) {
     }
   }
 
-  cat("type_0_questions <- question_titles$ID[question_titles$Type == 0]\n\ntype_1_questions <- question_titles$ID[question_titles$Type == 1]\n\ntype_2_questions <- question_titles$ID[question_titles$Type == 2]\n\ntype_3_questions <- question_titles$ID[question_titles$Type == 3]\n\ntype_4_questions <- question_titles$ID[question_titles$Type == 4]\n\n",
+  cat("type_0_questions <- question_titles$ID[question_titles$Type == 0]
+
+type_1_questions <- question_titles$ID[question_titles$Type == 1]
+type_2_questions <- question_titles$ID[question_titles$Type == 2]
+type_3_questions <- question_titles$ID[question_titles$Type == 3]
+type_4_questions <- question_titles$ID[question_titles$Type == 4]\n",
       file = save_file_path,
       append = TRUE)
 }
-

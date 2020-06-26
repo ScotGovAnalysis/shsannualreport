@@ -20,7 +20,6 @@
 
 shs_process_table_type_1 <- function(data_file_path, save_file_path, design_factors_path) {
 
-# Read in files from parameters
 df <- readRDS(data_file_path)
 design <- readRDS(design_factors_path)
 

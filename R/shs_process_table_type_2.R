@@ -26,11 +26,6 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   df <- df[!duplicated(df),]
 
-  # if ("All" %in% colnames(df)){
-  #
-  #   df <- subset(df, select=-c(All))
-  # }
-
   design <- readRDS(design_factors_path)
 
   year <- paste0("20", sub(".*_ *(.*?) *.Rds*", "\\1", data_file_path))
@@ -47,8 +42,6 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
     row_order <- c(row_order[row_order != "Base"], "Base")
   }
 
-  base_row <- df[grepl("base", tolower(df$temp_variable_name)),]$temp_variable_name[1]
-
   colnames <- names(df)
   df$Year = year
   df <- df[, c("Year", colnames)]
@@ -58,7 +51,11 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   df <- tidyr::gather(df, key=gather_key, value=Percent, first_gather_column_index:last_gather_column_index) %>%
     dplyr::group_by(Council, Year, gather_key) %>%
-    dplyr::mutate(Base = Percent[temp_variable_name == base_row]) %>%
+    dplyr::mutate(Base = Percent)
+  df$Base <- grepl('Base', df$temp_variable_name)
+  df$Base <- ifelse(df$Base == FALSE, NA, df$Percent)
+  df <- tidyr::fill(df, Base, .direction= c ("up"))
+  df <- df %>%
     merge(design, by = "Year") %>%
     dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))),
                   sig_lower = as.numeric(Percent) - (100 * sig_value),

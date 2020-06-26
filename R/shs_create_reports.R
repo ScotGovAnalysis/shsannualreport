@@ -2,27 +2,36 @@
 #'
 #' \code{shs_create_reports} creates an Rmd report file for each topic in the SHS annual report data.
 #'
+#' @param app_dataset_directory \code{string}.
+#' The path of the app directory containing dataset.
+#' @param app_metadata_directory \code{string}.
+#' The path of the app directory containing metadata.
+#' @param app_reports_directory \code{string}.
+#' The path of the app directory to save report files to.
+#'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_reports()
+#' shs_create_reports(app_dataset_directory, app_metadata_directory, app_reports_directory)
 #' }
 #'
-#' @export
+#' @keywords internal
+#'
+#' @noRd
 
-shs_create_reports <- function() {
+shs_create_reports <- function(app_dataset_directory, app_metadata_directory, app_reports_directory) {
 
-  topics <- readRDS("app/data/metadata/topic_titles.Rds")
+  topics <- readRDS(file.path(app_metadata_directory, "topic_titles.Rds"))
   topics <- topics[topics$has_data == "y",]
 
-  questions <- readRDS("app/data/metadata/question_titles.Rds")
+  questions <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
   for (row in 1:nrow(topics)) {
 
     topic_id <- topics[row, "code"]
     title <- topics[row, "title"]
-    report_file_path <- paste0("app/reports/", topic_id, ".Rmd")
+    report_file_path <- file.path(app_reports_directory, paste0(topic_id, ".Rmd"))
 
     number <- sub("Top", "", topic_id)
     topic_questions <- questions[questions$Topic == number,]
@@ -185,7 +194,7 @@ and relentless efforts during the fieldwork.
 
       if (type != "0") {
 
-        data_file_path <- paste0("app/data/dataset/", question_id, ".Rds")
+        data_file_path <- file.path(app_dataset_directory, paste0(question_id, ".Rds"))
 
         column_names <- colnames(readRDS(data_file_path))
         main_column_names <- column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]
@@ -355,7 +364,9 @@ kable(\"latex\", col.names = gsub(\"blank\", \"\", colnames(", question_id_under
 }
 ```
 ```{r eval=", markdown_comparator, "}
+if (!is.null(", question_id_underscore, ")) {
 ", main_key, "
+}
 ```
 
 ```{r eval=", markdown_comparator, "}
@@ -418,7 +429,9 @@ asis_output(\"### There is no data to show for this table within the specified p
 }
 ```
 ```{r eval=", markdown_comparator, "}
+if (!is.null(", question_id_underscore, ") && length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 ", comparison_key, "
+}
 ```
 \\pagebreak
 ")

@@ -72,12 +72,7 @@ ui <- fluidPage(
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
-
-                        fluidRow(column(9, offset = 1,
-                                        br(),
-                                        h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
-                        )),
-
+                        column(4, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
                         br(), br(),
                         column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
                         column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
@@ -135,7 +130,7 @@ ui <- fluidPage(
                    ),
                    wellPanel(
                        fluidRow(
-                           column(3, selectInput("select_local_authority", label = "Local Authority/Scotland", choices = local_authorities, selected = "Scotland", width = "100%")),
+                           column(3, selectInput("select_local_authority", label = "Local Authority/Scotland", choices = c(), selected = "Scotland", width = "100%")),
                            column(3, selectInput("select_year", label = "Year", choices = c(), width = "100%")),
                            column(3, selectInput("select_comparison_type", label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"), selected = "No comparison", width = "100%")),
                            column(3, conditionalPanel(condition = "input.select_comparison_type == 'Year'", selectInput("select_year_comparator", label = "Comparator", choices = c(), width = "100%"))),
@@ -537,9 +532,15 @@ server <- function(input, output, session) {
         updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[11])
     })
 
+    observeEvent(input$home_to_childcare, {
+        updateTabsetPanel(session, "navbar",
+                          selected = "surveyTab")
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[12])
+    })
+
 
     # Assign dynamic variables ####
-    # years() ####
+    # years_in_df() ####
     years_in_df <- reactive ({
 
         question <- input$select_question
@@ -560,6 +561,35 @@ server <- function(input, output, session) {
 
         years_in_df
     })
+
+    # scotland_only() ####
+    scotland_only <- reactive ({
+
+        question <- input$select_question
+
+        scotland_only <- FALSE
+
+        if (nchar(question) > 0) {
+
+            scotland_only <- question_titles[question_titles$ID == question,]$ScotlandOnly
+
+            if (is.na(scotland_only)) {
+                scotland_only <- "F"
+            }
+
+            if (scotland_only == "Y") {
+
+                scotland_only <- TRUE
+
+            } else {
+
+                scotland_only <- FALSE
+            }
+        }
+
+        scotland_only
+    })
+
     # Update input$select_question by input$select_topic ####
 
     observe({
@@ -729,27 +759,60 @@ server <- function(input, output, session) {
 
         year_count <- length(years_in_df())
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
+        scotland_only <- scotland_only()
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
+        if (isFALSE(scotland_only)) {
 
-            shinyjs::showElement("select_local_authority")
-            shinyjs::showElement("select_comparison_type")
-            shinyjs::hideElement("select_year")
-            shinyjs::showElement("select_year_comparator")
-            shinyjs::showElement("select_local_authority_comparator")
+            if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
 
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions) & year_count > 1) {
+                updateSelectInput(session, inputId = "select_local_authority", label = "Local Authority/Scotland", choices = local_authorities)
+                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Local Authority/Scotland"))
 
-            updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
+                shinyjs::showElement("select_local_authority")
+                shinyjs::showElement("select_comparison_type")
+                shinyjs::hideElement("select_year")
+                shinyjs::showElement("select_year_comparator")
+                shinyjs::showElement("select_local_authority_comparator")
 
-            shinyjs::showElement("select_local_authority")
-            shinyjs::showElement("select_year")
-            shinyjs::showElement("select_comparison_type")
-            shinyjs::showElement("select_year_comparator")
-            shinyjs::showElement("select_local_authority_comparator")
+            } else if (input$select_question %in% c(type_2_questions, type_3_questions) & year_count > 1) {
 
-        } else if (input$select_question %in% type_0_questions) {
+                updateSelectInput(session, inputId = "select_local_authority", label = "Local Authority/Scotland", choices = local_authorities)
+                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year", "Local Authority/Scotland"))
+
+                shinyjs::showElement("select_local_authority")
+                shinyjs::showElement("select_year")
+                shinyjs::showElement("select_comparison_type")
+                shinyjs::showElement("select_year_comparator")
+                shinyjs::showElement("select_local_authority_comparator")
+
+            }
+        } else if (isTRUE(scotland_only)) {
+
+            if (input$select_question %in% c(type_1_questions, type_4_questions) || (input$select_question %in% c(type_2_questions, type_3_questions) & year_count == 1)) {
+
+                updateSelectInput(session, inputId = "select_local_authority", label = "Local Authority/Scotland", choices = "Scotland")
+                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = "No comparison")
+
+                shinyjs::showElement("select_local_authority")
+                shinyjs::hideElement("select_comparison_type")
+                shinyjs::hideElement("select_year")
+                shinyjs::hideElement("select_year_comparator")
+                shinyjs::hideElement("select_local_authority_comparator")
+
+            } else if (input$select_question %in% c(type_2_questions, type_3_questions) & year_count > 1) {
+
+                updateSelectInput(session, inputId = "select_local_authority", label = "Local Authority/Scotland", choices = "Scotland")
+                updateSelectInput(session, inputId = "select_comparison_type",  label = "Compare by", choices = c("No comparison", "Year"))
+
+                shinyjs::showElement("select_local_authority")
+                shinyjs::showElement("select_year")
+                shinyjs::showElement("select_comparison_type")
+                shinyjs::showElement("select_year_comparator")
+                shinyjs::hideElement("select_local_authority_comparator")
+
+            }
+        }
+        if (input$select_question %in% type_0_questions) {
 
             shinyjs::hideElement("select_local_authority")
             shinyjs::hideElement("select_year")
@@ -846,7 +909,16 @@ server <- function(input, output, session) {
 
         data_file_path <- paste0("data/dataset/", gsub("/", " ", input$select_excel_question), ".Rds")
 
-        if (input$select_excel_question > 0 & !input$select_excel_question %in% type_0_questions) {
+        question <- input$select_excel_question
+
+        scotland_only <- question_titles[question_titles$ID == question,]$ScotlandOnly
+
+        if (is.na(scotland_only)) {
+
+            scotland_only <- "N"
+        }
+
+        if (question > 0 & !question %in% type_0_questions) {
 
             df <- readRDS(data_file_path)
 
@@ -854,11 +926,16 @@ server <- function(input, output, session) {
 
             df <- dplyr::select(df, column_names)
 
-            return(df)
+            if (scotland_only == "Y") {
+
+                df <- df[df$Council == "Scotland",]
+            }
+
+            df
 
         } else {
 
-            return(NULL)
+            NULL
         }
     })
 
