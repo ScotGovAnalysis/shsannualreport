@@ -72,12 +72,7 @@ ui <- fluidPage(
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
-
-                        fluidRow(column(9, offset = 1,
-                                        br(),
-                                        h4("Note: SHS data on the topic 'Childcare' reported at national level is not reproduced at local authority level due to base sizes being too small to produce robust findings")
-                        )),
-
+                        column(4, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
                         br(), br(),
                         column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
                         column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
@@ -535,6 +530,12 @@ server <- function(input, output, session) {
         updateTabsetPanel(session, "navbar",
                           selected = "surveyTab")
         updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[11])
+    })
+
+    observeEvent(input$home_to_childcare, {
+        updateTabsetPanel(session, "navbar",
+                          selected = "surveyTab")
+        updateSelectInput(session, inputId = "select_topic", label = "Topic", choices = select_list_topics, selected = select_list_topics[12])
     })
 
 
