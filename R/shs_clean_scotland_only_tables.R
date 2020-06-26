@@ -23,7 +23,7 @@ shs_clean_scotland_only_tables <- function(app_dataset_directory, app_metadata_d
 
   question_titles <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
 
-  scotland_only_tables <- question_titles[!is.na(question_titles$ScotlandOnly),]
+  scotland_only_tables <- question_titles[!is.na(question_titles$ScotlandOnly) & question_titles$Type != 0,]
   scotland_only_tables <- scotland_only_tables[scotland_only_tables$ScotlandOnly == "Y",]$ID
 
   for (scotland_only_table in scotland_only_tables) {

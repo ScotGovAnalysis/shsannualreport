@@ -38,7 +38,7 @@ shs_extract_metadata <- function(source_metadata_directory,
     }
   }
 
-  extracted_question_titles_path <- file.path(app_metadata_directory, "question_titles.Rds")
-  question_titles <- readRDS(extracted_question_titles_path)
-  saveRDS(question_titles, extracted_question_titles_path)
+  # extracted_question_titles_path <- file.path(app_metadata_directory, "question_titles.Rds")
+  # question_titles <- readRDS(extracted_question_titles_path)
+  # saveRDS(question_titles, extracted_question_titles_path)
 }
