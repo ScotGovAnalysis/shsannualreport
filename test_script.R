@@ -1,6 +1,6 @@
 # library(shsannualreport)
 #
-# source_data_directory <- "C:/Users/dsap01/Desktop/SHS Data Explorer 2019 Data"
+# source_data_directory <- "C:/Users/dsap01/Desktop/SHS Data Explorer 2019 Data - V1"
 #
 # top_level_directory <- "C:/Users/dsap01/Documents"
 #
