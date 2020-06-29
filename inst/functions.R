@@ -304,7 +304,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   eval(parse(text = main_table_string(question_type = question_type, year_present = year_present)))
 
-  if (isTRUE(scotland_only) | comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE))  {
+  if (comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE))  {
 
     table <- table_main
 

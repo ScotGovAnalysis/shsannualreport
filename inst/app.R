@@ -1129,11 +1129,11 @@ server <- function(input, output, session) {
 
                     if (question_titles[question_titles$ID == input$select_question,]$Type != "1") {
 
-                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator, " (", input$select_year, ")")
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " (", input$select_year, ") | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority, " (", input$select_year, ")")
 
                     } else {
 
-                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority_comparator, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority_comparator)
+                        comparison_statistical_significance_key <- paste0("<font color=\"#00A3A3\">&#9646;</font> Significantly greater than ", input$select_local_authority, " | <font color=\"#C3C3FF\">&#9646;</font> Significantly lower than ", input$select_local_authority)
                     }
                 }
             }
