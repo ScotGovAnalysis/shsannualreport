@@ -144,23 +144,6 @@ shs_app_processing_2 <- function(top_level_directory,
 
   tryCatch({
 
-    message(paste0("Creating reports files in ", app_reports_directory))
-
-    shsannualreport:::shs_create_reports(app_dataset_directory = app_dataset_directory,
-                                         app_metadata_directory = app_metadata_directory,
-                                         app_reports_directory = app_reports_directory)
-
-    cat(green("Successfully created reports files\n"))
-
-  }, error = function(e) {
-
-    cat(red("Failed to create reports files\n"))
-
-    stop(message(e))
-  })
-
-  tryCatch({
-
     message(paste0("Copying necessary files to ", app_directory))
 
     shsannualreport:::shs_copy_app_files(app_directory = app_directory,
@@ -172,6 +155,23 @@ shs_app_processing_2 <- function(top_level_directory,
   }, error = function(e) {
 
     cat(red("Failed to copy files\n"))
+
+    stop(message(e))
+  })
+
+  tryCatch({
+
+    message(paste0("Creating reports files in ", app_reports_directory))
+
+    shsannualreport:::shs_create_reports(app_dataset_directory = app_dataset_directory,
+                                         app_metadata_directory = app_metadata_directory,
+                                         app_reports_directory = app_reports_directory)
+
+    cat(green("Successfully created reports files\n"))
+
+  }, error = function(e) {
+
+    cat(red("Failed to create reports files\n"))
 
     stop(message(e))
   })
