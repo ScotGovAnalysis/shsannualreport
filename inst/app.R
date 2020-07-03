@@ -24,14 +24,12 @@ ui <- fluidPage(
         useShinyjs(),
 
         tags$div(id="welcome_banner",
-                 "Welcome to the new Scottish Household Survey Data Explorer.",
-                 br(),
                  fluidRow(
-                     column(11, "We are still working on the site and welcome any comments and suggestions to ",
+                     column(11, "Welcome to the new Scottish Household Survey Data Explorer. We are still working on the site and welcome any comments and suggestions to ",
                             tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
-                     column(1, actionButton("close_banner", "" , icon=icon("times")))
+                     column(1, actionButton("close_banner", "" , icon=icon("times"), style='width=50%'))
                  ),
-                 style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
+                 style = "padding-top:10px; padding-left:10px; padding-bottom:10px; background-color:#ffd480;font-weight:bold;")
     ),
 
     # Navbar page ####
@@ -44,15 +42,15 @@ ui <- fluidPage(
 
                # Home tab ####
 
-               tabPanel("Home", value = "homeTab", style = "margin-left: 10%; margin-right: 10%",
+               tabPanel("Home", value = "homeTab", style = "margin-left: 7%; margin-right: 7%",
+                        HTML('<center><img src = "home_logo.png"></center>'),
                         fluidRow(
-                            HTML('<center><img src = "home_logo.png"></center>'),
-                            column(8, offset = 2, wellPanel(
+                            column(8, offset = 2,wellPanel(
                                 tags$h1("Scottish Household Survey", style = "text-align: center"),
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at national and local authority level. The survey covers 12 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
 
                             )
                             )
@@ -71,8 +69,8 @@ ui <- fluidPage(
                             column(4, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
                             column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
-                        column(4, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
                         br(), br(),
                         column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
                         column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
