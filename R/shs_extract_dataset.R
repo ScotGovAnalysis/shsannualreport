@@ -31,6 +31,15 @@ shs_extract_dataset <- function(source_dataset_directory, app_dataset_directory)
 
     for (sheet in sheets) {
 
+      if (grepl("TAB0", sheet)) {
+
+        sheet <- sub("TAB0", "TAB", sheet)
+
+      } else if (grepl("FIG0", sheet)) {
+
+        sheet <- sub("FIG0", "FIG", sheet)
+      }
+
       if (grepl("TAB", sheet)) {
 
         chapter_number <- sub(".*FINAL_C *(.*?) *_TAB.*", "\\1", sheet)
