@@ -1,6 +1,19 @@
 # library(shsannualreport)
 #
-# source_data_directory <- "C:/Users/dsap01/Desktop/SHS Data Explorer 2019 Data - V2"
+source_dataset_directory <- "C:/Users/dsap01/Downloads/data/dataset"
+destination_directory <- "C:/Users/dsap01/Desktop"
+columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
+existing_column_names_path <- "C:/Users/dsap01/Downloads/data/metadata/old_column_names.xlsx"
+existing_variable_names_path <- "C:/Users/dsap01/Downloads/data/metadata/old_variable_names.xlsx"
+
+
+shsannualreport::shs_get_column_and_variable_names(destination_directory = destination_directory,
+                                                   source_dataset_directory = source_dataset_directory,
+                                                   columns_to_remove = columns_to_remove,
+                                                   existing_column_names_path = existing_column_names_path,
+                                                   existing_variable_names_path = existing_variable_names_path)
+#
+# source_data_directory <- "C:/Users/dsap01/Downloads/data"
 #
 # top_level_directory <- "C:/Users/dsap01/Documents"
 #

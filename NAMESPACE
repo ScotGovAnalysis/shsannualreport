@@ -2,3 +2,4 @@
 
 export(shs_app_processing_1)
 export(shs_app_processing_2)
+export(shs_get_column_and_variable_names)
