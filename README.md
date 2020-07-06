@@ -42,11 +42,11 @@ install.packages():
 <!-- end list -->
 
 ``` r
-install.packages("C:\\DownloadDirectory\\shsannualreport-master\\shsannualreport-master", repos = NULL,
-                 type="source", lib = "C:\\YourLibraryPath")
+install.packages("C:/DownloadDirectory/shsannualreport-master/shsannualreport-master", repos = NULL,
+                 type="source", lib = "C:/YourLibraryPath")
 ```
 
-*Library path can be seen by running* `.libPaths()`
+*Library path can be seen by running `.libPaths()`*
 
 ## Prerequisites
 
@@ -226,11 +226,11 @@ any functions will prevent errors.*
 ### shs\_create\_names\_workbooks
 
 ``` r
-destination_directory <- "C:/Users/dsap01/Downloads/names"
-source_dataset_directory <- "C:/Users/dsap01/Downloads/data/dataset"
+destination_directory <- "C:/Users/[user's U number]/Downloads/names"
+source_dataset_directory <- "C:/Users/[user's U number]/Downloads/data/dataset"
 columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
-existing_column_names_path <- "C:/Users/dsap01/Downloads/old_column_names.xlsx"
-existing_variable_names_path <- "C:/Users/dsap01/Downloads/old_variable_names.xlsx"
+existing_column_names_path <- "C:/Users/[user's U number]/Downloads/old_column_names.xlsx"
+existing_variable_names_path <- "C:/Users/[user's U number]/Downloads/old_variable_names.xlsx"
 
 
 shsannualreport::shs_create_names_workbooks(destination_directory = destination_directory,
@@ -250,11 +250,11 @@ the paths passed to `column_names_workbook_path` and
 the `shs_create_names_workbooks` example above.*
 
 ``` r
-destination_directory <- "C:/Users/dsap01/Downloads/appdata"
-source_data_directory <- "C:/Users/dsap01/Downloads/data"
+destination_directory <- "C:/Users/[user's U number]/Downloads/appdata"
+source_data_directory <- "C:/Users/[user's U number]/Downloads/data"
 columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
-column_names_workbook_path <- "C:/Users/dsap01/Downloads/names/column_names.xlsx"
-variable_names_workbook_path <- "C:/Users/dsap01/Downloads/names/variable_names.xlsx"
+column_names_workbook_path <- "C:/Users/[user's U number]/Downloads/names/column_names.xlsx"
+variable_names_workbook_path <- "C:/Users/[user's U number]/Downloads/names/variable_names.xlsx"
 
 shsannualreport::shs_create_app_data(destination_directory = destination_directory,
                                      source_data_directory = source_data_directory,
@@ -270,8 +270,8 @@ shsannualreport::shs_create_app_data(destination_directory = destination_directo
 `shs_create_app` can be run without re-running `shs_create_app_data`.*
 
 ``` r
-destination_directory <- "C:/Users/dsap01/Downloads"
-data_directory <- "C:/Users/dsap01/Downloads/appdata/data"
+destination_directory <- "C:/Users/[user's U number]/Downloads"
+data_directory <- "C:/Users/[user's U number]/Downloads/appdata/data"
 reports_start_year <- 2013
 reports_end_year <- 2019
 
