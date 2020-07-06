@@ -6,34 +6,34 @@
 #' For more information see \code{shs_extract_data} and the internal function
 #' \code{shs_extract_metadata}.
 #'
-#' @param app_dataset_directory \code{string}.
+#' @param dataset_directory \code{string}.
 #' The path of the app directory containing the dataset.
-#' @param app_metadata_directory \code{string}.
+#' @param metadata_directory \code{string}.
 #' The path of the app directory containing metadata.
 #'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_process_variable_names(app_dataset_directory, app_metadata_directory)
+#' shs_process_variable_names(dataset_directory, metadata_directory)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_process_variable_names <- function(app_dataset_directory, app_metadata_directory) {
+shs_process_variable_names <- function(dataset_directory, metadata_directory) {
 
-  variable_reference <- readRDS(file.path(app_metadata_directory, "variable_names.Rds"))
+  variable_reference <- readRDS(file.path(metadata_directory, "variable_names.Rds"))
 
   variable_reference$display_name[is.na(variable_reference$display_name)] <-
     variable_reference$source_name[is.na(variable_reference$display_name)]
 
-  files <- list.files(app_dataset_directory)
+  files <- list.files(dataset_directory)
 
   for (file in files) {
 
-    file_path <- file.path(app_dataset_directory, file)
+    file_path <- file.path(dataset_directory, file)
 
     df <- readRDS(file_path)
     variable_names <- unique(df[, 2][[1]])

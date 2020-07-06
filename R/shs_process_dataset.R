@@ -1,32 +1,32 @@
 #' Process SHS annual report data for publication
 #'
-#' \code{shs_process_data} processes raw SHS survey data which has been extracted
+#' \code{shs_process_dataset} processes raw SHS survey data which has been extracted
 #' from Excel sheets into individual .Rds files.
 #' It relies on a number of internal functions: \code{shs_process_table_type_1} (for time series tables),
 #' \code{shs_process_table_type_2} (for column percentage tables), \code{shs_process_table_type_3}
 #' (for row percentage tables), \code{shs_process_table_type_4} (for manually added tables).
 #'
-#' @param app_dataset_directory \code{string}.
+#' @param dataset_directory \code{string}.
 #' The path of the app directory containing the dataset.
-#' @param app_metadata_directory \code{string}.
+#' @param metadata_directory \code{string}.
 #' The path of the app directory containing metadata.
 #'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_process_data(app_dataset_directory, app_metadata_directory)
+#' shs_process_dataset(dataset_directory, metadata_directory)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
+shs_process_dataset <- function(dataset_directory, metadata_directory) {
 
-  question_titles <- readRDS(file.path(app_metadata_directory, "question_titles.Rds"))
-  data_files <- list.files(app_dataset_directory)
-  design_factors_path <- file.path(app_metadata_directory, "design_factors.Rds")
+  question_titles <- readRDS(file.path(metadata_directory, "question_titles.Rds"))
+  data_files <- list.files(dataset_directory)
+  design_factors_path <- file.path(metadata_directory, "design_factors.Rds")
 
   type_1_tables <- dplyr::filter(question_titles, .data$Type == 1)$ID
   type_2_tables <- dplyr::filter(question_titles, .data$Type == 2)$ID
@@ -39,7 +39,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
   for (table in type_1_tables) {
 
-    save_file_path <- file.path(app_dataset_directory, paste0(table, ".Rds"))
+    save_file_path <- file.path(dataset_directory, paste0(table, ".Rds"))
 
     if (grepl(", ", table)) {
 
@@ -51,12 +51,12 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
         if (length(data_files[grepl(paste0(toupper(single_table), ".RDS"), toupper(data_files))]) == 1) {
 
-          data_file_path <- file.path(app_dataset_directory,
+          data_file_path <- file.path(dataset_directory,
                                       data_files[grepl(paste0(toupper(single_table), ".RDS"), toupper(data_files))])
 
         } else if (length(data_files[grepl(paste0(toupper(single_table), "_LA.RDS"), toupper(data_files))]) == 1) {
 
-          data_file_path <- file.path(app_dataset_directory,
+          data_file_path <- file.path(dataset_directory,
                                       data_files[grepl(paste0(toupper(single_table), "_LA.RDS"), toupper(data_files))])
         }
       }
@@ -68,12 +68,12 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
     } else if (length(data_files[grepl(paste0(toupper(table), "_LA.RDS"), toupper(data_files))]) == 1) {
 
-      data_file_path <- file.path(app_dataset_directory,
+      data_file_path <- file.path(dataset_directory,
                                   data_files[grepl(paste0(toupper(table), "_LA.RDS"), toupper(data_files))])
 
     } else if (length(data_files[grepl(paste0(toupper(table), ".RDS"), toupper(data_files))]) == 1) {
 
-      data_file_path <- file.path(app_dataset_directory,
+      data_file_path <- file.path(dataset_directory,
                                   data_files[grepl(paste0(toupper(table), ".RDS"), toupper(data_files))])
 
     } else {
@@ -109,7 +109,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
     files <- c()
 
-    save_file_path <- file.path(app_dataset_directory, paste0(table, ".Rds"))
+    save_file_path <- file.path(dataset_directory, paste0(table, ".Rds"))
 
     if (grepl(", ", table)) {
 
@@ -138,7 +138,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
       for (file in files) {
 
-        data_file_path <- file.path(app_dataset_directory, file)
+        data_file_path <- file.path(dataset_directory, file)
 
         tryCatch({
 
@@ -182,7 +182,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
   for (table in type_3_tables) {
 
-    save_file_path <- file.path(app_dataset_directory, paste0(table, ".Rds"))
+    save_file_path <- file.path(dataset_directory, paste0(table, ".Rds"))
 
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
@@ -194,7 +194,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
       for (file in files) {
 
-        data_file_path <- file.path(app_dataset_directory, file)
+        data_file_path <- file.path(dataset_directory, file)
 
         tryCatch({
 
@@ -238,7 +238,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
   for (table in type_4_tables) {
 
-    save_file_path <- file.path(app_dataset_directory, paste0(table, ".Rds"))
+    save_file_path <- file.path(dataset_directory, paste0(table, ".Rds"))
 
     files <- data_files[grepl(toupper(table), toupper(data_files))]
 
@@ -250,7 +250,7 @@ shs_process_data <- function(app_dataset_directory, app_metadata_directory) {
 
       for (file in files) {
 
-        data_file_path <- file.path(app_dataset_directory, file)
+        data_file_path <- file.path(dataset_directory, file)
 
         tryCatch({
 

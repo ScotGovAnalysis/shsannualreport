@@ -6,21 +6,21 @@
 #'
 #' @param source_dataset_directory \code{string}.
 #' The path of the directory containing survey data in Excel format.
-#' @param app_dataset_directory \code{string}.
+#' @param dataset_directory \code{string}.
 #' The path of the app directory to save the dataset to.
 #'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_extract_dataset(source_dataset_directory, app_dataset_directory)
+#' shs_extract_dataset(source_dataset_directory, dataset_directory)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_extract_dataset <- function(source_dataset_directory, app_dataset_directory) {
+shs_extract_dataset <- function(source_dataset_directory, dataset_directory) {
 
   files <- list.files(source_dataset_directory)
 
@@ -65,7 +65,7 @@ shs_extract_dataset <- function(source_dataset_directory, app_dataset_directory)
 
       df <- readxl::read_excel(workbook_path, sheet = sheet)
 
-      saveRDS(df, file = file.path(app_dataset_directory,
+      saveRDS(df, file = file.path(dataset_directory,
                                    paste0(dataframe_id, ".Rds")))
     }
   }
