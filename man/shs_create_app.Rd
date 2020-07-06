@@ -13,26 +13,27 @@ shs_create_app(
 }
 \arguments{
 \item{destination_directory}{\code{string}.
-The path of the directory the app was created in in \code{shs_app_processing_1}.}
+The path of the directory to create the app in.}
+
+\item{data_directory}{\code{string}.
+The path of the directory containing source data and metadata.}
 
 \item{reports_start_year}{\code{string}.
 The first year available to select in the app's report generator.}
 
 \item{reports_end_year}{\code{string}.
 The final year available to select in the app's report generator.}
-
-\item{source_data_directory}{\code{string}.
-The path of the directory containing source data and metadata.}
 }
 \value{
 \code{null}.
 }
 \description{
-\code{shs_create_app} executes further data processing and creates an app that can be run/deployed.
+\code{shs_create_app} creates an app that can be run/deployed, based on data created by
+\code{shs_create_app_data}.
 }
 \examples{
 \dontrun{
-shs_create_app(destination_directory, source_data_directory, reports_start_year, reports_end_year)
+shs_create_app(destination_directory, data_directory, reports_start_year, reports_end_year)
 }
 
 }

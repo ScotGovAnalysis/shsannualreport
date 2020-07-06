@@ -1,6 +1,6 @@
 #' Write column and variable names from a dataset to Excel
 #'
-#' \code{shs_create_names_workbooks} gets column and variable names from raw SHS survey data Excel format,
+#' \code{shs_write_names_to_workbooks} gets column and variable names from raw SHS survey data Excel format,
 #' and saves them to xlsx files, which can then be updated with names to display in the annual report Shiny app.
 #' The output file 'column_names.xlsx' will contain all column names in the source files, minus any specified in
 #' the \code{column_names_to_exclude} argument.
@@ -21,14 +21,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_names_workbooks(source_dataset_directory, destination_directory, columns_to_remove)
+#' shs_write_names_to_workbooks(source_dataset_directory, destination_directory, columns_to_remove)
 #' }
 #'
 #' @keywords internal
 #'
 #' @noRd
 
-shs_create_names_workbooks <- function(source_dataset_directory, destination_directory, columns_to_remove) {
+shs_write_names_to_workbooks <- function(source_dataset_directory, destination_directory, columns_to_remove) {
 
   files <- list.files(source_dataset_directory)
 

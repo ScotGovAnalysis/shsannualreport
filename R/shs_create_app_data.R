@@ -37,9 +37,6 @@ shs_create_app_data <- function(destination_directory,
   dataset_directory <- file.path(data_directory, "dataset")
   metadata_directory <- file.path(data_directory, "metadata")
 
-  column_names_workbook_path <- file.path(source_metadata_directory, "column_names.xlsx")
-  variable_names_workbook_path <- file.path(source_metadata_directory, "variable_names.xlsx")
-
   unlink(dataset_directory, recursive = TRUE)
   unlink(metadata_directory, recursive = TRUE)
 

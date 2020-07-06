@@ -1,10 +1,11 @@
 #' Second part of SHS Data Explorer app processing
 #'
-#' \code{shs_create_app} executes further data processing and creates an app that can be run/deployed.
+#' \code{shs_create_app} creates an app that can be run/deployed, based on data created by
+#' \code{shs_create_app_data}.
 #'
 #' @param destination_directory \code{string}.
-#' The path of the directory the app was created in in \code{shs_app_processing_1}.
-#' @param source_data_directory \code{string}.
+#' The path of the directory to create the app in.
+#' @param data_directory \code{string}.
 #' The path of the directory containing source data and metadata.
 #' @param reports_start_year \code{string}.
 #' The first year available to select in the app's report generator.
@@ -15,7 +16,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_app(destination_directory, source_data_directory, reports_start_year, reports_end_year)
+#' shs_create_app(destination_directory, data_directory, reports_start_year, reports_end_year)
 #' }
 #'
 #' @export

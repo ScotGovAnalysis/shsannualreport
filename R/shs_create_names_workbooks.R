@@ -10,12 +10,12 @@
 #' that will be displayed in the final Shiny app, these values can be added manually or by providing paths of existing,
 #' populated sheets to the arguments \code{existing_column_names_path} and \code{existing_variable_names_path}.
 #'
-#' @param top_level_directory \code{string}.
+#' @param destination_directory \code{string}.
 #' The path of the directory the app will be created in.
 #' @param source_dataset_directory \code{string}.
 #' The path of the directory containing source data and metadata.
 #' @param columns_to_remove \code{string}.
-#' Unnecessary columns to remove from the dataset. If incorrect values provided, output file variable_names.xlsx will be populated incorrectly.
+#' Unnecessary columns to remove from the dataset, if incorrect values provided, output file variable_names.xlsx will be populated incorrectly.
 #' @param existing_column_names_path \code{string}.
 #' A path to an existing Excel file with the same structure. Any display_name values will be copied to the new output file.
 #' @param existing_variable_names_path \code{string}.
@@ -25,16 +25,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' shs_create_names_workbooks(top_level_directory, source_dataset_directory, columns_to_remove, existing_column_names_path, existing_variable_names_path)
+#' shs_create_names_workbooks(destination_directory, source_dataset_directory, columns_to_remove, existing_column_names_path, existing_variable_names_path)
 #' }
 #'
 #' @export
 
 shs_create_names_workbooks <- function(destination_directory,
-                                              source_dataset_directory,
-                                              columns_to_remove,
-                                              existing_column_names_path = NULL,
-                                              existing_variable_names_path = NULL) {
+                                       source_dataset_directory,
+                                       columns_to_remove,
+                                       existing_column_names_path = NULL,
+                                       existing_variable_names_path = NULL) {
 
   column_names_save_file_path <- file.path(destination_directory, "column_names.xlsx")
   variable_names_save_file_path <- file.path(destination_directory, "variable_names.xlsx")
@@ -42,9 +42,9 @@ shs_create_names_workbooks <- function(destination_directory,
   tryCatch({
 
     message(paste0("Extracting column and variable names from ", source_dataset_directory, " to ",
-                   destination_directory))
+                   destination_directory, ". Processing may take several minutes."))
 
-    shsannualreport:::shs_create_names_workbooks(source_dataset_directory = source_dataset_directory,
+    shsannualreport:::shs_write_names_to_workbooks(source_dataset_directory = source_dataset_directory,
                                                  destination_directory = destination_directory,
                                                  columns_to_remove = columns_to_remove)
 
@@ -72,7 +72,7 @@ shs_create_names_workbooks <- function(destination_directory,
       shsannualreport:::shs_update_names_workbook(new_workbook_path = column_names_save_file_path,
                                                   old_workbook_path = existing_column_names_path)
 
-      cat(green("Successfully wrote column names\n"))
+      cat(green("Successfully wrote column names\nColumn names can be reviewed at", column_names_save_file_path, "\n"))
 
     }, error = function(e) {
 
@@ -104,7 +104,7 @@ shs_create_names_workbooks <- function(destination_directory,
       shsannualreport:::shs_update_names_workbook(new_workbook_path = variable_names_save_file_path,
                                                   old_workbook_path = existing_variable_names_path)
 
-      cat(green("Successfully wrote variable names\n"))
+      cat(green("Successfully wrote variable names\nVariable names can be reviewed at", variable_names_save_file_path, "\n"))
 
     }, error = function(e) {
 

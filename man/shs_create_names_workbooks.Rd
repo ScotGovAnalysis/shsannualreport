@@ -5,20 +5,22 @@
 \title{Extract column and variable names from raw data}
 \usage{
 shs_create_names_workbooks(
-  source_dataset_directory,
   destination_directory,
-  columns_to_remove
+  source_dataset_directory,
+  columns_to_remove,
+  existing_column_names_path = NULL,
+  existing_variable_names_path = NULL
 )
 }
 \arguments{
+\item{destination_directory}{\code{string}.
+The path of the directory the app will be created in.}
+
 \item{source_dataset_directory}{\code{string}.
 The path of the directory containing source data and metadata.}
 
 \item{columns_to_remove}{\code{string}.
-Unnecessary columns to remove from the dataset. If incorrect values provided, output file variable_names.xlsx will be populated incorrectly.}
-
-\item{top_level_directory}{\code{string}.
-The path of the directory the app will be created in.}
+Unnecessary columns to remove from the dataset, if incorrect values provided, output file variable_names.xlsx will be populated incorrectly.}
 
 \item{existing_column_names_path}{\code{string}.
 A path to an existing Excel file with the same structure. Any display_name values will be copied to the new output file.}
@@ -42,7 +44,7 @@ populated sheets to the arguments \code{existing_column_names_path} and \code{ex
 }
 \examples{
 \dontrun{
-shs_create_names_workbooks(top_level_directory, source_dataset_directory, columns_to_remove, existing_column_names_path, existing_variable_names_path)
+shs_create_names_workbooks(destination_directory, source_dataset_directory, columns_to_remove, existing_column_names_path, existing_variable_names_path)
 }
 
 }
