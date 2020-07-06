@@ -11,11 +11,11 @@
 #' populated sheets to the arguments \code{existing_column_names_path} and \code{existing_variable_names_path}.
 #'
 #' @param destination_directory \code{string}.
-#' The path of the directory the app will be created in.
+#' The path of the directory to write the column names and variables names Excel files to.
 #' @param source_dataset_directory \code{string}.
-#' The path of the directory containing source data and metadata.
+#' The path of the directory containing source data and metadata in Excel format.
 #' @param columns_to_remove \code{string}.
-#' Unnecessary columns to remove from the dataset, if incorrect values provided, output file variable_names.xlsx will be populated incorrectly.
+#' Unnecessary columns to remove from the dataset.
 #' @param existing_column_names_path \code{string}.
 #' A path to an existing Excel file with the same structure. Any display_name values will be copied to the new output file.
 #' @param existing_variable_names_path \code{string}.
