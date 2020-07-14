@@ -76,8 +76,8 @@ In total, `shs_create_names_workbooks` accepts five arguments:
 * `destination_directory`: The path of the directory to write the column names and variables names Excel files to. (Must be an existing directory.)
 * `source_dataset_directory`: The path of the directory containing source dataset in Excel format. (This should be the sub-directory named `dataset` following the structure described above.)
 * `columns_to_remove`: A list of unnecessary columns to remove from the dataset.
-* `existing_column_names_path` (optional): A path to an existing Excel file with the same structure. Any display_name values will be copied to the new output file.
-* `existing_variable_names_path` (optional): A path to an existing Excel file with the same structure. Any display_name values will be copied to the new output file.
+* `existing_column_names_path` (optional): A path to an existing Excel file with the same structure. Any 'display_name' values will be copied to the new output file.
+* `existing_variable_names_path` (optional): A path to an existing Excel file with the same structure. Any 'display_name' values will be copied to the new output file.
 
 Once the output files are created, the `display_name` columns of both output files can be manually edited to the desired values.
 
@@ -96,7 +96,7 @@ The processing done in `shs_create_app_data` includes:
 There are also a number of other processing functions which are described in more detail in the vignette (to do), including:
 
 * collecting tables split over multiple sheets by year into combined tables
-* calculating statistical significance for all tables
+* calculating confidence intervals for all tables
 * ordering of tables
 
 In total `shs_create_app_data` accepts five arguments:
