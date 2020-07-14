@@ -114,7 +114,9 @@ ui <- fluidPage(
                                                                                   select_list_questions_topic_9,
                                                                                   select_list_questions_topic_10,
                                                                                   select_list_questions_topic_11,
-                                                                                  select_list_questions_topic_12),
+                                                                                  select_list_questions_topic_12,
+                                                                                  select_list_questions_topic_13
+                                                                                  ),
                                                                       selected="Search",
                                                                       options = list(
                                                                           placeholder = "Type here to find what question you are looking for",
@@ -1163,7 +1165,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
-            paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
+            NULL
         }
 
     })
@@ -1214,14 +1216,7 @@ server <- function(input, output, session) {
 
         } else if (input$select_question %in% type_4_questions) {
 
-            if (input$select_comparison_type == "Local Authority/Scotland") {
-
-                paste0("Grossed-up estimates (Rounded to the nearest 10,000)")
-
-            } else {
-
-                NULL
-            }
+            NULL
         }
     })
 

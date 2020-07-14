@@ -125,11 +125,11 @@ In total, `shs_create_names_workbooks` accepts five arguments:
   - `columns_to_remove`: A list of unnecessary columns to remove from
     the dataset.
   - `existing_column_names_path` (optional): A path to an existing Excel
-    file with the same structure. Any display\_name values will be
+    file with the same structure. Any ‘display\_name’ values will be
     copied to the new output file.
   - `existing_variable_names_path` (optional): A path to an existing
-    Excel file with the same structure. Any display\_name values will be
-    copied to the new output file.
+    Excel file with the same structure. Any ‘display\_name’ values will
+    be copied to the new output file.
 
 Once the output files are created, the `display_name` columns of both
 output files can be manually edited to the desired values.
@@ -161,7 +161,7 @@ described in more detail in the vignette (to do), including:
 
   - collecting tables split over multiple sheets by year into combined
     tables
-  - calculating statistical significance for all tables
+  - calculating confidence intervals for all tables
   - ordering of tables
 
 In total `shs_create_app_data` accepts five arguments:
