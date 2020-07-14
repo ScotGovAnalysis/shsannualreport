@@ -6,14 +6,14 @@
 #'
 #' @param source_metadata_directory \code{string}.
 #' The path of the directory containing survey metadata in Excel format.
-#' @param app_metadata_directory \code{string}.
+#' @param metadata_directory \code{string}.
 #' The path of the directory to be extracted to, created by \code{shs_extract_data}.
 #'
 #' @return \code{null}.
 #'
 #' @examples
 #' \dontrun{
-#' shs_extract_metadata(source_metadata_directory, app_metadata_directory)
+#' shs_extract_metadata(source_metadata_directory, metadata_directory)
 #' }
 #'
 #' @keywords internal
@@ -21,7 +21,7 @@
 #' @noRd
 
 shs_extract_metadata <- function(source_metadata_directory,
-                                 app_metadata_directory) {
+                                 metadata_directory) {
 
   files <- list.files(source_metadata_directory)
 
@@ -33,12 +33,8 @@ shs_extract_metadata <- function(source_metadata_directory,
     for (sheet in sheets) {
 
       df <- readxl::read_excel(workbook_path, sheet = sheet)
-      saveRDS(df, file = file.path(app_metadata_directory,
+      saveRDS(df, file = file.path(metadata_directory,
                                    paste0(sheet, ".Rds")))
     }
   }
-
-  # extracted_question_titles_path <- file.path(app_metadata_directory, "question_titles.Rds")
-  # question_titles <- readRDS(extracted_question_titles_path)
-  # saveRDS(question_titles, extracted_question_titles_path)
 }
