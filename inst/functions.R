@@ -85,7 +85,17 @@ merge_string <- function(question_type, merge_by, row_variable, column_variables
 
       if (!column_variable %in% c("All", "Base")) {
 
-        addition_string <- paste0("`", column_variable, "_sig`= dplyr::case_when(`", column_variable, "_l` > `", column_variable, "_u_2` ~ 'HIGHER', `", column_variable, "_u` < `", column_variable, "_l_2` ~ 'LOWER', TRUE ~ 'NO'), ")
+        addition_string <- paste0("`", column_variable, "_sig`= dplyr::case_when(
+    (`", column_variable, "_l` > `", column_variable, "_u_2` |
+       (as.numeric(`", column_variable, "`) > as.numeric(`", column_variable, "_2`)) &
+          as.numeric(`", column_variable, "`) - as.numeric(`", column_variable, "_2`) >
+          sqrt((as.numeric(`", column_variable, "`) - as.numeric(`", column_variable, "_l`))^2 + (as.numeric(`", column_variable, "_2`) - as.numeric(`", column_variable, "_l_2`))^2)) ~ 'HIGHER',
+    (`", column_variable, "_u` < `", column_variable, "_l_2` |
+       (as.numeric(`", column_variable, "_2`) > as.numeric(`", column_variable, "`)) &
+       as.numeric(`", column_variable, "_2`) - as.numeric(`", column_variable, "`) >
+       sqrt((as.numeric(`", column_variable, "`) - as.numeric(`", column_variable, "_l`))^2 + (as.numeric(`", column_variable, "_2`) - as.numeric(`", column_variable, "_l_2`))^2)) ~ 'LOWER',
+    TRUE ~ 'NO'),
+")
 
         merge_string <- paste0(merge_string, addition_string)
 
