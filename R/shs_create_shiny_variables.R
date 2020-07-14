@@ -75,7 +75,8 @@ shs_create_shiny_variables <- function(reports_start_year,
       \"#cab2d6\", # Light purple
       \"#6a3d9a\", # Strong purple
       \"#ebd72a\", # Bright yellow
-      \"#b15928\"  # Brown
+      \"#b15928\", # Brown
+      \"#000000\"  # Black
   )\n\n", file = save_file_path, append = TRUE)
 
   cat("local_authorities <- c(\"Scotland\",
