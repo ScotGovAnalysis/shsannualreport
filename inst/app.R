@@ -114,7 +114,9 @@ ui <- fluidPage(
                                                                                   select_list_questions_topic_9,
                                                                                   select_list_questions_topic_10,
                                                                                   select_list_questions_topic_11,
-                                                                                  select_list_questions_topic_12),
+                                                                                  select_list_questions_topic_12,
+                                                                                  select_list_questions_topic_13
+                                                                                  ),
                                                                       selected="Search",
                                                                       options = list(
                                                                           placeholder = "Type here to find what question you are looking for",
