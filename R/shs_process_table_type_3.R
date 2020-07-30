@@ -50,10 +50,8 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
     merge(design, by = "Year") %>%
     dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))),
                   sig_lower = as.numeric(Percent) - (100 * sig_value),
-                  sig_lower = round(as.numeric(sig_lower), 1),
-                  sig_upper = as.numeric(Percent) + (100 * sig_value),
-                  sig_upper = round(as.numeric(sig_upper), 1),
-                  Percent = dplyr::if_else(Percent > 0, as.character(round(as.numeric(Percent), 1)), Percent) ) %>%
+                  sig_upper = as.numeric(Percent) + (100 * sig_value)
+                  ) %>%
     dplyr::ungroup()
 
   colnames(df)[3] <- col_2_name
