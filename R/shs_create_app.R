@@ -34,6 +34,8 @@ shs_create_app <- function(destination_directory,
   app_reports_directory <- file.path(app_directory, "reports")
   app_www_directory <- file.path(app_directory, "www")
 
+  unlink(app_directory, recursive = TRUE)
+
   dir.create(app_directory)
   dir.create(app_data_directory)
   dir.create(app_dataset_directory)
