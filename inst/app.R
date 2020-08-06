@@ -8,6 +8,7 @@ library(magrittr)
 library(ggplot2)
 library(plotly)
 library(RColorBrewer)
+library(janitor)
 
 # sources ####
 source("source/variables.R")$values
@@ -116,7 +117,7 @@ ui <- fluidPage(
                                                                                   select_list_questions_topic_11,
                                                                                   select_list_questions_topic_12,
                                                                                   select_list_questions_topic_13
-                                                                                  ),
+                                                                      ),
                                                                       selected="Search",
                                                                       options = list(
                                                                           placeholder = "Type here to find what question you are looking for",
@@ -943,27 +944,6 @@ server <- function(input, output, session) {
 
     # PROCESS DATA ####
 
-    # Assign dynamic variables (column_names_count, measure_column_name, variable_column_names) ####
-
-    column_names_count <- reactive({
-
-        length(colnames(main_df()))
-    })
-
-    measure_column_name <- reactive({
-
-        measure_column_name <- colnames(main_df())[1]
-    })
-
-    variable_column_names <- reactive({
-
-        variable_column_names <- colnames(main_df())[2:column_names_count()]
-
-        variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) & !grepl("_u", variable_column_names) & !grepl("_sig", variable_column_names) & !variable_column_names %in% c(measure_column_name, "Year", "Council", "All", "Base")]
-
-        variable_column_names
-    })
-
     # main_df() ####
 
     main_df <- reactive({
@@ -1009,13 +989,13 @@ server <- function(input, output, session) {
 
             main_chart_df <- main_df()
 
-            measure_column_name <- measure_column_name()
+            measure_column_name <- measure_column_name(main_chart_df)
 
-            variable_column_names <- variable_column_names()
+            variable_column_names <- variable_column_names(main_chart_df, 2)
 
             main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
 
-            main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "main_chart_df"))))
+            main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name, "main_chart_df"))))
 
         } else {
 
@@ -1035,15 +1015,15 @@ server <- function(input, output, session) {
 
             comparison_chart_df <- comparison_df()
 
-            measure_column_name <- measure_column_name()
+            measure_column_name <- measure_column_name(comparison_chart_df)
 
-            variable_column_names <- variable_column_names()
+            variable_column_names <- variable_column_names(comparison_chart_df, 2)
 
             comparison_chart_df <- comparison_chart_df[comparison_chart_df[1] != "All" & comparison_chart_df[1] != "Base",]
 
             if(!is.null(variable_column_names)) {
 
-                comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name(), "comparison_chart_df"))))
+                comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name, "comparison_chart_df"))))
 
             }
         }
@@ -1351,11 +1331,11 @@ server <- function(input, output, session) {
 
         if (!is.null(table_df)) {
 
-            variable_column_names <- variable_column_names()
+            variable_column_names <- variable_column_names(table_df, 2)
 
             table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
 
-            table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+            table_df <- eval(parse(text = round_string("table_df", variable_column_names, 0)))
 
         }
 
@@ -1368,7 +1348,7 @@ server <- function(input, output, session) {
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
+                variable_column_names <- variable_column_names(table_df, 3)
 
                 data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, TRUE)))
 
@@ -1385,7 +1365,8 @@ server <- function(input, output, session) {
                                                 info = FALSE,
                                                 searching = FALSE,
                                                 columnDefs = list(list(targets = c(0),
-                                                                       visible = FALSE))))
+                                                                       visible = FALSE),
+                                                                  list(className = 'dt-right', targets = 2:ncol(table_df)))))
 
             }
 
@@ -1402,13 +1383,15 @@ server <- function(input, output, session) {
                                             info = FALSE,
                                             searching = FALSE,
                                             columnDefs = list(list(targets = c(0),
-                                                                   visible = FALSE))))
+                                                                   visible = FALSE),
+                                                              list(className = 'dt-right', targets = 2:ncol(table_df)))))
 
         } else if (input$select_question %in% type_0_questions){
 
             data_table <- NULL
         }
 
+        options(scipen=999)
         data_table
     })
 
@@ -1423,16 +1406,16 @@ server <- function(input, output, session) {
 
                 table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
 
-                variable_column_names <- variable_column_names()
+                variable_column_names <- variable_column_names(table_df, 2)
 
-                table_df <- eval(parse(text = round_string("table_df", variable_column_names)))
+                table_df <- eval(parse(text = round_string("table_df", variable_column_names, 0)))
 
                 hide_columns <- grep("_sig", colnames(table_df))
                 start_of_hide <- hide_columns[1]
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                variable_column_names <- colnames(table_df)[3:start_of_hide - 1]
+                variable_column_names <- variable_column_names(table_df, 3)
 
                 data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, FALSE)))
 
@@ -1484,14 +1467,22 @@ server <- function(input, output, session) {
     # excel_table ####
     output$excel_table <- DT::renderDataTable({
 
-        excel_datatable <- DT::datatable(excel_df(),
-                                         colnames = gsub("blank", "", colnames(excel_df())),
+        excel_df <- excel_df()
+
+        variable_column_names <- variable_column_names(excel_df, 3)
+
+        excel_df <- eval(parse(text = round_string("excel_df", variable_column_names, 1)))
+
+        excel_datatable <- DT::datatable(excel_df,
+                                         colnames = gsub("blank", "", colnames(excel_df)),
                                          extensions = "Buttons",
                                          options = list(
 
                                              buttons = c("copy", "csv", "excel"),
                                              dom = "Bftpl",
-                                             columnDefs = list(list(targets = c(0), visible = FALSE)),
+                                             columnDefs = list(list(targets = c(0), visible = FALSE),
+                                                               list(className = 'dt-right', targets = 3:ncol(excel_df)),
+                                                               list(className = 'dt-left', targets = 1:2)),
                                              pageLength = 25,
                                              lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
                                              paging = TRUE
@@ -1500,7 +1491,7 @@ server <- function(input, output, session) {
                                          filter = 'top'
         )
 
-        return(excel_datatable)
+        excel_datatable
     })
 
     # CHARTS ####
@@ -1513,8 +1504,10 @@ server <- function(input, output, session) {
 
             df <- main_chart_df()
 
-            df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
-                                "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
+            measure_column_name <- measure_column_name(df)
+
+            df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name, "`, invert = TRUE),]\n",
+                                "df <- df[grep(\"Base\", df$`", measure_column_name, "`, invert = TRUE),]\n")
 
             df <- eval(parse(text = df_string))
 
@@ -1522,11 +1515,11 @@ server <- function(input, output, session) {
 
             if (input$select_question %in% type_1_questions) {
 
-                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
-                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
+                line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name, "`, colour = `", measure_column_name, "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                                                         measure_column_name, \": \",`", measure_column_name, "`,\"\n\",
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
@@ -1540,9 +1533,9 @@ server <- function(input, output, session) {
 
             } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name, "`, text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
                                         \"Group: \",", gather_key,"))) +
 
                                        geom_bar(position = \"dodge\", stat = \"identity\") +
@@ -1579,9 +1572,9 @@ server <- function(input, output, session) {
 
                 confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
-                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                               text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
                                         \"Group: \",", gather_key,")),
             width = 0.3)")
 
@@ -1618,8 +1611,10 @@ server <- function(input, output, session) {
 
                 df <- comparison_chart_df()
 
-                df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name(), "`, invert = TRUE),]\n",
-                                    "df <- df[grep(\"Base\", df$`", measure_column_name(), "`, invert = TRUE),]\n")
+                measure_column_name <- measure_column_name(df)
+
+                df_string <- paste0("df <- df[grep(\"All\", df$`", measure_column_name, "`, invert = TRUE),]\n",
+                                    "df <- df[grep(\"Base\", df$`", measure_column_name, "`, invert = TRUE),]\n")
 
                 df <- eval(parse(text = df_string))
 
@@ -1627,11 +1622,11 @@ server <- function(input, output, session) {
 
                 if (input$select_question %in% type_1_questions) {
 
-                    line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name(), "`, colour = `", measure_column_name(), "`)) +
-                                        geom_line(size = 1, aes(text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
-                                                                         measure_column_name(), \": \",`", measure_column_name(), "`,\"\n\",
+                    line_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key,"`, y = Percent, group = `", measure_column_name, "`, colour = `", measure_column_name, "`)) +
+                                        geom_line(size = 1, aes(text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                                                         measure_column_name, \": \",`", measure_column_name, "`,\"\n\",
                                                                          gather_key, \": \",", gather_key,"))) +
                                         theme(panel.grid.minor = element_blank(),
                                               panel.background = element_rect(\"transparent\"),
@@ -1645,9 +1640,9 @@ server <- function(input, output, session) {
 
                 } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
 
-                    bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name(), "`, , text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                                                         \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                                                         \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                    bar_chart_string <- paste0("ggplot(data = df, mapping = aes(x = `", gather_key, "`, y = `Percent`, fill = `", measure_column_name, "`, , text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                                                         \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                                                         \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
 
                                                                         \"Group: \",", gather_key,"
 ))) +
@@ -1680,9 +1675,9 @@ server <- function(input, output, session) {
 
                 confidence_intervals_string <- paste0("chart + geom_errorbar(aes(ymin = df$LowerConfidenceLimit,
                                                ymax = df$UpperConfidenceLimit,
-                                               text = paste(\"Value: \", Percent, \"%\", \"\n\",
-                                        \"Lower Confidence Limit: \", df$LowerConfidenceLimit, \"%\", \"\n\",
-                                        \"Upper Confidence Limit: \", df$UpperConfidenceLimit, \"%\", \"\n\",
+                                               text = paste(\"Value: \", janitor::round_half_up(Percent, digits = 1), \"%\", \"\n\",
+                                        \"Lower Confidence Limit: \", janitor::round_half_up(df$LowerConfidenceLimit, digits = 1), \"%\", \"\n\",
+                                        \"Upper Confidence Limit: \", janitor::round_half_up(df$UpperConfidenceLimit, digits = 1), \"%\", \"\n\",
                                         \"Year: \",", gather_key,")),
             width = 0.3)")
 
