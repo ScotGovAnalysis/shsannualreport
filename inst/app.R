@@ -1473,7 +1473,9 @@ server <- function(input, output, session) {
 
         excel_df <- excel_df()
 
-        variable_column_names <- variable_column_names(excel_df, 3)
+        variable_column_names <- variable_column_names(excel_df, 2)
+
+        variable_column_names <- variable_column_names[2:length(variable_column_names)]
 
         excel_df <- eval(parse(text = round_string("excel_df", variable_column_names, 1)))
 
@@ -1484,9 +1486,7 @@ server <- function(input, output, session) {
 
                                              buttons = c("copy", "csv", "excel"),
                                              dom = "Bftpl",
-                                             columnDefs = list(list(targets = c(0), visible = FALSE),
-                                                               list(className = 'dt-right', targets = 3:ncol(excel_df)),
-                                                               list(className = 'dt-left', targets = 1:2)),
+                                             columnDefs = list(list(targets = c(0), visible = FALSE)),
                                              pageLength = 25,
                                              lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
                                              paging = TRUE
