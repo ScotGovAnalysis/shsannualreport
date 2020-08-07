@@ -1,3 +1,24 @@
+# measure_column_name ####
+measure_column_name <- function(df) {
+
+  measure_column_name <- colnames(df)[1]
+
+  measure_column_name
+}
+
+# variable_column_names ####
+variable_column_names <- function(df, start_position) {
+
+  variable_column_names <- colnames(df)[start_position:length(colnames(df))]
+
+  variable_column_names <- variable_column_names[!grepl("_l", variable_column_names) &
+                                                   !grepl("_u", variable_column_names) &
+                                                   !grepl("_sig", variable_column_names) &
+                                                   !variable_column_names %in% c(measure_column_name, "Year", "Council")]
+
+  variable_column_names
+}
+
 # main_table_string ####
 main_table_string <- function(question_type, year_present) {
 
@@ -127,21 +148,21 @@ arrange_row_variables_string <- function(row_variable) {
 
 
 # round_string ####
-round_string <- function(table_name, column_variables) {
+round_string <- function(table_name, column_variables, decimal_place) {
 
   round_string <- paste0("if (length(colnames(", table_name, ")[grep(\"_2\", colnames(", table_name, "))]) > 0) {
       ", table_name, " <- dplyr::mutate(", table_name, ", ")
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`), ", decimal_place, "))), `", column_variable, "`), ")
 
     round_string <- paste0(round_string, addition_string)
   }
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`,  0)))), `", column_variable, "_2`), ")
+    addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`), ", decimal_place, "))), `", column_variable, "_2`), ")
 
     round_string <- paste0(round_string, addition_string)
   }
@@ -153,7 +174,7 @@ round_string <- function(table_name, column_variables) {
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`,  0)))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`),  ", decimal_place, "))), `", column_variable, "`), ")
 
     round_string <- paste0(round_string, addition_string)
 
@@ -168,7 +189,7 @@ round_string <- function(table_name, column_variables) {
 # data_table_string ####
 data_table_string <- function(df_name, variable_column_names, hide_columns, main_table) {
 
-  data_table_string <- paste0("DT::datatable(", df_name, ", colnames = gsub(\"blank\", \"\", colnames(", df_name, ")), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE)))) %>% formatStyle(c(")
+  data_table_string <- paste0("DT::datatable(", df_name, ", colnames = gsub(\"blank\", \"\", colnames(", df_name, ")), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE), list(className = 'dt-right', targets = 2:ncol(table_df))))) %>% formatStyle(c(")
 
   variable_column_names_without_all_base <- variable_column_names[variable_column_names != "All" & variable_column_names != "Base"]
 
@@ -346,7 +367,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
     if (nrow(table) == 0) {
 
-    table <- NULL
+      table <- NULL
     }
   }
 
@@ -374,7 +395,7 @@ report_data_processing <- function(topic, local_authority, year, comparison_type
 
       variable_column_names
 
-      table <- eval(parse(text = round_string("table", variable_column_names)))
+      table <- eval(parse(text = round_string("table", variable_column_names, 0)))
 
       table <- table[!grepl("_l", colnames(table)) & !grepl("_u", colnames(table))]
 
