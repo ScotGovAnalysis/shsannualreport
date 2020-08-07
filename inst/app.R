@@ -1477,8 +1477,6 @@ server <- function(input, output, session) {
 
         variable_column_names <- variable_column_names[2:length(variable_column_names)]
 
-        print(variable_column_names)
-
         excel_df <- eval(parse(text = round_string("excel_df", variable_column_names, 1)))
 
         excel_datatable <- DT::datatable(excel_df,
