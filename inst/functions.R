@@ -155,14 +155,14 @@ round_string <- function(table_name, column_variables, decimal_place) {
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`), ", decimal_place, "))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(janitor::round_half_up(as.numeric(`", column_variable, "`), digits = ", decimal_place, "))), `", column_variable, "`), ")
 
     round_string <- paste0(round_string, addition_string)
   }
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "_2`), ", decimal_place, "))), `", column_variable, "_2`), ")
+    addition_string <- paste0("`", column_variable, "_2` = ifelse(`", column_variable, "_2` > 0, suppressWarnings(as.character(janitor::round_half_up(as.numeric(`", column_variable, "_2`), digits = ", decimal_place, "))), `", column_variable, "_2`), ")
 
     round_string <- paste0(round_string, addition_string)
   }
@@ -174,7 +174,7 @@ round_string <- function(table_name, column_variables, decimal_place) {
 
   for (column_variable in column_variables) {
 
-    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(round(as.numeric(`", column_variable, "`),  ", decimal_place, "))), `", column_variable, "`), ")
+    addition_string <- paste0("`", column_variable, "` = ifelse(`", column_variable, "` > 0, suppressWarnings(as.character(janitor::round_half_up(as.numeric(`", column_variable, "`),  digits = ", decimal_place, "))), `", column_variable, "`), ")
 
     round_string <- paste0(round_string, addition_string)
 

@@ -991,9 +991,11 @@ server <- function(input, output, session) {
 
             measure_column_name <- measure_column_name(main_chart_df)
 
+            main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
+
             variable_column_names <- variable_column_names(main_chart_df, 2)
 
-            main_chart_df <- main_chart_df[main_chart_df[1] != "All" & main_chart_df[1] != "Base",]
+            variable_column_names <- variable_column_names[variable_column_names %in% c("All", "Base") == FALSE]
 
             main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name, "main_chart_df"))))
 
@@ -1018,6 +1020,8 @@ server <- function(input, output, session) {
             measure_column_name <- measure_column_name(comparison_chart_df)
 
             variable_column_names <- variable_column_names(comparison_chart_df, 2)
+
+            variable_column_names <- variable_column_names[variable_column_names %in% c("All", "Base") == FALSE]
 
             comparison_chart_df <- comparison_chart_df[comparison_chart_df[1] != "All" & comparison_chart_df[1] != "Base",]
 
