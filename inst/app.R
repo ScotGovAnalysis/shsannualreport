@@ -682,6 +682,8 @@ server <- function(input, output, session) {
 
             topic <- topic_titles[topic_titles$code == paste0("Top", topic_number),]$title
 
+            if (!identical(topic, character(0))) {
+
             if (topic != current_topic) {
 
                 topic_update_string <- paste0("updateSelectInput(session, inputId = \"select_topic\", label = \"Topic\", choices = select_list_topics, selected = \"", topic,"\")")
@@ -697,6 +699,7 @@ server <- function(input, output, session) {
             question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
             eval(parse(text = question_update_string))
+            }
         }
     })
 
@@ -999,6 +1002,8 @@ server <- function(input, output, session) {
 
             main_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name, "main_chart_df"))))
 
+            main_chart_df$time <- factor(main_chart_df$time, levels = unique(main_chart_df$time), ordered = TRUE)
+
         } else {
 
             main_chart_df <- NULL
@@ -1029,6 +1034,7 @@ server <- function(input, output, session) {
 
                 comparison_chart_df <- suppressWarnings(eval(parse(text = chart_data_processing_string(variable_column_names, measure_column_name, "comparison_chart_df"))))
 
+                comparison_chart_df$time <- factor(comparison_chart_df$time, levels = unique(comparison_chart_df$time), ordered = TRUE)
             }
         }
 
