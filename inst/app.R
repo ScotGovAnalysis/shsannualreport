@@ -682,6 +682,8 @@ server <- function(input, output, session) {
 
             topic <- topic_titles[topic_titles$code == paste0("Top", topic_number),]$title
 
+            if (!identical(topic, character(0))) {
+
             if (topic != current_topic) {
 
                 topic_update_string <- paste0("updateSelectInput(session, inputId = \"select_topic\", label = \"Topic\", choices = select_list_topics, selected = \"", topic,"\")")
@@ -697,6 +699,7 @@ server <- function(input, output, session) {
             question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
             eval(parse(text = question_update_string))
+            }
         }
     })
 
