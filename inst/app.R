@@ -1358,7 +1358,7 @@ server <- function(input, output, session) {
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                variable_column_names <- variable_column_names(table_df, 3)
+                variable_column_names <- variable_column_names(table_df, 2)
 
                 data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, TRUE)))
 
@@ -1425,7 +1425,7 @@ server <- function(input, output, session) {
                 end_of_hide <- hide_columns[length(hide_columns)]
                 hide_columns <- paste0(start_of_hide, ":", end_of_hide)
 
-                variable_column_names <- variable_column_names(table_df, 3)
+                variable_column_names <- variable_column_names(table_df, 2)
 
                 data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, FALSE)))
 
