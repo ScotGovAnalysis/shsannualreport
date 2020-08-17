@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.DS_Store
 rsconnect/
 app/data/
 app/source/variables.R
