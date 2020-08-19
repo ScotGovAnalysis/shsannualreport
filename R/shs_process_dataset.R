@@ -142,9 +142,8 @@ shs_process_dataset <- function(dataset_directory, metadata_directory) {
 
         tryCatch({
 
-          print("Processing table type 2")
           df <- shsannualreport:::shs_process_table_type_2(data_file_path, design_factors_path)
-          print("Processed table type 2")
+
         }, error = function(cond) {
 
           message(paste0("Error processing type 2 table: ", table, " Error msg: ", cond))
