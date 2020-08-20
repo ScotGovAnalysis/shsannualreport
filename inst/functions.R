@@ -225,7 +225,7 @@ data_table_string <- function(df_name, variable_column_names, hide_columns, main
 # chart_data_processing_string ####
 chart_data_processing_string <- function(variable_column_names, measure_column_name, df_name) {
 
-  chart_data_processing_string <- paste0(df_name, " %>% reshape(v.names = c(\"Percent\", \"LowerConfidenceLimit\", \"UpperConfidenceLimit\"), idvar = \"ID\", direction = \"long\", times = c(")
+  chart_data_processing_string <- paste0("as.data.frame(", df_name, ") %>% stats::reshape(v.names = c(\"Percent\", \"LowerConfidenceLimit\", \"UpperConfidenceLimit\"), idvar = \"ID\", direction = \"long\", times = c(")
 
   for (variable_column_name in variable_column_names) {
 
