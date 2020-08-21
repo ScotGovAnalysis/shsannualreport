@@ -85,6 +85,8 @@ library(kableExtra)
 library(png)
 library(tidyselect)
 
+options(scipen=999)
+
 local_authority <- params$local_authority
 year <- params$year
 topic_data <- params$topic_data
@@ -245,9 +247,6 @@ and relentless efforts during the fieldwork.
 
         string <- paste0(string, "### Row percentages, ", coverage, "\n")
 
-      } else if (type == 4) {
-
-        string <- paste0(string, "### Grossed-up estimates (Rounded to the nearest 10,000)\n")
       }
 
       if (!is.na(comment)) {
@@ -442,9 +441,10 @@ if (!is.null(", question_id_underscore, ") && length(grep(\"_2\", colnames(", qu
 
 if (type == 4) {
   string <- paste0(string, "
-### `r main_table_title`
+### `r local_authority`
 
 ```{r eval=(eval_comparison_time_series == FALSE)}
+if (!is.null(", question_id_underscore, ")) {
 ", question_id_underscore, " %>%
 kable(\"latex\", escape = FALSE, booktabs = T)")
 
@@ -455,12 +455,16 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
 
   if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")
+} else {
+asis_output(\"### There is no data to show for this table within the specified parameters\")
+}")
   }
 
   string <- paste0(string, "
 ```
 ```{r eval=eval_comparison_time_series}
+if (!is.null(", question_id_underscore, ")) {
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
@@ -473,16 +477,20 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
 
   if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")
+} else {
+  asis_output(\"### There is no data to show for this table within the specified parameters.\")
+}")
   }
 
   string <- paste0(string, "
 ```
 ```{r eval=eval_comparison_time_series}
-asis_output(paste0(\"### \", comparison_table_title))
+asis_output(paste0(\"### \", comparator))
 ```
 
 ```{r eval=eval_comparison_time_series}
+if (!is.null(", question_id_underscore, ") && length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 comparison_column_names <- colnames(", question_id_underscore, ")[grepl(\"_2\", colnames(", question_id_underscore, "))]
 comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
@@ -497,7 +505,10 @@ kable(\"latex\", escape = FALSE, booktabs = T)")
 
   if ((length(main_column_names) > 12) | (Reduce("+", nchar(main_column_names)) > 150)) {
 
-    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")")
+    string <- paste0(string, " %>% kable_styling(latex_options = \"scale_down\")
+} else {
+asis_output(\"### There is no data to show for this table within the specified parameters, or there is no data to compare with.\")
+}")
   }
 
   string <- paste0(string, "
