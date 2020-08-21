@@ -270,7 +270,7 @@ ui <- fluidPage(
                                        tags$h3("Technical resources"), br(),
                                        p("For the most recent annual SHS publication,", tags$a(href = "https://www.gov.scot/publications/scotlands-people-annual-report-results-2018-scottish-household-survey/", target = "_blank", "Click here!")),
                                        p("For the most recent key findings report,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-key-findings-2018/", target = "_blank", "Click here!")),
-                                       p("To see the full questionnarie for each year,", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/PublicationQuestionnaire", target = "_blank", "Click here!")),
+                                       p("To see the full questionnaire for each year,", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/PublicationQuestionnaire", target = "_blank", "Click here!")),
                                        p("To view the SHS methodology,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/", target = "_blank", "Click here!")),
                                        br(), br(), br()
                                    )
