@@ -20,9 +20,9 @@ variable_column_names <- function(df, start_position) {
 }
 
 # main_table_string ####
-main_table_string <- function(question_type, year_present) {
+main_table_string <- function(question_type, year_present, local_authority_present) {
 
-  if (question_type == "0" | year_present == FALSE) {
+  if (question_type == "0" | year_present == FALSE | local_authority_present == FALSE) {
 
     main_table_string <- "table_main <- NULL"
 
@@ -225,7 +225,7 @@ data_table_string <- function(df_name, variable_column_names, hide_columns, main
 # chart_data_processing_string ####
 chart_data_processing_string <- function(variable_column_names, measure_column_name, df_name) {
 
-  chart_data_processing_string <- paste0(df_name, " %>% reshape(v.names = c(\"Percent\", \"LowerConfidenceLimit\", \"UpperConfidenceLimit\"), idvar = \"ID\", direction = \"long\", times = c(")
+  chart_data_processing_string <- paste0("as.data.frame(", df_name, ") %>% stats::reshape(v.names = c(\"Percent\", \"LowerConfidenceLimit\", \"UpperConfidenceLimit\"), idvar = \"ID\", direction = \"long\", times = c(")
 
   for (variable_column_name in variable_column_names) {
 
@@ -276,6 +276,10 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   comparison_year_present <- TRUE
 
+  local_authority_present <- TRUE
+
+  local_authority_comparison_present <- TRUE
+
   question_type <- question_titles[question_titles$ID == question,]$Type
 
   scotland_only <- question_titles[question_titles$ID == question,]$ScotlandOnly
@@ -284,11 +288,17 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   if (scotland_only == "Y") {
 
-    scotland_only <- TRUE
+    if (local_authority == "Scotland") {
 
-  } else {
+      local_authority_present <- TRUE
+      local_authority_comparison_present <- FALSE
 
-    scotland_only <- FALSE
+    } else {
+
+      local_authority_present <- FALSE
+      local_authority_comparison_present <- FALSE
+    }
+
   }
 
   if (question_type != "0") {
@@ -333,9 +343,9 @@ table_processing <- function(question, local_authority, year, comparison_type, c
     }
   }
 
-  eval(parse(text = main_table_string(question_type = question_type, year_present = year_present)))
+  eval(parse(text = main_table_string(question_type = question_type, year_present = year_present, local_authority_present = local_authority_present)))
 
-  if (comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE))  {
+  if (comparison_type == "No comparison" | (question_type %in% c("1", "4") & comparison_type == "Year") | (question_type %in% c("2", "3") & comparison_year_present == FALSE) | local_authority_comparison_present == FALSE)  {
 
     table <- table_main
 
@@ -352,7 +362,7 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
     table <- NULL
 
-  } else if (question_type %in% c("1", "2", "3") & year_present == TRUE) {
+  } else if (question_type %in% c("1", "2", "3") & year_present == TRUE & local_authority_present == TRUE ) {
 
     eval(parse(text = arrange_row_variables_string(row_variable = row_variable)))
 

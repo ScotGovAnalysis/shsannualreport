@@ -199,6 +199,8 @@ and relentless efforts during the fieldwork.
         column_names <- colnames(readRDS(data_file_path))
         main_column_names <- column_names[!grepl("_l", column_names) & !grepl("_u", column_names)]
 
+        variable_column <- main_column_names[!main_column_names == "Year" & !main_column_names == "Council"][1]
+
         significance_column_names <- gsub("_l", "", column_names[grep("_l", column_names)])
         significance_column_names <- significance_column_names[!significance_column_names %in% c("All", "Base")]
 
@@ -309,11 +311,13 @@ if (!is.null(", question_id_underscore, ")) {
 if (length(grep(\"_2\", colnames(", question_id_underscore, "))) > 0) {
 colnames(", question_id_underscore, ") <- gsub(\"%\", \"\\\\\\\\%\", colnames(", question_id_underscore, "))
 main_column_names <- colnames(", question_id_underscore, ")[!grepl(\"_2\", colnames(", question_id_underscore, "))]
+
 significance_column_names <- colnames(", question_id_underscore, ")[grepl(\"_sig\", colnames(", question_id_underscore, "))]
 presentation_column_names <-  main_column_names[!main_column_names %in% significance_column_names]
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(main_column_names)) %>%
-mutate(")
+mutate(`", variable_column, "` = gsub(\"%\", \"\\\\\\\\%\", `", variable_column, "`),
+")
 
         for (significance_column_name in significance_column_names) {
 
@@ -393,9 +397,8 @@ comparison_rename_column_names <- gsub(\"_2\", \"\", comparison_column_names)
 
 ", question_id_underscore, " %>% select(tidyselect::all_of(colnames(", question_id_underscore, ")[!colnames(", question_id_underscore, ") %in% comparison_rename_column_names])) %>%
 rename_at(comparison_column_names, ~ comparison_rename_column_names) %>%
-mutate("
-        )
-
+mutate(`", variable_column, "` = gsub(\"%\", \"\\\\\\\\%\", `", variable_column, "`),
+")
         for (significance_column_name in significance_column_names) {
 
           significance_column_name <- gsub("%", "\\\\\\\\%", significance_column_name)

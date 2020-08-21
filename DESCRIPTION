@@ -15,7 +15,11 @@ Depends:
   plyr,
   dplyr,
   magrittr,
-  crayon
+  crayon,
+  markdown,
+  rmarkdown,
+  tinytex,
+  png
 Suggests: knitr
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr

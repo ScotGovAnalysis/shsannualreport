@@ -95,8 +95,8 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   sig_upper_string <- (substr(sig_upper_string, 1, nchar(sig_upper_string) - 2)) %>%
     paste0(")")
 
-  bind_string <- paste0("df <- dplyr::bind_cols(c(percent_values, sig_lower_values, sig_upper_values)) %>%",
-                        "dplyr::select(-Year_l, -Year_u, -Council_l, -Council_u, -`", col_2_name, "_l`, -`", col_2_name, "_u`)")
+  # bind_string <- paste0("df <- dplyr::bind_cols(c(percent_values, sig_lower_values, sig_upper_values)) %>%",
+  #                       "dplyr::select(-Year_l, -Year_u, -Council_l, -Council_u, -`", col_2_name, "_l`, -`", col_2_name, "_u`)")
 
   select_string <- "df <- dplyr::select(df, Year, Council, "
 
@@ -124,7 +124,9 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   eval(parse(text = sig_lower_string))
   eval(parse(text = sig_upper_string))
-  eval(parse(text = bind_string))
+  # eval(parse(text = bind_string))
+  significance_length <- length(sig_lower_values)
+  df <- dplyr::bind_cols(c(percent_values, sig_lower_values[4:significance_length], sig_upper_values[4:significance_length]))
   eval(parse(text = select_string))
   eval(parse(text = get_order_string))
   eval(parse(text = reorder_string))
