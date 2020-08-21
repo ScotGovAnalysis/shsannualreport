@@ -53,7 +53,7 @@ ui <- fluidPage(
                                 tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
                                 tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority level. The survey covers 11 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. The survey covers 12 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
 
                             )
                             )
@@ -271,7 +271,7 @@ ui <- fluidPage(
                                        p("For the most recent annual SHS publication,", tags$a(href = "https://www.gov.scot/publications/scotlands-people-annual-report-results-2018-scottish-household-survey/", target = "_blank", "Click here!")),
                                        p("For the most recent key findings report,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-key-findings-2018/", target = "_blank", "Click here!")),
                                        p("To see the full questionnarie for each year,", tags$a(href = "https://www2.gov.scot/Topics/Statistics/16002/PublicationQuestionnaire", target = "_blank", "Click here!")),
-                                       p("To view the SHS methodology,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-methodology-fieldwork-outcomes-2017/", target = "_blank", "Click here!")),
+                                       p("To view the SHS methodology,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/", target = "_blank", "Click here!")),
                                        br(), br(), br()
                                    )
                             ),
@@ -357,9 +357,9 @@ server <- function(input, output, session) {
         size = "l",
         fluidRow(
             column(12,
-                   p(tags$div("Local Authority Data in 'Survey Results'", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
+                   p(tags$div("'Survey Results'", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br(),
-                   h4("This is where all the interactive data lives. Use the different drop-down menus to select different topics, questions, local authorities, years and comparators!"),
+                   h4("This is where all the interactive data lives. Use the different drop-down menus to select different topics, questions, geographical area, years and comparators!"),
                    br())),
         fluidRow(
             img(src = "modal_survey2.png", height = "100%", width = "100%")),
@@ -684,21 +684,21 @@ server <- function(input, output, session) {
 
             if (!identical(topic, character(0))) {
 
-            if (topic != current_topic) {
+                if (topic != current_topic) {
 
-                topic_update_string <- paste0("updateSelectInput(session, inputId = \"select_topic\", label = \"Topic\", choices = select_list_topics, selected = \"", topic,"\")")
+                    topic_update_string <- paste0("updateSelectInput(session, inputId = \"select_topic\", label = \"Topic\", choices = select_list_topics, selected = \"", topic,"\")")
 
-                eval(parse(text = topic_update_string))
+                    eval(parse(text = topic_update_string))
 
-            }
+                }
 
-            topic_number <- question_titles[question_titles$ID == input$searchbar,]$Topic
+                topic_number <- question_titles[question_titles$ID == input$searchbar,]$Topic
 
-            question <- question_titles[question_titles$ID == input$searchbar,]$ID
+                question <- question_titles[question_titles$ID == input$searchbar,]$ID
 
-            question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
+                question_update_string <- paste0("updateSelectInput(session, inputId = \"select_question\", label = \"Question\", choices = select_list_questions_topic_", topic_number, ", selected = \"", question,"\")")
 
-            eval(parse(text = question_update_string))
+                eval(parse(text = question_update_string))
             }
         }
     })
@@ -1493,7 +1493,7 @@ server <- function(input, output, session) {
                                              buttons = c("copy", "csv", "excel"),
                                              dom = "Bftpl",
                                              columnDefs = list(list(targets = c(0), visible = FALSE)),
-                                             pageLength = 25,
+                                             pageLength = 50,
                                              lengthMenu = list(c(10, 25, 50, 100, 200, -1), list('10', '25', '50', '100', '200', 'All')),
                                              paging = TRUE
                                          ),
