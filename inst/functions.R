@@ -291,7 +291,15 @@ table_processing <- function(question, local_authority, year, comparison_type, c
     if (local_authority == "Scotland") {
 
       local_authority_present <- TRUE
-      local_authority_comparison_present <- FALSE
+
+      if (comparison_type == "Year" & length(table$Year[table$Year == comparator]) > 0) {
+
+        comparison_year_present <- TRUE
+
+      } else {
+
+        local_authority_comparison_present <- FALSE
+      }
 
     } else {
 
