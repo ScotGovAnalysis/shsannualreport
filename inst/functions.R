@@ -284,34 +284,32 @@ table_processing <- function(question, local_authority, year, comparison_type, c
 
   scotland_only <- question_titles[question_titles$ID == question,]$ScotlandOnly
 
-  if (is.na(scotland_only)) {scotland_only <- "N"}
-
-  if (scotland_only == "Y") {
-
-    if (local_authority == "Scotland") {
-
-      local_authority_present <- TRUE
-
-      if (comparison_type == "Year" & length(table$Year[table$Year == comparator]) > 0) {
-
-        comparison_year_present <- TRUE
-
-      } else {
-
-        local_authority_comparison_present <- FALSE
-      }
-
-    } else {
-
-      local_authority_present <- FALSE
-      local_authority_comparison_present <- FALSE
-    }
-
-  }
-
   if (question_type != "0") {
 
     table <- readRDS(paste0("data/dataset/", question, ".Rds"))
+
+    if (is.na(scotland_only)) {scotland_only <- "N"}
+
+    if (scotland_only == "Y") {
+
+      if (local_authority == "Scotland") {
+
+        local_authority_present <- TRUE
+
+        if (comparison_type == "Year" & length(table$Year[table$Year == comparator]) > 0) {
+
+          comparison_year_present <- TRUE
+        } else {
+
+          local_authority_comparison_present <- FALSE
+        }
+
+      } else {
+
+        local_authority_present <- FALSE
+        local_authority_comparison_present <- FALSE
+      }
+    }
   }
 
   if (question_type %in% c("1", "4")) {
