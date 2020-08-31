@@ -1345,7 +1345,10 @@ server <- function(input, output, session) {
 
             main_table <- main_table$x$data
 
-            main_table <- main_table[,-grep("_sig", colnames(main_table))]
+            if (length(grep("_sig", colnames(main_table))) > 0) {
+
+                main_table <- main_table[,-grep("_sig", colnames(main_table))]
+            }
 
             write.csv(main_table, file, row.names = FALSE)
         })
