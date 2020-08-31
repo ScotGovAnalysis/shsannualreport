@@ -39,6 +39,75 @@ main_table_string <- function(question_type, year_present, local_authority_prese
   main_table_string
 }
 
+# main_table_output ####
+
+main_table_output <- function(df, question, comparison_type) {
+
+  if (!is.null(df)) {
+
+    variable_column_names <- variable_column_names(df, 2)
+
+    df <- df[!grepl("_l", colnames(df)) & !grepl("_u", colnames(df))]
+
+    df <- eval(parse(text = round_string("df", variable_column_names, 0)))
+
+  }
+
+  if (question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
+
+    if (comparison_type != "No comparison") {
+
+      hide_columns <- grep("_sig", colnames(df))
+      start_of_hide <- hide_columns[1]
+      end_of_hide <- hide_columns[length(hide_columns)]
+      hide_columns <- paste0(start_of_hide, ":", end_of_hide)
+
+      variable_column_names <- variable_column_names(df, 2)
+
+      data_table <- eval(parse(text = data_table_string("df", variable_column_names, hide_columns, TRUE)))
+
+    } else {
+
+      data_table <- DT::datatable(df,
+                                  colnames = gsub("blank", "", colnames(df)),
+                                  options = list(
+                                    dom = "t",
+                                    digits = 1,
+                                    na = "-",
+                                    paging = FALSE,
+                                    ordering = FALSE,
+                                    info = FALSE,
+                                    searching = FALSE,
+                                    columnDefs = list(list(targets = c(0),
+                                                           visible = FALSE),
+                                                      list(className = 'dt-right', targets = 2:ncol(df)))))
+
+    }
+
+  } else if (question %in% type_4_questions) {
+
+    data_table <- DT::datatable(df,
+                                colnames = gsub("blank", "", colnames(df)),
+                                options = list(
+                                  dom = "t",
+                                  digits = 1,
+                                  na = "-",
+                                  paging = FALSE,
+                                  ordering = FALSE,
+                                  info = FALSE,
+                                  searching = FALSE,
+                                  columnDefs = list(list(targets = c(0),
+                                                         visible = FALSE),
+                                                    list(className = 'dt-right', targets = 2:ncol(df)))))
+
+  } else if (question %in% type_0_questions){
+
+    data_table <- NULL
+  }
+
+  data_table
+}
+
 # comparison_table_string ####
 comparison_table_string <- function(comparison_type, question_type, column_variables) {
 
@@ -92,6 +161,55 @@ comparison_table_string <- function(comparison_type, question_type, column_varia
 
   # print(paste0("comparison_table_string : ", comparison_table_string))
   comparison_table_string
+}
+
+# comparison_table_output ####
+
+comparison_table_output <- function(df, question, comparison_type) {
+
+  if (question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
+
+    if (comparison_type != "No comparison") {
+
+      df <- df[!grepl("_l", colnames(df)) & !grepl("_u", colnames(df))]
+
+      variable_column_names <- variable_column_names(df, 2)
+
+      df <- eval(parse(text = round_string("df", variable_column_names, 0)))
+
+      hide_columns <- grep("_sig", colnames(df))
+      start_of_hide <- hide_columns[1]
+      end_of_hide <- hide_columns[length(hide_columns)]
+      hide_columns <- paste0(start_of_hide, ":", end_of_hide)
+
+      variable_column_names <- variable_column_names(df, 2)
+
+      data_table <- eval(parse(text = data_table_string("df", variable_column_names, hide_columns, FALSE)))
+
+    } else {
+
+      NULL
+    }
+
+  } else if (question %in% type_4_questions & comparison_type != "No comparison"){
+
+    DT::datatable(df,
+                  options = list(
+                    colnames = gsub("blank", "", colnames(main_df())),
+                    dom = "t",
+                    digits = 1,
+                    na = "-",
+                    paging = FALSE,
+                    ordering = FALSE,
+                    info = FALSE,
+                    searching = FALSE,
+                    columnDefs = list(list(targets = c(0),
+                                           visible = FALSE))))
+
+  } else {
+
+    NULL
+  }
 }
 
 # merge_string ####
@@ -189,7 +307,7 @@ round_string <- function(table_name, column_variables, decimal_place) {
 # data_table_string ####
 data_table_string <- function(df_name, variable_column_names, hide_columns, main_table) {
 
-  data_table_string <- paste0("DT::datatable(", df_name, ", colnames = gsub(\"blank\", \"\", colnames(", df_name, ")), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE), list(className = 'dt-right', targets = 2:ncol(table_df))))) %>% formatStyle(c(")
+  data_table_string <- paste0("DT::datatable(", df_name, ", colnames = gsub(\"blank\", \"\", colnames(", df_name, ")), options = list(digits = 1, na = '-', paging = FALSE, ordering = FALSE, info = FALSE, searching = FALSE, columnDefs = list(list(targets = c(0, ", hide_columns, "), visible = FALSE), list(className = 'dt-right', targets = 2:ncol(", df_name, "))))) %>% formatStyle(c(")
 
   variable_column_names_without_all_base <- variable_column_names[variable_column_names != "All" & variable_column_names != "Base"]
 
@@ -267,6 +385,46 @@ chart_data_processing_string <- function(variable_column_names, measure_column_n
 
   # print(chart_data_processing_string)
   chart_data_processing_string
+}
+
+# main_title ####
+main_title <- function(question, local_authority, year) {
+
+  if (question %in% c(type_1_questions, type_4_questions)) {
+
+    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ")")
+
+  } else if (question %in% c(type_2_questions, type_3_questions)) {
+
+    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year, ")")
+
+  } else {
+
+    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title)
+  }
+}
+
+# comparison_title ####
+comparison_title <- function(question, local_authority, year, comparison_type, local_authority_comparator, year_comparator) {
+
+  if (!question %in% type_0_questions) {
+
+    if (question %in% c(type_1_questions, type_4_questions) & comparison_type == "Local Authority/Scotland") {
+
+      paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ")")
+
+    } else {
+
+      if (comparison_type == "Year") {
+
+        paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year_comparator, ")")
+
+      } else if (comparison_type == "Local Authority/Scotland") {
+
+        paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ", ", year, ")")
+      }
+    }
+  }
 }
 
 # table_processing ####
