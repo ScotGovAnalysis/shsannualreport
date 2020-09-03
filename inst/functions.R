@@ -388,40 +388,82 @@ chart_data_processing_string <- function(variable_column_names, measure_column_n
 }
 
 # main_title ####
-main_title <- function(question, local_authority, year) {
+main_title <- function(question, local_authority, year, include_title = TRUE) {
 
-  if (question %in% c(type_1_questions, type_4_questions)) {
+  if (include_title == TRUE) {
 
-    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ")")
+    if (question %in% c(type_1_questions, type_4_questions)) {
 
-  } else if (question %in% c(type_2_questions, type_3_questions)) {
+      paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ")")
 
-    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year, ")")
+    } else if (question %in% c(type_2_questions, type_3_questions)) {
+
+      paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year, ")")
+
+    } else {
+
+      paste0(question, ": ", question_titles[question_titles$ID == question,]$Title)
+    }
 
   } else {
 
-    paste0(question, ": ", question_titles[question_titles$ID == question,]$Title)
+    if (question %in% c(type_1_questions, type_4_questions)) {
+
+      paste0(question, " ", local_authority)
+
+    } else if (question %in% c(type_2_questions, type_3_questions)) {
+
+      paste0(question, " ", local_authority, " ", year)
+
+    } else {
+
+      paste0(question)
+    }
   }
 }
 
 # comparison_title ####
-comparison_title <- function(question, local_authority, year, comparison_type, local_authority_comparator, year_comparator) {
+comparison_title <- function(question, local_authority, year, comparison_type, local_authority_comparator, year_comparator, include_title = TRUE) {
 
-  if (!question %in% type_0_questions) {
+  if (include_title == TRUE) {
 
-    if (question %in% c(type_1_questions, type_4_questions) & comparison_type == "Local Authority/Scotland") {
+    if (!question %in% type_0_questions) {
 
-      paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ")")
+      if (question %in% c(type_1_questions, type_4_questions) & comparison_type == "Local Authority/Scotland") {
 
-    } else {
+        paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ")")
 
-      if (comparison_type == "Year") {
+      } else {
 
-        paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year_comparator, ")")
+        if (comparison_type == "Year") {
 
-      } else if (comparison_type == "Local Authority/Scotland") {
+          paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority, ", ", year_comparator, ")")
 
-        paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ", ", year, ")")
+        } else if (comparison_type == "Local Authority/Scotland") {
+
+          paste0(question, ": ", question_titles[question_titles$ID == question,]$Title, " (", local_authority_comparator, ", ", year, ")")
+        }
+      }
+    }
+
+  } else {
+
+    if (!question %in% type_0_questions) {
+
+      if (question %in% c(type_1_questions, type_4_questions) & comparison_type == "Local Authority/Scotland") {
+
+        paste0(question, " ", local_authority_comparator)
+
+      } else {
+
+        if (comparison_type == "Year") {
+
+          paste0(question, " ", local_authority, " ", year_comparator)
+
+        } else if (comparison_type == "Local Authority/Scotland") {
+
+          paste0(question, " ", local_authority_comparator, " ", year)
+        }
       }
     }
   }

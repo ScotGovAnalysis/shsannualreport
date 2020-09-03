@@ -1329,8 +1329,7 @@ server <- function(input, output, session) {
             local_authority <- input$select_local_authority
             year <- input$select_year
 
-            name <- main_title(question = question, local_authority = local_authority, year = year)
-            name <- gsub("[^a-zA-Z0-9\\s.-]", " ", name)
+            name <- main_title(question = question, local_authority = local_authority, year = year, include_title = FALSE)
 
             paste0(name, ".csv")
         },
@@ -1350,6 +1349,8 @@ server <- function(input, output, session) {
                 main_table <- main_table[,-grep("_sig", colnames(main_table))]
             }
 
+            colnames(main_table) <- gsub("blank", "", colnames(main_table))
+
             write.csv(main_table, file, row.names = FALSE)
         })
 
@@ -1365,8 +1366,7 @@ server <- function(input, output, session) {
             local_authority_comparator <- input$select_local_authority_comparator
             year_comparator <- input$select_year_comparator
 
-            name <- comparison_title(question = question, local_authority = local_authority, year = year, comparison_type = comparison_type, local_authority_comparator = local_authority_comparator, year_comparator = year_comparator)
-            name <- gsub("[^a-zA-Z0-9\\s.-]", " ", name)
+            name <- comparison_title(question = question, local_authority = local_authority, year = year, comparison_type = comparison_type, local_authority_comparator = local_authority_comparator, year_comparator = year_comparator, include_title = FALSE)
 
             paste0(name, ".csv")
         },
@@ -1381,7 +1381,9 @@ server <- function(input, output, session) {
 
             comparison_table <- comparison_table$x$data
 
-            comparison_table <- main_table[,-grep("_sig", colnames(comparison_table))]
+            comparison_table <- comparison_table[,-grep("_sig", colnames(comparison_table))]
+
+            colnames(comparison_table) <- gsub("blank", "", colnames(comparison_table))
 
             write.csv(comparison_table, file, row.names = FALSE)
         })
