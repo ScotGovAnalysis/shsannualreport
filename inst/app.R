@@ -14,6 +14,8 @@ library(janitor)
 source("source/variables.R")$values
 source("source/functions.R")$values
 
+options(scipen=999)
+
 # ui ####
 
 ui <- fluidPage(
@@ -1221,86 +1223,49 @@ server <- function(input, output, session) {
     })
 
     # main_title ####
-
     output$main_title <- renderText({
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
+        question <- input$select_question
+        local_authority <- input$select_local_authority
+        year <- input$select_year
 
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ")")
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year, ")")
-
-        } else {
-
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title)
-        }
+        main_title(question = question, local_authority = local_authority, year = year)
     })
 
     # main_plot_title ####
-
     output$main_plot_title <- renderText({
 
-        if (input$select_question %in% c(type_1_questions, type_4_questions)) {
+        question <- input$select_question
+        local_authority <- input$select_local_authority
+        year <- input$select_year
 
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ")")
-
-        } else if (input$select_question %in% c(type_2_questions, type_3_questions)) {
-
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year, ")")
-
-        } else {
-
-            paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title)
-        }
+        main_title(question = question, local_authority = local_authority, year = year)
     })
 
     # comparison_title ####
-
     output$comparison_title <- renderText({
 
-        if (!input$select_question %in% type_0_questions) {
+        question <- input$select_question
+        local_authority <- input$select_local_authority
+        year <- input$select_year
+        comparison_type <- input$select_comparison_type
+        local_authority_comparator <- input$select_local_authority_comparator
+        year_comparator <- input$select_year_comparator
 
-            if (input$select_question %in% c(type_1_questions, type_4_questions) & input$select_comparison_type == "Local Authority/Scotland") {
-
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
-
-            } else {
-
-                if (input$select_comparison_type == "Year") {
-
-                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
-
-                } else if (input$select_comparison_type == "Local Authority/Scotland") {
-
-                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
-                }
-            }
-        }
+        comparison_title(question = question, local_authority = local_authority, year = year, comparison_type = comparison_type, local_authority_comparator = local_authority_comparator, year_comparator = year_comparator)
     })
 
     # comparison_plot_title ####
     output$comparison_plot_title <- renderText({
 
-        if (!input$select_question %in% c(type_0_questions, type_4_questions)) {
+        question <- input$select_question
+        local_authority <- input$select_local_authority
+        year <- input$select_year
+        comparison_type <- input$select_comparison_type
+        local_authority_comparator <- input$select_local_authority_comparator
+        year_comparator <- input$select_year_comparator
 
-            if (input$select_question %in% type_1_questions & input$select_comparison_type == "Local Authority/Scotland") {
-
-                paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ")")
-
-            } else {
-
-                if (input$select_comparison_type == "Year") {
-
-                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority, ", ", input$select_year_comparator, ")")
-
-                } else if (input$select_comparison_type == "Local Authority/Scotland") {
-
-                    paste0(input$select_question, ": ", question_titles[question_titles$ID == input$select_question,]$Title, " (", input$select_local_authority_comparator, ", ", input$select_year, ")")
-                }
-            }
-        }
+        comparison_title(question = question, local_authority = local_authority, year = year, comparison_type = comparison_type, local_authority_comparator = local_authority_comparator, year_comparator = year_comparator)
     })
 
     # comment ####
@@ -1337,140 +1302,90 @@ server <- function(input, output, session) {
     # output$main_table ####
     output$main_table <- renderDataTable({
 
-        table_df <- main_df()
+        df <- main_df()
+        question <- input$select_question
+        comparison_type <- input$select_comparison_type
 
-        if (!is.null(table_df)) {
-
-            variable_column_names <- variable_column_names(table_df, 2)
-
-            table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
-
-            table_df <- eval(parse(text = round_string("table_df", variable_column_names, 0)))
-
-        }
-
-        if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
-
-            if (input$select_comparison_type != "No comparison") {
-
-                hide_columns <- grep("_sig", colnames(table_df))
-                start_of_hide <- hide_columns[1]
-                end_of_hide <- hide_columns[length(hide_columns)]
-                hide_columns <- paste0(start_of_hide, ":", end_of_hide)
-
-                variable_column_names <- variable_column_names(table_df, 2)
-
-                data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, TRUE)))
-
-            } else {
-
-                data_table <- DT::datatable(table_df,
-                                            colnames = gsub("blank", "", colnames(table_df)),
-                                            options = list(
-                                                dom = "t",
-                                                digits = 1,
-                                                na = "-",
-                                                paging = FALSE,
-                                                ordering = FALSE,
-                                                info = FALSE,
-                                                searching = FALSE,
-                                                columnDefs = list(list(targets = c(0),
-                                                                       visible = FALSE),
-                                                                  list(className = 'dt-right', targets = 2:ncol(table_df)))))
-
-            }
-
-        } else if (input$select_question %in% type_4_questions) {
-
-            data_table <- DT::datatable(table_df,
-                                        colnames = gsub("blank", "", colnames(table_df)),
-                                        options = list(
-                                            dom = "t",
-                                            digits = 1,
-                                            na = "-",
-                                            paging = FALSE,
-                                            ordering = FALSE,
-                                            info = FALSE,
-                                            searching = FALSE,
-                                            columnDefs = list(list(targets = c(0),
-                                                                   visible = FALSE),
-                                                              list(className = 'dt-right', targets = 2:ncol(table_df)))))
-
-        } else if (input$select_question %in% type_0_questions){
-
-            data_table <- NULL
-        }
-
-        options(scipen=999)
-        data_table
+        main_table_output(df = df, question = question, comparison_type = comparison_type)
     })
 
     # comparison_table ####
     output$comparison_table <- renderDataTable({
 
-        table_df <- comparison_df()
+        df <- comparison_df()
+        question <- input$select_question
+        comparison_type <- input$select_comparison_type
 
-        if (input$select_question %in% c(type_1_questions, type_2_questions, type_3_questions)) {
+        comparison_table_output(df = df, question = question, comparison_type = comparison_type)
 
-            if (input$select_comparison_type != "No comparison") {
-
-                table_df <- table_df[!grepl("_l", colnames(table_df)) & !grepl("_u", colnames(table_df))]
-
-                variable_column_names <- variable_column_names(table_df, 2)
-
-                table_df <- eval(parse(text = round_string("table_df", variable_column_names, 0)))
-
-                hide_columns <- grep("_sig", colnames(table_df))
-                start_of_hide <- hide_columns[1]
-                end_of_hide <- hide_columns[length(hide_columns)]
-                hide_columns <- paste0(start_of_hide, ":", end_of_hide)
-
-                variable_column_names <- variable_column_names(table_df, 2)
-
-                data_table <- eval(parse(text = data_table_string("table_df", variable_column_names, hide_columns, FALSE)))
-
-            } else {
-
-                NULL
-            }
-
-        } else if (input$select_question %in% type_4_questions & input$select_comparison_type != "No comparison"){
-
-            DT::datatable(table_df,
-                          options = list(
-                              colnames = gsub("blank", "", colnames(main_df())),
-                              dom = "t",
-                              digits = 1,
-                              na = "-",
-                              paging = FALSE,
-                              ordering = FALSE,
-                              info = FALSE,
-                              searching = FALSE,
-                              columnDefs = list(list(targets = c(0),
-                                                     visible = FALSE))))
-
-        } else {
-
-            NULL
-        }
     })
 
-    # Download main table
+    # Download main table ####
     output$download_table <- downloadHandler(
+
         filename = function() {
-            paste("shs_data.csv")
+
+            question <- input$select_question
+            local_authority <- input$select_local_authority
+            year <- input$select_year
+
+            name <- main_title(question = question, local_authority = local_authority, year = year, include_title = FALSE)
+
+            paste0(name, ".csv")
         },
+
         content = function(file) {
-            write.csv(main_df(), file, row.names = FALSE)
+
+            df <- main_df()
+            question <- input$select_question
+            comparison_type <- input$select_comparison_type
+
+            main_table <- main_table_output(df = df, question = question, comparison_type = comparison_type)
+
+            main_table <- main_table$x$data
+
+            if (length(grep("_sig", colnames(main_table))) > 0) {
+
+                main_table <- main_table[,-grep("_sig", colnames(main_table))]
+            }
+
+            colnames(main_table) <- gsub("blank", "", colnames(main_table))
+
+            write.csv(main_table, file, row.names = FALSE)
         })
 
-    # Download comparison table
+    # Download comparison table ####
     output$download_comparison_table <- downloadHandler(
+
         filename = function() {
-            paste("shs_data.csv")
+
+            question <- input$select_question
+            local_authority <- input$select_local_authority
+            year <- input$select_year
+            comparison_type <- input$select_comparison_type
+            local_authority_comparator <- input$select_local_authority_comparator
+            year_comparator <- input$select_year_comparator
+
+            name <- comparison_title(question = question, local_authority = local_authority, year = year, comparison_type = comparison_type, local_authority_comparator = local_authority_comparator, year_comparator = year_comparator, include_title = FALSE)
+
+            paste0(name, ".csv")
         },
+
         content = function(file) {
-            write.csv(comparison_df(), file, row.names = FALSE)
+
+            df <- comparison_df()
+            question <- input$select_question
+            comparison_type <- input$select_comparison_type
+
+            comparison_table <- comparison_table_output(df = df, question = question, comparison_type = comparison_type)
+
+            comparison_table <- comparison_table$x$data
+
+            comparison_table <- comparison_table[,-grep("_sig", colnames(comparison_table))]
+
+            colnames(comparison_table) <- gsub("blank", "", colnames(comparison_table))
+
+            write.csv(comparison_table, file, row.names = FALSE)
         })
 
 
