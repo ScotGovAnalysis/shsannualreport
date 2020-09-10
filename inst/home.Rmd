@@ -15,7 +15,7 @@ The Scottish Household Survey is:
 * Long-running since 1999.
 * A provider of robust evidence on the composition, characteristics, attitudes and behaviour of private households and individuals. 
 
-Read our [2018 Key Findings] (https://www.gov.scot/publications/scottish-household-survey-key-findings-2018/) for the latest analysis provided by the Scottish Household Survey.
+Read our [2019 Key Findings] (https://www.gov.scot/isbn/9781839609855) for the latest analysis provided by the Scottish Household Survey.
 
 
 ***
@@ -31,7 +31,7 @@ The data is divided into 12 topics, and can be accessed through interactive tabl
 You can compare data over time or with another geographical area. When making comparisons in 'survey results' and PDF reports, differences that are statistically significant will be highlighted in light green and light purple. 
 
 #### Exporting Data
-You can download the tables and charts in the 'Survey data' tab. If you want to print all chapters for a specific topic and local authority, you can do so in the 'Create Report' tab. You can copy and export all data for a specific question in the  'Data' tab.
+You can download the tables and charts in the 'Survey Results' tab. If you want to print all chapters for a specific topic and local authority, you can do so in the 'Create Report' tab. You can copy and export all data for a specific question in the  'Data' tab.
 
 ***
 
@@ -60,7 +60,7 @@ In some tables and charts, percentages may have been removed from cells and repl
 
 ### Methodology
 
-Below is a brief summary of the Scottish Household Survey methodology. We also have a more accessible methodology report called [Behind the Numbers] (https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2019/03/scottish-household-survey-methodology-fieldwork-outcomes-2017/documents/scottish-household-survey-behind-numbers-2017-v2/scottish-household-survey-behind-numbers-2017-v2/govscot%3Adocument/scottish-household-survey-behind-numbers-2017v2.pdf). 
+Below is a brief summary of the Scottish Household Survey methodology. We also have a more accessible methodology report called [Behind the Numbers] (https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/scottish-household-survey-2018-methodology-fieldwork-outcomes/documents/scottish-household-survey-behind-numbers-2018/scottish-household-survey-behind-numbers-2018/govscot%3Adocument/scottish-household-survey-behind-numbers-2018.pdf). 
 
 #### Survey Overview
 The survey has run since 1999. Between 1999 and 2011 the survey design was consistent with data being collected in a two-year cycle. From 2012 onwards, the survey was substantially redesigned. The new survey uses a fully unclustered core and modular structure with some questions asked of the full sample and others of a one-third sub-sample. 
@@ -69,13 +69,13 @@ The survey has run since 1999. Between 1999 and 2011 the survey design was consi
 From 2012 the three Scottish Government interviewer-led population surveys have coordinated sample designs. **The sample is disproportionately stratified by local authority**. Samples of the general population exclude prisons, hospitals and military bases. The Royal Mail's small user Postcode Address File (PAF) is used as the sample frame for the address selection. 
 
 #### Data Collection
-The social interview is carried out using Computer Aided Personal Interviewing (CAPI), and is in two parts; Household and Randum Adult. There is a follow-up component comprising of a 'Physical Survey' of the dwelling, conducted by a professional surveyor through a visual inspection of the dwelling.
+The social interview is carried out using Computer Aided Personal Interviewing (CAPI), and is in two parts; Household and Random Adult. There is a follow-up component comprising of a 'Physical Survey' of the dwelling, conducted by a professional surveyor through a visual inspection of the dwelling.
 
 #### Survey Response
-**In 2018, the SHS response rate was 63%**, which accounts to 10,580 interviews conducted. 
+**In 2019, the SHS response rate was 63%**, which accounts to 10,580 interviews conducted. 
 
 #### Survey Weighting
-The weighting methodology was developed by the Scottish Government working with the Methodology Advisory Service at the Office for National Statistics. The weighting procedures incorporate a selection weighting stage to address the unequal selection probabilities and calibration weighting to correct for non-bias. Calibration weighting derives weights such that the weighted survey totals match unknown population totals. 
+The weighting methodology was developed by the Scottish Government working with the Methodology Advisory Service at the Office for National Statistics. The weighting procedures incorporate a selection weighting stage to address the unequal selection probabilities and calibration weighting to correct for non-bias. Calibration weighting derives weights such that the weighted survey totals match known population totals. 
 
 For more detailed information on the SHS methodology and fieldwork outcomes, please read our [Annual Technical Report] (https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/).
 
@@ -85,15 +85,6 @@ For more detailed information on the SHS methodology and fieldwork outcomes, ple
 Statistical significance tells us whether differences between groups or changes over  time are genuine. All proportions produced in a survey have a degree of error associated with them. This is because they are generated from a sample of the population rather than the population as a whole. Any proportion measured in the survey has an associated confidence interval (within which the 'true' proportion of the whole population is likely to lie), usually expressed as ±x%. It is possible with any survey that the sample achieved produces estimates that are outside this range. The number of times out of a 100 surveys when the result achieved would lie within the confidence interval is also quoted; conventionally the level set is 95 out of 100, or 95%. Technically, all results should be quoted in this way. However, it is less cumbersome to simply report the percentage as a single percentage, the convention adopted in the Data Explorer.
 
 The representativeness of survey estimates depends on several things, such as the size of the sample, the sampling fraction and the 'design effect' associated with the sample design. **The confidence intervals used to report statistical significance in the Data Explorer are calculated with a design factor in order to account for the complex sample design**. 
-
-#### Statistical Significance (worked example) 
-Below is a worked example which explains how to interpret results presented in the local authority tables.
-
-The percentage of respondents who said they are satisfied with local health services,  schools and public transport (a composite measure) in 2013 in Aberdeen City was 47% and in Angus it was 58%.  At face value, these values seem to differ significantly.  However, because this figure is based upon a sample we need to calculate confidence intervals to determine where the true value of the population lies.  
-
-In the 'Survey results' tab, the interactive charts provide the margins of error related to the 95% confidence interval. Looking at the two comparative graphs produced for this specific question, we can hover over the specific bars and see that for Aberdeen City (with a base of 310) the lower limit of the 95% confidence interval is 40.5% and the upper limit is 53.5%.  For Angus (with a base of 220) the lower limit is 51.6% and the upper limit is 64.4%. 
-
-Looking at the intervals for the two authorities together we can see that the upper limit for Aberdeen City overlaps with the lower limit for Angus. This means that the difference observed between these two local authorities for this variable is not statistically significant.
 
 
 #### Source 
