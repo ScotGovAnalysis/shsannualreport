@@ -2,7 +2,8 @@ Package: shsannualreport
 Type: Package
 Title: SHS Annual Report
 Version: 0.1.0
-Authors@R: person("Thomas", "Crines", email = "Thomas.Crines@gov.scot", role = c("aut", "cre"))
+Authors@R: c(person("Thomas", "Crines", email = "Thomas.Crines@gov.scot", role = c("aut", "cre")), 
+    person("Viktoria", "Eriksson", email = "Viktoria.Eriksson@gov.scot", role = "aut"))
 Description: A package to take Scottish Household Survey results data and create an R Shiny app.
     Raw data is taken read from Excel data, processed, and a Shiny app built based on the data. 
 License: MIT + file LICENSE
@@ -16,7 +17,6 @@ Depends:
   dplyr,
   magrittr,
   crayon,
-  markdown,
   rmarkdown,
   tinytex,
   png
