@@ -1,2 +1,2 @@
 linters: with_defaults(line_length_linter(320))
-exclusions: list("R/shs_create_reports.R", "inst/app.R"))
+exclusions: list("R/shs_create_reports.R", "inst/app.R")
