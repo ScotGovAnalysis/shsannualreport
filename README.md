@@ -31,9 +31,8 @@ devtools::install_github("thomascrines/shsannualreport")
 If you are working on SCOTS, or if the above does not work, you can
 install manually:
 
-1.  Go to the sdrUpload
-    [repository](https://github.com/thomascrines/shsannualreport) on
-    GitHub
+1.  Go to the shsannualreport repository [master
+    branch](https://github.com/thomascrines/shsannualreport) on GitHub
 2.  Click **Clone or download** then **Download ZIP**
 3.  Save the file locally and unzip
 4.  Install with
@@ -56,8 +55,8 @@ secure folder on Objective Connect.
 If this data has not yet been published, it won’t be available outside
 the SHS team.
 
-If the data has been published, please contact XXX for access to the
-source data.
+If the data has been published, please contact <SHS@gov.scot> to request
+access to the source data.
 
 To prepare source data prior to running the functions in the package:
 
@@ -226,6 +225,8 @@ any functions will prevent errors.*
 ### shs\_create\_names\_workbooks
 
 ``` r
+library(shsannualreport)
+
 destination_directory <- "C:/Users/[user's U number]/Downloads/names"
 source_dataset_directory <- "C:/Users/[user's U number]/Downloads/data/dataset"
 columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
@@ -233,11 +234,11 @@ existing_column_names_path <- "C:/Users/[user's U number]/Downloads/old_column_n
 existing_variable_names_path <- "C:/Users/[user's U number]/Downloads/old_variable_names.xlsx"
 
 
-shsannualreport::shs_create_names_workbooks(destination_directory = destination_directory,
-                                            source_dataset_directory = source_dataset_directory,
-                                            columns_to_remove = columns_to_remove,
-                                            existing_column_names_path = existing_column_names_path,
-                                            existing_variable_names_path = existing_variable_names_path)
+shs_create_names_workbooks(destination_directory = destination_directory,
+                           source_dataset_directory = source_dataset_directory,
+                           columns_to_remove = columns_to_remove,
+                           existing_column_names_path = existing_column_names_path,
+                           existing_variable_names_path = existing_variable_names_path)
 ```
 
 ### shs\_create\_app\_data
@@ -250,17 +251,19 @@ the paths passed to `column_names_workbook_path` and
 the `shs_create_names_workbooks` example above.*
 
 ``` r
+library(shsannualreport)
+
 destination_directory <- "C:/Users/[user's U number]/Downloads/appdata"
 source_data_directory <- "C:/Users/[user's U number]/Downloads/data"
 columns_to_remove <- c("sort", "_LABEL_", "var", "LABEL")
 column_names_workbook_path <- "C:/Users/[user's U number]/Downloads/names/column_names.xlsx"
 variable_names_workbook_path <- "C:/Users/[user's U number]/Downloads/names/variable_names.xlsx"
 
-shsannualreport::shs_create_app_data(destination_directory = destination_directory,
-                                     source_data_directory = source_data_directory,
-                                     columns_to_remove = columns_to_remove,
-                                     column_names_workbook_path = column_names_workbook_path,
-                                     variable_names_workbook_path = variable_names_workbook_path)
+shs_create_app_data(destination_directory = destination_directory,
+                    source_data_directory = source_data_directory,
+                    columns_to_remove = columns_to_remove,
+                    column_names_workbook_path = column_names_workbook_path,
+                    variable_names_workbook_path = variable_names_workbook_path)
 ```
 
 ### shs\_create\_app
@@ -270,13 +273,15 @@ shsannualreport::shs_create_app_data(destination_directory = destination_directo
 `shs_create_app` can be run without re-running `shs_create_app_data`.*
 
 ``` r
+library(shsannualreport)
+
 destination_directory <- "C:/Users/[user's U number]/Downloads"
 data_directory <- "C:/Users/[user's U number]/Downloads/appdata/data"
 reports_start_year <- 2013
 reports_end_year <- 2019
 
-shsannualreport::shs_create_app(destination_directory = destination_directory,
-                                data_directory = data_directory,
-                                reports_start_year = reports_start_year,
-                                reports_end_year = reports_end_year)
+shs_create_app(destination_directory = destination_directory,
+               data_directory = data_directory,
+               reports_start_year = reports_start_year,
+               reports_end_year = reports_end_year)
 ```
