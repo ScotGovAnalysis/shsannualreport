@@ -36,7 +36,7 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
   rename_columns <- colnames(df)[3:end_of_sequence]
   colnames <- names(df)
 
-  df$Year = year
+  df$Year <- year
   df <- df[, c("Year", colnames)]
 
   first_gather_column_index <- 4
@@ -61,7 +61,7 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
     tidyr::spread("gather_key", "Percent")
 
   column_order <- c("Year", "Council", col_2_name, rename_columns, if ("All" %in% colnames(df)) {"All"}, "Base")
-  percent_values <- percent_values[,column_order]
+  percent_values <- percent_values[, column_order]
 
   sig_lower_string <- paste0("sig_lower_values <- df %>% dplyr::select(`Year`, `Council`, `",
                              col_2_name,
@@ -87,16 +87,12 @@ shs_process_table_type_3 <- function(data_file_path, design_factors_path) {
   sig_upper_string <- (substr(sig_upper_string, 1, nchar(sig_upper_string) - 2)) %>%
     paste0(")")
 
-  # bind_string <- paste0("df <- dplyr::bind_cols(c(percent_values, sig_lower_values, sig_upper_values)) %>%",
-  #                       " dplyr::select(-Year1, -Council1, -`", col_2_name, "1`, -Year2, -Council2, -`", col_2_name, "2`)")
-
   get_order_string <- paste0("df$`", col_2_name, "`  <- factor(df$`", col_2_name, "`, levels = row_order)")
 
   reorder_string <- paste0("df <- df[order(df$`", col_2_name, "`),]")
 
   eval(parse(text = sig_lower_string))
   eval(parse(text = sig_upper_string))
-  # eval(parse(text = bind_string))
   significance_length <- length(sig_lower_values)
   df <- dplyr::bind_cols(c(percent_values, sig_lower_values[4:significance_length], sig_upper_values[4:significance_length]))
   eval(parse(text = get_order_string))

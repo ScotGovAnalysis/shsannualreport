@@ -24,7 +24,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   }, error = function(cond) {
     message(paste0("Couldn't read file: ", data_file_path))})
 
-  df <- df[!duplicated(df),]
+  df <- df[!duplicated(df), ]
 
   design <- readRDS(design_factors_path)
 
@@ -43,18 +43,18 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
   }
 
   colnames <- names(df)
-  df$Year = year
+  df$Year <- year
   df <- df[, c("Year", colnames)]
 
   first_gather_column_index <- 4
   last_gather_column_index <- length(names(df))
 
-  df <- tidyr::gather(df, key=gather_key, value=Percent, first_gather_column_index:last_gather_column_index) %>%
+  df <- tidyr::gather(df, key = gather_key, value = Percent, first_gather_column_index:last_gather_column_index) %>%
     dplyr::group_by(Council, Year, gather_key) %>%
     dplyr::mutate(Base = Percent)
-  df$Base <- grepl('Base', df$temp_variable_name)
+  df$Base <- grepl("Base", df$temp_variable_name)
   df$Base <- ifelse(df$Base == FALSE, NA, df$Percent)
-  df <- tidyr::fill(df, Base, .direction= c ("up"))
+  df <- tidyr::fill(df, Base, .direction = c("up"))
   df <- df %>%
     merge(design, by = "Year") %>%
     dplyr::mutate(sig_value = 1.96 * as.numeric(Factor) * (sqrt((as.numeric(Percent) / 100) * (1 - (as.numeric(Percent) / 100)) / as.numeric(Base))),
@@ -66,7 +66,7 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   percent_values <- df %>%
     dplyr::select("Year", "Council", "temp_variable_name", "gather_key", "Percent") %>%
-    tidyr::spread(key = "gather_key", value = "Percent" )
+    tidyr::spread(key = "gather_key", value = "Percent")
 
   colnames(df)[3] <- col_2_name
   colnames(percent_values)[3] <- col_2_name
@@ -124,7 +124,6 @@ shs_process_table_type_2 <- function(data_file_path, design_factors_path) {
 
   eval(parse(text = sig_lower_string))
   eval(parse(text = sig_upper_string))
-  # eval(parse(text = bind_string))
   significance_length <- length(sig_lower_values)
   df <- dplyr::bind_cols(c(percent_values, sig_lower_values[4:significance_length], sig_upper_values[4:significance_length]))
   eval(parse(text = select_string))
