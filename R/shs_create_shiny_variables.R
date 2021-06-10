@@ -136,7 +136,7 @@ shs_create_shiny_variables <- function(reports_start_year,
 
   select_topic_string <- "select_list_topics <- c("
 
-  counter <- 2
+  counter <- 1
   for (topic_title in topic_titles[topic_titles$has_data == "y", ]$title) {
 
     select_topic_string <- paste0(select_topic_string, "\"Topic ", counter, ": ",
