@@ -107,7 +107,8 @@ ui <- fluidPage(
                        fluidRow(
                            conditionalPanel(condition = "input.navigation_mode == 'Search questions'",
                                             column(12, selectizeInput('searchbar', 'Search',
-                                                                      choices = c(select_list_questions_topic_2,
+                                                                      choices = c(select_list_questions_topic_1,
+                                                                                  select_list_questions_topic_2,
                                                                                   select_list_questions_topic_3,
                                                                                   select_list_questions_topic_4,
                                                                                   select_list_questions_topic_5,
@@ -117,8 +118,7 @@ ui <- fluidPage(
                                                                                   select_list_questions_topic_9,
                                                                                   select_list_questions_topic_10,
                                                                                   select_list_questions_topic_11,
-                                                                                  select_list_questions_topic_12,
-                                                                                  select_list_questions_topic_13
+                                                                                  select_list_questions_topic_12
                                                                       ),
                                                                       selected="Search",
                                                                       options = list(
@@ -603,55 +603,56 @@ server <- function(input, output, session) {
 
             if (grepl("The Composition and Characteristics of Households in Scotland", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_1)
 
             } else if (grepl("Housing", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_3)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_2)
 
             } else if (grepl("Neighbourhoods and Communities", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_4)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_3)
 
             } else if (grepl("Economic Activity", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_5)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_4)
 
             } else if (grepl("Finance", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_6)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_5)
 
             } else if (grepl("Internet", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_7)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_6)
 
             } else if (grepl("Physical Activity and Sport", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_8)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_7)
 
             } else if (grepl("Local Services", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_9)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_8)
 
             } else if (grepl("Environment", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_10)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_9)
 
             } else if (grepl("Volunteering", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_11)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_10)
 
             } else if (grepl("Culture and Heritage", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_12)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_11)
 
             } else if (grepl("Childcare", input$select_topic, fixed = TRUE)) {
 
-                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_13)
+                updateSelectInput(session, inputId = "select_question", label = "Question", choices = select_list_questions_topic_12)
             }
 
             updateSelectizeInput(session, 'searchbar', 'Search',
-                                 choices = c(select_list_questions_topic_2,
+                                 choices = c(select_list_questions_topic_1,
+                                             select_list_questions_topic_2,
                                              select_list_questions_topic_3,
                                              select_list_questions_topic_4,
                                              select_list_questions_topic_5,
@@ -711,51 +712,51 @@ server <- function(input, output, session) {
 
         if (grepl("The Composition and Characteristics of Households in Scotland", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_2, selected = select_list_questions_topic_2[1])
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_1, selected = select_list_questions_topic_1[1])
 
         } else if (grepl("Housing", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_3)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_2)
 
         } else if (grepl("Neighbourhoods and Communities", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_4)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_3)
 
         } else if (grepl("Economic Activity", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_5)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_4)
 
         } else if (grepl("Finance", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_6)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_5)
 
         } else if (grepl("Internet", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_7)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_6)
 
         } else if (grepl("Physical Activity and Sport", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_8)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_7)
 
         } else if (grepl("Local Services", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_9)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_8)
 
         } else if (grepl("Environment", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_10)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_9)
 
         } else if (grepl("Volunteering", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_11)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_10)
 
         } else if (grepl("Culture and Heritage", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_12)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_11)
 
         } else if (grepl("Childcare", input$select_excel_topic, fixed = TRUE)) {
 
-            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_13)
+            updateSelectInput(session, inputId = "select_excel_question", label = "Question", choices = select_list_questions_topic_12)
         }
     })
 
