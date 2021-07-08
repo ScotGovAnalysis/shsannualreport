@@ -19,6 +19,7 @@ options(scipen=999)
 # ui ####
 
 ui <- fluidPage(
+    includeCSS("www/styles.css"),
 
     # Welcome banner ####
 
