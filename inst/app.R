@@ -33,7 +33,7 @@ ui <- fluidPage(
                  fluidRow(
                      column(11, "We are still working on the site and welcome any comments and suggestions to ",
                             tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
-                     column(1, actionButton("close_banner", "" , alt = "Button to close banner", icon=icon("times")))
+                     column(1, actionButton("close_banner", "" , icon=icon("times")))
                  ),
                  style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
     ),
@@ -57,28 +57,29 @@ ui <- fluidPage(
                                 br(),
                                 h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
                                 br(),
-                                h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
-                                br(),
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Click on your topic of interest below and start exploring the data!", style = "text-align: center"),
 
                             )
                             )
                         ),
 
-                        fluidRow(column(10, offset = 1, actionButton("topic", "Topics", width = "100%", style = "color: #fff; background-color: #2C3E50; font-size: 200%"))),
+                        fluidRow(
+                            h2("Topics", style= "text-align: center")
+                        ),
 
                         fluidRow(
-                            column(10, offset = 1, actionButton("home_to_demographics", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_housing", "Housing", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_finance", "Finance", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_internet", "Internet", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_physical_activity", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
+                            column(10, offset = 1, actionButton("home_to_demographics", "Demographics", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_housing", "Housing", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_finance", "Finance", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_internet", "Internet", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_physical_activity", "Physical Activity", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_local_services", "Local Services", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_environment", "Environment", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_volunteering", "Volunteering", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_culture", "Culture", width = "100%", class = "button", style = "font-size: 150%")),
+                            column(10, offset = 1, actionButton("home_to_childcare", "Childcare", width = "100%", class = "button", style = "font-size: 150%"))),
                         br(), br(),
                         column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%", alt = "Scottish Household logo"))),
                         column(3, offset = 2, p(img(src = "nat_stat.png", width = "100", height = "100", alt = "National Statistics logo"))),
@@ -309,6 +310,37 @@ ui <- fluidPage(
                                    HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/LI-RlYzH0ug" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
                             )
                         )
+               ),
+
+               #Accessibility statement
+               tabPanel("Accessibility", value = "accessibilityTab", style = "margin-left: 15%; margin-right: 15%; margin-bottom: 4%",
+                        fluidRow(
+                            h2("Accessibility Statement"),
+                            h5("This website is run by the Scottish Government. We want as many people as possible to be able to use this website. For example, that means you should be able to:"),
+                            tags$li("zoom in up to 300% without the text spilling off the screen"),
+                            tags$li("navigate most of the website using just a keyboard"),
+                            tags$li("listen to some of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
+We’ve also made the website text as simple as possible to understand."),
+                            h3("Feedback"),
+                            h5("Please contact us if you:"),
+                            tags$li("Cannot access any part of this site or want to report an accessibility problem."),
+                            tags$li("Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can."),
+                            h3("Enforcement"),
+                            h5("If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next."),
+                            h3("Compliance"),
+                            h5("Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."),
+
+
+                            h5("
+This accessibility statement applies to the Scottish Household Survey website."),
+                            h3("Compliance status"),
+                            h5("This website is partially compliant with the regulations, due to the non-compliances listed below."),
+                            h3("Non-accessible content"),
+                            h5("The content listed below is not-compliant with the regulations:"),
+                            tags$li("You cannot skip to the main content when using a screen reader"),
+                            tags$li("The “Take a Tour” section is not fully accessible to screen reader software"),
+                            tags$li("Charts are difficult for people using screen readers to access"),
+                            tags$li("Some charts contain colours that are difficult for colour-blind people to distinguish"))
                )
     )
 )
