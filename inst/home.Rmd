@@ -103,4 +103,4 @@ First release
 
 05/10/2021
 
-Resolve PDf generator issues
+Resolved issues that were preventing users from generating reports for local authorities with the special character "&" in their name. 
