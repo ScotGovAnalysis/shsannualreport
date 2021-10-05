@@ -3,45 +3,15 @@
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 300;
-    line-height: 1.5;
+    line-height: 1.1;
     color: inherit;
 }
 
 body {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.4;
     color: #222222;
     background-color: #ffffff;
     margin: 0;
-}
-
-a {
-    color: #25648f;
-}
-
-a:hover {
-    color: #25648f;
-    text-decoration: underline;
-}
-
-.topbar > a:hover,
-.topbar .navbar-default .navbar-nav > li > a:hover,
-.topbar .nav > li > a:hover,
-.topbar > a:focus,
-.topbar .navbar-default .navbar-nav > li > a:focus,
-.topbar .nav > li > a:focus {
-  color: black;
-}
-
-ul.nav a:hover { color: #77a9d1 !important; }
-
-.button{
-    background-color: #84a8d4;
-    border-color: #84a8d4;
-}
-.button:hover {
-  background-color: #2C3E50;
-  border-color: #2C3E50;
-  color: white;
 }

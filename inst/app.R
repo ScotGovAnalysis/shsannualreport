@@ -19,7 +19,6 @@ options(scipen=999)
 # ui ####
 
 ui <- fluidPage(
-    includeCSS("www/styles.css"),
 
     # Welcome banner ####
 
@@ -48,44 +47,40 @@ ui <- fluidPage(
 
                # Home tab ####
 
-               tabPanel("Home", value = "homeTab", style = "margin-left: 20%; margin-right: 20%; margin-bottom: 4%",
+               tabPanel("Home", value = "homeTab", style = "margin-left: 10%; margin-right: 10%",
                         fluidRow(
-                            column(12, p(img(src = "home_logo.png", width = "100%", height = "100%", alt = "Scottish Household Survey logo"))),
-                            column(12, fluidRow(
-                                h1("Scottish Household Survey ", style = "text-align: center"),
-                                h1("Data Explorer", style = "text-align: center"),
+                            HTML('<center><img src = "home_logo.png"></center>'),
+                            column(8, offset = 2, wellPanel(
+                                tags$h1("Scottish Household Survey", style = "text-align: center"),
+                                tags$h1("Data Explorer", style = "text-align: center"),
                                 br(),
-                                h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
-                                br(),
-                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Click on your topic of interest below and start exploring the data!", style = "text-align: center"),
+                                tags$h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
+                                tags$h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. The survey covers 12 different topics. Choose your topic of interest below and start exploring the data!", style = "text-align: center")
 
                             )
                             )
                         ),
 
-                        fluidRow(
-                            h2("Topics", style= "text-align: center")
-                        ),
+                        fluidRow(column(8, offset = 2, actionButton("topic", "Topics", width = "100%", style = "color: #fff; background-color: #2C3E50; font-size: 200%"))),
 
                         fluidRow(
-                            column(10, offset = 1, actionButton("home_to_demographics", "Demographics", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_housing", "Housing", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_finance", "Finance", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_internet", "Internet", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_physical_activity", "Physical Activity", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_local_services", "Local Services", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_environment", "Environment", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_volunteering", "Volunteering", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_culture", "Culture", width = "100%", class = "button", style = "font-size: 150%")),
-                            column(10, offset = 1, actionButton("home_to_childcare", "Childcare", width = "100%", class = "button", style = "font-size: 150%"))),
+                            column(4, offset = 2, actionButton("home_to_demographics", "Demographics", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_housing", "Housing", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_neighbourhoods", "Neighbourhoods", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_economic_activity", "Economic Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_finance", "Finance", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_internet", "Internet", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_physical_activity", "Physical Activity", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_local_services", "Local Services", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_environment", "Environment", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_volunteering", "Volunteering", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, offset = 2, actionButton("home_to_culture", "Culture", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%")),
+                            column(4, actionButton("home_to_childcare", "Childcare", width = "100%", style = "color: #fff; background-color: #008080; font-size: 150%"))),
                         br(), br(),
-                        column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%", alt = "Scottish Household logo"))),
-                        column(3, offset = 2, p(img(src = "nat_stat.png", width = "100", height = "100", alt = "National Statistics logo"))),
+                        column(6, offset = 1, p(img(src = "SG_master_logo_RGB.jpg", width = "100%", height = "100%"))),
+                        column(3, offset = 2, p(img(src = "nat_stat.png", width = 130, height = 130))),
                         br(), br(), br(), br(), br(),
-                        column(6, offset = 4,
-                               actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right")),
+                        actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right"),
                         br(), br()
                ),
 
@@ -130,7 +125,6 @@ ui <- fluidPage(
                                                                           placeholder = "Type here to find what question you are looking for",
                                                                           onInitialize = I('function() { this.setValue(""); }')
                                                                       )
-
                                             ))
                            ),
                            conditionalPanel(condition = "input.navigation_mode == 'Browse by topic and question'",
@@ -206,20 +200,18 @@ ui <- fluidPage(
                tabPanel(
                    div(icon("fal fa-clipboard-list"),
                        "Create Report"),
-                   style = "margin-left: 10%; margin-right: 10%",
+                   style = "margin-left: 4%; margin-right: 4%",
 
                    fluidRow(
-                       column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%", alt = "Scottish Household Survey logo")))
+                       column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
                    ),
 
-                   fluidRow(
-                       column(12, h4("Download survey results as a PDF report.")),
-                       column(12, h5("Below you can download all tables in a topic for a local authority or Scotland, and a specific year as a PDF report.")),
-                       column(12, h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year.")),
-                       column(12, h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears."),br()),
-
+                   wellPanel(style = "background: #D9DDF9",
+                             h4("Download survey results as a PDF Report."),
+                             h5("Below you can download all the tables in a topic for a local authority or Scotland, and a specific year as a PDF report."),
+                             h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year."),
+                             h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears.")
                    ),
-
                    wellPanel(
                        fluidRow(
                            column(8, selectInput("select_report_topic", label = "Topic", choices = select_list_topics, width = "100%"))
@@ -259,88 +251,58 @@ ui <- fluidPage(
 
                # Resources tab ####
 
-               tabPanel("Resources", value = "resourcesTab", style = "margin-left: 10%; margin-right: 10%; margin-bottom: 4%",
+               tabPanel("Resources", value = "resourcesTab", style = "margin-left: 4%; margin-right: 4%",
 
                         fluidRow(
-                            column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%", alt = "Scottish Household Survey logo")))
+                            column(4, offset = 4, p(img(src = "new_logo.png", height = "70%", width = "70%")))
                         ),
 
                         fluidRow(
-                            column(12,
-                                   p(h3("Get in touch")),
-                                   p(h5("Email:", tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot"))),
-                                   p(h5("Telephone: 0131 244 1685")),
-                                   p("SHS Project Team, Communities Analysis Division, Area 2H North, Victoria Quay, Edinburgh, EH6 6QQ"),
-
-
+                            column(3,
+                                   wellPanel(
+                                       p(tags$h3("Get in touch...")), br(),
+                                       p("SHS Project Team, Communities Analysis Division, Area 2H North, Victoria Quay, Edinburgh, EH6 6QQ"), br(),
+                                       p("Email:", tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
+                                       p("Telephone: 0131 244 1685"), br()
+                                   )
                             ),
 
-                            column(12,
-                                   h3("Technical resources"),
-                                   p("To get in-depth survey analysis, read the most recent", tags$a(href = "https://www.gov.scot/isbn/9781839609848/", target = "_blank", "annual SHS publication.")),
-                                   p("If you want a brief insight into survey findings, read the most recent", tags$a(href = "https://www.gov.scot/isbn/9781839609855", target = "_blank", "key findings report.")),
-                                   p("For further information on our survey questions, read the full", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-questionnaires/", target = "_blank", "questionnaire for each year.")),
-                                   p("Want more technical survey information? Read our", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/", target = "_blank", "methodology report.")),
-                                   br(), br(), br()
-
+                            column(4,
+                                   wellPanel(
+                                       tags$h3("Technical resources"), br(),
+                                       p("For the most recent annual SHS publication,", tags$a(href = "https://www.gov.scot/isbn/9781839609848/", target = "_blank", "Click here!")),
+                                       p("For the most recent key findings report,", tags$a(href = "https://www.gov.scot/isbn/9781839609855", target = "_blank", "Click here!")),
+                                       p("To see the full questionnaire for each year,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-questionnaires/", target = "_blank", "Click here!")),
+                                       p("To view the SHS methodology,", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/", target = "_blank", "Click here!")),
+                                       br(), br(), br()
+                                   )
                             ),
 
                             column(5, HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/OgMbrDXZK-s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'))
                         ),
 
                         fluidRow(
-                            column(12,
-                                   h3("Learn more about SHS"),
-                                   h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
-                                   br(),
-                                   p(icon("fas fa-clipboard-list"), tags$a(href = "https://veriksson94.shinyapps.io/shsapptutorial/", target = "_blank", "Data Explorer Quiz")),
-                                   p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/september-2018/", target = "_blank", "Inquality Data Comic"), tags$em("illustrated by Katie Quinn")),
-                                   p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/", target = "_blank", "Housing and Finances Data Comic"), tags$em("illustrated by Katie Quinn")),
-                                   p(icon("far fa-book"), tags$a(href = "https://www.gov.scot/publications/single-step/", target = "_blank", "Physical Activity Report")),
-                                   p(icon("fas fa-video"), tags$a(href = "https://www.youtube.com/watch?v=OgMbrDXZK-s&feature=youtu.be", target = "_blank", "Scottish Household Survey Animation")),
-                                   p(icon("fas fa-video"), tags$a(href = "https://twitter.com/scotgov/status/1171469690809401351?ref_src=twsrc%5Etfw%22%3E", target = "_blank", "SHS 2018 Findings Video")),
-                                   p(icon("fas fa-microphone"), tags$a(href = "https://twitter.com/digitalscots/status/1183726105662050310?s=20&utm_source=FutureScot+-+MASTER&utm_campaign=7f20a2c022-EMAIL_CAMPAIGN_1_10_2019_10_25_COPY_01&utm_medium=email&utm_term=0_a4962b4dbd-7f20a2c022-147245485", target = "_blank", "Scottish Household Survey Podcast"), tags$em("with Roger Halliday and Emma McCallum")),
-                                   p(icon("fas fa-window-restore"), tags$a(href = "https://scotland.shinyapps.io/sg-scottish-household-survey/", target = "_blank", "Scottish Household Survey App")),
-                                   p(icon("fas fa-clipboard-list"), tags$a(href = "https://docs.google.com/forms/d/e/1FAIpQLScGNvzKa-cspn_-tLf4yzSzwDuojRgA6pWV5Hl54al_t-EBjA/viewform", target = "_blank", "SHS 2018 Findings Quiz")),
-                                   br()
-
+                            column(7,
+                                   wellPanel(
+                                       tags$h3("Learn more about SHS"),
+                                       tags$h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
+                                       br(),
+                                       p(icon("fas fa-clipboard-list"), tags$a(href = "https://veriksson94.shinyapps.io/shsapptutorial/", target = "_blank", "Data Explorer Quiz")),
+                                       p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/september-2018/", target = "_blank", "Inquality Data Comic"), tags$em("illustrated by Katie Quinn")),
+                                       p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/", target = "_blank", "Housing and Finances Data Comic"), tags$em("illustrated by Katie Quinn")),
+                                       p(icon("far fa-book"), tags$a(href = "https://www.gov.scot/publications/single-step/", target = "_blank", "Physical Activity Report")),
+                                       p(icon("fas fa-video"), tags$a(href = "https://www.youtube.com/watch?v=OgMbrDXZK-s&feature=youtu.be", target = "_blank", "Scottish Household Survey Animation")),
+                                       p(icon("fas fa-video"), tags$a(href = "https://twitter.com/scotgov/status/1171469690809401351?ref_src=twsrc%5Etfw%22%3E", target = "_blank", "SHS 2018 Findings Video")),
+                                       p(icon("fas fa-microphone"), tags$a(href = "https://twitter.com/digitalscots/status/1183726105662050310?s=20&utm_source=FutureScot+-+MASTER&utm_campaign=7f20a2c022-EMAIL_CAMPAIGN_1_10_2019_10_25_COPY_01&utm_medium=email&utm_term=0_a4962b4dbd-7f20a2c022-147245485", target = "_blank", "Scottish Household Survey Podcast"), tags$em("with Roger Halliday and Emma McCallum")),
+                                       p(icon("fas fa-window-restore"), tags$a(href = "https://scotland.shinyapps.io/sg-scottish-household-survey/", target = "_blank", "Scottish Household Survey App")),
+                                       p(icon("fas fa-clipboard-list"), tags$a(href = "https://docs.google.com/forms/d/e/1FAIpQLScGNvzKa-cspn_-tLf4yzSzwDuojRgA6pWV5Hl54al_t-EBjA/viewform", target = "_blank", "SHS 2018 Findings Quiz"))
+                                   )
                             ),
 
                             column(5,
                                    HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/LI-RlYzH0ug" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
                             )
                         )
-               ),
-
-               #Accessibility statement
-               tabPanel("Accessibility", value = "accessibilityTab", style = "margin-left: 15%; margin-right: 15%; margin-bottom: 4%",
-                        fluidRow(
-                            h2("Accessibility Statement"),
-                            h5("This website is run by the Scottish Government. We want as many people as possible to be able to use this website. For example, that means you should be able to:"),
-                            tags$li("zoom in up to 300% without the text spilling off the screen"),
-                            tags$li("navigate most of the website using just a keyboard"),
-                            tags$li("listen to some of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
-We’ve also made the website text as simple as possible to understand."),
-                            h3("Feedback"),
-                            h5("Please contact us if you:"),
-                            tags$li("Cannot access any part of this site or want to report an accessibility problem."),
-                            tags$li("Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can."),
-                            h3("Enforcement"),
-                            h5("If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next."),
-                            h3("Compliance"),
-                            h5("Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."),
-
-
-                            h5("
-This accessibility statement applies to the Scottish Household Survey website."),
-                            h3("Compliance status"),
-                            h5("This website is partially compliant with the regulations, due to the non-compliances listed below."),
-                            h3("Non-accessible content"),
-                            h5("The content listed below is not-compliant with the regulations:"),
-                            tags$li("You cannot skip to the main content when using a screen reader"),
-                            tags$li("The “Take a Tour” section is not fully accessible to screen reader software"),
-                            tags$li("Charts are difficult for people using screen readers to access"),
-                            tags$li("Some charts contain colours that are difficult for colour-blind people to distinguish"))
                )
     )
 )
@@ -354,7 +316,7 @@ server <- function(input, output, session) {
 
     welcome_modal <- modalDialog(
 
-        p(img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: center"),
+        p(img(src = "new_logo.png", height = "50%", width = "50%"), style = "text-align: center"),
         br(),
         tags$div(h4("The Data Explorer provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
                  style = "color: 0E3E5D; font-size:20px; text-align: center"),
@@ -381,7 +343,7 @@ server <- function(input, output, session) {
         size = "l",
         fluidRow(
             br(),
-            img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: center"),
+            img(src = "new_logo.png", height = "50%", width = "50%"), style = "text-align: center"),
         h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's look at how to use the website!"),
         actionButton("back0", "Back", icon("chevron-circle-left")),
         actionButton("next1", "Next", icon("play-circle"))
