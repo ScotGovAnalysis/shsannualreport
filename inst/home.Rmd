@@ -101,3 +101,6 @@ Below is a summary of all the changes made to this app.
 
 First release
 
+05/10/2021
+
+Resolved issues that were preventing users from generating reports for local authorities with the special character "&" in their name. 
