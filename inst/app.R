@@ -52,12 +52,11 @@ ui <- fluidPage(
                         fluidRow(
                             column(12, p(img(src = "home_logo.png", width = "100%", height = "100%", alt = "Scottish Household Survey logo"))),
                             column(12, fluidRow(
-                                h1("Scottish Household Survey ", style = "text-align: center"),
-                                h1("Data Explorer", style = "text-align: center"),
+                                h1("Scottish Household Survey Data Explorer", style = "text-align: left"),
                                 br(),
-                                h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: center"),
+                                h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: left"),
                                 br(),
-                                h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Choose your topic of interest below and start exploring the data!", style = "text-align: center"),
+                                h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Choose your topic of interest below and start exploring the data!", style = "text-align: left"),
                                 br(),
 
 
