@@ -28,15 +28,13 @@ ui <- fluidPage(
         useShinyjs(),
 
         tags$div(id="welcome_banner",
-                 "Welcome to the new Scottish Household Survey Data Explorer.",
-                 br(),
                  fluidRow(
-                     column(11, "We are still working on the site and welcome any comments and suggestions to ",
-                            tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
-                     column(1, actionButton("close_banner", "" , alt = "Button to close banner", icon=icon("times")))
-                 ),
-                 style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;font-weight:bold;")
+                     column(11, p("We are still working on the site and welcome any comments to", tags$a(href = "mailto:shs@gov.scot", target="_blank", "shs@gov.scot"))),
+                     column(1, actionButton("close_banner", "" , class="close-button", icon=icon("times"))),
+
+                     style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;"))
     ),
+
 
     # Navbar page ####
 
@@ -54,10 +52,9 @@ ui <- fluidPage(
                             column(12, fluidRow(
                                 h1("Scottish Household Survey Data Explorer", style = "text-align: left"),
                                 br(),
-                                h4("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: left"),
-                                br(),
-                                h4("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Choose your topic of interest below and start exploring the data!", style = "text-align: left"),
-                                br(),
+                                p("Since 1999, the Scottish Household Survey collects and provides information about Scottish households.", style = "text-align: left"),
+                                p("This website provides up-to-date, comparable information on Scottish households at local authority and national level. Choose your topic of interest below and start exploring the data!", style = "text-align: left"),
+
 
 
                             )
@@ -65,7 +62,7 @@ ui <- fluidPage(
                         ),
 
                         fluidRow(
-                            h2("Topics", style= "text-align: center")
+                            h1("Topics", style= "text-align: center")
                         ),
 
                         fluidRow(
@@ -86,7 +83,7 @@ ui <- fluidPage(
                         column(3, offset = 2, p(img(src = "nat_stat.png", width = "100", height = "100", alt = "National Statistics logo"))),
                         br(), br(), br(), br(), br(),
                         column(6, offset = 4,
-                               actionButton("reload_modal", "Reload 'Take a Tour'", style = "text-align: right")),
+                               actionButton("reload_modal", "Reload 'Take a Tour'", class="close-button")),
                         br(), br()
                ),
 
@@ -155,9 +152,9 @@ ui <- fluidPage(
                            tabPanel("Table",
                                     fluidRow(h3(textOutput("main_title"))),
                                     fluidRow(
-                                        column(8, h4(textOutput("main_table_type_comment"))),
-                                        column(2, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download Table"))),
-                                        column(1, offset = 1, actionButton("helpTable", icon("question")))
+                                        column(9, h4(textOutput("main_table_type_comment"))),
+                                        column(1, conditionalPanel(condition = "output.question_type != '0'", downloadButton("download_table", "Download", class="close-button"))),
+                                        column(1, offset= 1, actionButton("helpTable", "Help", icon("question"), class = "close-button"))
                                     ),
                                     fluidRow(h5(textOutput("comment"))),
                                     fluidRow(h5(htmlOutput("link"))),
@@ -180,7 +177,7 @@ ui <- fluidPage(
                                                                                                                                                           "Y-axis zoom level:",
                                                                                                                                                           selected = "Full scale",
                                                                                                                                                           choices = c("Zoom to data", "Full scale")))),
-                                        column(1, actionButton("help", icon("question")))
+                                        column(1, actionButton("help", "Help", icon("question"), class="close-button"))
                                     ),
                                     fluidRow(h4(textOutput("main_chart_type_comment"))),
 
@@ -214,10 +211,10 @@ ui <- fluidPage(
                    ),
 
                    fluidRow(
-                       column(12, h4("Download survey results as a PDF report.")),
-                       column(12, h5("Below you can download all tables in a topic for a local authority or Scotland, and a specific year as a PDF report.")),
-                       column(12, h5("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year.")),
-                       column(12, h5("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears."),br()),
+                       column(12, tags$b(p("Download survey results as a PDF report."))),
+                       column(12, p("Below you can download all tables in a topic for a local authority or Scotland, and a specific year as a PDF report.")),
+                       column(12, p("You can also include a comparison in your PDF report. Either compare your local authority with another local authority, national figures, or another year.")),
+                       column(12, p("Once you have selected your inputs, click on 'Generate Report' and wait until the download button appears."),br()),
                    ),
                    wellPanel(
                        fluidRow(
@@ -233,8 +230,8 @@ ui <- fluidPage(
                        )),
 
                    fluidRow(
-                       column(3, actionButton("generate", "Generate Report", icon = icon("file"))),
-                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report")))
+                       column(3, actionButton("generate", "Generate Report", icon = icon("file"), class = "close-button")),
+                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report", class = "close-button")))
                    )
                ),
 
@@ -244,8 +241,8 @@ ui <- fluidPage(
                    div(icon("far fa-folder-open"), "Data"), value = "csv", style = "margin-left: 4%; margin-right: 4%; margin-bottom: 4%",
 
                    wellPanel(
-                       h4("Below you will find all the data for each table and chart found in our survey results."),
-                       h4("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
+                       p("Below you will find all the data for each table and chart found in our survey results."),
+                       p("You can download the full Scottish Household Survey micro-level datasets at",  tags$a(href = "https://beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000048", target = "_blank", "UK Data Service.")
                        )),
 
                    fluidRow(
@@ -266,14 +263,14 @@ ui <- fluidPage(
 
                         fluidRow(
                             column(12,
-                                   p(h3("Get in touch")),
-                                   p(h5("Email:", tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot"))),
-                                   p(h5("Telephone: 0131 244 1685")),
+                                   p(h2("Get in touch")),
+                                   p("Email:", tags$a(href = "mailto:shs@gov.scot", "shs@gov.scot")),
+                                   p("Telephone: 0131 244 1685"),
                                    p("SHS Project Team, Communities Analysis Division, Area 2H North, Victoria Quay, Edinburgh, EH6 6QQ"),
                             ),
 
                             column(12,
-                                   h3("Technical resources"),
+                                   h2("Technical resources"),
                                    p("To get in-depth survey analysis, read the most recent", tags$a(href = "https://www.gov.scot/isbn/9781839609848/", target = "_blank", "annual SHS publication.")),
                                    p("If you want a brief insight into survey findings, read the most recent", tags$a(href = "https://www.gov.scot/isbn/9781839609855", target = "_blank", "key findings report.")),
                                    p("For further information on our survey questions, read the full", tags$a(href = "https://www.gov.scot/publications/scottish-household-survey-questionnaires/", target = "_blank", "questionnaire for each year.")),
@@ -286,8 +283,8 @@ ui <- fluidPage(
 
                         fluidRow(
                             column(12,
-                                   h3("Learn more about SHS"),
-                                   h5("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
+                                   h2("Learn more about SHS"),
+                                   p("The SHS team is passionate about finding new ways to share our data and findings. Below is a range of different media."),
                                    br(),
                                    p(icon("fas fa-clipboard-list"), tags$a(href = "https://veriksson94.shinyapps.io/shsapptutorial/", target = "_blank", "Data Explorer Quiz")),
                                    p(icon("far fa-book"), tags$a(href = "https://shs.theapsgroup.scot/september-2018/", target = "_blank", "Inquality Data Comic"), tags$em("illustrated by Katie Quinn")),
@@ -310,27 +307,27 @@ ui <- fluidPage(
                tabPanel("Accessibility", value = "accessibilityTab", style = "margin-left: 15%; margin-right: 15%; margin-bottom: 4%",
                         fluidRow(
                             h2("Accessibility Statement"),
-                            h5("This website is run by the Scottish Government. We want as many people as possible to be able to use this website. For example, that means you should be able to:"),
+                            p("This website is run by the Scottish Government. We want as many people as possible to be able to use this website. For example, that means you should be able to:"),
                             tags$li("zoom in up to 300% without the text spilling off the screen"),
                             tags$li("navigate most of the website using just a keyboard"),
                             tags$li("listen to some of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
 We’ve also made the website text as simple as possible to understand."),
-                            h3("Feedback"),
-                            h5("Please contact us if you:"),
+                            h2("Feedback"),
+                            p("Please contact us if you:"),
                             tags$li("Cannot access any part of this site or want to report an accessibility problem."),
                             tags$li("Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can."),
-                            h3("Enforcement"),
-                            h5("If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next."),
-                            h3("Compliance"),
-                            h5("Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."),
+                            h2("Enforcement"),
+                            p("If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next."),
+                            h2("Compliance"),
+                            p("Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."),
 
 
-                            h5("
+                            p("
 This accessibility statement applies to the Scottish Household Survey Data Explorer website."),
-                            h3("Compliance status"),
-                            h5("This website is partially compliant with the regulations, due to the non-compliances listed below."),
-                            h3("Non-accessible content"),
-                            h5("The content listed below is not-compliant with the regulations:"),
+                            h2("Compliance status"),
+                            p("This website is partially compliant with the regulations, due to the non-compliances listed below."),
+                            h2("Non-accessible content"),
+                            p("The content listed below is not-compliant with the regulations:"),
                             tags$li("You cannot skip to the main content when using a screen reader"),
                             tags$li("The “Take a Tour” section is not fully accessible to screen reader software"),
                             tags$li("Charts are difficult for people using screen readers to access"),

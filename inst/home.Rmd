@@ -22,34 +22,34 @@ Read our [2019 Key Findings] (https://www.gov.scot/isbn/9781839609855) for the l
 
 ### Using the Data Explorer
 
-#### Purpose 
+**Purpose**  
 The Data Explorer provides interactive data and results from the Scottish Household Survey.
 
 The data is divided into 12 topics, and can be accessed through interactive tables, charts, and PDF reports.
 
-#### Comparing data
+**Comparing data**  
 You can compare data over time or with another geographical area. When making comparisons in 'survey results' and PDF reports, differences that are statistically significant will be highlighted in light green and light purple. 
 
-#### Exporting Data
+**Exporting Data**  
 You can download the tables and charts in the 'Survey Results' tab. If you want to print all chapters for a specific topic and local authority, you can do so in the 'Create Report' tab. You can copy and export all data for a specific question in the  'Data' tab.
 
 ***
 
 ### Intrepreting Analysis in the Data Explorer
 
-#### Estimates 
+**Estimates**   
 The Scottish Household Survey is a sample survey. **All figures are estimates rather than precise percentages**. 
 
-#### Base Totals 
+**Base Totals**   
 All our tables have 'base' values. The base can be understood as the number of answers counted to make a table or chart. This is sometimes also referred to as 'n' or the sample size. We have calculated all results using weighted data, but the bases shown give the unweighted counts.
 
-#### Reporting Procedures 
+**Reporting Procedures**   
 Percentages in tables and charts have been rounded to the nearest whole number.  Zero values are shown as a dash (-), values greater than 0% but less than 0.5% are shown as 0%, and values of 0.5% but less than 1% are rounded up to 1%.  In line with the Code of Practice for Official Statistics base numbers have been rounded to the nearest 10.
 
-#### Rounding 
+**Rounding**  
 Columns or rows may not add to 100% because of rounding or where multiple responses to a question are possible.
 
-#### Reliability 
+**Reliability**  
 In some tables and charts, percentages may have been removed from cells and replaced with '\*' (within the charts the '\*' may be hard to see and may look like '·').  This is where the base on which percentages are calculated is less than 50. Such data are judged to be insufficiently reliable for publication.  Estimates with base numbers close to 50 should also be treated with caution. Even though these estimates have been published, they are subject to high levels of volatility and have a high degree of uncertainty around them.  See the statistical significance section below.
 
 
@@ -62,19 +62,19 @@ In some tables and charts, percentages may have been removed from cells and repl
 
 Below is a brief summary of the Scottish Household Survey methodology. We also have a more accessible methodology report called [Behind the Numbers] (https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/scottish-household-survey-2018-methodology-fieldwork-outcomes/documents/scottish-household-survey-behind-numbers-2018/scottish-household-survey-behind-numbers-2018/govscot%3Adocument/scottish-household-survey-behind-numbers-2018.pdf). 
 
-#### Survey Overview
+**Survey Overview**  
 The survey has run since 1999. Between 1999 and 2011 the survey design was consistent with data being collected in a two-year cycle. From 2012 onwards, the survey was substantially redesigned. The new survey uses a fully unclustered core and modular structure with some questions asked of the full sample and others of a one-third sub-sample. 
 
-#### Sample Design
+**Sample Design**  
 From 2012 the three Scottish Government interviewer-led population surveys have coordinated sample designs. **The sample is disproportionately stratified by local authority**. Samples of the general population exclude prisons, hospitals and military bases. The Royal Mail's small user Postcode Address File (PAF) is used as the sample frame for the address selection. 
 
-#### Data Collection
+**Data Collection**  
 The social interview is carried out using Computer Aided Personal Interviewing (CAPI), and is in two parts; Household and Random Adult. There is a follow-up component comprising of a 'Physical Survey' of the dwelling, conducted by a professional surveyor through a visual inspection of the dwelling.
 
-#### Survey Response
+**Survey Response**  
 **In 2019, the SHS response rate was 63%**, which accounts to 10,580 interviews conducted. 
 
-#### Survey Weighting
+**Survey Weighting**  
 The weighting methodology was developed by the Scottish Government working with the Methodology Advisory Service at the Office for National Statistics. The weighting procedures incorporate a selection weighting stage to address the unequal selection probabilities and calibration weighting to correct for non-bias. Calibration weighting derives weights such that the weighted survey totals match known population totals. 
 
 For more detailed information on the SHS methodology and fieldwork outcomes, please read our [Annual Technical Report] (https://www.gov.scot/publications/scottish-household-survey-2018-methodology-fieldwork-outcomes/).
@@ -87,14 +87,14 @@ Statistical significance tells us whether differences between groups or changes 
 The representativeness of survey estimates depends on several things, such as the size of the sample, the sampling fraction and the 'design effect' associated with the sample design. **The confidence intervals used to report statistical significance in the Data Explorer are calculated with a design factor in order to account for the complex sample design**. 
 
 
-#### Source 
+### Source 
 The analysis provided may be reproduced providing the source is fully acknowledged.  Please see our Copyright Notice at: www.scotland.gov.uk/SHSData
 
 ***
 
 ### Change and Version Control
 
-#### Version Control 
+**Version Control**  
 Below is a summary of all the changes made to this app.
 
 15/09/2020
@@ -104,3 +104,4 @@ First release
 05/10/2021
 
 Resolved issues that were preventing users from generating reports for local authorities with the special character "&" in their name. 
+

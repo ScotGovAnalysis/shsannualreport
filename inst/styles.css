@@ -1,42 +1,81 @@
-@import url('//fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100:300:400&display=swap');
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+/*Fonts*/
+h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    line-height: 1.5;
-    color: inherit;
+    line-height: 1.8;
+    color: #000000;
+}
+
+h1 {
+   font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #000000;
+
+}
+
+h2 {
+  font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #000000;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    line-height: 1.8;
+    color: #000000;
+    margin: 0;
 }
 
 body {
-    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    line-height: 1.5;
-    color: #222222;
+    line-height: 1.8;
+    color: #000000;
     background-color: #ffffff;
     margin: 0;
 }
 
+li {
+  font-size: 15px;
+}
 
+/*Links*/
 a {
-    color: #25648f;
+    color: #0065bd;
 }
 
 a:hover {
-    color: #25648f;
+    color: #00437e;
     text-decoration: underline;
+    background-color: #d9effc;
 }
 
-.topbar > a:hover,
-.topbar .navbar-default .navbar-nav > li > a:hover,
-.topbar .nav > li > a:hover,
-.topbar > a:focus,
-.topbar .navbar-default .navbar-nav > li > a:focus,
-.topbar .nav > li > a:focus {
+a:focus {
+  background-color: #fdd522;
+  border-color: #333333;
   color: black;
 }
 
-ul.nav a:hover { color: #77a9d1 !important; }
+/*Navbar*/
+ul.nav a:hover { background-color: #77a9d1 !important;
+                color: white !important;
+}
 
+ul.nav a:focus {background-color: #77a9d1 !important;
+                color: white !important;
+
+}
+
+
+/*Landing page buttons*/
 .button{
     background-color: #84a8d4;
     border-color: #84a8d4;
@@ -46,3 +85,30 @@ ul.nav a:hover { color: #77a9d1 !important; }
   border-color: #2C3E50;
   color: white;
 }
+
+.button:focus {
+  background-color: #fdd522;
+  border-color: #333333;
+  color: black;
+}
+
+/*Exit buttons*/
+.close-button {
+  background-color: #2C3E50;
+  border-color: #2C3E50;
+  color: white;
+}
+
+.close-button:focus {
+  background-color: #fdd522;
+  border-color: #333333;
+  color: #333333;
+}
+
+.close-button: hover {
+    background-color: #2C3E50;
+  border-color: #2C3E50;
+  color: white;
+}
+
+
