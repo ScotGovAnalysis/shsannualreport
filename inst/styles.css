@@ -44,7 +44,7 @@ body {
 }
 
 li {
-  font-size: 15px;
+  font-size: 20px;
 }
 
 /*Links*/
@@ -77,26 +77,45 @@ ul.nav a:focus {background-color: #77a9d1 !important;
 
 /*Landing page buttons*/
 .button{
-    background-color: #84a8d4;
-    border-color: #84a8d4;
+    background-color: #84a8d4 !important;
+    border-color: #84a8d4 !important;
+    color: white !important;
 }
 .button:hover {
-  background-color: #2C3E50;
-  border-color: #2C3E50;
-  color: white;
+  background-color: #2C3E50 !important;
+  border-color: #2C3E50 !important;
+  color: white !important;
 }
 
 .button:focus {
-  background-color: #fdd522;
-  border-color: #333333;
-  color: black;
+  background-color: #fdd522 !important;
+  border-color: #333333 !important;
+  color: black !important;
 }
 
-/*Exit buttons*/
-.close-button {
-  background-color: #2C3E50;
+/*Main button*/
+.main-button {
+  background-color: #84a8d4;
+  border-color: #84a8d4;
+  color: white;
+}
+
+.main-button:focus {
+  background-color: #fdd522;
+  border-color: #333333;
+  color: #333333;
+}
+
+.main-button:hover {
+    background-color: #2C3E50;
   border-color: #2C3E50;
   color: white;
+}
+/*Exit buttons*/
+.close-button {
+  background-color: white;
+  border-color: #2C3E50;
+  color: black;
 }
 
 .close-button:focus {
@@ -105,10 +124,28 @@ ul.nav a:focus {background-color: #77a9d1 !important;
   color: #333333;
 }
 
-.close-button: hover {
-    background-color: #2C3E50;
+.close-button:hover {
+    background-color: #84a8d4;
   border-color: #2C3E50;
   color: white;
 }
 
+/*Modal close button, and generic shiny button*/
+.btn {
+  background-color: white;
+  border-color: #2C3E50;
+  color: black;
+}
+
+.btn:focus {
+  background-color: #fdd522;
+  border-color: #333333;
+  color: #333333;
+}
+
+.btn:hover {
+    background-color: #84a8d4;
+  border-color: #2C3E50;
+  color: white;
+}
 

@@ -29,8 +29,8 @@ ui <- fluidPage(
 
         tags$div(id="welcome_banner",
                  fluidRow(
-                     column(11, p("We are still working on the site and welcome any comments to", tags$a(href = "mailto:shs@gov.scot", target="_blank", "shs@gov.scot"))),
-                     column(1, actionButton("close_banner", "" , class="close-button", icon=icon("times"))),
+                     column(10, p("We are still working on the site and welcome any comments to", tags$a(href = "mailto:shs@gov.scot", target="_blank", "shs@gov.scot"))),
+                     column(2, actionButton("close_banner", "Close" , class="close-button", icon=icon("times"))),
 
                      style = "padding-top:20px; padding-left:20px; padding-bottom:20px; background-color:#ffd480;"))
     ),
@@ -230,8 +230,8 @@ ui <- fluidPage(
                        )),
 
                    fluidRow(
-                       column(3, actionButton("generate", "Generate Report", icon = icon("file"), class = "close-button")),
-                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report", class = "close-button")))
+                       column(3, actionButton("generate", "Generate Report", icon = icon("file"), class = "main-button")),
+                       column(3, conditionalPanel(condition = "output.reportbuilt", downloadButton("download", "Download Report", class = "main-button")))
                    )
                ),
 
@@ -345,16 +345,16 @@ server <- function(input, output, session) {
     # Welcome Modal ####
 
     welcome_modal <- modalDialog(
-
-        p(img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: center"),
+        footer = modalButton("Close"),
+        p(img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: left"),
         br(),
         tags$div(h4("The Data Explorer provides information about Scottish homes, neighbourhoods, and their views on various aspects of society."),
-                 style = "color: 0E3E5D; font-size:20px; text-align: center"),
+                 style = "color: 0E3E5D; font-size:20px; text-align: left"),
         br(),
         h4("If this is your first time using the tool, watch our video tutorial to get the most out of it"),
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/fhn3S7gvq8o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'),
         h4("Prefer written guidance? Take a tour by clicking on the button below."),
-        actionButton("tour", "Take a tour", icon("play-circle")),
+        actionButton("tour", "Take a tour", icon("play-circle"), class = "close-button"),
 
         easyClose = TRUE, fade = FALSE
     )
@@ -371,12 +371,14 @@ server <- function(input, output, session) {
     #TOUR 1
     tour_modal_1 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             br(),
-            img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: center"),
+            img(src = "new_logo.png", height = "50%", width = "50%", alt = "Scottish Household Survey logo"), style = "text-align: left"),
         h4("The Scottish Household Survey Data Explorer is an interactive tool created so that anyone can access the survey results, compare data over time and between different parts of Scotland. All the data and charts can be exported in various formats to use for your own analysis and reports. Let's look at how to use the website!"),
-        actionButton("back0", "Back", icon("chevron-circle-left")),
-        actionButton("next1", "Next", icon("play-circle"))
+        actionButton("back0", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next1", "Next", icon("play-circle"), class = "close-button")
 
     )
 
@@ -387,17 +389,19 @@ server <- function(input, output, session) {
     #TOUR 2
     tour_modal_2 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             column(12,
                    p(tags$div("'Survey Results'", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br(),
-                   h4("This is where all the interactive data lives. Use the different drop-down menus to select different topics, questions, geographical area, years and comparators!"),
+                   h4("This is where the interactive data lives. Use the different drop-down menus to select different topics, questions, geographical area, years and comparators."),
                    br())),
         fluidRow(
-            img(src = "modal_survey2.png", height = "100%", width = "100%")),
+            img(src = "modal_survey2.png", alt = "Image of Survey results page", height = "100%", width = "100%")),
         br(),
-        actionButton("back1", "Back", icon("chevron-circle-left")),
-        actionButton("next2", "Next", icon("play-circle"))
+        actionButton("back1", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next2", "Next", icon("play-circle"), class = "close-button")
 
     )
 
@@ -407,14 +411,16 @@ server <- function(input, output, session) {
     #TOUR 3
     tour_modal_3 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             column(12,
                    p(tags$div("Reading the tables", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br())),
         fluidRow(
-            img(src = "modal_table2.png", height = "100%", width = "100%")),
-        actionButton("back2", "Back", icon("chevron-circle-left")),
-        actionButton("next3", "Next", icon("play-circle"))
+            img(src = "modal_table2.png", alt = "Image of a table in the survey results tab",  height = "100%", width = "100%")),
+        actionButton("back2", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next3", "Next", icon("play-circle"), class = "close-button")
     )
 
     observeEvent(input$back2, {showModal(tour_modal_2)})
@@ -423,6 +429,8 @@ server <- function(input, output, session) {
     #TOUR 4
     tour_modal_4 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             column(12,
                    p(tags$div("Visualising the data with graphs", style = " color: 0E3E5D; font-size:30px; width = 90%; text-align: left;")),
@@ -430,9 +438,9 @@ server <- function(input, output, session) {
                    h4("The graphs related to each question are interactive. This means that you can modify them to fit your needs."),
                    br())),
         fluidRow(
-            img(src = "modal_chart.png", height = "100%", width = "100%")),
-        actionButton("back3", "Back", icon("chevron-circle-left")),
-        actionButton("next4", "Next", icon("play-circle"))
+            img(src = "modal_chart.png", alt = "Image of a chart in the survey results tab", height = "100%", width = "100%")),
+        actionButton("back3", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next4", "Next", icon("play-circle"), class = "close-button")
     )
 
     observeEvent(input$back3, {showModal(tour_modal_3)})
@@ -441,6 +449,8 @@ server <- function(input, output, session) {
     #TOUR 5
     tour_modal_5 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             p(tags$div("Statistical significance", style = "color: 0E3E5D; font-size: 30px; width = 90%; text-align: left")),
             br(),
@@ -450,11 +460,11 @@ server <- function(input, output, session) {
             tags$li("Charts: Hovering over the error bars will display the exact range of the confidence interval.")),
         fluidRow(
             column(6,
-                   img(src = "sign_table.png", height = "100%", width = "100%")),
+                   img(src = "sign_table.png", alt = "Image of table with significant differences, identified through green and purple colours", height = "100%", width = "100%")),
             column(6,
-                   img(src = "ci_graph.png", height = "100%", width = "100%"))),
-        actionButton("back4", "Back", icon("chevron-circle-left")),
-        actionButton("next5", "Next", icon("play-circle"))
+                   img(src = "ci_graph.png", alt = "Image of graph with error bars, identifying confidence intervals", height = "100%", width = "100%"))),
+        actionButton("back4", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next5", "Next", icon("play-circle"), class = "close-button")
     )
 
     observeEvent(input$back4, {showModal(tour_modal_4)})
@@ -463,6 +473,8 @@ server <- function(input, output, session) {
     #TOUR 6
     tour_modal_6 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             column(12,
                    p(tags$div("Downloading Data", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
@@ -470,10 +482,10 @@ server <- function(input, output, session) {
                    h4("You can modify and download the data you need. In the 'Download Data' tab you can view all the data used to produce the tables and charts. Either copy or download all the data for a specific question or you use the filter function to retrieve the data for a specific criteria."),
                    br())),
         fluidRow(
-            img(src = "modal_download.png", height = "100%", width = "100%")
+            img(src = "modal_download.png", alt = "Image of download data page", height = "100%", width = "100%")
         ),
-        actionButton("back5", "Back", icon("chevron-circle-left")),
-        actionButton("next6", "Next", icon("play-circle"))
+        actionButton("back5", "Back", icon("chevron-circle-left"), class = "close-button"),
+        actionButton("next6", "Next", icon("play-circle"), class = "close-button")
     )
 
     observeEvent(input$back5, {showModal(tour_modal_5)})
@@ -482,13 +494,15 @@ server <- function(input, output, session) {
     #TOUR 7
     tour_modal_7 <- modalDialog(
         size = "l",
+        easyClose = TRUE,
+        footer = modalButton("Close"),
         fluidRow(
             column(12,
                    p(tags$div("You're all set to go!", style = " color: 0E3E5D; font-size:30px; width = 90%, text-align: left;")),
                    br(),
                    h4("If you want more information and guidance about the app, visit the 'About' and 'Resources' tabs."),
                    br())),
-        actionButton("back5", "Back", icon("chevron-circle-left"))
+        actionButton("back5", "Back", icon("chevron-circle-left"), class = "close-button")
     )
 
     observeEvent(input$back6, {showModal(tour_modal_6)})
